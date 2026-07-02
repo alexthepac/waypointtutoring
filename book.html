@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Book your free call · Brightmind Tutoring</title>
-<link rel='icon' type='image/svg+xml' href='favicon.svg' />
+<title>Book your free call · Waymark Tutoring</title>
+<link rel='icon' type='image/png' href='logo.png' />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,7 +34,7 @@
 <!-- Header -->
 <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight">Brightmind Tutoring<span class="text-neutral-400">.</span></a>
+    <a href="index.html" class="inline-flex items-center gap-2.5 font-serif text-2xl font-semibold tracking-tight"><img src="logo.png" alt="Waymark Tutoring" class="w-8 h-8 rounded-full object-cover shrink-0" />Waymark Tutoring<span class="text-neutral-400">.</span></a>
     <a href="index.html#services" class="text-sm font-medium text-neutral-600 hover:text-black transition-colors">All services</a>
   </div>
 </header>
@@ -66,10 +66,10 @@
       <p class="text-neutral-500 text-sm mb-6">Get study tips, deadlines and offers in your inbox. That's all we ask to hold your free spot.</p>
 
       <form id="newsletterForm" class="space-y-3 mt-auto">
-        <!-- Web3Forms: newsletter signups are delivered to info@brightmindtutors.ca -->
+        <!-- Web3Forms: newsletter signups are delivered to info@waymarktutoring.com -->
         <input type="hidden" name="access_key" value="3d52d180-b4ff-4e50-a6b2-82e387101944" />
-        <input type="hidden" name="subject" value="Newsletter signup - Brightmind Tutoring" />
-        <input type="hidden" name="from_name" value="Brightmind newsletter" />
+        <input type="hidden" name="subject" value="Newsletter signup - Waymark Tutoring" />
+        <input type="hidden" name="from_name" value="Waymark newsletter" />
         <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
         <input id="nl-name" name="name" type="text" required placeholder="Your name"
                class="w-full border border-black/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-black transition-colors" />
@@ -126,8 +126,8 @@
 <!-- Footer -->
 <footer class="bg-[#0A0A0C] text-white py-10 px-6 mt-10" style="background-image: radial-gradient(500px circle at 20% -20%, rgba(240,166,200,.12), transparent 60%), radial-gradient(500px circle at 85% 130%, rgba(156,192,255,.11), transparent 60%);">
   <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-    <a href="index.html" class="font-serif text-lg">Brightmind Tutoring<span class="text-neutral-500">.</span></a>
-    <p class="text-neutral-500 text-sm">&copy; 2026 Brightmind Tutoring &middot; Qu&eacute;bec</p>
+    <a href="index.html" class="inline-flex items-center gap-2.5 font-serif text-lg"><img src="logo.png" alt="Waymark Tutoring" class="w-8 h-8 rounded-full object-cover shrink-0" />Waymark Tutoring<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-500 text-sm">&copy; 2026 Waymark Tutoring &middot; Qu&eacute;bec</p>
   </div>
 </footer>
 
@@ -143,12 +143,12 @@
       btn.href = '#';
       btn.addEventListener('click', function (e) {
         e.preventDefault();
-        alert('The $5 reservation link is not set up yet. For now, please join the newsletter to hold your spot, or email info@brightmindtutors.ca.');
+        alert('The $5 reservation link is not set up yet. For now, please join the newsletter to hold your spot, or email info@waymarktutoring.com.');
       });
     }
   })();
 
-  /* ===== Newsletter signup -> Web3Forms -> info@brightmindtutors.ca ===== */
+  /* ===== Newsletter signup -> Web3Forms -> info@waymarktutoring.com ===== */
   (function () {
     var form = document.getElementById('newsletterForm');
     var ok = document.getElementById('nl-success');
@@ -170,10 +170,10 @@
           if (ok) ok.classList.remove('hidden');
           document.getElementById('calendar').scrollIntoView({ behavior: 'smooth' });
         } else {
-          alert('Something went wrong. Please email us directly at info@brightmindtutors.ca');
+          alert('Something went wrong. Please email us directly at info@waymarktutoring.com');
         }
       } catch (err) {
-        alert('Network error. Please email us directly at info@brightmindtutors.ca');
+        alert('Network error. Please email us directly at info@waymarktutoring.com');
       } finally {
         if (btn) { btn.textContent = label; btn.disabled = false; }
       }

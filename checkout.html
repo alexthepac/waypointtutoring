@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Checkout · Brightmind Tutoring</title>
-<link rel='icon' type='image/svg+xml' href='favicon.svg' />
+<title>Checkout · Waymark Tutoring</title>
+<link rel='icon' type='image/png' href='logo.png' />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,7 +32,7 @@
 <!-- Header -->
 <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight">Brightmind Tutoring<span class="text-neutral-400">.</span></a>
+    <a href="index.html" class="inline-flex items-center gap-2.5 font-serif text-2xl font-semibold tracking-tight"><img src="logo.png" alt="Waymark Tutoring" class="w-8 h-8 rounded-full object-cover shrink-0" />Waymark Tutoring<span class="text-neutral-400">.</span></a>
     <a href="index.html#services" class="text-sm font-medium text-neutral-600 hover:text-black transition-colors">All services</a>
   </div>
 </header>
@@ -83,8 +83,8 @@
 <!-- Footer -->
 <footer class="bg-[#0A0A0C] text-white py-10 px-6 mt-10" style="background-image: radial-gradient(500px circle at 20% -20%, rgba(240,166,200,.12), transparent 60%), radial-gradient(500px circle at 85% 130%, rgba(156,192,255,.11), transparent 60%);">
   <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-    <a href="index.html" class="font-serif text-lg">Brightmind Tutoring<span class="text-neutral-500">.</span></a>
-    <p class="text-neutral-500 text-sm">&copy; 2026 Brightmind Tutoring &middot; Qu&eacute;bec</p>
+    <a href="index.html" class="inline-flex items-center gap-2.5 font-serif text-lg"><img src="logo.png" alt="Waymark Tutoring" class="w-8 h-8 rounded-full object-cover shrink-0" />Waymark Tutoring<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-500 text-sm">&copy; 2026 Waymark Tutoring &middot; Qu&eacute;bec</p>
   </div>
 </footer>
 
@@ -161,7 +161,7 @@
     document.getElementById('svc-desc').textContent = svc.desc;
     document.getElementById('svc-price').textContent = svc.price;
     document.getElementById('svc-unit').textContent = svc.unit;
-    document.title = svc.name + ' · Checkout · Brightmind Tutoring';
+    document.title = svc.name + ' · Checkout · Waymark Tutoring';
 
     var ul = document.getElementById('svc-includes');
     svc.includes.forEach(function (item) {
