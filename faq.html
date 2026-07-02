@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FAQ · Brightmind Tutoring</title>
+
+<!-- ===================== FONTS ===================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<!-- ===================== TAILWIND (CDN) ===================== -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: { fontFamily: {
+      sans:  ['Inter', 'system-ui', 'sans-serif'],
+      serif: ['Fraunces', 'Georgia', 'serif'],
+    } } },
+  };
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; }
+
+  /* Accordion: rotate the + into an × and reveal the answer */
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  details .plus { transition: transform .3s ease; }
+  details[open] .plus { transform: rotate(45deg); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: none; }
+</style>
+</head>
+
+<body class="bg-white text-black antialiased">
+
+<!-- ============================================================
+     TOP BAR
+============================================================ -->
+<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
+  <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
+    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight">Brightmind Tutoring<span class="text-neutral-400">.</span></a>
+    <nav class="flex items-center gap-7 text-sm font-medium text-neutral-600">
+      <a href="index.html" class="hover:text-black transition-colors">Home</a>
+      <a href="index.html#services" class="hover:text-black transition-colors hidden sm:inline">Pricing</a>
+      <a href="index.html#contact" class="bg-black text-white px-5 py-2.5 rounded-full hover:bg-neutral-800 transition-colors">Contact us</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+     TITLE
+============================================================ -->
+<section class="max-w-3xl mx-auto px-6 pt-24 md:pt-32 pb-12 text-center">
+  <p class="reveal text-xs tracking-[0.3em] text-neutral-500 mb-5">HELP CENTRE</p>
+  <h1 class="reveal font-serif text-5xl md:text-6xl leading-tight mb-6">Frequently Asked Questions</h1>
+  <p class="reveal text-neutral-600 text-lg">Everything you need to know about tutoring with Brightmind. Can't find your answer? <a href="index.html#contact" class="text-black underline underline-offset-4 hover:no-underline">Get in touch</a>.</p>
+</section>
+
+<!-- ============================================================
+     FAQ ACCORDION
+     To add a question, copy one <details> block and edit the text.
+============================================================ -->
+<section class="max-w-3xl mx-auto px-6 pb-24 md:pb-32">
+  <div class="reveal divide-y divide-black/10 border-y border-black/10">
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">Who are your tutors?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">Our tutors are current medical and university students from Québec's top institutions like McGill, Université de Montréal and Concordia, alongside standout CEGEP students in enriched programs. Every tutor is vetted for both subject mastery and the ability to teach it clearly.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">What subjects do you cover?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">We focus on STEM: mathematics and calculus, physics, chemistry and biology, spanning high school and CEGEP all the way through complex university-level coursework.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">How are sessions held?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">All sessions are one-on-one and online over video call, so you can learn from anywhere on a schedule that works for you. Every session is prepared in advance around your syllabus and goals.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">How much does it cost?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">Your first 30-minute consultation is completely free. After that, 1-on-1 subject tutoring is $50 per session, and our academic &amp; lifestyle coaching is $60 per session. See the <a href="index.html#services" class="text-black underline underline-offset-4 hover:no-underline">full breakdown here</a>.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">What makes Brightmind different?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">We teach you <em>how</em> to learn, not just what to learn. Alongside the subject material, our mentors coach you on study methods, time management and the lifestyle habits that make academic success sustainable, because intelligence is a skill, not a fixed trait.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">How do I get started?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">Book your free consultation through the <a href="index.html#contact" class="text-black underline underline-offset-4 hover:no-underline">contact form</a>. We'll assess your needs, identify your goals, and pair you with the tutor who fits best.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">Can I switch tutors?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">Absolutely, at any time and at no extra cost. The right fit matters, and we'll happily re-match you until it feels right.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">Do you offer packages or discounts?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">Yes, we offer multi-session packages for students committing to regular support. Reach out via the <a href="index.html#contact" class="text-black underline underline-offset-4 hover:no-underline">contact form</a> and we'll put together a plan that fits.</p>
+    </details>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="reveal mt-16 bg-black text-white rounded-3xl px-8 py-14 text-center">
+    <h2 class="font-serif text-3xl md:text-4xl mb-4">Still have questions?</h2>
+    <p class="text-neutral-300 mb-8 max-w-md mx-auto">Book a free intro call and we'll walk you through everything.</p>
+    <a href="index.html#contact" class="inline-block bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Contact us</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="bg-black text-white py-12 px-6 md:px-12">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <a href="index.html" class="font-serif text-xl">Brightmind Tutoring<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-500 text-sm">© 2026 Brightmind Tutoring · Premium University Tutoring · Québec</p>
+  </div>
+</footer>
+
+<script>
+  /* Scroll-reveal */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>
