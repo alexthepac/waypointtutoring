@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Checkout · Brightmind Tutoring</title>
+<title>Checkout · Waypoint Tutoring</title>
 <link rel='icon' type='image/svg+xml' href='favicon.svg' />
 
 <!-- Fonts -->
@@ -32,7 +32,7 @@
 <!-- Header -->
 <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight">Brightmind Tutoring<span class="text-neutral-400">.</span></a>
+    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight">Waypoint Tutoring<span class="text-neutral-400">.</span></a>
     <a href="index.html#services" class="text-sm font-medium text-neutral-600 hover:text-black transition-colors">All services</a>
   </div>
 </header>
@@ -83,8 +83,8 @@
 <!-- Footer -->
 <footer class="bg-[#0A0A0C] text-white py-10 px-6 mt-10" style="background-image: radial-gradient(500px circle at 20% -20%, rgba(240,166,200,.12), transparent 60%), radial-gradient(500px circle at 85% 130%, rgba(156,192,255,.11), transparent 60%);">
   <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-    <a href="index.html" class="font-serif text-lg">Brightmind Tutoring<span class="text-neutral-500">.</span></a>
-    <p class="text-neutral-500 text-sm">&copy; 2026 Brightmind Tutoring &middot; Qu&eacute;bec</p>
+    <a href="index.html" class="font-serif text-lg">Waypoint Tutoring<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-500 text-sm">&copy; 2026 Waypoint Tutoring &middot; Qu&eacute;bec &middot; <a href="privacy.html" class="hover:text-white transition-colors underline underline-offset-2">Privacy Policy</a></p>
   </div>
 </footer>
 
@@ -102,28 +102,28 @@
       price: '$45', unit: 'per 60-minute session',
       desc: 'One-on-one tutoring with top medical and university students, prepared in advance around your exact courses.',
       includes: ['A full 60-minute live online session', 'Prepared around your syllabus and goals', 'STEM subjects from high school to university', 'Study-method coaching built into every session'],
-      stripe: 'STRIPE_LINK_TUTORING'
+      stripe: 'https://buy.stripe.com/eVq6oJehc68g5hc5B7dUY05'
     },
     pack5: {
       name: '5-Session Tutoring Package',
       price: '$200', unit: '$40 / session · save $25',
       desc: 'Five one-on-one tutoring sessions at a reduced per-session rate, for students who want steady, ongoing support.',
       includes: ['Five 60-minute live online sessions', '$40 per session (save $25 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
-      stripe: 'STRIPE_LINK_PACK5'
+      stripe: 'https://buy.stripe.com/eVq8wR5KG8gogZUgfLdUY06'
     },
     pack10: {
       name: '10-Session Tutoring Package',
       price: '$350', unit: '$35 / session · save $100',
       desc: 'Ten one-on-one tutoring sessions at our best per-session rate, ideal for a full term of consistent support.',
       includes: ['Ten 60-minute live online sessions', '$35 per session (save $100 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
-      stripe: 'STRIPE_LINK_PACK10'
+      stripe: 'https://buy.stripe.com/6oUdRb6OKaow10WbZvdUY03'
     },
     coaching: {
       name: 'Academic & Lifestyle Coaching',
       price: '$50', unit: 'per 60-minute session',
       desc: 'Coaching that goes beyond the textbook: study habits, time management, and the daily routines behind sustainable results.',
       includes: ['A full 60-minute live online session', 'Personalized study-method coaching', 'Time-management and routine building', 'A plan shaped around your consultation'],
-      stripe: 'STRIPE_LINK_COACHING'
+      stripe: 'https://buy.stripe.com/3cI4gB7SOgMUcJEgfLdUY02'
     },
     'casper-essentials': {
       name: 'CASPer & MMI Prep — Essentials',
@@ -161,7 +161,7 @@
     document.getElementById('svc-desc').textContent = svc.desc;
     document.getElementById('svc-price').textContent = svc.price;
     document.getElementById('svc-unit').textContent = svc.unit;
-    document.title = svc.name + ' · Checkout · Brightmind Tutoring';
+    document.title = svc.name + ' · Checkout · Waypoint Tutoring';
 
     var ul = document.getElementById('svc-includes');
     svc.includes.forEach(function (item) {
