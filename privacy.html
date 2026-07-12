@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy · MNTR Tutoring</title>
+<meta name='description' content='MNTR Tutoring privacy policy: how we protect client confidentiality and our no-poaching policy for tutors.' />
+<link rel='icon' type='image/png' href='favicon.png?v=2' />
+
+<!-- ===================== FONTS ===================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<!-- ===================== TAILWIND (CDN) ===================== -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: { fontFamily: {
+      sans:  ['Inter', 'system-ui', 'sans-serif'],
+      serif: ['Fraunces', 'Georgia', 'serif'],
+    } } },
+  };
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; }
+  .eyebrow-grad { background: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: none; }
+</style>
+</head>
+
+<body class="bg-white text-black antialiased">
+
+<!-- ============================================================
+     TOP BAR
+============================================================ -->
+<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
+  <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
+    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight">MNTR Tutoring<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-7 text-sm font-medium text-neutral-600">
+      <!-- Language Switcher -->
+      <div class="relative">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-black transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          EN
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-xl overflow-hidden z-50">
+          <a href="privacy.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">English</a>
+          <a href="privacy-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
+        </div>
+      </div>
+      <a href="index.html" class="hover:text-black transition-colors">Home</a>
+      <a href="faq.html" class="hover:text-black transition-colors hidden sm:inline">FAQ</a>
+      <a href="index.html#contact" class="bg-black text-white px-5 py-2.5 rounded-full hover:bg-neutral-800 transition-colors">Contact us</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     TITLE
+============================================================ -->
+<section class="max-w-3xl mx-auto px-6 pt-24 md:pt-32 pb-12 text-center">
+  <p class="reveal text-xs tracking-[0.3em] mb-5 eyebrow-grad">LEGAL</p>
+  <h1 class="reveal font-serif text-5xl md:text-6xl leading-tight mb-6">Privacy Policy</h1>
+  <p class="reveal text-neutral-600 text-lg">Last updated: July 2026. Questions? <a href="index.html#contact" class="text-black underline underline-offset-4 hover:no-underline">Get in touch</a>.</p>
+</section>
+
+<!-- ============================================================
+     POLICY BODY
+============================================================ -->
+<section class="max-w-3xl mx-auto px-6 pb-24 md:pb-32">
+  <div class="reveal space-y-12">
+
+    <div>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4">1. Client confidentiality</h2>
+      <p class="text-neutral-600 leading-relaxed">Any information you share with MNTR Tutoring — including your name, contact details, academic records, session notes, payment information, and anything discussed during a session or consultation — is kept confidential. We do not sell, rent, or share your personal information with third parties, except where required to operate the service itself (for example, secure payment processing) or where required by law.</p>
+    </div>
+
+    <div>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4">2. Information we collect</h2>
+      <p class="text-neutral-600 leading-relaxed mb-3">We collect only what's needed to match you with the right tutor and run your sessions smoothly:</p>
+      <ul class="list-disc list-outside pl-5 space-y-2 text-neutral-600 leading-relaxed">
+        <li>Contact details you provide (name, email) through our forms or booking page</li>
+        <li>Academic goals, subjects, and scheduling preferences you share with us</li>
+        <li>Payment details, handled entirely by our payment processor (Stripe) — we never see or store your full card number</li>
+        <li>Basic usage data (like which pages are visited) to keep the site running well</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4">3. Tutor non-solicitation policy</h2>
+      <p class="text-neutral-600 leading-relaxed">All MNTR Tutoring tutors agree, as a condition of working with us, that clients matched to them through MNTR Tutoring remain MNTR Tutoring clients. Tutors may not solicit, redirect, or arrange to work privately with a client they were introduced to through MNTR Tutoring, outside of the platform and without our involvement, whether during their time with us or for a reasonable period afterward. This keeps pricing fair, ensures continuity and accountability for every family we work with, and protects the matching process that got you to the right tutor in the first place.</p>
+    </div>
+
+    <div>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4">4. How your information is used</h2>
+      <p class="text-neutral-600 leading-relaxed">We use your information solely to: match you with a suitable tutor, schedule and run sessions, process payments securely, respond to your questions, and occasionally send updates you've opted into (like our newsletter). We do not use your information for advertising or share it with data brokers.</p>
+    </div>
+
+    <div>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4">5. Data storage &amp; security</h2>
+      <p class="text-neutral-600 leading-relaxed">We use reputable third-party services to run parts of our operation — including Stripe for payments, Cal.com for scheduling, and Web3Forms for contact form delivery. Each of these providers maintains its own security standards for the data that passes through them. We take reasonable steps to keep the information we hold secure, but no method of storage or transmission over the internet is ever 100% guaranteed.</p>
+    </div>
+
+    <div>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4">6. Your rights</h2>
+      <p class="text-neutral-600 leading-relaxed">You can ask us to access, correct, or delete the personal information we hold about you at any time, and you can unsubscribe from our newsletter whenever you like. To make a request, just reach out through the <a href="index.html#contact" class="text-black underline underline-offset-4 hover:no-underline">contact form</a>.</p>
+    </div>
+
+    <div>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4">7. Changes to this policy</h2>
+      <p class="text-neutral-600 leading-relaxed">We may update this policy from time to time as our services evolve. Any changes will be posted on this page with an updated "last updated" date.</p>
+    </div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="reveal mt-16 bg-black text-white rounded-3xl px-8 py-14 text-center">
+    <h2 class="font-serif text-3xl md:text-4xl mb-4">Still have questions?</h2>
+    <p class="text-neutral-300 mb-8 max-w-md mx-auto">Reach out and we'll walk you through anything that's unclear.</p>
+    <a href="index.html#contact" class="inline-block bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Contact us</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="bg-black text-white py-12 px-6 md:px-12">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <a href="index.html" class="font-serif text-xl">MNTR Tutoring<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-500 text-sm">© 2026 MNTR Tutoring · Premium University Tutoring · Québec · <a href="user-agreement.html" class="hover:text-white transition-colors underline underline-offset-2">User Agreement</a></p>
+  </div>
+</footer>
+
+<script>
+  /* Language switcher */
+  function toggleLangMenu() {
+    var menu = document.getElementById('langMenu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  }
+
+  // Close language menu when clicking outside
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('langMenu');
+    var button = e.target.closest('button');
+    if (menu && !menu.contains(e.target) && (!button || !button.onclick || !button.onclick.toString().includes('toggleLangMenu'))) {
+      menu.classList.add('hidden');
+    }
+  });
+
+  /* Scroll-reveal */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>

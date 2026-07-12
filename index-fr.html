@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MNTR Tutoring · Tutorat Secondaire & CEGEP</title>
+<meta name="description" content="Tutorat STEM personnalisé pour les élèves du secondaire, CEGEP et pré-médical, enseigné par des étudiants en médecine et universitaires. Appel d'introduction gratuit, sessions en ligne individuelles, plus préparation CASPer et MMI." />
+<link rel='icon' type='image/png' href='favicon.png?v=2' />
+<!-- Open Graph / link preview. After deploy, change og:image to the full URL, e.g. https://brightmindtutors.ca/hero.jpg -->
+<meta property='og:type' content='website' />
+<meta property='og:title' content='MNTR Tutoring: Tutorat STEM par des étudiants en médecine' />
+<meta property='og:description' content='Tutorat individuel pour les élèves du secondaire, CEGEP et pré-médical, enseigné par des étudiants en médecine et universitaires.' />
+<meta property='og:image' content='hero.jpg' />
+<meta name='twitter:card' content='summary_large_image' />
+
+<!-- ===================== FONTS ===================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<!-- ===================== TAILWIND (CDN) ===================== -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans:  ['Inter', 'system-ui', 'sans-serif'],
+          serif: ['Fraunces', 'Georgia', 'serif'],
+        },
+      },
+    },
+  };
+</script>
+
+<!-- ===================================================================
+     IMAGE PATHS: EDIT HERE
+     These 3 files live in the SAME folder as this index.html:
+       1. graduation person handing.png   → Hero background
+       2. image of person on computa.jpg  → Parallax quote background
+       3. throwing hat.png                → "Meet Our Staff" background
+     (Spaces in the filenames are URL-encoded as %20 for reliability.)
+==================================================================== -->
+<style>
+  :root {
+    --img-quote: url('stembg.jpg');   /* (no longer used) */
+    --img-staff: url('staff.jpg');   /* compressed from "throwing hat.png" */
+    --accent-pink: #f0a6c8;
+    --accent-blue: #9cc0ff;
+    --grad-eyebrow: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5);
+  }
+
+  /* Soft pink -> violet -> blue gradient for the small section eyebrow labels (echoes the hero) */
+  .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #ffffff; color: #000; }
+
+  /* ---------- Infinite university ticker marquee ---------- */
+  .marquee { overflow: hidden; }
+  .marquee-track { display: flex; width: max-content; animation: marquee 34s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---------- Parallax background bands ---------- */
+  .parallax {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;   /* "glide" effect: bg stays put while content scrolls over it */
+  }
+  .bg-quote { background-image: var(--img-quote); }
+  .bg-staff { background-image: var(--img-staff); }
+  @media (max-width: 768px) { .parallax { background-attachment: scroll; } }
+
+  /* ---------- Hamburger → X animation ---------- */
+  .burger span { transition: transform .4s, opacity .3s; transform-origin: center; }
+  .burger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .burger.active span:nth-child(2) { opacity: 0; }
+  .burger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  /* ---------- Drop-down menu overlay ---------- */
+  #menuOverlay { transform: translateY(-100%); transition: transform .55s cubic-bezier(.22,.61,.36,1); }
+  #menuOverlay.open { transform: translateY(0); }
+  #menuOverlay a { opacity: 0; transform: translateY(16px); transition: opacity .5s, transform .5s; }
+  #menuOverlay.open a { opacity: 1; transform: none; }
+  #menuOverlay.open a:nth-child(1){ transition-delay:.15s; }
+  #menuOverlay.open a:nth-child(2){ transition-delay:.23s; }
+  #menuOverlay.open a:nth-child(3){ transition-delay:.31s; }
+  #menuOverlay.open a:nth-child(4){ transition-delay:.39s; }
+  #menuOverlay.open a:nth-child(5){ transition-delay:.47s; }
+
+  /* ---------- Quote cross-fade ---------- */
+  #quoteText { transition: opacity .6s ease; }
+
+  /* ---------- Staff left-text "kick away" ---------- */
+  #staffText { transition: transform .3s cubic-bezier(.22,.61,.36,1), opacity .3s ease; will-change: transform, opacity; }
+
+  /* ---------- Horizontal staff scroller ---------- */
+  .staff-scroll { scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
+  .staff-scroll > * { scroll-snap-align: center; }
+  .staff-scroll::-webkit-scrollbar { display: none; }   /* hide the scrollbar (still scrollable by drag / trackpad / wheel) */
+
+  /* ---------- Scroll-reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(34px); transition: opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Contact success popup (slides up from the bottom) ---------- */
+  @keyframes toastUp { from { opacity: 0; transform: translateY(48px); } to { opacity: 1; transform: none; } }
+  .toast-enter { animation: toastUp .55s cubic-bezier(.22,.61,.36,1) both; }
+</style>
+</head>
+
+<body class="bg-white text-black antialiased">
+
+<!-- ============================================================
+     HAMBURGER DROP-DOWN OVERLAY (full-screen, slides down)
+============================================================ -->
+<div id="menuOverlay" class="fixed inset-0 z-[60] bg-black text-white flex flex-col items-center justify-center gap-10">
+  <!-- Close (X) button -->
+  <button onclick="toggleMenu()" aria-label="Fermer le menu"
+          class="absolute top-7 right-6 md:right-12 w-12 h-12 flex items-center justify-center text-white/60 hover:text-white transition-colors">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <a href="faq-fr.html" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">FAQ</a>
+  <a href="#services" onclick="toggleMenu()" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">TARIFS</a>
+  <a href="#contact" onclick="toggleMenu()" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">CONTACTEZ-NOUS</a>
+  <a href="#staff"   onclick="toggleMenu()" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">ÉQUIPE</a>
+  <a href="user-agreement-fr.html" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">CONTRAT&nbsp;UTILISATEUR</a>
+  <a href="index.html" class="font-serif text-3xl md:text-5xl tracking-tight hover:text-neutral-400 transition-colors mt-8">English</a>
+</div>
+
+<!-- ============================================================
+     "VIEW YOUR SCHEDULE" MODAL
+============================================================ -->
+<div id="scheduleModal" onclick="if(event.target===this) closeScheduleModal()" class="fixed inset-0 z-[90] hidden items-center justify-center bg-black/60 backdrop-blur-sm px-6">
+  <div class="relative bg-white rounded-3xl max-w-md w-full p-8 md:p-10 text-center shadow-2xl">
+    <button onclick="closeScheduleModal()" aria-label="Fermer" class="absolute top-5 right-5 text-neutral-400 hover:text-black transition-colors">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="w-14 h-14 rounded-full bg-black flex items-center justify-center mx-auto mb-6">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    </div>
+    <h3 class="font-serif text-2xl md:text-3xl mb-3">Voir votre horaire</h3>
+    <p class="text-neutral-600 text-sm leading-relaxed mb-8">Rejoignez notre Discord et nous vous y enverrons vos sessions à venir.</p>
+    <!-- Placeholder link -> replace # with the real Discord invite -->
+    <a href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-black text-white font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-neutral-800 transition-colors w-full">Rejoindre notre Discord</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     HERO  (Centific-style: full-bleed image, text overlaid directly, NO box)
+============================================================ -->
+<header class="relative h-screen min-h-[640px] flex flex-col overflow-hidden">
+
+  <!-- Full-bleed background image (compressed from "graduation person handing.png") -->
+  <img src="hero.jpg" alt="Cérémonie de remise des diplômes universitaires"
+       class="absolute inset-0 w-full h-full object-cover" />
+
+  <!-- Gradient scrims for text legibility (soft fade, NOT a solid box) -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/25"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent"></div>
+
+  <!-- Top bar: logo (left) + language switcher + schedule button & hamburger (right), white to read over the dark image -->
+  <div class="relative z-50 flex items-center justify-between px-6 md:px-12 py-8">
+    <a href="#" class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-white">MNTR Tutoring<span class="text-white/50">.</span></a>
+    <div class="flex items-center gap-3 md:gap-5">
+      <!-- Language Switcher -->
+      <div class="relative">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-white/90 text-xs sm:text-sm font-medium border border-white/25 rounded-full px-3 sm:px-4 py-2 hover:bg-white/10 hover:text-white transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          FR
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-xl overflow-hidden z-50">
+          <a href="index.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">English</a>
+          <a href="index-fr.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">Français</a>
+        </div>
+      </div>
+      <button onclick="openScheduleModal()" class="inline-flex items-center gap-1.5 text-white/90 text-xs sm:text-sm font-medium border border-white/25 rounded-full px-3 sm:px-4 py-2 hover:bg-white/10 hover:text-white transition-colors">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Voir votre horaire
+      </button>
+      <button onclick="toggleMenu()" id="burger" class="burger relative z-[70] flex flex-col gap-[6px] p-2" aria-label="Ouvrir le menu">
+        <span class="block w-9 h-[2px] bg-white"></span>
+        <span class="block w-9 h-[2px] bg-white"></span>
+        <span class="block w-9 h-[2px] bg-white"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Hero copy overlaid directly on the image (lower-left), no black box -->
+  <div class="relative z-40 flex-1 flex items-end">
+    <div class="px-6 md:px-12 pb-16 md:pb-20 max-w-4xl">
+      <p class="text-xs md:text-sm tracking-[0.3em] text-white/70 mb-7">SECONDAIRE · CEGEP TUTORAT</p>
+      <h1 class="font-serif text-white text-4xl md:text-7xl leading-[1.04] mb-8 drop-shadow-sm">
+        Apprenez des étudiants en médecine qui ont maîtrisé le système.
+      </h1>
+      <p class="text-white/85 text-base md:text-xl leading-relaxed max-w-2xl mb-10">
+        Tutorat STEM personnalisé par des mentors qui ont obtenu des admissions dans les meilleures écoles de médecine. Nous coachons les élèves du secondaire et du CEGEP pour atteindre l'excellence académique et intégrer leurs programmes de rêve.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="book-fr.html" class="bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Réserver un appel d'introduction gratuit</a>
+        <a href='#services' class='border border-white/40 text-white font-semibold px-8 py-4 rounded-full hover:bg-white/10 transition-colors'>Explorer les tarifs</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- University ticker marquee pinned to the bottom of the hero (frosted strip) -->
+  <div class="marquee relative z-40 bg-black/30 backdrop-blur-md border-t border-white/15 py-5">
+    <div class="marquee-track items-center text-white/80 font-medium text-lg md:text-xl">
+      <!-- One set of universities (text only). Duplicated below for a seamless loop. -->
+      <span class="mx-8 shrink-0">Université McGill</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">Université de Montréal</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">Université Concordia</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">Université Laval</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">UQAM</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">Université de Sherbrooke</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">Polytechnique Montréal</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">HEC Montréal</span><span class="text-white/25 shrink-0">◆</span>
+      <!-- duplicate set -->
+      <span class="mx-8 shrink-0">Université McGill</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">Université de Montréal</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">Université Concordia</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">Université Laval</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">UQAM</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">Université de Sherbrooke</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">Polytechnique Montréal</span><span class="text-white/25 shrink-0">◆</span>
+      <span class="mx-8 shrink-0">HEC Montréal</span><span class="text-white/25 shrink-0">◆</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     INTRO STRIP  (extra breathing room + a clean lead-in)
+============================================================ -->
+<section class="bg-white py-28 md:py-40 px-6">
+  <div class="reveal max-w-4xl mx-auto text-center">
+    <p class="text-xs tracking-[0.3em] text-neutral-500 mb-6 eyebrow-grad">POURQUOI MNTR</p>
+    <h2 class="font-serif text-3xl md:text-5xl leading-tight mb-8">
+      Un tutorat qui transforme la pression académique en excellence.
+    </h2>
+    <p class="text-neutral-600 text-lg leading-relaxed max-w-2xl mx-auto">
+      Des sessions individuelles, construites autour de vos cours et de votre rythme, des fondamentaux de première année jusqu'au matériel le plus complexe des années supérieures.
+    </p>
+    <a href='https://www.instagram.com/mntrtutoring/' target='_blank' rel='noopener'
+       class='inline-flex items-center gap-2.5 mt-10 text-black font-semibold hover:opacity-70 transition-opacity'>
+      <svg width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='2' width='20' height='20' rx='5'/><circle cx='12' cy='12' r='4'/><circle cx='17.5' cy='6.5' r='1.2' fill='currentColor' stroke='none'/></svg>
+      Suivez-nous @mntrtutoring
+    </a>
+    <img src='logo-mark.png' alt='Logo MNTR Tutoring' class='mx-auto mt-14 w-32 md:w-40' />
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICES  (3 black cards over the parallax computer-image background)
+============================================================ -->
+<section id='services' class='bg-white pt-24 md:pt-40'>
+  <div class='relative overflow-hidden bg-[#0A0A0C]'>
+    <!-- soft pink + blue ambient glows (echoes the hero) -->
+    <div class='pointer-events-none absolute -top-24 -left-20 w-[480px] h-[480px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(240,166,200,.42),transparent 60%)'></div>
+    <div class='pointer-events-none absolute -bottom-32 -right-10 w-[560px] h-[560px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(156,192,255,.40),transparent 60%)'></div>
+    <div class='pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 w-[520px] h-[520px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(154,134,230,.22),transparent 60%)'></div>
+    <div class='relative max-w-6xl mx-auto px-6 py-20 md:py-28'>
+
+      <!-- Section heading -->
+      <div class="reveal text-center mb-12 md:mb-16">
+        <p class="text-xs tracking-[0.3em] text-white/70 mb-4 eyebrow-grad">UNE AUTRE FAÇON D'APPRENDRE</p>
+        <h2 class="font-serif text-4xl md:text-5xl text-white">Ce que nous offrons</h2>
+      </div>
+
+      <!-- 2 service cards · static grid (no horizontal scroll) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch max-w-4xl mx-auto">
+
+        <!-- Service 1 -->
+        <div onclick="pickService('Free Academic Consultation')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
+          <h3 class="font-serif text-2xl leading-tight mb-4">Consultation académique gratuite</h3>
+          <div class="flex items-baseline gap-1.5 mb-1">
+            <span class="text-3xl font-semibold">Gratuit</span>
+          </div>
+          <p class="text-neutral-400 text-sm mb-6">30 minutes · En ligne (Appel vidéo)</p>
+          <p class="text-neutral-300 text-sm leading-relaxed">Un appel gratuit de 30 minutes pour définir vos objectifs et vous jumeler avec le bon tuteur.</p>
+          <div class="mt-auto pt-8">
+            <span class="inline-flex items-center gap-1.5 text-white font-semibold text-sm group-hover:gap-2.5 transition-all">Commencer
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div onclick="pickService('1-on-1 Subject Tutoring')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
+          <h3 class="font-serif text-2xl leading-tight mb-4">Tutorat individuel</h3>
+          <div class="flex items-baseline gap-1.5 mb-1">
+            <span class="text-3xl font-semibold">$45</span>
+            <span class="text-neutral-400 text-sm">/ session</span>
+          </div>
+          <p class="text-neutral-400 text-sm mb-6">1 heure · En ligne</p>
+          <p class="text-neutral-300 text-sm leading-relaxed">Tutorat STEM individuel par des étudiants en médecine et universitaires de premier plan, construit autour de vos cours exacts. Nous ne couvrons pas seulement le contenu : nous vous enseignons comment apprendre, avec un coaching sur les méthodes d'étude et le mode de vie intégré à chaque session pour que vous construisiez des habitudes durables.</p>
+          <div class="mt-auto pt-8">
+            <span class="inline-flex items-center gap-1.5 text-white font-semibold text-sm group-hover:gap-2.5 transition-all">Commencer
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tutoring packages (apply to 1-on-1 tutoring only) -->
+      <div class="mt-8 md:mt-10">
+        <p class="reveal text-center text-white/75 text-sm mb-5">Économisez plus avec un forfait de tutorat <span class="text-white/45">(tutorat individuel seulement)</span></p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
+
+          <!-- 5-session package -->
+          <div onclick="pickService('5-Session Package')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-2xl px-7 py-6 flex items-center justify-between hover:border-white/30 transition-colors">
+            <div>
+              <h4 class="font-serif text-xl">Forfait 5 sessions</h4>
+              <p class="text-neutral-400 text-sm mt-1">$40 / session · économisez $25</p>
+            </div>
+            <div class="text-right">
+              <div class="text-2xl font-semibold">$200</div>
+              <div class="text-neutral-500 text-xs">total</div>
+            </div>
+          </div>
+
+          <!-- 10-session package -->
+          <div onclick="pickService('10-Session Package')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-2xl px-7 py-6 flex items-center justify-between hover:border-white/30 transition-colors">
+            <div>
+              <h4 class="font-serif text-xl">Forfait 10 sessions</h4>
+              <p class="text-neutral-400 text-sm mt-1">$35 / session · économisez $100</p>
+            </div>
+            <div class="text-right">
+              <div class="text-2xl font-semibold">$350</div>
+              <div class="text-neutral-500 text-xs">total</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CASPER & MMI PREP  (own section, same dark treatment as pricing)
+============================================================ -->
+<section id='casper' class='bg-white pt-16 md:pt-24'>
+  <div class='relative overflow-hidden bg-[#0A0A0C]'>
+    <div class='pointer-events-none absolute -top-24 -left-20 w-[480px] h-[480px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(240,166,200,.42),transparent 60%)'></div>
+    <div class='pointer-events-none absolute -bottom-32 -right-10 w-[560px] h-[560px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(156,192,255,.40),transparent 60%)'></div>
+    <div class='relative max-w-6xl mx-auto px-6 py-20 md:py-28'>
+
+      <div class='reveal text-center mb-12 md:mb-16'>
+        <p class='text-xs tracking-[0.3em] mb-4 eyebrow-grad'>POUR LES CANDIDATS À L'ÉCOLE DE MÉDECINE</p>
+        <h2 class='font-serif text-4xl md:text-5xl text-white'>Préparation CASPer &amp; MMI</h2>
+      </div>
+
+      <a href='casper-fr.html' class='group block cursor-pointer reveal relative overflow-hidden rounded-3xl border border-white/15 bg-[#101014] p-8 md:p-11 shadow-2xl hover:border-white/30 transition-colors'>
+        <div class='pointer-events-none absolute -top-16 -right-8 w-72 h-72 rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(154,134,230,.20),transparent 60%)'></div>
+        <div class='relative md:flex md:items-center md:gap-10'>
+          <div class='md:flex-1'>
+            <h3 class='font-serif text-2xl md:text-3xl text-white mb-4'>L'étape la plus décisive d'une candidature à l'école de médecine.</h3>
+            <p class='text-neutral-300 text-sm md:text-[15px] leading-relaxed max-w-2xl'>Le test de jugement situationnel CASPer et l'entrevue à mini-stations multiples sont pesés aussi lourdement que votre moyenne cumulative, et chaque année des étudiants forts avec d'excellentes notes sont refusés le jour de l'entrevue. Nos mentors ont obtenu des admissions aux quatre écoles de médecine du Québec, et ils vous coachent à travers des scénarios chronométrés réalistes, des cadres de réponse éprouvés et des retours honnêtes jusqu'à ce que vous restiez calme et vif sous pression.</p>
+          </div>
+          <div class='mt-7 md:mt-0 md:shrink-0'>
+            <span class='inline-flex items-center gap-1.5 bg-white text-black font-semibold text-sm px-6 py-3.5 rounded-full group-hover:gap-2.5 transition-all'>Préparez-vous avec nous
+              <svg width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PHILOSOPHY QUOTE  (sits between Services and Staff)
+============================================================ -->
+<section id='quote-section' class='bg-white px-6'>
+  <div class='max-w-4xl mx-auto text-center'>
+    <p id='quote-eyebrow'>NOTRE PHILOSOPHIE</p>
+    <blockquote id='quote-text'>
+      &ldquo;L'intelligence n'est pas un trait,<br/> c'est une compétence.&rdquo;
+    </blockquote>
+  </div>
+</section>
+
+<style>
+  #quote-section { padding-top: 16rem; padding-bottom: 16rem; }
+  #quote-eyebrow { font-size: 0.7rem; letter-spacing: 0.3em; margin-bottom: 2.5rem; background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  #quote-text { font-family: 'Fraunces', Georgia, serif; font-size: clamp(2.75rem, 5.5vw, 4.75rem); line-height: 1.12; color: #000; }
+  @media (max-width: 640px) { #quote-section { padding-top: 6rem; padding-bottom: 6rem; } }
+</style>
+
+<!-- ============================================================
+     MEET OUR STAFF  (fixed banner bg: throwing hat.png)
+============================================================ -->
+<section id='staff' class='bg-white relative overflow-hidden'>
+  <div class='relative py-20 md:py-28'>
+
+    <!-- Scroll-right arrow (top-right): nudges the card row to reveal more tutors -->
+    <button type='button' onclick='scrollStaff()' aria-label='Voir plus de tuteurs'
+            class='absolute top-8 right-6 md:right-12 z-30 w-12 h-12 rounded-full border border-black/15 bg-white hidden md:flex items-center justify-center shadow-sm hover:bg-black hover:text-white transition-colors'>
+      <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 6l6 6-6 6'/></svg>
+    </button>
+
+    <!-- LEFT TEXT (pinned, vertically centered). "Kicks away" on scroll via JS (#staffText). -->
+    <div class='md:absolute md:left-14 md:top-1/2 md:-translate-y-1/2 w-full md:w-[360px] px-6 md:px-0 mb-10 md:mb-0 z-20 pointer-events-none'>
+      <div id='staffText'>
+        <!-- eyebrow -->
+        <div class='flex items-center gap-2 mb-6'>
+          <svg width='16' height='16' viewBox='0 0 24 24' fill='currentColor' style='color:#9a86e6'><path d='M12 2l2.2 6.6H21l-5.4 4 2.1 6.4L12 15.6 6.3 19l2.1-6.4L3 8.6h6.8L12 2z'/></svg>
+          <span class='text-black text-sm font-semibold tracking-wide'>Rencontrez notre équipe</span>
+        </div>
+        <!-- two-tone heading, sans (Centific style) -->
+        <h2 class='font-sans text-3xl md:text-[2rem] font-semibold leading-tight tracking-tight mb-8'>
+          <span class='text-black'>Faire progresser le domaine académique</span><span class='text-neutral-400'> en offrant aux étudiants le mentorat que nous aurions aimé avoir.</span>
+        </h2>
+        <!-- CTA link with arrow -->
+        <a href='#contact' class='pointer-events-auto inline-flex items-center gap-1.5 text-black font-semibold text-sm border-b border-black/30 pb-1 hover:border-black transition-colors'>
+          Rejoignez notre équipe
+          <svg width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17L17 7M9 7h8v8'/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- CARDS (horizontal scroll). Left padding leaves room for the pinned text. -->
+    <div class="staff-scroll flex gap-5 overflow-x-auto pl-6 md:pl-[460px] pr-10 pb-4">
+
+      <!-- ============================================================
+           STAFF CARD: portrait format (photo fills the card).
+           Add a real photo by setting that card's  <img src="...">.
+           Cards without a photo show a neutral placeholder silhouette.
+      ============================================================ -->
+
+      <!-- Card 1 · Elliott (real photo) -->
+      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+        <img src='elliott_card.jpg' alt='Elliott' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
+        <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
+        <div class='absolute left-5 bottom-5 right-5'>
+          <h3 class='text-white text-xl font-semibold'>Elliott</h3>
+          <p class='text-white/80 text-[13px] font-medium mt-1'>École de médecine McGill</p>
+          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Admission au premier tour aux quatre écoles de médecine du Québec directement après le CEGEP. Actuellement stagiaire en biophysique au pavillon médical McIntyre.</p>
+          <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Enseigne </span>Toutes les sciences du CEGEP &amp; chaque matière du secondaire</p>
+        </div>
+      </article>
+
+      <!-- Card 3 · Bassma (real photo) -->
+      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+        <img src='bassma.jpg' alt='Bassma' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
+        <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
+        <div class='absolute left-5 bottom-5 right-5'>
+          <h3 class='text-white text-xl font-semibold'>Bassma</h3>
+          <p class='text-white/80 text-[13px] font-medium mt-1'>Université de Sherbrooke · École de médecine</p>
+          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Co-présidente de MedLife, ayant recueilli plus de 5 000 $ lors de divers collectes de fonds, avec plus de 200 heures de bénévolat.</p>
+        </div>
+      </article>
+
+      <!-- Card 4 · Sofia (real photo) -->
+      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+        <img src='sofia.jpg' alt='Sofia' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
+        <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
+        <div class='absolute left-5 bottom-5 right-5'>
+          <h3 class='text-white text-xl font-semibold'>Sofia</h3>
+          <p class='text-white/80 text-[13px] font-medium mt-1'>Concordia · Honours Psychology</p>
+          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Admise à tous les programmes Honours Psychology au Québec, et récipiendaire de la Médaille du Gouverneur général. Actuellement stagiaire au CRBLM (institut de recherche en psychologie de McGill).</p>
+          <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Enseigne </span>Biologie au CEGEP &amp; chaque matière du secondaire</p>
+        </div>
+      </article>
+
+      <!-- Card 5 · Alexandre (real photo) -->
+      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+        <img src='alex.jpg' alt='Alexandre' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
+        <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
+        <div class='absolute left-5 bottom-5 right-5'>
+          <h3 class='text-white text-xl font-semibold'>Alexandre</h3>
+          <p class='text-white/80 text-[13px] font-medium mt-1'>Collège Dawson · Enriched Health Science</p>
+          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Vice-président aux finances de MedLife et superviseur régional pour une organisation nationale de sauvetage et de sécurité aquatique.</p>
+          <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Enseigne </span>Mathématiques, Biologie &amp; Chimie au CEGEP, plus chaque matière du secondaire</p>
+        </div>
+      </article>
+
+      <!-- END staff cards -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATS STRIP  (count-up trust numbers)
+============================================================ -->
+<section class='bg-white border-y border-black/5 py-16 md:py-24 px-6'>
+  <div class='max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8 text-center'>
+    <div class='reveal'>
+      <div class='font-serif text-5xl md:text-6xl mb-3 tabular-nums' data-count='4' data-suffix=''>0</div>
+      <p class='text-neutral-500 text-xs md:text-sm leading-relaxed max-w-[12rem] mx-auto'>Écoles de médecine du Québec où nos tuteurs ont été admis</p>
+    </div>
+    <div class='reveal'>
+      <div class='font-serif text-5xl md:text-6xl mb-3 tabular-nums' data-count='100' data-suffix='%'>0</div>
+      <p class='text-neutral-500 text-xs md:text-sm leading-relaxed max-w-[12rem] mx-auto'>Un pour un, à chaque session</p>
+    </div>
+    <div class='reveal'>
+      <div class='font-serif text-5xl md:text-6xl mb-3 tabular-nums' data-count='30' data-suffix=' min'>0</div>
+      <p class='text-neutral-500 text-xs md:text-sm leading-relaxed max-w-[12rem] mx-auto'>Appel d'introduction gratuit, sans engagement</p>
+    </div>
+    <div class='reveal'>
+      <div class='font-serif text-5xl md:text-6xl mb-3 tabular-nums' data-count='24' data-suffix='h'>0</div>
+      <p class='text-neutral-500 text-xs md:text-sm leading-relaxed max-w-[12rem] mx-auto'>Temps de réponse typique, souvent le même jour</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS  (PLACEHOLDER quotes — replace with real student reviews before publishing)
+============================================================ -->
+<section id='reviews' class='bg-white py-24 md:py-32 px-6'>
+  <div class='max-w-6xl mx-auto'>
+    <div class='reveal text-center mb-14 md:mb-16'>
+      <p class='text-xs tracking-[0.3em] mb-4 eyebrow-grad'>CE QUE DISENT LES ÉTUDIANTS</p>
+      <h2 class='font-serif text-4xl md:text-5xl'>Des résultats qui parlent d'eux-mêmes</h2>
+    </div>
+    <div class='grid grid-cols-1 md:grid-cols-3 gap-6'>
+
+      <figure class='reveal rounded-3xl border border-black/10 p-8 flex flex-col hover:shadow-xl hover:shadow-black/5 transition-shadow'>
+        <div class='font-serif text-5xl leading-none mb-4 eyebrow-grad'>&ldquo;</div>
+        <blockquote class='text-neutral-700 leading-relaxed flex-1'>J'ai enfin compris le calcul avant mes finaux de CEGEP. Mon tuteur l'a expliqué comme il aurait dû l'être en classe.</blockquote>
+        <figcaption class='mt-6 pt-6 border-t border-black/10'>
+          <div class='font-semibold text-sm'>Camille R.</div>
+          <div class='text-neutral-500 text-sm'>CEGEP · Calcul</div>
+        </figcaption>
+      </figure>
+
+      <figure class='reveal rounded-3xl border border-black/10 p-8 flex flex-col hover:shadow-xl hover:shadow-black/5 transition-shadow'>
+        <div class='font-serif text-5xl leading-none mb-4 eyebrow-grad'>&ldquo;</div>
+        <blockquote class='text-neutral-700 leading-relaxed flex-1'>Les sessions de préparation MMI m'ont donné confiance. Le jour de l'entrevue, je me suis senti préparé et calme.</blockquote>
+        <figcaption class='mt-6 pt-6 border-t border-black/10'>
+          <div class='font-semibold text-sm'>Thomas L.</div>
+          <div class='text-neutral-500 text-sm'>Pré-médical · MMI</div>
+        </figcaption>
+      </figure>
+
+      <figure class='reveal rounded-3xl border border-black/10 p-8 flex flex-col hover:shadow-xl hover:shadow-black/5 transition-shadow'>
+        <div class='font-serif text-5xl leading-none mb-4 eyebrow-grad'>&ldquo;</div>
+        <blockquote class='text-neutral-700 leading-relaxed flex-1'>Mon tuteur ne m'a pas seulement aidé avec la physique, il m'a appris comment étudier efficacement. Mes notes ont augmenté de 20%.</blockquote>
+        <figcaption class='mt-6 pt-6 border-t border-black/10'>
+          <div class='font-semibold text-sm'>Marie-Pierre G.</div>
+          <div class='text-neutral-500 text-sm'>CEGEP · Physique</div>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT US  (Calendly booking + general inquiry below)
+============================================================ -->
+<section id='contact' class='bg-white py-28 md:py-36 px-6'>
+  <div class='max-w-5xl mx-auto'>
+
+    <!-- Header -->
+    <div class='reveal text-center mb-16'>
+      <p class='text-xs tracking-[0.3em] text-neutral-500 mb-5 eyebrow-grad'>RESTONS CONNECTÉS</p>
+      <h2 class='font-serif text-4xl md:text-5xl mb-5'>Réservez votre appel gratuit</h2>
+      <p class='text-neutral-600 text-lg max-w-xl mx-auto'>30 minutes, sans engagement. Nous apprendrons à connaître vos objectifs, identifierons où vous avez besoin de soutien, et vous jumellerons avec le bon tuteur.</p>
+    </div>
+
+    <!-- Two-column: perks left · booking right -->
+    <div class='reveal grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start mb-24 md:mb-32'>
+
+      <!-- Left: what to expect -->
+      <div class='flex flex-col gap-8 md:pt-4'>
+        <div class='flex gap-5 items-start'>
+          <div class='w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0'>
+            <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>
+          </div>
+          <div>
+            <h3 class='font-semibold text-base mb-1'>Entièrement gratuit</h3>
+            <p class='text-neutral-500 text-sm leading-relaxed'>Aucune carte de crédit, aucune obligation. L'appel d'introduction est gratuit.</p>
+          </div>
+        </div>
+        <div class='flex gap-5 items-start'>
+          <div class='w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0'>
+            <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>
+          </div>
+          <div>
+            <h3 class='font-semibold text-base mb-1'>Jumelé avec le bon tuteur</h3>
+            <p class='text-neutral-500 text-sm leading-relaxed'>Nous évaluons vos objectifs et vous jumelons avec le mentor qui correspond exactement à vos besoins.</p>
+          </div>
+        </div>
+        <div class='flex gap-5 items-start'>
+          <div class='w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0'>
+            <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>
+          </div>
+          <div>
+            <h3 class='font-semibold text-base mb-1'>Une feuille de route personnalisée</h3>
+            <p class='text-neutral-500 text-sm leading-relaxed'>Vous repartez avec un plan clair, pas seulement les coordonnées d'un tuteur.</p>
+          </div>
+        </div>
+        <div class='flex gap-5 items-start'>
+          <div class='w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0'>
+            <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>
+          </div>
+          <div>
+            <h3 class='font-semibold text-base mb-1'>100 % en ligne</h3>
+            <p class='text-neutral-500 text-sm leading-relaxed'>Choisissez un moment qui vous convient. Nous vous enverrons automatiquement un lien vidéo.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Booking lives on its own page (book-fr.html) -->
+      <div class='rounded-3xl border border-black/10 shadow-sm p-8 md:p-10 flex flex-col items-center justify-center text-center md:min-h-[440px]'>
+        <div class='w-14 h-14 rounded-full bg-black flex items-center justify-center mb-6'>
+          <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2'/><path d='M16 2v4M8 2v4M3 10h18'/></svg>
+        </div>
+        <h3 class='font-serif text-2xl mb-3'>Choisissez un moment qui vous convient</h3>
+        <p class='text-neutral-500 text-sm mb-7 max-w-xs'>Consultez les disponibilités en direct et réservez votre appel gratuit de 30 minutes sur notre page de réservation.</p>
+        <a href='book-fr.html' class='inline-flex items-center gap-2 bg-black text-white font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-neutral-800 transition-colors'>Réservez votre appel gratuit
+          <svg width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class='reveal flex items-center gap-6 mb-16'>
+      <div class='flex-1 h-px bg-black/10'></div>
+      <p class='text-sm text-neutral-500 shrink-0'>Ou envoyez-nous un message</p>
+      <div class='flex-1 h-px bg-black/10'></div>
+    </div>
+
+    <!-- General inquiry form -->
+    <div class='max-w-xl mx-auto'>
+      <div class='reveal text-center mb-10'>
+        <h3 class='font-serif text-2xl md:text-3xl mb-3'>Une question précise ?</h3>
+        <p class='text-neutral-500 text-sm'>Pas encore prêt à réserver ? Laissez-nous un message et nous répondrons le jour même.</p>
+      </div>
+
+      <form id='contactForm' action='https://formsubmit.co/ajax/perfettielliott@gmail.com' method='POST' class='reveal space-y-5'>
+        <!-- TEMPORARY: contact submissions go to perfettielliott@gmail.com via FormSubmit. Change the email in the action URL above to reroute. -->
+        <input type='hidden' name='_subject' value='Nouvelle demande du site MNTR Tutoring (FR)' />
+        <input type='hidden' name='_captcha' value='false' />
+        <!-- Honeypot spam filter (hidden from humans) -->
+        <input type='text' name='_honey' class='hidden' style='display:none' tabindex='-1' autocomplete='off' />
+        <div class='grid grid-cols-1 sm:grid-cols-2 gap-5'>
+          <div>
+            <label for='name' class='block text-sm font-semibold mb-2'>Nom</label>
+            <input id='name' name='name' type='text' required
+                   class='w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors text-sm' placeholder='Votre nom' />
+          </div>
+          <div>
+            <label for='email' class='block text-sm font-semibold mb-2'>Courriel</label>
+            <input id='email' name='email' type='email' required
+                   class='w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors text-sm' placeholder='vous@courriel.com' />
+          </div>
+        </div>
+        <div>
+          <label for='subject' class='block text-sm font-semibold mb-2'>Sujet</label>
+          <input id='subject' name='topic' type='text'
+                 class='w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors text-sm' placeholder='ex. Calcul, Chimie, question sur les tarifs…' />
+        </div>
+        <div>
+          <label for='message' class='block text-sm font-semibold mb-2'>Message</label>
+          <textarea id='message' name='message' rows='4' required
+                 class='w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors resize-none text-sm' placeholder='Que souhaitez-vous savoir ?'></textarea>
+        </div>
+        <button type='submit'
+                class='w-full bg-black text-white font-semibold py-4 rounded-full hover:bg-neutral-800 transition-colors text-sm'>
+          Envoyer le message
+        </button>
+      </form>
+
+      <!-- Success popup -->
+      <div id='formSuccess' class='hidden bg-black text-white rounded-3xl px-8 py-16 text-center shadow-2xl'>
+        <div class='w-16 h-16 mx-auto mb-6 rounded-full bg-white/10 flex items-center justify-center'>
+          <svg width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>
+        </div>
+        <h3 class='font-serif text-3xl md:text-4xl mb-3'>Message envoyé !</h3>
+        <p class='text-neutral-300 max-w-md mx-auto'>Nous vous contacterons sous peu. Nous répondons le jour même !</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class='bg-[#0A0A0C] text-white pt-16 pb-10 px-6 md:px-12' style='background-image: radial-gradient(600px circle at 18% -20%, rgba(240,166,200,.14), transparent 60%), radial-gradient(600px circle at 85% 130%, rgba(156,192,255,.13), transparent 60%);'>
+  <div class='max-w-6xl mx-auto'>
+    <div class='grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8 mb-14'>
+      <!-- Brand -->
+      <div class='col-span-2 md:col-span-1'>
+        <span class='font-serif text-xl'>MNTR Tutoring<span class='text-neutral-500'>.</span></span>
+        <p class='text-neutral-400 text-sm mt-3 leading-relaxed max-w-xs'>Tutorat STEM personnalisé pour les élèves du secondaire, CEGEP et pré-médical, enseigné par des étudiants en médecine et universitaires.</p>
+      </div>
+      <!-- Explore -->
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>EXPLORER</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li><a href='#services' class='hover:text-white transition-colors'>Tarifs</a></li>
+          <li><a href='#casper' class='hover:text-white transition-colors'>Préparation CASPer &amp; MMI</a></li>
+          <li><a href='#staff' class='hover:text-white transition-colors'>Nos tuteurs</a></li>
+          <li><a href='faq-fr.html' class='hover:text-white transition-colors'>FAQ</a></li>
+          <li><a href='privacy-fr.html' class='hover:text-white transition-colors'>Politique de confidentialité</a></li>
+          <li><a href='user-agreement-fr.html' class='hover:text-white transition-colors'>Contrat utilisateur</a></li>
+        </ul>
+      </div>
+      <!-- Language -->
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>LANGUE</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li><a href='index.html' class='hover:text-white transition-colors'>English</a></li>
+          <li><a href='index-fr.html' class='hover:text-white transition-colors bg-white/10 px-3 py-1 rounded-full'>Français</a></li>
+        </ul>
+      </div>
+      <!-- Get started -->
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>COMMENCER</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li><a href='book-fr.html' class='hover:text-white transition-colors'>Réserver un appel gratuit</a></li>
+          <li><a href='#reviews' class='hover:text-white transition-colors'>Avis</a></li>
+          <li><a href='#contact' class='hover:text-white transition-colors'>Contactez-nous</a></li>
+        </ul>
+      </div>
+      <!-- Connect -->
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>SUIVEZ-NOUS</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li>
+            <a href='https://www.instagram.com/mntrtutoring/' target='_blank' rel='noopener' class='inline-flex items-center gap-2 hover:text-white transition-colors'>
+              <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='2' width='20' height='20' rx='5'/><circle cx='12' cy='12' r='4'/><circle cx='17.5' cy='6.5' r='1.2' fill='currentColor' stroke='none'/></svg>
+              Instagram
+            </a>
+          </li>
+          <li><a href='mailto:info@brightmindtutors.ca' class='hover:text-white transition-colors'>info@brightmindtutors.ca</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class='border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-3'>
+      <p class='text-neutral-500 text-sm'>&copy; 2026 MNTR Tutoring</p>
+      <a href='book-fr.html' class='inline-flex items-center gap-1.5 text-sm text-neutral-300 hover:text-white transition-colors'>Réservez votre appel gratuit
+        <svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ---------- Hamburger menu toggle ---------- */
+  const overlay = document.getElementById('menuOverlay');
+  const burger  = document.getElementById('burger');
+  function toggleMenu() {
+    overlay.classList.toggle('open');
+    burger.classList.toggle('active');
+    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  }
+
+  /* ---------- Language switcher ---------- */
+  function toggleLangMenu() {
+    var menu = document.getElementById('langMenu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  }
+
+  // Close language menu when clicking outside
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('langMenu');
+    var button = e.target.closest('button');
+    if (menu && !menu.contains(e.target) && (!button || !button.onclick || !button.onclick.toString().includes('toggleLangMenu'))) {
+      menu.classList.add('hidden');
+    }
+  });
+
+  /* ---------- "View your schedule" modal ---------- */
+  const scheduleModal = document.getElementById('scheduleModal');
+  function openScheduleModal() {
+    scheduleModal.classList.remove('hidden');
+    scheduleModal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeScheduleModal() {
+    scheduleModal.classList.add('hidden');
+    scheduleModal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  /* ---------- Scroll-reveal ---------- */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  /* ---------- Count-up stats (animate when scrolled into view) ---------- */
+  const countEls = document.querySelectorAll('[data-count]');
+  if (countEls.length) {
+    const runCount = (el) => {
+      const target = parseFloat(el.getAttribute('data-count'));
+      const suffix = el.getAttribute('data-suffix') || '';
+      const dur = 1300, start = performance.now();
+      const tick = (now) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { runCount(e.target); cio.unobserve(e.target); } });
+    }, { threshold: 0.6 });
+    countEls.forEach((el) => cio.observe(el));
+  }
+
+  /* ---------- Staff: left text "kicks away" as the cards scroll right ---------- */
+  const staffScroll = document.querySelector('#staff .staff-scroll');
+  const staffText   = document.getElementById('staffText');
+  if (staffScroll && staffText && window.matchMedia('(min-width: 768px)').matches) {
+    const KICK_DISTANCE = 340;   // px of horizontal scroll over which the text fully clears
+    const kick = () => {
+      const p = Math.min(staffScroll.scrollLeft / KICK_DISTANCE, 1);
+      staffText.style.transform = `translateX(${-p * 80}px)`;
+      staffText.style.opacity   = `${1 - p}`;
+    };
+    staffScroll.addEventListener('scroll', kick, { passive: true });
+    kick();
+  }
+
+  /* ---------- Service cards -> branded checkout page (paid) or booking (free) ---------- */
+  function pickService(value) {
+    const routes = {
+      'Free Academic Consultation':    'book-fr.html',
+      '1-on-1 Subject Tutoring':       'checkout-fr.html?service=tutoring',
+      '5-Session Package':             'checkout-fr.html?service=pack5',
+      '10-Session Package':            'checkout-fr.html?service=pack10',
+    };
+    if (routes[value]) { window.location.href = routes[value]; return; }
+    // Free consultation (and anything else) -> scroll to the booking section
+    const contact = document.getElementById('contact');
+    if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* ---------- Staff: top-right arrow nudges the card row ---------- */
+  function scrollStaff() {
+    const s = document.querySelector('#staff .staff-scroll');
+    if (s) s.scrollBy({ left: 340, behavior: 'smooth' });
+  }
+
+  /* ---------- Cal.com: stop the page jumping when a date is clicked ----------
+     Cal's embed grabs focus inside its iframe on date/slot select, so the browser
+     yanks the page scroll to reveal it. We pin the scroll position for a few frames
+     right when focus enters the calendar iframe, which cancels the jump out. */
+  window.addEventListener('blur', function () {
+    var ae = document.activeElement;
+    if (!ae || ae.tagName !== 'IFRAME' || !ae.closest || !ae.closest('#my-cal-inline')) return;
+    var y = window.scrollY, n = 0;
+    (function pin() {
+      if (Math.abs(window.scrollY - y) > 2) window.scrollTo(0, y);
+      if (++n < 18) requestAnimationFrame(pin);
+    })();
+  });
+
+  /* ---------- Contact form: show success popup, then restore the form ---------- */
+  const contactForm = document.getElementById('contactForm');
+  const formSuccess = document.getElementById('formSuccess');
+  if (contactForm && formSuccess) {
+    const showSuccess = () => {
+      contactForm.classList.add('hidden');
+      formSuccess.classList.remove('hidden');
+      formSuccess.classList.add('toast-enter');
+      contactForm.reset();
+      setTimeout(() => {
+        formSuccess.classList.add('hidden');
+        formSuccess.classList.remove('toast-enter');
+        contactForm.classList.remove('hidden');
+      }, 10000);                       // popup stays for 10 seconds, then the form returns
+    };
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = contactForm.querySelector('button[type=submit]');
+      const label = btn ? btn.textContent : '';
+      if (btn) { btn.textContent = 'Envoi...'; btn.disabled = true; }
+      try {
+        const res = await fetch(contactForm.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(contactForm),
+        });
+        const data = await res.json();
+        if (res.ok && (data.success === true || data.success === 'true')) {
+          showSuccess();               // sent to perfettielliott@gmail.com via FormSubmit → show popup
+        } else {
+          alert('Quelque chose s\'est mal passé. Veuillez nous envoyer un courriel directement à info@brightmindtutors.ca');
+        }
+      } catch (err) {
+        alert('Erreur réseau. Veuillez nous envoyer un courriel directement à info@brightmindtutors.ca');
+      } finally {
+        if (btn) { btn.textContent = label; btn.disabled = false; }
+      }
+    });
+  }
+</script>
+</body>
+</html>

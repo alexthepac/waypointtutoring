@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Brightmind Tutoring · Elementary, High School & CEGEP Tutoring · Québec</title>
-<meta name='description' content='Personalized STEM tutoring for elementary, high school and CEGEP students in Québec, taught by medical and university students. Free intro call, one-on-one online sessions, plus CASPer and MMI prep.' />
-<link rel='icon' type='image/svg+xml' href='favicon.svg' />
+<title>MNTR Tutoring · High School & CEGEP Tutoring</title>
+<meta name='description' content='Personalized STEM tutoring for high school, CEGEP and Premed students, taught by medical and university students. Free intro call, one-on-one online sessions, plus CASPer and MMI prep.' />
+<link rel='icon' type='image/png' href='favicon.png?v=2' />
 <!-- Open Graph / link preview. After deploy, change og:image to the full URL, e.g. https://brightmindtutors.ca/hero.jpg -->
 <meta property='og:type' content='website' />
-<meta property='og:title' content='Brightmind Tutoring: STEM tutoring by medical students' />
-<meta property='og:description' content='One-on-one tutoring for elementary, high school and CEGEP students in Québec, taught by medical and university students.' />
+<meta property='og:title' content='MNTR Tutoring: STEM tutoring by medical students' />
+<meta property='og:description' content='One-on-one tutoring for high school, CEGEP and Premed students, taught by medical and university students.' />
 <meta property='og:image' content='hero.jpg' />
 <meta name='twitter:card' content='summary_large_image' />
 
@@ -88,6 +88,7 @@
   #menuOverlay.open a:nth-child(2){ transition-delay:.23s; }
   #menuOverlay.open a:nth-child(3){ transition-delay:.31s; }
   #menuOverlay.open a:nth-child(4){ transition-delay:.39s; }
+  #menuOverlay.open a:nth-child(5){ transition-delay:.47s; }
 
   /* ---------- Quote cross-fade ---------- */
   #quoteText { transition: opacity .6s ease; }
@@ -125,6 +126,26 @@
   <a href="#services" onclick="toggleMenu()" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">PRICING</a>
   <a href="#contact" onclick="toggleMenu()" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">CONTACT&nbsp;US</a>
   <a href="#staff"   onclick="toggleMenu()" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">STAFF</a>
+  <a href="user-agreement.html" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">USER&nbsp;AGREEMENT</a>
+  <a href="index-fr.html" class="font-serif text-3xl md:text-5xl tracking-tight hover:text-neutral-400 transition-colors mt-8">Français</a>
+</div>
+
+<!-- ============================================================
+     "VIEW YOUR SCHEDULE" MODAL
+============================================================ -->
+<div id="scheduleModal" onclick="if(event.target===this) closeScheduleModal()" class="fixed inset-0 z-[90] hidden items-center justify-center bg-black/60 backdrop-blur-sm px-6">
+  <div class="relative bg-white rounded-3xl max-w-md w-full p-8 md:p-10 text-center shadow-2xl">
+    <button onclick="closeScheduleModal()" aria-label="Close" class="absolute top-5 right-5 text-neutral-400 hover:text-black transition-colors">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="w-14 h-14 rounded-full bg-black flex items-center justify-center mx-auto mb-6">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    </div>
+    <h3 class="font-serif text-2xl md:text-3xl mb-3">View your schedule</h3>
+    <p class="text-neutral-600 text-sm leading-relaxed mb-8">Join our Discord and we'll send you your upcoming sessions there.</p>
+    <!-- Placeholder link -> replace # with the real Discord invite -->
+    <a href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-black text-white font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-neutral-800 transition-colors w-full">Join our Discord</a>
+  </div>
 </div>
 
 <!-- ============================================================
@@ -140,26 +161,42 @@
   <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/25"></div>
   <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent"></div>
 
-  <!-- Top bar: logo (left) + hamburger (right), white to read over the dark image -->
+  <!-- Top bar: logo (left) + language switcher + schedule button & hamburger (right), white to read over the dark image -->
   <div class="relative z-50 flex items-center justify-between px-6 md:px-12 py-8">
-    <a href="#" class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-white">Brightmind Tutoring<span class="text-white/50">.</span></a>
-    <button onclick="toggleMenu()" id="burger" class="burger relative z-[70] flex flex-col gap-[6px] p-2" aria-label="Open menu">
-      <span class="block w-9 h-[2px] bg-white"></span>
-      <span class="block w-9 h-[2px] bg-white"></span>
-      <span class="block w-9 h-[2px] bg-white"></span>
-    </button>
+    <a href="#" class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-white">MNTR Tutoring<span class="text-white/50">.</span></a>
+    <div class="flex items-center gap-3 md:gap-5">
+      <!-- Language Switcher -->
+      <div class="relative">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-white/90 text-xs sm:text-sm font-medium border border-white/25 rounded-full px-3 sm:px-4 py-2 hover:bg-white/10 hover:text-white transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          EN
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-xl overflow-hidden z-50">
+          <a href="index.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">English</a>
+          <a href="index-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
+        </div>
+      </div>
+      <button onclick="openScheduleModal()" class="inline-flex items-center gap-1.5 text-white/90 text-xs sm:text-sm font-medium border border-white/25 rounded-full px-3 sm:px-4 py-2 hover:bg-white/10 hover:text-white transition-colors">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        View your schedule
+      </button>
+      <button onclick="toggleMenu()" id="burger" class="burger relative z-[70] flex flex-col gap-[6px] p-2" aria-label="Open menu">
+        <span class="block w-9 h-[2px] bg-white"></span>
+        <span class="block w-9 h-[2px] bg-white"></span>
+        <span class="block w-9 h-[2px] bg-white"></span>
+      </button>
+    </div>
   </div>
 
   <!-- Hero copy overlaid directly on the image (lower-left), no black box -->
   <div class="relative z-40 flex-1 flex items-end">
     <div class="px-6 md:px-12 pb-16 md:pb-20 max-w-4xl">
-      <p class="text-xs md:text-sm tracking-[0.3em] text-white/70 mb-7">ELEMENTARY · HIGH SCHOOL · CEGEP TUTORING · QUÉBEC</p>
+      <p class="text-xs md:text-sm tracking-[0.3em] text-white/70 mb-7">HIGH SCHOOL · CEGEP TUTORING</p>
       <h1 class="font-serif text-white text-4xl md:text-7xl leading-[1.04] mb-8 drop-shadow-sm">
-        Master complex subjects with mentors who already have.
+        Learn from medical students who mastered the system.
       </h1>
       <p class="text-white/85 text-base md:text-xl leading-relaxed max-w-2xl mb-10">
-        Personalized tutoring for elementary, high school and CEGEP students, taught by
-        tutors from medical school.
+        Personalized STEM tutoring from mentors who earned top medical school admissions. We coach high school, and CEGEP students to achieve academic excellence and get into their dream programs.
       </p>
       <div class="flex flex-wrap gap-4">
         <a href="book.html" class="bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Book a free intro call</a>
@@ -198,7 +235,7 @@
 ============================================================ -->
 <section class="bg-white py-28 md:py-40 px-6">
   <div class="reveal max-w-4xl mx-auto text-center">
-    <p class="text-xs tracking-[0.3em] text-neutral-500 mb-6 eyebrow-grad">WHY BRIGHTMIND</p>
+    <p class="text-xs tracking-[0.3em] text-neutral-500 mb-6 eyebrow-grad">WHY MNTR</p>
     <h2 class="font-serif text-3xl md:text-5xl leading-tight mb-8">
       Tutoring that turns academic pressure into academic excellence.
     </h2>
@@ -206,11 +243,12 @@
       One-to-one sessions, built around your courses and your pace, from first-year
       fundamentals to the hardest upper-year material.
     </p>
-    <a href='https://www.instagram.com/brightmindtutors.ca/' target='_blank' rel='noopener'
+    <a href='https://www.instagram.com/mntrtutoring/' target='_blank' rel='noopener'
        class='inline-flex items-center gap-2.5 mt-10 text-black font-semibold hover:opacity-70 transition-opacity'>
       <svg width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='2' width='20' height='20' rx='5'/><circle cx='12' cy='12' r='4'/><circle cx='17.5' cy='6.5' r='1.2' fill='currentColor' stroke='none'/></svg>
-      Follow us @brightmindtutors.ca
+      Follow us @mntrtutoring
     </a>
+    <img src='logo-mark.png' alt='MNTR Tutoring logo mark' class='mx-auto mt-14 w-32 md:w-40' />
   </div>
 </section>
 
@@ -231,8 +269,8 @@
         <h2 class="font-serif text-4xl md:text-5xl text-white">What We Offer</h2>
       </div>
 
-      <!-- 3 service cards · static grid (no horizontal scroll) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+      <!-- 2 service cards · static grid (no horizontal scroll) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch max-w-4xl mx-auto">
 
         <!-- Service 1 -->
         <div onclick="pickService('Free Academic Consultation')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
@@ -257,23 +295,7 @@
             <span class="text-neutral-400 text-sm">/ session</span>
           </div>
           <p class="text-neutral-400 text-sm mb-6">1 hour · Online</p>
-          <p class="text-neutral-300 text-sm leading-relaxed">One-on-one STEM tutoring from top medical and university students, prepared around your exact courses.</p>
-          <div class="mt-auto pt-8">
-            <span class="inline-flex items-center gap-1.5 text-white font-semibold text-sm group-hover:gap-2.5 transition-all">Get started
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </span>
-          </div>
-        </div>
-
-        <!-- Service 3 -->
-        <div onclick="pickService('Academic & Lifestyle Coaching')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
-          <h3 class="font-serif text-2xl leading-tight mb-4">Holistic 1-on-1 Academic &amp; Lifestyle Coaching</h3>
-          <div class="flex items-baseline gap-1.5 mb-1">
-            <span class="text-3xl font-semibold">$50</span>
-            <span class="text-neutral-400 text-sm">/ session</span>
-          </div>
-          <p class="text-neutral-400 text-sm mb-6">1 hour · Online</p>
-          <p class="text-neutral-300 text-sm leading-relaxed">Coaching on study habits, time management, and the daily routines behind lasting academic results.</p>
+          <p class="text-neutral-300 text-sm leading-relaxed">One-on-one STEM tutoring from top medical and university students, built around your exact courses. We don&rsquo;t just cover content: we teach you how to learn, with study-method and lifestyle coaching woven into every session so you build habits that last.</p>
           <div class="mt-auto pt-8">
             <span class="inline-flex items-center gap-1.5 text-white font-semibold text-sm group-hover:gap-2.5 transition-all">Get started
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -424,7 +446,18 @@
         </div>
       </article>
 
-      <!-- Card 2 · Sofia (real photo) -->
+      <!-- Card 3 · Bassma (real photo) -->
+      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+        <img src='bassma.jpg' alt='Bassma' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
+        <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
+        <div class='absolute left-5 bottom-5 right-5'>
+          <h3 class='text-white text-xl font-semibold'>Bassma</h3>
+          <p class='text-white/80 text-[13px] font-medium mt-1'>Université de Sherbrooke · Medical School</p>
+          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Co-president of MedLife, having raised over $5,000 across various fundraisers, with over 200 hours of volunteering.</p>
+        </div>
+      </article>
+
+      <!-- Card 4 · Sofia (real photo) -->
       <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
         <img src='sofia.jpg' alt='Sofia' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
@@ -436,7 +469,7 @@
         </div>
       </article>
 
-      <!-- Card 3 · Alexandre (real photo) -->
+      <!-- Card 5 · Alexandre (real photo) -->
       <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
         <img src='alex.jpg' alt='Alexandre' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
@@ -445,20 +478,6 @@
           <p class='text-white/80 text-[13px] font-medium mt-1'>Dawson College · Enriched Health Science</p>
           <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Finance Vice-President of MedLife and a regional supervisor for a nationally operating lifesaving and water-safety organization.</p>
           <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Tutors </span>CEGEP Math, Biology &amp; Chemistry, plus every high school subject</p>
-        </div>
-      </article>
-
-      <!-- Card 4 · Vlad (photo coming later) -->
-      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10'>
-        <div class='absolute inset-0 bg-gradient-to-b from-neutral-700 to-neutral-900 flex items-center justify-center'>
-          <svg viewBox='0 0 64 64' class='w-24 h-24 text-white/10' fill='currentColor'><circle cx='32' cy='24' r='13'/><path d='M10 60c0-13 10-21 22-21s22 8 22 21z'/></svg>
-        </div>
-        <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
-        <div class='absolute left-5 bottom-5 right-5'>
-          <h3 class='text-white text-xl font-semibold'>Vlad</h3>
-          <p class='text-white/80 text-[13px] font-medium mt-1'>Université de Montréal · Medical School</p>
-          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Admitted to all four Québec medical schools from CEGEP. High school valedictorian, two-time Eureka research winner, and founder of his own interview-prep company.</p>
-          <p class='text-white/40 text-[10px] italic mt-2'>Photo coming soon</p>
         </div>
       </article>
 
@@ -617,13 +636,12 @@
         <p class="text-neutral-500 text-sm">Not ready to book yet? Drop us a note and we'll reply the same day.</p>
       </div>
 
-      <form id='contactForm' action='https://api.web3forms.com/submit' method='POST' class='reveal space-y-5'>
-        <!-- Web3Forms delivers to info@brightmindtutors.ca. The access_key is public-safe (points to the inbox, grants no access to it). -->
-        <input type='hidden' name='access_key' value='3d52d180-b4ff-4e50-a6b2-82e387101944' />
-        <input type='hidden' name='subject' value='New inquiry from the Brightmind Tutoring website' />
-        <input type='hidden' name='from_name' value='Brightmind Tutoring website' />
+      <form id='contactForm' action='https://formsubmit.co/ajax/perfettielliott@gmail.com' method='POST' class='reveal space-y-5'>
+        <!-- TEMPORARY: contact submissions go to perfettielliott@gmail.com via FormSubmit. Change the email in the action URL above to reroute. -->
+        <input type='hidden' name='_subject' value='New inquiry from the MNTR Tutoring website' />
+        <input type='hidden' name='_captcha' value='false' />
         <!-- Honeypot spam filter (hidden from humans) -->
-        <input type='checkbox' name='botcheck' class='hidden' style='display:none' tabindex='-1' autocomplete='off' />
+        <input type='text' name='_honey' class='hidden' style='display:none' tabindex='-1' autocomplete='off' />
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
             <label for="name" class="block text-sm font-semibold mb-2">Name</label>
@@ -673,8 +691,8 @@
     <div class='grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8 mb-14'>
       <!-- Brand -->
       <div class='col-span-2 md:col-span-1'>
-        <span class='font-serif text-xl'>Brightmind Tutoring<span class='text-neutral-500'>.</span></span>
-        <p class='text-neutral-400 text-sm mt-3 leading-relaxed max-w-xs'>Personalized STEM tutoring for elementary, high school and CEGEP students, taught by medical and university students across Québec.</p>
+        <span class='font-serif text-xl'>MNTR Tutoring<span class='text-neutral-500'>.</span></span>
+        <p class='text-neutral-400 text-sm mt-3 leading-relaxed max-w-xs'>Personalized STEM tutoring for high school, CEGEP and Premed students, taught by medical and university students.</p>
       </div>
       <!-- Explore -->
       <div>
@@ -684,6 +702,16 @@
           <li><a href='#casper' class='hover:text-white transition-colors'>CASPer &amp; MMI prep</a></li>
           <li><a href='#staff' class='hover:text-white transition-colors'>Our tutors</a></li>
           <li><a href='faq.html' class='hover:text-white transition-colors'>FAQ</a></li>
+          <li><a href='privacy.html' class='hover:text-white transition-colors'>Privacy Policy</a></li>
+          <li><a href='user-agreement.html' class='hover:text-white transition-colors'>User Agreement</a></li>
+        </ul>
+      </div>
+      <!-- Language -->
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>LANGUAGE</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li><a href='index.html' class='hover:text-white transition-colors bg-white/10 px-3 py-1 rounded-full'>English</a></li>
+          <li><a href='index-fr.html' class='hover:text-white transition-colors'>Français</a></li>
         </ul>
       </div>
       <!-- Get started -->
@@ -700,7 +728,7 @@
         <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>CONNECT</h4>
         <ul class='space-y-2.5 text-sm text-neutral-300'>
           <li>
-            <a href='https://www.instagram.com/brightmindtutors.ca/' target='_blank' rel='noopener' class='inline-flex items-center gap-2 hover:text-white transition-colors'>
+            <a href='https://www.instagram.com/mntrtutoring/' target='_blank' rel='noopener' class='inline-flex items-center gap-2 hover:text-white transition-colors'>
               <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='2' width='20' height='20' rx='5'/><circle cx='12' cy='12' r='4'/><circle cx='17.5' cy='6.5' r='1.2' fill='currentColor' stroke='none'/></svg>
               Instagram
             </a>
@@ -710,7 +738,7 @@
       </div>
     </div>
     <div class='border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-3'>
-      <p class='text-neutral-500 text-sm'>&copy; 2026 Brightmind Tutoring · Québec</p>
+      <p class='text-neutral-500 text-sm'>&copy; 2026 MNTR Tutoring</p>
       <a href='book.html' class='inline-flex items-center gap-1.5 text-sm text-neutral-300 hover:text-white transition-colors'>Book your free call
         <svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>
       </a>
@@ -729,6 +757,36 @@
     overlay.classList.toggle('open');
     burger.classList.toggle('active');
     document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  }
+
+  /* ---------- Language switcher ---------- */
+  function toggleLangMenu() {
+    var menu = document.getElementById('langMenu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  }
+
+  // Close language menu when clicking outside
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('langMenu');
+    var button = e.target.closest('button');
+    if (menu && !menu.contains(e.target) && (!button || !button.onclick || !button.onclick.toString().includes('toggleLangMenu'))) {
+      menu.classList.add('hidden');
+    }
+  });
+
+  /* ---------- "View your schedule" modal ---------- */
+  const scheduleModal = document.getElementById('scheduleModal');
+  function openScheduleModal() {
+    scheduleModal.classList.remove('hidden');
+    scheduleModal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeScheduleModal() {
+    scheduleModal.classList.add('hidden');
+    scheduleModal.classList.remove('flex');
+    document.body.style.overflow = '';
   }
 
   /* ---------- Scroll-reveal ---------- */
@@ -781,7 +839,6 @@
       '1-on-1 Subject Tutoring':       'checkout.html?service=tutoring',
       '5-Session Package':             'checkout.html?service=pack5',
       '10-Session Package':            'checkout.html?service=pack10',
-      'Academic & Lifestyle Coaching': 'checkout.html?service=coaching',
     };
     if (routes[value]) { window.location.href = routes[value]; return; }
     // Free consultation (and anything else) -> scroll to the booking section
@@ -838,7 +895,7 @@
         });
         const data = await res.json();
         if (res.ok && (data.success === true || data.success === 'true')) {
-          showSuccess();               // sent to info@brightmindtutors.ca via Formsubmit → show popup
+          showSuccess();               // sent to perfettielliott@gmail.com via FormSubmit → show popup
         } else {
           alert('Something went wrong. Please email us directly at info@brightmindtutors.ca');
         }
