@@ -243,26 +243,9 @@
 </header>
 
 <!-- ============================================================
-     INTRO STRIP  (extra breathing room + a clean lead-in)
-============================================================ -->
-<section class="bg-white py-28 md:py-40 px-6">
-  <div class="reveal max-w-4xl mx-auto text-center">
-    <p class="text-xs tracking-[0.3em] text-neutral-500 mb-6 eyebrow-grad">WHY MNTR</p>
-    <h2 class="font-serif text-3xl md:text-5xl leading-tight mb-8">
-      Tutoring that turns academic pressure into academic excellence.
-    </h2>
-    <p class="text-neutral-600 text-lg leading-relaxed max-w-2xl mx-auto">
-      One-to-one sessions, built around your courses and your pace, from first-year
-      fundamentals to the hardest upper-year material.
-    </p>
-    <img src='logo-mark.png' alt='MNTR Tutoring logo mark' class='mx-auto mt-14 w-32 md:w-40' />
-  </div>
-</section>
-
-<!-- ============================================================
      SERVICES  (3 black cards over the parallax computer-image background)
 ============================================================ -->
-<section id='services' class='bg-white pt-24 md:pt-40'>
+<section id='services' class='bg-white'>
   <div class='relative overflow-hidden bg-[#0A0A0C]'>
     <!-- soft pink + blue ambient glows (echoes the hero) -->
     <div class='pointer-events-none absolute -top-24 -left-20 w-[480px] h-[480px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(240,166,200,.42),transparent 60%)'></div>
@@ -277,10 +260,10 @@
       </div>
 
       <!-- 2 service cards · static grid (no horizontal scroll) -->
-      <div class="grid grid-cols-1 md:grid-cols-7 gap-6 items-stretch max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch max-w-6xl mx-auto">
 
         <!-- Service 1 -->
-        <div onclick="pickService('Free Academic Consultation')" class="md:col-span-2 group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
+        <div onclick="pickService('Free Academic Consultation')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
           <h3 class="font-serif text-2xl leading-tight mb-4">Complimentary Academic Consultation</h3>
           <div class="flex items-baseline gap-1.5 mb-1">
             <span class="text-3xl font-semibold">Free</span>
@@ -295,7 +278,7 @@
         </div>
 
         <!-- Service 2 -->
-        <div onclick="pickService('1-on-1 Subject Tutoring')" class="md:col-span-2 group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
+        <div onclick="pickService('1-on-1 Subject Tutoring')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
           <h3 class="font-serif text-2xl leading-tight mb-4">Private 1-on-1 Tutoring</h3>
           <div class="flex items-baseline gap-1.5 mb-1">
             <span class="text-3xl font-semibold">$45</span>
@@ -311,7 +294,7 @@
         </div>
 
         <!-- Service 3 · CASPer & MMI Prep -->
-        <div id='casper' onclick="pickService('CASPer & MMI Prep')" class="md:col-span-3 group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
+        <div id='casper' onclick="pickService('CASPer & MMI Prep')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
           <h3 class="font-serif text-2xl leading-tight mb-4">CASPer &amp; MMI Prep</h3>
           <div class="flex items-baseline gap-1.5 mb-1">
             <span class="text-3xl font-semibold">$60</span>
