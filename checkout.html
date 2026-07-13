@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Checkout · Brightmind Tutoring</title>
-<link rel='icon' type='image/svg+xml' href='favicon.svg' />
+<title>Checkout · MNTR Tutoring</title>
+<link rel='icon' type='image/png' href='favicon.png?v=2' />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,8 +32,21 @@
 <!-- Header -->
 <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight">Brightmind Tutoring<span class="text-neutral-400">.</span></a>
-    <a href="index.html#services" class="text-sm font-medium text-neutral-600 hover:text-black transition-colors">All services</a>
+    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight">MNTR Tutoring<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-3">
+      <!-- Language Switcher -->
+      <div class="relative">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 text-sm font-medium hover:text-black transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          EN
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-xl overflow-hidden z-50">
+          <a href="checkout.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">English</a>
+          <a href="checkout-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
+        </div>
+      </div>
+      <a href="index.html#services" class="text-sm font-medium text-neutral-600 hover:text-black transition-colors">All services</a>
+    </div>
   </div>
 </header>
 
@@ -83,18 +96,49 @@
 <!-- Footer -->
 <footer class="bg-[#0A0A0C] text-white py-10 px-6 mt-10" style="background-image: radial-gradient(500px circle at 20% -20%, rgba(240,166,200,.12), transparent 60%), radial-gradient(500px circle at 85% 130%, rgba(156,192,255,.11), transparent 60%);">
   <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-    <a href="index.html" class="font-serif text-lg">Brightmind Tutoring<span class="text-neutral-500">.</span></a>
-    <p class="text-neutral-500 text-sm">&copy; 2026 Brightmind Tutoring &middot; Qu&eacute;bec</p>
+    <a href="index.html" class="font-serif text-lg">MNTR Tutoring<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-500 text-sm">&copy; 2026 MNTR Tutoring &middot; Qu&eacute;bec &middot; <a href="privacy.html" class="hover:text-white transition-colors underline underline-offset-2">Privacy Policy</a> &middot; <a href="user-agreement.html" class="hover:text-white transition-colors underline underline-offset-2">User Agreement</a></p>
   </div>
 </footer>
 
 <script>
+  /* Language switcher */
+  function toggleLangMenu() {
+    var menu = document.getElementById('langMenu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  }
+
+  // Close language menu when clicking outside
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('langMenu');
+    var button = e.target.closest('button');
+    if (menu && !menu.contains(e.target) && (!button || !button.onclick || !button.onclick.toString().includes('toggleLangMenu'))) {
+      menu.classList.add('hidden');
+    }
+  });
+
   /* =====================================================================
      STRIPE PAYMENT LINKS: paste your real links here.
      1. In Stripe, create a Payment Link for each service/price.
      2. Copy the link (looks like https://buy.stripe.com/xxxxxxxx).
      3. Replace the matching 'stripe' value below.
      Until a real https:// link is in, the button routes to the contact page.
+
+     PAYMENT ARCHITECTURE:
+     - Per-session services (tutoring $45, casper-hourly $60) use 'cal':
+       the button goes straight to the Cal.com event, which has the price
+       set via the Cal.com Stripe app. Payment is enforced at booking.
+       Keep these events PUBLIC with their price ON.
+     - Packages (pack5, pack10) and coaching use 'stripe': the Stripe
+       Payment Link collects payment, then its "After payment" redirect
+       (set in Stripe Dashboard -> Payment Links -> Edit) sends the client
+       to a FREE + HIDDEN Cal.com event to schedule their sessions:
+       pack5    ...Y06 -> hidden "Tutoring Session (Package)" event
+       pack10   ...Y03 -> hidden "Tutoring Session (Package)" event
+       coaching ...Y02 -> hidden coaching event (or the package event)
+     Button priority: stripe link > cal link > contact fallback.
   ===================================================================== */
   var SERVICES = {
     tutoring: {
@@ -102,49 +146,35 @@
       price: '$45', unit: 'per 60-minute session',
       desc: 'One-on-one tutoring with top medical and university students, prepared in advance around your exact courses.',
       includes: ['A full 60-minute live online session', 'Prepared around your syllabus and goals', 'STEM subjects from high school to university', 'Study-method coaching built into every session'],
-      stripe: 'STRIPE_LINK_TUTORING'
+      cal: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring'
     },
     pack5: {
       name: '5-Session Tutoring Package',
       price: '$200', unit: '$40 / session · save $25',
       desc: 'Five one-on-one tutoring sessions at a reduced per-session rate, for students who want steady, ongoing support.',
       includes: ['Five 60-minute live online sessions', '$40 per session (save $25 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
-      stripe: 'STRIPE_LINK_PACK5'
+      stripe: 'https://buy.stripe.com/eVq8wR5KG8gogZUgfLdUY06'
     },
     pack10: {
       name: '10-Session Tutoring Package',
       price: '$350', unit: '$35 / session · save $100',
       desc: 'Ten one-on-one tutoring sessions at our best per-session rate, ideal for a full term of consistent support.',
       includes: ['Ten 60-minute live online sessions', '$35 per session (save $100 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
-      stripe: 'STRIPE_LINK_PACK10'
+      stripe: 'https://buy.stripe.com/6oUdRb6OKaow10WbZvdUY03'
     },
     coaching: {
       name: 'Academic & Lifestyle Coaching',
       price: '$50', unit: 'per 60-minute session',
       desc: 'Coaching that goes beyond the textbook: study habits, time management, and the daily routines behind sustainable results.',
       includes: ['A full 60-minute live online session', 'Personalized study-method coaching', 'Time-management and routine building', 'A plan shaped around your consultation'],
-      stripe: 'STRIPE_LINK_COACHING'
+      stripe: 'https://buy.stripe.com/3cI4gB7SOgMUcJEgfLdUY02'
     },
-    'casper-essentials': {
-      name: 'CASPer & MMI Prep — Essentials',
-      price: '$799', unit: 'one-time',
-      desc: 'A focused introduction to CASPer prep: realistic timed simulations with expert feedback after each one.',
-      includes: ['3 timed CASPer simulations', '1-on-1 expert feedback after each', 'Self-paced strategy guide', 'Numeric scoring rubric'],
-      stripe: 'STRIPE_LINK_CASPER_ESSENTIALS'
-    },
-    'casper-advantage': {
-      name: 'CASPer & MMI Prep — Advantage',
-      price: '$1,897', unit: 'one-time · most popular',
-      desc: 'Our most popular plan: unlimited CASPer practice plus live MMI mock interviews, with mentors admitted to all four Quebec medical schools.',
-      includes: ['Unlimited CASPer simulations', 'Unlimited 1-on-1 feedback sessions', '3 live MMI mock interviews + feedback', 'Full strategy guide & scoring rubric', 'Priority scheduling'],
-      stripe: 'STRIPE_LINK_CASPER_ADVANTAGE'
-    },
-    'casper-complete': {
-      name: 'CASPer & MMI Prep — Complete',
-      price: '$2,397', unit: 'one-time',
-      desc: 'Full, unlimited preparation with a dedicated senior mentor, all the way through to interview day.',
-      includes: ['Unlimited CASPer simulations', 'Unlimited MMI mock interviews until interview day', 'A dedicated senior mentor', 'Final interview-day readiness call', 'Priority scheduling & support'],
-      stripe: 'STRIPE_LINK_CASPER_COMPLETE'
+    'casper-hourly': {
+      name: 'CASPer & MMI Prep',
+      price: '$60', unit: 'per 60-minute session',
+      desc: 'One-on-one CASPer and MMI prep: realistic timed simulations or mock stations with expert feedback, from mentors admitted to all four Quebec medical schools.',
+      includes: ['A full 60-minute live online session', 'Timed CASPer simulations or MMI mock stations', '1-on-1 expert feedback after every session', 'Proven answer frameworks & scoring rubric'],
+      cal: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep'
     }
   };
 
@@ -161,7 +191,7 @@
     document.getElementById('svc-desc').textContent = svc.desc;
     document.getElementById('svc-price').textContent = svc.price;
     document.getElementById('svc-unit').textContent = svc.unit;
-    document.title = svc.name + ' · Checkout · Brightmind Tutoring';
+    document.title = svc.name + ' · Checkout · MNTR Tutoring';
 
     var ul = document.getElementById('svc-includes');
     svc.includes.forEach(function (item) {
@@ -180,6 +210,9 @@
     var btn = document.getElementById('pay-btn');
     if (svc.stripe && svc.stripe.indexOf('http') === 0) {
       btn.href = svc.stripe;                       // real Stripe Payment Link
+    } else if (svc.cal && svc.cal.indexOf('http') === 0) {
+      btn.href = svc.cal;                          // Cal.com event (pay while booking)
+      btn.textContent = 'Book & pay — pick your time';
     } else {
       // No real payment link yet -> fall back to the contact page
       btn.href = 'index.html#contact';

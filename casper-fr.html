@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Préparation Casper &amp; MMI · MNTR Tutoring</title>
+<meta name="description" content="Préparation Casper et MMI pour les candidats à l'école de médecine : simulations réalistes, entrevues simulées en direct par des mentors admis aux quatre écoles de médecine du Québec." />
+<link rel='icon' type='image/png' href='favicon.png?v=2' />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { fontFamily: {
+    sans: ['Inter', 'system-ui', 'sans-serif'],
+    serif: ['Fraunces', 'Georgia', 'serif'],
+  } } } };
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; }
+  .eyebrow-grad { background: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: none; }
+</style>
+</head>
+
+<body class="bg-white text-black antialiased">
+
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
+    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight">MNTR Tutoring<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-7 text-sm font-medium text-neutral-600">
+      <!-- Language Switcher -->
+      <div class="relative">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-black transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          FR
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-xl overflow-hidden z-50">
+          <a href="casper.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">English</a>
+          <a href="casper-fr.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">Français</a>
+        </div>
+      </div>
+      <a href="#pricing" class="hover:text-black transition-colors hidden sm:inline">Tarifs</a>
+      <a href="book-fr.html" class="bg-black text-white px-5 py-2.5 rounded-full hover:bg-neutral-800 transition-colors">Appel stratégique gratuit</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative overflow-hidden bg-[#0A0A0C]">
+  <div class='pointer-events-none absolute -top-24 -left-20 w-[480px] h-[480px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(240,166,200,.38),transparent 60%)'></div>
+  <div class='pointer-events-none absolute -bottom-32 -right-10 w-[560px] h-[560px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(156,192,255,.36),transparent 60%)'></div>
+  <div class="relative max-w-4xl mx-auto px-6 py-24 md:py-32 text-center">
+    <p class="reveal in text-xs tracking-[0.3em] mb-6 eyebrow-grad">PRÉPARATION CASPER &amp; MMI</p>
+    <h1 class="reveal in font-serif text-4xl md:text-6xl leading-tight text-white mb-6">Soyez confiant et préparé pour le jour de l'entrevue et du test</h1>
+    <p class="reveal in text-neutral-300 text-lg leading-relaxed max-w-2xl mx-auto mb-10">Le test Casper et l'entrevue MMI sont les parties les plus importantes de votre candidature à l'école de médecine, et chaque année des candidats forts avec d'excellentes notes sont refusés parce qu'ils ne sont pas préparés. La pratique est la clé : nous vous préparons avec des simulations réalistes, des entrevues simulées en direct, des outils IA puissants par des mentors qui ont été admis aux quatre écoles de médecine du Québec.</p>
+    <div class="reveal in flex flex-wrap items-center justify-center gap-4">
+      <a href="#pricing" class="bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Voir les plans de préparation</a>
+      <a href="book-fr.html" class="border border-white/30 text-white font-semibold px-8 py-4 rounded-full hover:bg-white/10 transition-colors">Réserver un appel stratégique gratuit</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT ARE CASPER / MMI -->
+<section class="bg-white py-20 md:py-28 px-6">
+  <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
+    <div class="reveal">
+      <p class="text-xs tracking-[0.3em] text-neutral-500 mb-4">QU'EST-CE QUE CASPER</p>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4">Un test chronométré de jugement, pas de connaissances.</h2>
+      <p class="text-neutral-600 leading-relaxed">Casper présente des scénarios éthiques et interpersonnels réalistes et évalue comment vous raisonnez à travers eux sous pression temporelle. Il n'y a aucun moyen d'"étudier" le contenu, mais il y a une façon éprouvée de pratiquer le format, le rythme et la structure d'une réponse forte.</p>
+    </div>
+    <div class="reveal">
+      <p class="text-xs tracking-[0.3em] text-neutral-500 mb-4">QU'EST-CE QUE L'ENTREVUE MMI</p>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4">Une série de stations courtes à haute pression.</h2>
+      <p class="text-neutral-600 leading-relaxed">L'entrevue à mini-stations multiples vous fait passer par plusieurs stations courtes, chacune testant la communication, l'éthique et le sang-froid. Pour la plupart des candidats, la première véritable tentative est le jour même de l'entrevue. La nôtre ne l'est pas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AI SUPPLEMENT -->
+<section class="bg-neutral-50 py-20 md:py-24 px-6 border-y border-black/5">
+  <div class="max-w-4xl mx-auto text-center">
+    <p class="reveal text-xs tracking-[0.3em] mb-4 eyebrow-grad">PRATIQUE À LA DEMANDE</p>
+    <h2 class="reveal font-serif text-3xl md:text-4xl mb-6">Outil d'apprentissage IA puissant</h2>
+    <p class="reveal text-neutral-600 text-lg leading-relaxed mb-10">Complétez vos sessions en direct avec notre simulateur IA avancé. Il fournit une rétroaction instantanée et ciblée sur vos réponses MMI et Casper 24/7. Le système évalue votre raisonnement central, votre empathie et votre structure, en gardant à l'esprit que l'orthographe ne compte pas pour les évaluations Casper.</p>
+    <div class="reveal">
+      <a href="https://med-prep.ca/auth" class="inline-block bg-black text-white font-semibold px-8 py-4 rounded-full hover:bg-neutral-800 transition-colors">Accéder au simulateur IA</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INCLUDED IN EVERY PLAN -->
+<section class="bg-white py-20 md:py-28 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="reveal text-center mb-14">
+      <p class="text-xs tracking-[0.3em] mb-4 eyebrow-grad">CHAQUE PLAN INCLUT</p>
+      <h2 class="font-serif text-3xl md:text-4xl">Les fondamentaux, intégrés dès le départ</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="reveal">
+        <div class="w-11 h-11 rounded-full bg-black flex items-center justify-center mb-4">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        </div>
+        <h3 class="font-semibold text-sm mb-1.5">Simulations chronométrées réalistes</h3>
+        <p class="text-neutral-500 text-sm leading-relaxed">Pratiquez sous la même pression temporelle et le même format que le vrai test.</p>
+      </div>
+      <div class="reveal">
+        <div class="w-11 h-11 rounded-full bg-black flex items-center justify-center mb-4">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h3 class="font-semibold text-sm mb-1.5">Cadres de réponse éprouvés</h3>
+        <p class="text-neutral-500 text-sm leading-relaxed">Approches structurées pour les questions situationnelles, éthiques et personnelles.</p>
+      </div>
+      <div class="reveal">
+        <div class="w-11 h-11 rounded-full bg-black flex items-center justify-center mb-4">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8V6a5 5 0 0 0-10 0v2M5 8h14l-1 12H6L5 8Z"/></svg>
+        </div>
+        <h3 class="font-semibold text-sm mb-1.5">Rétroaction honnête et détaillée</h3>
+        <p class="text-neutral-500 text-sm leading-relaxed">Notes spécifiques et actionnables après chaque simulation et entrevue simulée.</p>
+      </div>
+      <div class="reveal">
+        <div class="w-11 h-11 rounded-full bg-black flex items-center justify-center mb-4">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="font-semibold text-sm mb-1.5">Mentors qui ont réussi</h3>
+        <p class="text-neutral-500 text-sm leading-relaxed">Coaché par des tuteurs admis aux quatre écoles de médecine du Québec.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING TIERS -->
+<section id="pricing" class="relative overflow-hidden bg-[#0A0A0C]">
+  <div class='pointer-events-none absolute -top-24 -left-20 w-[480px] h-[480px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(240,166,200,.32),transparent 60%)'></div>
+  <div class='pointer-events-none absolute -bottom-32 -right-10 w-[560px] h-[560px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(156,192,255,.30),transparent 60%)'></div>
+  <div class="relative max-w-6xl mx-auto px-6 py-24 md:py-32">
+
+    <div class="reveal text-center mb-14 md:mb-16">
+      <p class="text-xs tracking-[0.3em] mb-4 eyebrow-grad">TARIFICATION SIMPLE</p>
+      <h2 class="font-serif text-4xl md:text-5xl text-white">Préparation individuelle, à l'heure</h2>
+      <p class="text-neutral-400 mt-4 max-w-xl mx-auto">Chaque session commence par un appel stratégique gratuit afin que nous puissions recommander le bon focus avant que vous ne réserviez quoi que ce soit.</p>
+    </div>
+
+    <div class="max-w-md mx-auto">
+      <div onclick="location.href='checkout-fr.html?service=casper-hourly'" class="cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
+        <p class="text-[11px] tracking-[0.25em] text-neutral-500 mb-5">PRÉPARATION CASPER &amp; MMI</p>
+        <div class="flex items-baseline gap-1.5 mb-1">
+          <span class="text-4xl font-semibold">$60</span>
+          <span class="text-neutral-400 text-sm">/ session</span>
+        </div>
+        <p class="text-neutral-400 text-sm mb-6">1 heure · Individuel · En ligne</p>
+        <ul class="space-y-3 text-sm text-neutral-300 flex-1">
+          <li class="flex gap-2.5"><span class="text-white/40">✓</span>Simulations CASPer chronométrées ou stations MMI simulées</li>
+          <li class="flex gap-2.5"><span class="text-white/40">✓</span>Rétroaction d'expert 1-sur-1 après chaque session</li>
+          <li class="flex gap-2.5"><span class="text-white/40">✓</span>Cadres de réponse éprouvés &amp; grille d'évaluation</li>
+          <li class="flex gap-2.5"><span class="text-white/40">✓</span>Mentors admis aux quatre écoles de médecine du Québec</li>
+        </ul>
+        <div class="mt-8 pt-6 border-t border-white/10">
+          <span class="inline-flex items-center gap-1.5 text-white font-semibold text-sm">Commencer
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- REASSURANCE -->
+<section class="bg-white py-20 md:py-28 px-6">
+  <div class="max-w-3xl mx-auto text-center">
+    <p class="text-xs tracking-[0.3em] mb-5 eyebrow-grad">NOTRE ENGAGEMENT</p>
+    <h2 class="font-serif text-3xl md:text-4xl mb-6">Préparez-vous avec confiance, pas avec pression.</h2>
+    <p class="text-neutral-600 text-lg leading-relaxed">Si vous n'êtes pas satisfait après votre première simulation ou entrevue simulée, dites-le-nous et nous corrigerons la situation, que cela signifie un mentor différent, un plan ajusté ou un remboursement de cette session. Chaque plan commence également par un appel stratégique gratuit, donc vous savez exactement ce que vous obtenez avant de vous engager à quoi que ce soit.</p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="bg-[#0A0A0C] py-20 md:py-28 px-6" style="background-image: radial-gradient(600px circle at 20% -20%, rgba(240,166,200,.16), transparent 60%), radial-gradient(600px circle at 85% 130%, rgba(156,192,255,.15), transparent 60%);">
+  <div class="max-w-2xl mx-auto text-center">
+    <h2 class="font-serif text-3xl md:text-4xl text-white mb-5">Pas sûr quel plan convient ?</h2>
+    <p class="text-neutral-400 mb-9">Réservez un appel stratégique gratuit de 30 minutes. Nous passerons en revue votre calendrier et vos entrevues, et recommanderons honnêtement un plan, même si cela signifie le plus petit.</p>
+    <a href="book-fr.html" class="inline-block bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Réservez votre appel stratégique gratuit</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class='bg-[#0A0A0C] text-white py-10 px-6 border-t border-white/10'>
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <a href="index-fr.html" class="font-serif text-xl">MNTR Tutoring<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-500 text-sm">© 2026 MNTR Tutoring · Québec · <a href="privacy-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Politique de confidentialité</a> · <a href="user-agreement-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Contrat utilisateur</a></p>
+  </div>
+</footer>
+
+<script>
+  /* Language switcher */
+  function toggleLangMenu() {
+    var menu = document.getElementById('langMenu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  }
+
+  // Close language menu when clicking outside
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('langMenu');
+    var button = e.target.closest('button');
+    if (menu && !menu.contains(e.target) && (!button || !button.onclick || !button.onclick.toString().includes('toggleLangMenu'))) {
+      menu.classList.add('hidden');
+    }
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>
