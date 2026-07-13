@@ -161,6 +161,9 @@
   });
 
   var NEWSLETTER_TO = 'mntrtutoring.info@gmail.com';
+  /* Paste the Google Apps Script Web App URL here (see setup instructions) so
+     newsletter signups get logged as a row in the Google Sheet. */
+  var SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzXgIbhOJDcZq_OtjFE5SmI1g3shmgiEr8c28KlrvHcJc784dk2bDwXV7BJ4mKqhakp/exec';
   var HOLD_STRIPE_LINK = 'https://buy.stripe.com/7sYfZjdd868g8to3sZdUY01';
   var UNLOCK_KEY = 'mntr_book_unlocked';
   var calLoaded = false;
@@ -230,7 +233,7 @@
     });
   })();
 
-  /* Newsletter signup -> mntrtutoring.info@gmail.com */
+  /* Newsletter signup -> logs a row in the Google Sheet + notifies mntrtutoring.info@gmail.com */
   (function () {
     var form = document.getElementById('newsletterForm');
     if (!form) return;
@@ -244,6 +247,25 @@
       var label = btn ? btn.textContent : '';
       if (btn) { btn.textContent = 'Inscription...'; btn.disabled = true; }
 
+      /* 1) Log the signup as a row in the Google Sheet (fire-and-forget: Apps
+            Script Web Apps don't return readable CORS responses to the browser,
+            so we use no-cors and just assume it went through). */
+      if (SHEET_WEBAPP_URL.indexOf('http') === 0) {
+        try {
+          await fetch(SHEET_WEBAPP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'email=' + encodeURIComponent(email) + '&source=newsletter&page=' + encodeURIComponent(location.href),
+          });
+        } catch (err) { /* ignore - don't block booking on this */ }
+      }
+
+      /* 2) Email notification via FormSubmit. The signup itself (Sheet row)
+            already happened above, so we unlock the calendar either way -
+            a failed notification email shouldn't block someone from booking. */
+      form.classList.add('hidden');
+      unlockBooking('newsletter');
       try {
         var res = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(NEWSLETTER_TO), {
           method: 'POST',
@@ -256,10 +278,7 @@
           }),
         });
         var data = await res.json();
-        if (res.ok && data.success === 'true') {
-          form.classList.add('hidden');
-          unlockBooking('newsletter');
-        } else {
+        if (!(res.ok && data.success === 'true')) {
           alert('Quelque chose s\'est mal passé. Veuillez réessayer ou envoyer un courriel à mntrtutoring.info@gmail.com directement.');
         }
       } catch (err) {
