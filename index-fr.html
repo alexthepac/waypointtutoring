@@ -132,21 +132,6 @@
 <!-- ============================================================
      "VIEW YOUR SCHEDULE" MODAL
 ============================================================ -->
-<div id="scheduleModal" onclick="if(event.target===this) closeScheduleModal()" class="fixed inset-0 z-[90] hidden items-center justify-center bg-black/60 backdrop-blur-sm px-6">
-  <div class="relative bg-white rounded-3xl max-w-md w-full p-8 md:p-10 text-center shadow-2xl">
-    <button onclick="closeScheduleModal()" aria-label="Fermer" class="absolute top-5 right-5 text-neutral-400 hover:text-black transition-colors">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
-    <div class="w-14 h-14 rounded-full bg-black flex items-center justify-center mx-auto mb-6">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-    </div>
-    <h3 class="font-serif text-2xl md:text-3xl mb-3">Voir votre horaire</h3>
-    <p class="text-neutral-600 text-sm leading-relaxed mb-8">Rejoignez notre Discord et nous vous y enverrons vos sessions à venir.</p>
-    <!-- Placeholder link -> replace # with the real Discord invite -->
-    <a href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-black text-white font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-neutral-800 transition-colors w-full">Rejoindre notre Discord</a>
-  </div>
-</div>
-
 <!-- ============================================================
      HERO  (Centific-style: full-bleed image, text overlaid directly, NO box)
 ============================================================ -->
@@ -175,10 +160,10 @@
           <a href="index-fr.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">Français</a>
         </div>
       </div>
-      <button onclick="openScheduleModal()" class="inline-flex items-center gap-1.5 text-white/90 text-xs sm:text-sm font-medium border border-white/25 rounded-full px-3 sm:px-4 py-2 hover:bg-white/10 hover:text-white transition-colors">
+      <a href="book-fr.html" class="inline-flex items-center gap-1.5 text-white/90 text-xs sm:text-sm font-medium border border-white/25 rounded-full px-3 sm:px-4 py-2 hover:bg-white/10 hover:text-white transition-colors">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
         Voir votre horaire
-      </button>
+      </a>
       <!-- Social icons: Instagram, LinkedIn, Discord -->
       <a href="https://www.instagram.com/mntrtutoring/" target="_blank" rel="noopener" aria-label="Instagram"
          class="hidden sm:inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/25 text-white/90 hover:bg-white/10 hover:text-white transition-colors">
@@ -302,6 +287,10 @@
           </div>
           <p class="text-neutral-400 text-sm mb-6">1 heure · En ligne</p>
           <p class="text-neutral-300 text-sm leading-relaxed">Simulations chronométrées réalistes du CASPer ou mini-stations d'entrevue MMI, avec des retours individuels d'experts, par des mentors admis aux quatre écoles de médecine du Québec. Des cadres de réponse éprouvés pour rester calme et vif le jour de l'entrevue.</p>
+          <a href="https://med-prep.ca/auth" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="inline-flex items-center gap-1.5 text-white/70 hover:text-white text-xs font-medium underline underline-offset-4 decoration-white/30 hover:decoration-white transition-colors mt-4">
+            Essayez gratuitement notre préparation CASPer par IA
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
           <div class="mt-auto pt-8">
             <span class="inline-flex items-center gap-1.5 text-white font-semibold text-sm group-hover:gap-2.5 transition-all">Préparez-vous avec nous
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -627,19 +616,6 @@
       menu.classList.add('hidden');
     }
   });
-
-  /* ---------- "View your schedule" modal ---------- */
-  const scheduleModal = document.getElementById('scheduleModal');
-  function openScheduleModal() {
-    scheduleModal.classList.remove('hidden');
-    scheduleModal.classList.add('flex');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeScheduleModal() {
-    scheduleModal.classList.add('hidden');
-    scheduleModal.classList.remove('flex');
-    document.body.style.overflow = '';
-  }
 
   /* ---------- Scroll-reveal ---------- */
   const io = new IntersectionObserver((entries) => {
