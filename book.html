@@ -160,7 +160,7 @@
     }
   });
 
-  var NEWSLETTER_TO = 'info@brightmindtutors.ca';
+  var NEWSLETTER_TO = 'mntrtutoring.info@gmail.com';
   var HOLD_STRIPE_LINK = 'https://buy.stripe.com/7sYfZjdd868g8to3sZdUY01';
   var UNLOCK_KEY = 'mntr_book_unlocked';
   var calLoaded = false;
@@ -192,7 +192,7 @@
     Cal.ns['free-consultation']('inline', {
       elementOrSelector: '#my-cal-inline',
       config: { layout: 'month_view', language: 'en' },
-      calLink: 'alex-fwizup',
+      calLink: 'mntr-iif8ix',
     });
     Cal.ns['free-consultation']('ui', { hideEventTypeDetails: false, layout: 'month_view' });
   }
@@ -230,7 +230,7 @@
     });
   })();
 
-  /* Newsletter signup -> info@brightmindtutors.ca */
+  /* Newsletter signup -> mntrtutoring.info@gmail.com */
   (function () {
     var form = document.getElementById('newsletterForm');
     if (!form) return;
@@ -260,7 +260,7 @@
           form.classList.add('hidden');
           unlockBooking('newsletter');
         } else {
-          alert('Something went wrong. Please try again or email info@brightmindtutors.ca directly.');
+          alert('Something went wrong. Please try again or email mntrtutoring.info@gmail.com directly.');
         }
       } catch (err) {
         alert('Network error. Please check your connection and try again.');

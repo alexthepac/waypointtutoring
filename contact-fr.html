@@ -123,11 +123,15 @@
   </div>
 
   <!-- Divider -->
-  <div class="flex items-center gap-6 mb-16">
+  <div class="flex items-center gap-6 mb-8">
     <div class="flex-1 h-px bg-black/10"></div>
     <p class="text-sm text-neutral-500 shrink-0">Ou envoyez-nous un message</p>
     <div class="flex-1 h-px bg-black/10"></div>
   </div>
+
+  <p class="text-center text-sm text-neutral-500 mb-16">Vous pouvez aussi nous écrire directement à
+    <a href="mailto:mntrtutoring.info@gmail.com" class="font-semibold text-black hover:underline">mntrtutoring.info@gmail.com</a>
+  </p>
 
   <!-- General inquiry form -->
   <div class="max-w-xl mx-auto">
@@ -136,8 +140,8 @@
       <p class="text-neutral-500 text-sm">Pas encore prêt à réserver ? Laissez-nous un message et nous répondrons le jour même.</p>
     </div>
 
-    <form id='contactForm' action='https://formsubmit.co/ajax/perfettielliott@gmail.com' method='POST' class='space-y-5'>
-      <!-- TEMPORARY: contact submissions go to perfettielliott@gmail.com via FormSubmit. Change the email in the action URL above to reroute. -->
+    <form id='contactForm' action='https://formsubmit.co/ajax/mntrtutoring.info@gmail.com' method='POST' class='space-y-5'>
+      <!-- TEMPORARY: contact submissions go to mntrtutoring.info@gmail.com via FormSubmit. Change the email in the action URL above to reroute. -->
       <input type='hidden' name='_subject' value='Nouvelle demande du site MNTR Tutoring (FR)' />
       <input type='hidden' name='_captcha' value='false' />
       <!-- Honeypot spam filter (hidden from humans) -->
@@ -237,12 +241,12 @@
         });
         const data = await res.json();
         if (res.ok && (data.success === true || data.success === 'true')) {
-          showSuccess();               // sent to perfettielliott@gmail.com via FormSubmit → show popup
+          showSuccess();               // sent to mntrtutoring.info@gmail.com via FormSubmit → show popup
         } else {
-          alert('Un problème est survenu. Veuillez nous écrire directement à info@brightmindtutors.ca');
+          alert('Un problème est survenu. Veuillez nous écrire directement à mntrtutoring.info@gmail.com');
         }
       } catch (err) {
-        alert('Erreur réseau. Veuillez nous écrire directement à info@brightmindtutors.ca');
+        alert('Erreur réseau. Veuillez nous écrire directement à mntrtutoring.info@gmail.com');
       } finally {
         if (btn) { btn.textContent = label; btn.disabled = false; }
       }
