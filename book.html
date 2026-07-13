@@ -194,7 +194,7 @@
     Cal('init', 'free-consultation', { origin: 'https://cal.com' });
     Cal.ns['free-consultation']('inline', {
       elementOrSelector: '#my-cal-inline',
-      config: { layout: 'month_view', language: 'en' },
+      config: { layout: 'month_view', language: 'en', duration: 30 },
       calLink: 'mntr-iif8ix',
     });
     Cal.ns['free-consultation']('ui', { hideEventTypeDetails: false, layout: 'month_view' });
@@ -279,10 +279,10 @@
         });
         var data = await res.json();
         if (!(res.ok && data.success === 'true')) {
-          alert('Something went wrong. Please try again or email mntrtutoring.info@gmail.com directly.');
+          console.warn('Newsletter notification email may not have sent, but signup + booking still succeeded.');
         }
       } catch (err) {
-        alert('Network error. Please check your connection and try again.');
+        console.warn('Newsletter notification email failed, but signup + booking still succeeded.', err);
       } finally {
         if (btn) { btn.textContent = label; btn.disabled = false; }
       }
