@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18318813201"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18318813201');
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>FAQ · Brightmind Tutoring</title>
+<title>FAQ · MNTR Tutoring</title>
+<link rel='icon' type='image/png' href='favicon.png?v=2' />
 
 <!-- ===================== FONTS ===================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,12 +52,23 @@
 ============================================================ -->
 <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight">Brightmind Tutoring<span class="text-neutral-400">.</span></a>
-    <nav class="flex items-center gap-7 text-sm font-medium text-neutral-600">
+    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight">MNTR Tutoring<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-7 text-sm font-medium text-neutral-600">
+      <!-- Language Switcher -->
+      <div class="relative">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-black transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          EN
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-xl overflow-hidden z-50">
+          <a href="faq.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">English</a>
+          <a href="faq-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
+        </div>
+      </div>
       <a href="index.html" class="hover:text-black transition-colors">Home</a>
       <a href="index.html#services" class="hover:text-black transition-colors hidden sm:inline">Pricing</a>
       <a href="index.html#contact" class="bg-black text-white px-5 py-2.5 rounded-full hover:bg-neutral-800 transition-colors">Contact us</a>
-    </nav>
+    </div>
   </div>
 </header>
 
@@ -58,7 +78,7 @@
 <section class="max-w-3xl mx-auto px-6 pt-24 md:pt-32 pb-12 text-center">
   <p class="reveal text-xs tracking-[0.3em] text-neutral-500 mb-5">HELP CENTRE</p>
   <h1 class="reveal font-serif text-5xl md:text-6xl leading-tight mb-6">Frequently Asked Questions</h1>
-  <p class="reveal text-neutral-600 text-lg">Everything you need to know about tutoring with Brightmind. Can't find your answer? <a href="index.html#contact" class="text-black underline underline-offset-4 hover:no-underline">Get in touch</a>.</p>
+  <p class="reveal text-neutral-600 text-lg">Everything you need to know about tutoring with MNTR. Can't find your answer? <a href="index.html#contact" class="text-black underline underline-offset-4 hover:no-underline">Get in touch</a>.</p>
 </section>
 
 <!-- ============================================================
@@ -101,13 +121,13 @@
         <h2 class="font-serif text-xl md:text-2xl">How much does it cost?</h2>
         <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
       </summary>
-      <p class="text-neutral-600 leading-relaxed mt-4">Your first 30-minute consultation is completely free. After that, 1-on-1 subject tutoring is $50 per session, and our academic &amp; lifestyle coaching is $60 per session. See the <a href="index.html#services" class="text-black underline underline-offset-4 hover:no-underline">full breakdown here</a>.</p>
+      <p class="text-neutral-600 leading-relaxed mt-4">Your first 30-minute consultation is completely free. After that, 1-on-1 subject tutoring is $54.97 per session, with study-method and lifestyle coaching built into every session. Package discounts are also available. See the <a href="index.html#services" class="text-black underline underline-offset-4 hover:no-underline">full breakdown here</a>.</p>
     </details>
 
     <!-- Item -->
     <details class="group py-6">
       <summary class="flex items-center justify-between gap-6 cursor-pointer">
-        <h2 class="font-serif text-xl md:text-2xl">What makes Brightmind different?</h2>
+        <h2 class="font-serif text-xl md:text-2xl">What makes MNTR different?</h2>
         <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
       </summary>
       <p class="text-neutral-600 leading-relaxed mt-4">We teach you <em>how</em> to learn, not just what to learn. Alongside the subject material, our mentors coach you on study methods, time management and the lifestyle habits that make academic success sustainable, because intelligence is a skill, not a fixed trait.</p>
@@ -155,12 +175,29 @@
 ============================================================ -->
 <footer class="bg-black text-white py-12 px-6 md:px-12">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-    <a href="index.html" class="font-serif text-xl">Brightmind Tutoring<span class="text-neutral-500">.</span></a>
-    <p class="text-neutral-500 text-sm">© 2026 Brightmind Tutoring · Premium University Tutoring · Québec</p>
+    <a href="index.html" class="font-serif text-xl">MNTR Tutoring<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-500 text-sm">© 2026 MNTR Tutoring · Premium University Tutoring · Québec · <a href="privacy.html" class="hover:text-white transition-colors underline underline-offset-2">Privacy Policy</a> · <a href="user-agreement.html" class="hover:text-white transition-colors underline underline-offset-2">User Agreement</a></p>
   </div>
 </footer>
 
 <script>
+  /* Language switcher */
+  function toggleLangMenu() {
+    var menu = document.getElementById('langMenu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  }
+
+  // Close language menu when clicking outside
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('langMenu');
+    var button = e.target.closest('button');
+    if (menu && !menu.contains(e.target) && (!button || !button.onclick || !button.onclick.toString().includes('toggleLangMenu'))) {
+      menu.classList.add('hidden');
+    }
+  });
+
   /* Scroll-reveal */
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18318813201"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18318813201');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FAQ · Tutorat MNTR</title>
+<link rel='icon' type='image/png' href='favicon.png?v=2' />
+
+<!-- ===================== FONTS ===================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<!-- ===================== TAILWIND (CDN) ===================== -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: { fontFamily: {
+      sans:  ['Inter', 'system-ui', 'sans-serif'],
+      serif: ['Fraunces', 'Georgia', 'serif'],
+    } } },
+  };
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; }
+
+  /* Accordion: rotate the + into an × and reveal the answer */
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  details .plus { transition: transform .3s ease; }
+  details[open] .plus { transform: rotate(45deg); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
+  .reveal.in { opacity: 1; transform: none; }
+</style>
+</head>
+
+<body class="bg-white text-black antialiased">
+
+<!-- ============================================================
+     TOP BAR
+============================================================ -->
+<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
+  <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
+    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight">Tutorat MNTR<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-7 text-sm font-medium text-neutral-600">
+      <!-- Language Switcher -->
+      <div class="relative">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-black transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          FR
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-xl overflow-hidden z-50">
+          <a href="faq.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">English</a>
+          <a href="faq-fr.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">Français</a>
+        </div>
+      </div>
+      <a href="index-fr.html" class="hover:text-black transition-colors">Accueil</a>
+      <a href="index-fr.html#services" class="hover:text-black transition-colors hidden sm:inline">Tarifs</a>
+      <a href="index-fr.html#contact" class="bg-black text-white px-5 py-2.5 rounded-full hover:bg-neutral-800 transition-colors">Contactez-nous</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     TITLE
+============================================================ -->
+<section class="max-w-3xl mx-auto px-6 pt-24 md:pt-32 pb-12 text-center">
+  <p class="reveal text-xs tracking-[0.3em] text-neutral-500 mb-5">CENTRE D'AIDE</p>
+  <h1 class="reveal font-serif text-5xl md:text-6xl leading-tight mb-6">Questions fréquentes</h1>
+  <p class="reveal text-neutral-600 text-lg">Tout ce que vous devez savoir sur le tutorat avec MNTR. Vous ne trouvez pas votre réponse ? <a href="index-fr.html#contact" class="text-black underline underline-offset-4 hover:no-underline">Contactez-nous</a>.</p>
+</section>
+
+<!-- ============================================================
+     FAQ ACCORDION
+     To add a question, copy one <details> block and edit the text.
+============================================================ -->
+<section class="max-w-3xl mx-auto px-6 pb-24 md:pb-32">
+  <div class="reveal divide-y divide-black/10 border-y border-black/10">
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">Qui sont vos personnes tutrices ?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">Nos personnes tutrices sont des étudiantes et étudiants en médecine et de premier cycle universitaire dans les meilleures institutions du Québec comme McGill, l'Université de Montréal et Concordia, auxquels s'ajoutent des étudiantes et étudiants exceptionnels du CEGEP inscrits dans des programmes enrichis. Chaque personne tutrice est évaluée pour sa maîtrise de la matière et sa capacité à l'enseigner clairement.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">Quelles matières couvrez-vous ?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">Nous nous concentrons sur les STEM : mathématiques et calcul, physique, chimie et biologie, couvrant le secondaire et le CEGEP jusqu'aux cours universitaires les plus complexes.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">Comment se déroulent les sessions ?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">Toutes les sessions sont individuelles et en ligne par appel vidéo, afin que vous puissiez apprendre de n'importe où selon un horaire qui vous convient. Chaque session est préparée à l'avance en fonction de votre programme d'études et de vos objectifs.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">Combien cela coûte-t-il ?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">Votre première consultation de 30 minutes est entièrement gratuite. Ensuite, le tutorat individuel par matière est de 54,97 $ par session, avec un coaching sur les méthodes d'étude et le mode de vie intégré à chaque session. Des forfaits avec rabais sont également disponibles. Consultez le <a href="index-fr.html#services" class="text-black underline underline-offset-4 hover:no-underline">détail complet ici</a>.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">Qu'est-ce qui distingue MNTR ?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">Nous vous enseignons <em>comment</em> apprendre, pas seulement quoi apprendre. En plus du matériel de la matière, nos mentors vous coachent sur les méthodes d'étude, la gestion du temps et les habitudes de mode de vie qui rendent le succès académique durable, car l'intelligence est une compétence, pas un trait fixe.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">Comment commencer ?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">Réservez votre consultation gratuite via le <a href="index-fr.html#contact" class="text-black underline underline-offset-4 hover:no-underline">formulaire de contact</a>. Nous évaluerons vos besoins, identifierons vos objectifs, et vous jumelerons avec la personne tutrice qui convient le mieux.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">Puis-je changer de personne tutrice ?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">Absolument, à tout moment et sans frais supplémentaires. La bonne adéquation compte, et nous vous réjumelerons avec plaisir jusqu'à ce que cela semble juste.</p>
+    </details>
+
+    <!-- Item -->
+    <details class="group py-6">
+      <summary class="flex items-center justify-between gap-6 cursor-pointer">
+        <h2 class="font-serif text-xl md:text-2xl">Offrez-vous des forfaits ou des rabais ?</h2>
+        <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
+      </summary>
+      <p class="text-neutral-600 leading-relaxed mt-4">Oui, nous offrons des forfaits multi-sessions pour les étudiants qui s'engagent à un soutien régulier. Contactez-nous via le <a href="index-fr.html#contact" class="text-black underline underline-offset-4 hover:no-underline">formulaire de contact</a> et nous élaborerons un plan qui convient.</p>
+    </details>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="reveal mt-16 bg-black text-white rounded-3xl px-8 py-14 text-center">
+    <h2 class="font-serif text-3xl md:text-4xl mb-4">Vous avez encore des questions ?</h2>
+    <p class="text-neutral-300 mb-8 max-w-md mx-auto">Réservez un appel d'introduction gratuit et nous vous expliquerons tout.</p>
+    <a href="index-fr.html#contact" class="inline-block bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Contactez-nous</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="bg-black text-white py-12 px-6 md:px-12">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <a href="index-fr.html" class="font-serif text-xl">Tutorat MNTR<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-500 text-sm">© 2026 Tutorat MNTR · Québec · <a href="privacy-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Politique de confidentialité</a> · <a href="user-agreement-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Contrat utilisateur</a></p>
+  </div>
+</footer>
+
+<script>
+  /* Language switcher */
+  function toggleLangMenu() {
+    var menu = document.getElementById('langMenu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  }
+
+  // Close language menu when clicking outside
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('langMenu');
+    var button = e.target.closest('button');
+    if (menu && !menu.contains(e.target) && (!button || !button.onclick || !button.onclick.toString().includes('toggleLangMenu'))) {
+      menu.classList.add('hidden');
+    }
+  });
+
+  /* Scroll-reveal */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>

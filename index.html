@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18318813201"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18318813201');
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>MNTR Tutoring · High School & CEGEP Tutoring</title>
@@ -132,21 +140,6 @@
 <!-- ============================================================
      "VIEW YOUR SCHEDULE" MODAL
 ============================================================ -->
-<div id="scheduleModal" onclick="if(event.target===this) closeScheduleModal()" class="fixed inset-0 z-[90] hidden items-center justify-center bg-black/60 backdrop-blur-sm px-6">
-  <div class="relative bg-white rounded-3xl max-w-md w-full p-8 md:p-10 text-center shadow-2xl">
-    <button onclick="closeScheduleModal()" aria-label="Close" class="absolute top-5 right-5 text-neutral-400 hover:text-black transition-colors">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
-    <div class="w-14 h-14 rounded-full bg-black flex items-center justify-center mx-auto mb-6">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-    </div>
-    <h3 class="font-serif text-2xl md:text-3xl mb-3">View your schedule</h3>
-    <p class="text-neutral-600 text-sm leading-relaxed mb-8">Join our Discord and we'll send you your upcoming sessions there.</p>
-    <!-- Placeholder link -> replace # with the real Discord invite -->
-    <a href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-black text-white font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-neutral-800 transition-colors w-full">Join our Discord</a>
-  </div>
-</div>
-
 <!-- ============================================================
      HERO  (Centific-style: full-bleed image, text overlaid directly, NO box)
 ============================================================ -->
@@ -175,20 +168,20 @@
           <a href="index-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
         </div>
       </div>
-      <button onclick="openScheduleModal()" class="inline-flex items-center gap-1.5 text-white/90 text-xs sm:text-sm font-medium border border-white/25 rounded-full px-3 sm:px-4 py-2 hover:bg-white/10 hover:text-white transition-colors">
+      <a href="book.html" class="inline-flex items-center gap-1.5 text-white/90 text-xs sm:text-sm font-medium border border-white/25 rounded-full px-3 sm:px-4 py-2 hover:bg-white/10 hover:text-white transition-colors">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
         View your schedule
-      </button>
+      </a>
       <!-- Social icons: Instagram, LinkedIn, Discord -->
       <a href="https://www.instagram.com/mntrtutoring/" target="_blank" rel="noopener" aria-label="Instagram"
          class="hidden sm:inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/25 text-white/90 hover:bg-white/10 hover:text-white transition-colors">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
       </a>
-      <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn"
+      <a href="https://www.linkedin.com/company/mntrtutoring/posts/?feedView=all" target="_blank" rel="noopener" aria-label="LinkedIn"
          class="hidden sm:inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/25 text-white/90 hover:bg-white/10 hover:text-white transition-colors">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a>
-      <a href="#" target="_blank" rel="noopener" aria-label="Discord"
+      <a href="https://discord.gg/Hb6MYyXS5" target="_blank" rel="noopener" aria-label="Discord"
          class="hidden sm:inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/25 text-white/90 hover:bg-white/10 hover:text-white transition-colors">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
       </a>
@@ -281,7 +274,7 @@
         <div onclick="pickService('1-on-1 Subject Tutoring')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
           <h3 class="font-serif text-2xl leading-tight mb-4">Private 1-on-1 Tutoring</h3>
           <div class="flex items-baseline gap-1.5 mb-1">
-            <span class="text-3xl font-semibold">$45</span>
+            <span class="text-3xl font-semibold">$54.97</span>
             <span class="text-neutral-400 text-sm">/ session</span>
           </div>
           <p class="text-neutral-400 text-sm mb-6">1 hour · Online</p>
@@ -297,11 +290,15 @@
         <div id='casper' onclick="pickService('CASPer & MMI Prep')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
           <h3 class="font-serif text-2xl leading-tight mb-4">CASPer &amp; MMI Prep</h3>
           <div class="flex items-baseline gap-1.5 mb-1">
-            <span class="text-3xl font-semibold">$60</span>
+            <span class="text-3xl font-semibold">$69.99</span>
             <span class="text-neutral-400 text-sm">/ session</span>
           </div>
           <p class="text-neutral-400 text-sm mb-6">1 hour · Online</p>
           <p class="text-neutral-300 text-sm leading-relaxed">Realistic timed CASPer simulations or MMI mock stations with 1-on-1 expert feedback, from mentors admitted to all four Québec medical schools. Proven answer frameworks so you stay calm and sharp on interview day.</p>
+          <a href="https://med-prep.ca/auth" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="inline-flex items-center gap-1.5 text-white/70 hover:text-white text-xs font-medium underline underline-offset-4 decoration-white/30 hover:decoration-white transition-colors mt-4">
+            Try our AI CASPer prep for free
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
           <div class="mt-auto pt-8">
             <span class="inline-flex items-center gap-1.5 text-white font-semibold text-sm group-hover:gap-2.5 transition-all">Prepare with us
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -320,10 +317,10 @@
           <div onclick="pickService('5-Session Package')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-2xl px-7 py-6 flex items-center justify-between hover:border-white/30 transition-colors">
             <div>
               <h4 class="font-serif text-xl">5-Session Package</h4>
-              <p class="text-neutral-400 text-sm mt-1">$40 / session · save $25</p>
+              <p class="text-neutral-400 text-sm mt-1">$50 / session · save $25</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-semibold">$200</div>
+              <div class="text-2xl font-semibold">$250</div>
               <div class="text-neutral-500 text-xs">total</div>
             </div>
           </div>
@@ -332,10 +329,10 @@
           <div onclick="pickService('10-Session Package')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-2xl px-7 py-6 flex items-center justify-between hover:border-white/30 transition-colors">
             <div>
               <h4 class="font-serif text-xl">10-Session Package</h4>
-              <p class="text-neutral-400 text-sm mt-1">$35 / session · save $100</p>
+              <p class="text-neutral-400 text-sm mt-1">$45 / session · save $100</p>
             </div>
             <div class="text-right">
-              <div class="text-2xl font-semibold">$350</div>
+              <div class="text-2xl font-semibold">$450</div>
               <div class="text-neutral-500 text-xs">total</div>
             </div>
           </div>
@@ -391,7 +388,7 @@
 
       <!-- Card 1 · Elliott (real photo) -->
       <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
-        <img src='elliott_card.jpg' alt='Elliott' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
+        <img src='elliottnewpic.jpeg' alt='Elliott' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
         <div class='absolute left-5 bottom-5 right-5'>
           <h3 class='text-white text-xl font-semibold'>Elliott</h3>
@@ -414,12 +411,12 @@
 
       <!-- Card 4 · Sofia (real photo) -->
       <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
-        <img src='sofia.jpg' alt='Sofia' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
+        <img src='Sofianewpic.jpeg' alt='Sofia' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
         <div class='absolute left-5 bottom-5 right-5'>
           <h3 class='text-white text-xl font-semibold'>Sofia</h3>
           <p class='text-white/80 text-[13px] font-medium mt-1'>Concordia · Honours Psychology</p>
-          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Admitted to every Honours Psychology program in Québec, and a recipient of the Governor General's Award. Currently interning at the CRBLM (McGill's psychology research institute).</p>
+          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Admitted to every Honours Psychology program in Québec, and a recipient of the Governor General's Award. Currently interning at the CRBLM (McGill's psychology research institute), and previously a teaching assistant for high school subjects.</p>
           <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Tutors </span>CEGEP Biology &amp; every high school subject</p>
         </div>
       </article>
@@ -433,6 +430,17 @@
           <p class='text-white/80 text-[13px] font-medium mt-1'>Dawson College · Enriched Health Science</p>
           <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Finance Vice-President of MedLife and a regional supervisor for a nationally operating lifesaving and water-safety organization.</p>
           <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Tutors </span>CEGEP Math, Biology &amp; Chemistry, plus every high school subject</p>
+        </div>
+      </article>
+
+      <!-- Card · Mani (real photo) -->
+      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+        <img src='Mani%20pic.jpg' alt='Mani' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
+        <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
+        <div class='absolute left-5 bottom-5 right-5'>
+          <h3 class='text-white text-xl font-semibold'>Mani</h3>
+          <p class='text-white/80 text-[13px] font-medium mt-1'>Dawson College · Enriched Pure and Applied Sciences</p>
+          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Founder of the Dawson Aerospace Club and Editor of the Dawson Research Journal of Experimental Sciences, with a research background in Neuroscience. Currently an intern at the Montreal Neurological Institute.</p>
         </div>
       </article>
 
@@ -588,7 +596,7 @@
               Instagram
             </a>
           </li>
-          <li><a href='mailto:info@brightmindtutors.ca' class='hover:text-white transition-colors'>info@brightmindtutors.ca</a></li>
+          <li><a href='mailto:mntrtutoring.info@gmail.com' class='hover:text-white transition-colors'>mntrtutoring.info@gmail.com</a></li>
         </ul>
       </div>
     </div>
@@ -630,19 +638,6 @@
       menu.classList.add('hidden');
     }
   });
-
-  /* ---------- "View your schedule" modal ---------- */
-  const scheduleModal = document.getElementById('scheduleModal');
-  function openScheduleModal() {
-    scheduleModal.classList.remove('hidden');
-    scheduleModal.classList.add('flex');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeScheduleModal() {
-    scheduleModal.classList.add('hidden');
-    scheduleModal.classList.remove('flex');
-    document.body.style.overflow = '';
-  }
 
   /* ---------- Scroll-reveal ---------- */
   const io = new IntersectionObserver((entries) => {
