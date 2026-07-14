@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18318813201"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18318813201');
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Commande · MNTR Tutoring</title>
+<title>Commande · Tutorat MNTR</title>
 <link rel='icon' type='image/png' href='favicon.png?v=2' />
 
 <!-- Fonts -->
@@ -32,7 +40,7 @@
 <!-- Header -->
 <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight">MNTR Tutoring<span class="text-neutral-400">.</span></a>
+    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight">Tutorat MNTR<span class="text-neutral-400">.</span></a>
     <div class="flex items-center gap-3">
       <!-- Language Switcher -->
       <div class="relative">
@@ -96,8 +104,8 @@
 <!-- Footer -->
 <footer class="bg-[#0A0A0C] text-white py-10 px-6 mt-10" style="background-image: radial-gradient(500px circle at 20% -20%, rgba(240,166,200,.12), transparent 60%), radial-gradient(500px circle at 85% 130%, rgba(156,192,255,.11), transparent 60%);">
   <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-    <a href="index-fr.html" class="font-serif text-lg">MNTR Tutoring<span class="text-neutral-500">.</span></a>
-    <p class="text-neutral-500 text-sm">&copy; 2026 MNTR Tutoring &middot; Qu&eacute;bec &middot; <a href="privacy-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Politique de confidentialité</a> &middot; <a href="user-agreement-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Contrat utilisateur</a></p>
+    <a href="index-fr.html" class="font-serif text-lg">Tutorat MNTR<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-500 text-sm">&copy; 2026 Tutorat MNTR &middot; Qu&eacute;bec &middot; <a href="privacy-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Politique de confidentialité</a> &middot; <a href="user-agreement-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Contrat utilisateur</a></p>
   </div>
 </footer>
 
@@ -144,7 +152,7 @@
     tutoring: {
       name: 'Tutorat individuel',
       price: '$45', unit: 'par session de 60 minutes',
-      desc: 'Tutorat individuel avec des étudiants en médecine et universitaires de premier plan, préparé à l\'avance autour de vos cours exacts.',
+      desc: 'Tutorat individuel avec des étudiants en médecine, préparé à l\'avance autour de vos cours précis.',
       includes: ['Une session en ligne complète de 60 minutes', 'Préparé autour de votre programme d\'études et de vos objectifs', 'Matières STEM du secondaire à l\'université', 'Coaching sur les méthodes d\'étude intégré à chaque session'],
       cal: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring'
     },
@@ -152,14 +160,14 @@
       name: 'Forfait de tutorat 5 sessions',
       price: '$200', unit: '$40 / session · économisez $25',
       desc: 'Cinq sessions de tutorat individuel à un taux réduit par session, pour les étudiants qui veulent un soutien régulier.',
-      includes: ['Cinq sessions en ligne de 60 minutes', '$40 par session (économisez $25 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre tuteur'],
+      includes: ['Cinq sessions en ligne de 60 minutes', '$40 par session (économisez $25 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
       stripe: 'https://buy.stripe.com/eVq8wR5KG8gogZUgfLdUY06'
     },
     pack10: {
       name: 'Forfait de tutorat 10 sessions',
       price: '$350', unit: '$35 / session · économisez $100',
       desc: 'Dix sessions de tutorat individuel à notre meilleur taux par session, idéal pour un trimestre complet de soutien constant.',
-      includes: ['Dix sessions en ligne de 60 minutes', '$35 par session (économisez $100 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre tuteur'],
+      includes: ['Dix sessions en ligne de 60 minutes', '$35 par session (économisez $100 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
       stripe: 'https://buy.stripe.com/6oUdRb6OKaow10WbZvdUY03'
     },
     coaching: {
@@ -170,10 +178,10 @@
       stripe: 'https://buy.stripe.com/3cI4gB7SOgMUcJEgfLdUY02'
     },
     'casper-hourly': {
-      name: 'Préparation CASPer & MMI',
+      name: 'Préparation CASPer & MEM',
       price: '$60', unit: 'par session de 60 minutes',
-      desc: 'Préparation individuelle CASPer et MMI : simulations chronométrées réalistes ou stations simulées avec rétroaction d\'expert, de mentors admis aux quatre écoles de médecine du Québec.',
-      includes: ['Une session en ligne complète de 60 minutes', 'Simulations CASPer chronométrées ou stations MMI simulées', 'Rétroaction d\'expert 1-sur-1 après chaque session', 'Cadres de réponse éprouvés & grille d\'évaluation'],
+      desc: 'Préparation individuelle CASPer et MEM : simulations chronométrées réalistes ou stations simulées avec rétroaction d\'expert, de mentors admis aux quatre écoles de médecine du Québec.',
+      includes: ['Une session en ligne complète de 60 minutes', 'Simulations CASPer chronométrées ou stations MEM simulées', 'Rétroaction d\'expert 1-sur-1 après chaque session', 'Cadres de réponse éprouvés & grille d\'évaluation'],
       cal: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep'
     }
   };
@@ -191,7 +199,7 @@
     document.getElementById('svc-desc').textContent = svc.desc;
     document.getElementById('svc-price').textContent = svc.price;
     document.getElementById('svc-unit').textContent = svc.unit;
-    document.title = svc.name + ' · Commande · MNTR Tutoring';
+    document.title = svc.name + ' · Commande · Tutorat MNTR';
 
     var ul = document.getElementById('svc-includes');
     svc.includes.forEach(function (item) {
