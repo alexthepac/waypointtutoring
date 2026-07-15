@@ -124,17 +124,18 @@
 <!-- ============================================================
      HAMBURGER DROP-DOWN OVERLAY (full-screen, slides down)
 ============================================================ -->
-<div id="menuOverlay" class="fixed inset-0 z-[60] bg-black text-white flex flex-col items-center justify-center gap-10">
+<div id="menuOverlay" class="fixed inset-0 z-[60] bg-black text-white flex flex-col items-center justify-center gap-6">
   <!-- Close (X) button -->
   <button onclick="toggleMenu()" aria-label="Close menu"
           class="absolute top-7 right-6 md:right-12 w-12 h-12 flex items-center justify-center text-white/60 hover:text-white transition-colors">
     <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
-  <a href="faq.html" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">FAQ</a>
-  <a href="#services" onclick="toggleMenu()" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">PRICING</a>
-  <a href="#contact" onclick="toggleMenu()" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">CONTACT&nbsp;US</a>
-  <a href="#staff"   onclick="toggleMenu()" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">STAFF</a>
-  <a href="user-agreement.html" class="font-serif text-5xl md:text-7xl tracking-tight hover:text-neutral-400 transition-colors">USER&nbsp;AGREEMENT</a>
+  <a href="faq.html" class="font-serif text-4xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">FAQ</a>
+  <a href="#services" onclick="toggleMenu()" class="font-serif text-4xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">PRICING</a>
+  <a href="#contact" onclick="toggleMenu()" class="font-serif text-4xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">CONTACT&nbsp;US</a>
+  <a href="#staff"   onclick="toggleMenu()" class="font-serif text-4xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">STAFF</a>
+  <a href="user-agreement.html" class="font-serif text-4xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">USER&nbsp;AGREEMENT</a>
+  <a href="privacy.html" class="font-serif text-4xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">PRIVACY&nbsp;POLICY</a>
 </div>
 
 <!-- ============================================================
@@ -155,7 +156,7 @@
 
   <!-- Top bar: logo (left) + language switcher + schedule button & hamburger (right), white to read over the dark image -->
   <div class="relative z-50 flex items-center justify-between px-6 md:px-12 py-8">
-    <a href="#" class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-white">MNTR Tutoring<span class="text-white/50">.</span></a>
+    <a href="#" class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-white inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-7 md:h-8 w-auto" />MNTR Tutoring<span class="text-white/50">.</span></a>
     <div class="flex items-center gap-3 md:gap-5">
       <!-- Language Switcher -->
       <div class="relative">
@@ -386,19 +387,31 @@
            Cards without a photo show a neutral placeholder silhouette.
       ============================================================ -->
 
-      <!-- Card 1 · Elliott (real photo) -->
+      <!-- Card · Elliott (real photo) -->
       <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
         <img src='elliottnewpic.jpeg' alt='Elliott' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
         <div class='absolute left-5 bottom-5 right-5'>
           <h3 class='text-white text-xl font-semibold'>Elliott</h3>
           <p class='text-white/80 text-[13px] font-medium mt-1'>McGill Medical School</p>
-          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>First-round acceptance to all four Québec medical schools straight out of CEGEP. Currently a biophysics intern at the McIntyre Medical Building.</p>
+          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>First-round acceptance to all four Québec medical schools. Currently a biophysics intern at the McIntyre Medical Building.</p>
           <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Tutors </span>All CEGEP sciences &amp; every high school subject</p>
         </div>
       </article>
 
-      <!-- Card 3 · Bassma (real photo) -->
+      <!-- Card · James (real photo) -->
+      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+        <img src='james.jpg' alt='James' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
+        <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
+        <div class='absolute left-5 bottom-5 right-5'>
+          <h3 class='text-white text-xl font-semibold'>James</h3>
+          <p class='text-white/80 text-[13px] font-medium mt-1'>McGill Medical School</p>
+          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Admitted to McGill Medical School, bringing a strong foundation in the sciences to every session.</p>
+          <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Tutors </span>Chemistry &amp; Biology</p>
+        </div>
+      </article>
+
+      <!-- Card · Bassma (real photo) -->
       <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
         <img src='bassma.jpg' alt='Bassma' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
@@ -406,30 +419,19 @@
           <h3 class='text-white text-xl font-semibold'>Bassma</h3>
           <p class='text-white/80 text-[13px] font-medium mt-1'>Université de Sherbrooke · Medical School</p>
           <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Co-president of MedLife, having raised over $5,000 across various fundraisers, with over 200 hours of volunteering.</p>
+          <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Tutors </span>CEGEP Biology &amp; Chemistry, plus every high school subject</p>
         </div>
       </article>
 
-      <!-- Card 4 · Sofia (real photo) -->
+      <!-- Card · Vlad (real photo) -->
       <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
-        <img src='Sofianewpic.jpeg' alt='Sofia' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
+        <img src='vlad%20profile.jpg' alt='Vlad' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
         <div class='absolute left-5 bottom-5 right-5'>
-          <h3 class='text-white text-xl font-semibold'>Sofia</h3>
-          <p class='text-white/80 text-[13px] font-medium mt-1'>Concordia · Honours Psychology</p>
-          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Admitted to every Honours Psychology program in Québec, and a recipient of the Governor General's Award. Currently interning at the CRBLM (McGill's psychology research institute), and previously a teaching assistant for high school subjects.</p>
-          <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Tutors </span>CEGEP Biology &amp; every high school subject</p>
-        </div>
-      </article>
-
-      <!-- Card 5 · Alexandre (real photo) -->
-      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
-        <img src='alex.jpg' alt='Alexandre' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
-        <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
-        <div class='absolute left-5 bottom-5 right-5'>
-          <h3 class='text-white text-xl font-semibold'>Alexandre</h3>
-          <p class='text-white/80 text-[13px] font-medium mt-1'>Dawson College · Enriched Health Science</p>
-          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Finance Vice-President of MedLife and a regional supervisor for a nationally operating lifesaving and water-safety organization.</p>
-          <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Tutors </span>CEGEP Math, Biology &amp; Chemistry, plus every high school subject</p>
+          <h3 class='text-white text-xl font-semibold'>Vlad</h3>
+          <p class='text-white/80 text-[13px] font-medium mt-1'>Université de Montréal · Medical School</p>
+          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>2x Eureka! competition winner and high school valedictorian.</p>
+          <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Tutors </span>CEGEP Biology &amp; Chemistry, plus every high school subject</p>
         </div>
       </article>
 
@@ -441,18 +443,31 @@
           <h3 class='text-white text-xl font-semibold'>Mani</h3>
           <p class='text-white/80 text-[13px] font-medium mt-1'>Dawson College · Enriched Pure and Applied Sciences</p>
           <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Founder of the Dawson Aerospace Club and Editor of the Dawson Research Journal of Experimental Sciences, with a research background in Neuroscience. Currently an intern at the Montreal Neurological Institute.</p>
+          <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Tutors </span>CEGEP Physics &amp; Math, plus every high school subject</p>
         </div>
       </article>
 
-      <!-- Card 6 · James (real photo) -->
+      <!-- Card · Sofia (real photo) -->
       <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
-        <img src='james.jpg' alt='James' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
+        <img src='Sofianewpic.jpeg' alt='Sofia' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
         <div class='absolute left-5 bottom-5 right-5'>
-          <h3 class='text-white text-xl font-semibold'>James</h3>
-          <p class='text-white/80 text-[13px] font-medium mt-1'>McGill Medical School</p>
-          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Admitted to McGill Medical School, bringing a strong foundation in the sciences to every session.</p>
-          <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Tutors </span>Chemistry &amp; Biology</p>
+          <h3 class='text-white text-xl font-semibold'>Sofia</h3>
+          <p class='text-white/80 text-[13px] font-medium mt-1'>Concordia · Honours Psychology</p>
+          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Admitted to every Honours Psychology program in Québec, and a recipient of the Governor General's Award. Currently interning at the CRBLM (McGill's psychology research institute), and previously a teaching assistant for high school subjects.</p>
+          <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Tutors </span>CEGEP Biology &amp; every high school subject</p>
+        </div>
+      </article>
+
+      <!-- Card · Alexandre (real photo) -->
+      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+        <img src='alex.jpg' alt='Alexandre' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
+        <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
+        <div class='absolute left-5 bottom-5 right-5'>
+          <h3 class='text-white text-xl font-semibold'>Alexandre</h3>
+          <p class='text-white/80 text-[13px] font-medium mt-1'>Dawson College · Enriched Health Science</p>
+          <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Finance Vice-President of MedLife and a regional supervisor for a nationally operating lifesaving and water-safety organization.</p>
+          <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Tutors </span>CEGEP Math, Biology &amp; Chemistry, plus every high school subject</p>
         </div>
       </article>
 
@@ -554,7 +569,7 @@
     <div class='grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8 mb-14'>
       <!-- Brand -->
       <div class='col-span-2 md:col-span-1'>
-        <span class='font-serif text-xl'>MNTR Tutoring<span class='text-neutral-500'>.</span></span>
+        <span class='font-serif text-xl inline-flex items-center gap-2'><img src='logo-mark-white.png' alt='' aria-hidden='true' class='h-5 w-auto' />MNTR Tutoring<span class='text-neutral-500'>.</span></span>
         <p class='text-neutral-400 text-sm mt-3 leading-relaxed max-w-xs'>Personalized STEM tutoring for high school, CEGEP and Premed students, taught by medical and university students.</p>
       </div>
       <!-- Explore -->
