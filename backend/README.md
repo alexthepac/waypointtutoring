@@ -33,14 +33,21 @@ pages (step 4 below), the forms keep using their original direct endpoints.
 
 ### 1. Create the Worker
 
-**Option A — dashboard (no tools needed):**
+**Option A — dashboard, paste the code in (no repo connection needed):**
 1. Sign up / log in at [dash.cloudflare.com](https://dash.cloudflare.com).
 2. Go to **Workers & Pages → Create → Worker**, name it `mntr-forms`, deploy
    the "Hello World" it gives you.
 3. Click **Edit code**, delete everything, paste in the full contents of
-   [`worker.js`](worker.js), then **Deploy**.
+   [`worker.js`](../worker.js) (repo root), then **Deploy**.
 
-**Option B — command line:** install Node.js, then from this folder run
+**Option B — dashboard, connect the Git repo directly:**
+Cloudflare's Git-connected Worker deploy looks for `wrangler.toml` at the
+**repository root** — it has no field to point at a subfolder in the simple
+flow. That's why `worker.js` and `wrangler.toml` live at the repo root
+(not in this `backend/` folder): connecting the repo and deploying should
+find them with no extra configuration.
+
+**Option C — command line:** install Node.js, then from the repo root run
 `npx wrangler deploy` and follow the login prompt.
 
 Either way you end up with a URL like:
