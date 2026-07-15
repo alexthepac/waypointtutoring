@@ -157,23 +157,23 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
           <label for="name" class="block text-sm font-semibold mb-2">Nom</label>
-          <input id="name" name="name" type="text" required
+          <input id="name" name="name" type="text" required maxlength="100"
                  class="w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors text-sm" placeholder="Votre nom" />
         </div>
         <div>
           <label for="email" class="block text-sm font-semibold mb-2">Courriel</label>
-          <input id="email" name="email" type="email" required
+          <input id="email" name="email" type="email" required maxlength="254"
                  class="w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors text-sm" placeholder="vous@courriel.com" />
         </div>
       </div>
       <div>
         <label for="subject" class="block text-sm font-semibold mb-2">Sujet</label>
-        <input id="subject" name="topic" type="text"
+        <input id="subject" name="topic" type="text" maxlength="150"
                class="w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors text-sm" placeholder="ex. Calcul, Chimie, question sur les tarifs…" />
       </div>
       <div>
         <label for="message" class="block text-sm font-semibold mb-2">Message</label>
-        <textarea id="message" name="message" rows="4" required
+        <textarea id="message" name="message" rows="4" required maxlength="5000"
                class="w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors resize-none text-sm" placeholder="Que souhaitez-vous savoir ?"></textarea>
       </div>
       <button type="submit"
@@ -220,6 +220,15 @@
     }
   });
 
+  /* ---------- Security: protected backend ----------
+     Once the Cloudflare Worker in /backend is deployed (see backend/README.md),
+     paste its URL here (e.g. 'https://mntr-forms.you.workers.dev'). Submissions
+     then go through the backend, which hides the destination email, validates
+     every field, rate-limits by IP and drops bots. Leave '' to keep posting
+     directly to FormSubmit as before. */
+  const BACKEND_URL = '';
+  const pageLoadedAt = Date.now();
+
   /* ---------- Contact form: show success popup, then restore the form ---------- */
   const contactForm = document.getElementById('contactForm');
   const formSuccess = document.getElementById('formSuccess');
@@ -236,20 +245,50 @@
       }, 10000);                       // popup stays for 10 seconds, then the form returns
     };
 
+    /* Bot check: hidden honeypot field filled in, or the form submitted less
+       than 3 seconds after the page loaded. Bots are shown the success popup
+       without anything being sent, so they can't tell they were filtered. */
+    const isBotSubmission = () => {
+      const honey = contactForm.elements['_honey'];
+      return (honey && honey.value.trim() !== '') || (Date.now() - pageLoadedAt < 3000);
+    };
+
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (isBotSubmission()) { showSuccess(); return; }
       const btn = contactForm.querySelector('button[type=submit]');
       const label = btn ? btn.textContent : '';
       if (btn) { btn.textContent = 'Envoi...'; btn.disabled = true; }
       try {
-        const res = await fetch(contactForm.action, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: new FormData(contactForm),
-        });
-        const data = await res.json();
-        if (res.ok && (data.success === true || data.success === 'true')) {
-          showSuccess();               // sent to mntrtutoring.info@gmail.com via FormSubmit → show popup
+        let ok;
+        if (BACKEND_URL) {
+          /* Protected path: the backend validates, rate-limits and forwards. */
+          const res = await fetch(BACKEND_URL.replace(/\/+$/, '') + '/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              name: contactForm.elements['name'].value,
+              email: contactForm.elements['email'].value,
+              topic: contactForm.elements['topic'].value,
+              message: contactForm.elements['message'].value,
+              website: '',
+              t: Date.now() - pageLoadedAt,
+            }),
+          });
+          const data = await res.json();
+          ok = res.ok && data.success === true;
+        } else {
+          /* Direct path (backend not deployed yet): post to FormSubmit. */
+          const res = await fetch(contactForm.action, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new FormData(contactForm),
+          });
+          const data = await res.json();
+          ok = res.ok && (data.success === true || data.success === 'true');
+        }
+        if (ok) {
+          showSuccess();               // delivered to the MNTR inbox → show popup
         } else {
           alert('Un problème est survenu. Veuillez nous écrire directement à mntrtutoring.info@gmail.com');
         }

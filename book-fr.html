@@ -87,7 +87,9 @@
       <p class="text-neutral-500 text-sm mb-6">Recevez des conseils d'étude, des échéances et des offres dans votre boîte de réception afin de réserver votre place gratuite.</p>
 
       <form id="newsletterForm" class="space-y-3 mt-auto">
-        <input id="nl-email" name="email" type="email" required placeholder="vous@courriel.com"
+        <!-- Honeypot spam filter (hidden from humans) -->
+        <input type="text" name="website" id="nl-website" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <input id="nl-email" name="email" type="email" required maxlength="254" placeholder="vous@courriel.com"
                class="w-full border border-black/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-black transition-colors" />
         <button type="submit" class="w-full bg-black text-white font-semibold text-sm py-3.5 rounded-xl hover:bg-neutral-800 transition-colors">S'inscrire &amp; débloquer la réservation</button>
       </form>
@@ -168,9 +170,21 @@
     }
   });
 
+  /* ---------- Security: protected backend ----------
+     Once the Cloudflare Worker in /backend is deployed (see backend/README.md),
+     paste its URL here (e.g. 'https://mntr-forms.you.workers.dev'). Signups then
+     go through the backend — which hides the email + Sheet URL below, validates
+     input, rate-limits by IP and drops bots — instead of calling them directly
+     from the browser (where anyone reading the page source can abuse them). */
+  var BACKEND_URL = '';
+  var pageLoadedAt = Date.now();
+
   var NEWSLETTER_TO = 'mntrtutoring.info@gmail.com';
   /* Paste the Google Apps Script Web App URL here (see setup instructions) so
-     newsletter signups get logged as a row in the Google Sheet. */
+     newsletter signups get logged as a row in the Google Sheet.
+     NOTE: this URL is public in the page source. After deploying the backend,
+     move it there (SHEET_WEBAPP_URL secret) and create a NEW Apps Script
+     deployment so this exposed one stops working — see backend/README.md. */
   var SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzXgIbhOJDcZq_OtjFE5SmI1g3shmgiEr8c28KlrvHcJc784dk2bDwXV7BJ4mKqhakp/exec';
   var HOLD_STRIPE_LINK = 'https://buy.stripe.com/7sYfZjdd868g8to3sZdUY01';
   var UNLOCK_KEY = 'mntr_book_unlocked';
@@ -251,9 +265,45 @@
       var email = emailInput ? emailInput.value.trim() : '';
       if (!email) return;
 
+      /* Bot check: hidden honeypot field filled in, or the form submitted less
+         than 3 seconds after the page loaded. Bots get the normal success UI
+         but nothing is sent, so they can't tell they were filtered. */
+      var honey = document.getElementById('nl-website');
+      if ((honey && honey.value.trim() !== '') || Date.now() - pageLoadedAt < 3000) {
+        form.classList.add('hidden');
+        unlockBooking('newsletter');
+        return;
+      }
+
       var btn = form.querySelector('button[type=submit]');
       var label = btn ? btn.textContent : '';
       if (btn) { btn.textContent = 'Inscription...'; btn.disabled = true; }
+
+      /* Protected path: one call to the backend, which validates the email,
+         rate-limits, logs the Sheet row and sends the notification email.
+         As with the direct path below, booking unlocks even if the network
+         call fails — a logging hiccup shouldn't block a real student. */
+      if (BACKEND_URL) {
+        form.classList.add('hidden');
+        unlockBooking('newsletter');
+        try {
+          await fetch(BACKEND_URL.replace(/\/+$/, '') + '/api/newsletter', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              email: email,
+              page: location.href,
+              website: honey ? honey.value : '',
+              t: Date.now() - pageLoadedAt,
+            }),
+          });
+        } catch (err) {
+          console.warn('Newsletter backend call failed, but booking still unlocked.', err);
+        } finally {
+          if (btn) { btn.textContent = label; btn.disabled = false; }
+        }
+        return;
+      }
 
       /* 1) Log the signup as a row in the Google Sheet (fire-and-forget: Apps
             Script Web Apps don't return readable CORS responses to the browser,

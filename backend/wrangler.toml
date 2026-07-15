@@ -1,0 +1,18 @@
+# Cloudflare Worker config for the MNTR Tutoring form backend.
+# Deploy with:  npx wrangler deploy   (run inside the backend/ folder)
+# Full setup steps: see backend/README.md
+
+name = "mntr-forms"
+main = "worker.js"
+compatibility_date = "2026-07-01"
+
+# Do NOT put the real endpoint URLs here — this file is committed to a public
+# repository. Set them as secrets instead (they stay in Cloudflare only):
+#
+#   npx wrangler secret put CONTACT_ENDPOINT
+#   npx wrangler secret put NEWSLETTER_ENDPOINT
+#   npx wrangler secret put SHEET_WEBAPP_URL
+#
+# Optional plain variable (not sensitive — these origins are public anyway):
+# [vars]
+# ALLOWED_ORIGINS = "https://mntrtutoring.ca,https://www.mntrtutoring.ca"
