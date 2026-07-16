@@ -149,8 +149,24 @@
     white-space: nowrap;
     box-shadow: 0 6px 16px -4px rgba(154,134,230,.65);
   }
+  /* ---------- Staff cards: same glow treatment, wraps the photo ---------- */
+  .tutor-glow { box-shadow: 0 16px 40px -14px rgba(154,134,230,.5); }
+  .tutor-glow::before {
+    content: '';
+    position: absolute;
+    inset: -1.5px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(120deg, #e488b4, #9a86e6 50%, #7aa7f5);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+    z-index: 2;
+    animation: pkg-glow 3.6s ease-in-out infinite;
+  }
   @media (prefers-reduced-motion: reduce) {
-    .pkg-featured::before { animation: none; opacity: .85; }
+    .pkg-featured::before, .tutor-glow::before { animation: none; opacity: .85; }
   }
 
   /* ---------- Contact success popup (slides up from the bottom) ---------- */
@@ -424,7 +440,8 @@
       ============================================================ -->
 
       <!-- Card · Elliott (real photo) -->
-      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+      <article class='tutor-glow relative shrink-0 w-[300px] h-[440px] rounded-3xl group'>
+        <div class='absolute inset-0 rounded-3xl overflow-hidden'>
         <img src='elliottnewpic.jpeg' alt='Elliott' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
         <div class='absolute left-5 bottom-5 right-5'>
@@ -433,10 +450,12 @@
           <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Admission au premier tour aux quatre écoles de médecine du Québec. Actuellement stagiaire en biophysique au pavillon médical McIntyre.</p>
           <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Enseigne </span>Toutes les sciences du CEGEP &amp; chaque matière du secondaire</p>
         </div>
+        </div>
       </article>
 
       <!-- Card · James (real photo) -->
-      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+      <article class='tutor-glow relative shrink-0 w-[300px] h-[440px] rounded-3xl group'>
+        <div class='absolute inset-0 rounded-3xl overflow-hidden'>
         <img src='james.jpg' alt='James' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
         <div class='absolute left-5 bottom-5 right-5'>
@@ -445,10 +464,12 @@
           <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Admis à l'École de médecine de McGill, avec une solide base scientifique qu'il apporte à chaque séance.</p>
           <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Enseigne </span>Chimie &amp; Biologie</p>
         </div>
+        </div>
       </article>
 
       <!-- Card · Bassma (real photo) -->
-      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+      <article class='tutor-glow relative shrink-0 w-[300px] h-[440px] rounded-3xl group'>
+        <div class='absolute inset-0 rounded-3xl overflow-hidden'>
         <img src='bassma.jpg' alt='Bassma' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
         <div class='absolute left-5 bottom-5 right-5'>
@@ -457,10 +478,12 @@
           <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Co-présidente de MedLife, ayant recueilli plus de 5 000 $ lors de diverses collectes de fonds, avec plus de 200 heures de bénévolat.</p>
           <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Enseigne </span>Biologie &amp; Chimie au CEGEP, plus chaque matière du secondaire</p>
         </div>
+        </div>
       </article>
 
       <!-- Card · Vlad (real photo) -->
-      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+      <article class='tutor-glow relative shrink-0 w-[300px] h-[440px] rounded-3xl group'>
+        <div class='absolute inset-0 rounded-3xl overflow-hidden'>
         <img src='vlad%20profile.jpg' alt='Vlad' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
         <div class='absolute left-5 bottom-5 right-5'>
@@ -469,10 +492,12 @@
           <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>2x lauréat du concours Eureka! et major de promotion au secondaire.</p>
           <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Enseigne </span>Biologie &amp; Chimie au CEGEP, plus chaque matière du secondaire</p>
         </div>
+        </div>
       </article>
 
       <!-- Card · Mani (real photo) -->
-      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+      <article class='tutor-glow relative shrink-0 w-[300px] h-[440px] rounded-3xl group'>
+        <div class='absolute inset-0 rounded-3xl overflow-hidden'>
         <img src='Mani%20pic.jpg' alt='Mani' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
         <div class='absolute left-5 bottom-5 right-5'>
@@ -481,10 +506,12 @@
           <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Fondateur du club d'aérospatiale de Dawson et rédacteur en chef du Dawson Research Journal of Experimental Sciences, avec un parcours de recherche en neurosciences. Actuellement stagiaire à l'Institut neurologique de Montréal.</p>
           <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Enseigne </span>Physique &amp; Mathématiques au CEGEP, plus chaque matière du secondaire</p>
         </div>
+        </div>
       </article>
 
       <!-- Card · Sofia (real photo) -->
-      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+      <article class='tutor-glow relative shrink-0 w-[300px] h-[440px] rounded-3xl group'>
+        <div class='absolute inset-0 rounded-3xl overflow-hidden'>
         <img src='Sofianewpic.jpeg' alt='Sofia' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
         <div class='absolute left-5 bottom-5 right-5'>
@@ -493,10 +520,12 @@
           <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Admise à tous les programmes Honours Psychology au Québec, et récipiendaire de la Médaille du Gouverneur général. Actuellement stagiaire au CRBLM (institut de recherche en psychologie de McGill), et auparavant enseignante-assistante pour les matières du secondaire.</p>
           <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Enseigne </span>Biologie au CEGEP &amp; chaque matière du secondaire</p>
         </div>
+        </div>
       </article>
 
       <!-- Card · Alexandre (real photo) -->
-      <article class='relative shrink-0 w-[300px] h-[440px] rounded-3xl overflow-hidden shadow-xl shadow-black/10 group'>
+      <article class='tutor-glow relative shrink-0 w-[300px] h-[440px] rounded-3xl group'>
+        <div class='absolute inset-0 rounded-3xl overflow-hidden'>
         <img src='alex.jpg' alt='Alexandre' class='absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105' />
         <div class='absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent'></div>
         <div class='absolute left-5 bottom-5 right-5'>
@@ -504,6 +533,7 @@
           <p class='text-white/80 text-[13px] font-medium mt-1'>Collège Dawson · Enriched Health Science</p>
           <p class='text-white/60 text-[11.5px] leading-relaxed mt-1.5'>Vice-président aux finances de MedLife et superviseur régional pour une organisation nationale de sauvetage et de sécurité aquatique.</p>
           <p class='text-white/75 text-[11.5px] mt-2'><span class='text-white/40 uppercase tracking-wide'>Enseigne </span>Mathématiques, Biologie &amp; Chimie au CEGEP, plus chaque matière du secondaire</p>
+        </div>
         </div>
       </article>
 
