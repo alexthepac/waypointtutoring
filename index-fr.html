@@ -12,7 +12,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Tutorat MNTR · Secondaire & CEGEP</title>
-<meta name="description" content="Tutorat STEM personnalisé pour les élèves du secondaire, CEGEP et pré-médical, enseigné par des étudiants en médecine et universitaires. Appel d'introduction gratuit, sessions en ligne individuelles, plus préparation CASPer et MEM." />
+<meta name="description" content="Tutorat STEM personnalisé pour les élèves du secondaire, CEGEP et pré-médical, enseigné par des étudiants en médecine et universitaires. Appel d'introduction gratuit, sessions en ligne individuelles, plus préparation Casper et MEM." />
 <link rel='icon' type='image/png' href='favicon.png?v=2' />
 <link rel='shortcut icon' href='favicon.ico' />
 <link rel='apple-touch-icon' href='apple-touch-icon.png' />
@@ -94,11 +94,12 @@
   #menuOverlay.open { transform: translateY(0); }
   #menuOverlay a { opacity: 0; transform: translateY(16px); transition: opacity .5s, transform .5s; }
   #menuOverlay.open a { opacity: 1; transform: none; }
-  #menuOverlay.open a:nth-child(1){ transition-delay:.15s; }
-  #menuOverlay.open a:nth-child(2){ transition-delay:.23s; }
-  #menuOverlay.open a:nth-child(3){ transition-delay:.31s; }
-  #menuOverlay.open a:nth-child(4){ transition-delay:.39s; }
-  #menuOverlay.open a:nth-child(5){ transition-delay:.47s; }
+  #menuOverlay.open a:nth-of-type(1){ transition-delay:.15s; }
+  #menuOverlay.open a:nth-of-type(2){ transition-delay:.23s; }
+  #menuOverlay.open a:nth-of-type(3){ transition-delay:.31s; }
+  #menuOverlay.open a:nth-of-type(4){ transition-delay:.39s; }
+  #menuOverlay.open a:nth-of-type(5){ transition-delay:.47s; }
+  #menuOverlay.open a:nth-of-type(6){ transition-delay:.55s; }
 
   /* ---------- Quote cross-fade ---------- */
   #quoteText { transition: opacity .6s ease; }
@@ -309,7 +310,7 @@
         <h2 class="font-serif text-4xl md:text-5xl text-white">Ce que nous offrons</h2>
       </div>
 
-      <!-- Groupe A : Consultation gratuite + Préparation CASPer & MEM · 2 grandes cartes -->
+      <!-- Groupe A : Consultation gratuite + Préparation Casper & MEM · 2 grandes cartes -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
 
         <!-- Consultation gratuite · EN VEDETTE (même traitement que Meilleure Valeur) -->
@@ -325,14 +326,14 @@
           </div>
         </div>
 
-        <!-- Préparation CASPer & MEM -->
-        <div id='casper' onclick="pickService('CASPer & MEM Prep')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-9 flex flex-col hover:border-white/30 hover:-translate-y-1 transition-all duration-300">
-          <h3 class="font-serif text-2xl md:text-3xl leading-tight mb-2">Préparation CASPer &amp; MEM</h3>
+        <!-- Préparation Casper & MEM -->
+        <div id='casper' onclick="pickService('Casper & MEM Prep')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-9 flex flex-col hover:border-white/30 hover:-translate-y-1 transition-all duration-300">
+          <h3 class="font-serif text-2xl md:text-3xl leading-tight mb-2">Préparation Casper &amp; MEM</h3>
           <p class="text-neutral-400 text-sm mb-8">1 heure &middot; En ligne &middot; Mentors admis aux 4 écoles de médecine du Québec</p>
           <div class="mt-auto">
             <div class="text-4xl font-semibold mb-5">$69.99<span class="text-neutral-400 text-base font-normal"> / session</span></div>
             <a href="https://med-prep.ca/auth" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="inline-flex items-center gap-1.5 text-white/70 hover:text-white text-xs font-medium underline underline-offset-4 decoration-white/30 hover:decoration-white transition-colors mb-5">
-              Essayez gratuitement notre préparation CASPer par IA
+              Essayez gratuitement notre préparation Casper par IA
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
             <span class="inline-flex items-center gap-1.5 text-white font-semibold text-sm group-hover:gap-2.5 transition-all">Préparez-vous avec nous
@@ -608,7 +609,7 @@
         <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>EXPLORER</h4>
         <ul class='space-y-2.5 text-sm text-neutral-300'>
           <li><a href='#services' class='hover:text-white transition-colors'>Tarifs</a></li>
-          <li><a href='#casper' class='hover:text-white transition-colors'>Préparation CASPer &amp; MEM</a></li>
+          <li><a href='#casper' class='hover:text-white transition-colors'>Préparation Casper &amp; MEM</a></li>
           <li><a href='#staff' class='hover:text-white transition-colors'>Nos personnes tutrices</a></li>
           <li><a href='faq-fr.html' class='hover:text-white transition-colors'>FAQ</a></li>
           <li><a href='privacy-fr.html' class='hover:text-white transition-colors'>Politique de confidentialité</a></li>
@@ -731,7 +732,7 @@
       '1-on-1 Subject Tutoring':       'checkout-fr.html?service=tutoring',
       '5-Session Package':             'checkout-fr.html?service=pack5',
       '10-Session Package':            'checkout-fr.html?service=pack10',
-      'CASPer & MEM Prep':             'checkout-fr.html?service=casper-hourly',
+      'Casper & MEM Prep':             'checkout-fr.html?service=casper-hourly',
     };
     if (routes[value]) { window.location.href = routes[value]; return; }
     // Free consultation (and anything else) -> scroll to the booking section
