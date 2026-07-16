@@ -64,7 +64,7 @@
   .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
 
   html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; background: #ffffff; color: #000; }
+  body { font-family: 'Inter', sans-serif; background: #0A0A0C; color: #fff; }
 
   /* ---------- Infinite university ticker marquee ---------- */
   .marquee { overflow: hidden; }
@@ -175,7 +175,7 @@
 </style>
 </head>
 
-<body class="bg-white text-black antialiased">
+<body class="bg-[#0A0A0C] text-white antialiased">
 
 <!-- ============================================================
      HAMBURGER DROP-DOWN OVERLAY (full-screen, slides down)
@@ -295,7 +295,7 @@
 <!-- ============================================================
      SERVICES  (3 black cards over the parallax computer-image background)
 ============================================================ -->
-<section id='services' class='bg-white'>
+<section id='services' class='bg-[#0A0A0C]'>
   <div class='relative overflow-hidden bg-[#0A0A0C]'>
     <!-- soft pink + blue ambient glows (echoes the hero) -->
     <div class='pointer-events-none absolute -top-24 -left-20 w-[480px] h-[480px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(240,166,200,.42),transparent 60%)'></div>
@@ -401,12 +401,16 @@
 <!-- ============================================================
      MEET OUR STAFF  (fixed banner bg: throwing hat.png)
 ============================================================ -->
-<section id='staff' class='bg-white relative overflow-hidden'>
+<section id='staff' class='bg-[#0A0A0C] relative overflow-hidden'>
+  <!-- soft pink + blue ambient glows (echoes services/footer) -->
+  <div class='pointer-events-none absolute -top-28 -right-16 w-[460px] h-[460px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(156,192,255,.35),transparent 60%)'></div>
+  <div class='pointer-events-none absolute -bottom-24 -left-20 w-[500px] h-[500px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(240,166,200,.32),transparent 60%)'></div>
+
   <div class='relative py-20 md:py-28'>
 
     <!-- Scroll-right arrow (top-right): nudges the card row to reveal more tutors -->
     <button type='button' onclick='scrollStaff()' aria-label='Voir plus de personnes tutrices'
-            class='absolute top-8 right-6 md:right-12 z-30 w-12 h-12 rounded-full border border-black/15 bg-white hidden md:flex items-center justify-center shadow-sm hover:bg-black hover:text-white transition-colors'>
+            class='absolute top-8 right-6 md:right-12 z-30 w-12 h-12 rounded-full border border-white/15 bg-white/10 hidden md:flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors'>
       <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 6l6 6-6 6'/></svg>
     </button>
 
@@ -416,14 +420,14 @@
         <!-- eyebrow -->
         <div class='flex items-center gap-2 mb-6'>
           <svg width='16' height='16' viewBox='0 0 24 24' fill='currentColor' style='color:#9a86e6'><path d='M12 2l2.2 6.6H21l-5.4 4 2.1 6.4L12 15.6 6.3 19l2.1-6.4L3 8.6h6.8L12 2z'/></svg>
-          <span class='text-black text-sm font-semibold tracking-wide'>Rencontrez notre équipe</span>
+          <span class='text-white text-sm font-semibold tracking-wide'>Rencontrez notre équipe</span>
         </div>
         <!-- two-tone heading, sans (Centific style) -->
         <h2 class='font-sans text-3xl md:text-[2rem] font-semibold leading-tight tracking-tight mb-8'>
-          <span class='text-black'>Élever le niveau académique,</span><span class='text-neutral-400'> en offrant aux élèves le mentorat que nous aurions aimé recevoir.</span>
+          <span class='text-white'>Élever le niveau académique,</span><span class='text-neutral-400'> en offrant aux élèves le mentorat que nous aurions aimé recevoir.</span>
         </h2>
         <!-- CTA link with arrow -->
-        <a href='#contact' class='pointer-events-auto inline-flex items-center gap-1.5 text-black font-semibold text-sm border-b border-black/30 pb-1 hover:border-black transition-colors'>
+        <a href='#contact' class='pointer-events-auto inline-flex items-center gap-1.5 text-white font-semibold text-sm border-b border-white/30 pb-1 hover:border-white transition-colors'>
           Rejoignez notre équipe
           <svg width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17L17 7M9 7h8v8'/></svg>
         </a>
@@ -545,23 +549,24 @@
 <!-- ============================================================
      STATS STRIP  (count-up trust numbers)
 ============================================================ -->
-<section class='bg-white border-y border-black/5 py-16 md:py-24 px-6'>
-  <div class='max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8 text-center'>
+<section class='bg-[#0A0A0C] border-y border-white/10 py-16 md:py-24 px-6 relative overflow-hidden'>
+  <div class='pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(154,134,230,.18),transparent 65%)'></div>
+  <div class='relative max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8 text-center'>
     <div class='reveal'>
-      <div class='font-serif text-5xl md:text-6xl mb-3 tabular-nums' data-count='4' data-suffix=''>0</div>
-      <p class='text-neutral-500 text-xs md:text-sm leading-relaxed max-w-[12rem] mx-auto'>Écoles de médecine du Québec où nos personnes tutrices ont été admises</p>
+      <div class='font-serif text-5xl md:text-6xl mb-3 tabular-nums text-white' data-count='4' data-suffix=''>0</div>
+      <p class='text-neutral-400 text-xs md:text-sm leading-relaxed max-w-[12rem] mx-auto'>Écoles de médecine du Québec où nos personnes tutrices ont été admises</p>
     </div>
     <div class='reveal'>
-      <div class='font-serif text-5xl md:text-6xl mb-3 tabular-nums' data-count='100' data-suffix='%'>0</div>
-      <p class='text-neutral-500 text-xs md:text-sm leading-relaxed max-w-[12rem] mx-auto'>Un pour un, à chaque session</p>
+      <div class='font-serif text-5xl md:text-6xl mb-3 tabular-nums text-white' data-count='100' data-suffix='%'>0</div>
+      <p class='text-neutral-400 text-xs md:text-sm leading-relaxed max-w-[12rem] mx-auto'>Un pour un, à chaque session</p>
     </div>
     <div class='reveal'>
-      <div class='font-serif text-5xl md:text-6xl mb-3 tabular-nums' data-count='30' data-suffix=' min'>0</div>
-      <p class='text-neutral-500 text-xs md:text-sm leading-relaxed max-w-[12rem] mx-auto'>Appel d'introduction gratuit, sans engagement</p>
+      <div class='font-serif text-5xl md:text-6xl mb-3 tabular-nums text-white' data-count='30' data-suffix=' min'>0</div>
+      <p class='text-neutral-400 text-xs md:text-sm leading-relaxed max-w-[12rem] mx-auto'>Appel d'introduction gratuit, sans engagement</p>
     </div>
     <div class='reveal'>
-      <div class='font-serif text-5xl md:text-6xl mb-3 tabular-nums' data-count='24' data-suffix='h'>0</div>
-      <p class='text-neutral-500 text-xs md:text-sm leading-relaxed max-w-[12rem] mx-auto'>Temps de réponse typique, souvent le même jour</p>
+      <div class='font-serif text-5xl md:text-6xl mb-3 tabular-nums text-white' data-count='24' data-suffix='h'>0</div>
+      <p class='text-neutral-400 text-xs md:text-sm leading-relaxed max-w-[12rem] mx-auto'>Temps de réponse typique, souvent le même jour</p>
     </div>
   </div>
 </section>
@@ -572,9 +577,11 @@
 <!-- ============================================================
      CONTACT BUBBLE  (minimal - links out to contact-fr.html)
 ============================================================ -->
-<section id="contact" class="bg-white py-20 md:py-28 px-6">
-  <div class="max-w-5xl mx-auto flex justify-center">
-    <a href="contact-fr.html" class="group inline-flex items-center gap-3 bg-[#0A0A0C] text-white rounded-full pl-5 pr-6 py-3.5 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all">
+<section id="contact" class="bg-[#0A0A0C] py-20 md:py-28 px-6 relative overflow-hidden">
+  <div class='pointer-events-none absolute top-0 left-1/3 w-[420px] h-[420px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(240,166,200,.28),transparent 60%)'></div>
+  <div class='pointer-events-none absolute bottom-0 right-1/3 w-[420px] h-[420px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(156,192,255,.28),transparent 60%)'></div>
+  <div class="relative max-w-5xl mx-auto flex justify-center">
+    <a href="contact-fr.html" class="pkg-featured relative group inline-flex items-center gap-3 text-white rounded-full pl-5 pr-6 py-3.5 hover:-translate-y-0.5 transition-all">
       <span class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center shrink-0">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       </span>
