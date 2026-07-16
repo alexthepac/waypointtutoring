@@ -35,25 +35,48 @@
 
 <style>
   html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; }
+  body { font-family: 'Inter', sans-serif; background: #0A0A0C; color: #fff; }
   .eyebrow-grad { background: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
   .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Featured / CTA glow (same treatment as the homepage pricing) ---------- */
+  .pkg-featured {
+    background: linear-gradient(180deg, #17161d, #0d0c11);
+    box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 24px 60px -20px rgba(154,134,230,.55);
+  }
+  .pkg-featured::before {
+    content: '';
+    position: absolute;
+    inset: -1.5px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(120deg, #e488b4, #9a86e6 50%, #7aa7f5);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+    animation: pkg-glow 3.6s ease-in-out infinite;
+  }
+  @keyframes pkg-glow { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .pkg-featured::before { animation: none; opacity: .85; }
+  }
 </style>
 </head>
 
-<body class="bg-white text-black antialiased">
+<body class="bg-[#0A0A0C] text-white antialiased">
 
 <!-- ============================================================
      TOP BAR
 ============================================================ -->
-<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
+<header class="sticky top-0 z-50 bg-[#0A0A0C]/85 backdrop-blur-md border-b border-white/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />MNTR Tutoring<span class="text-neutral-400">.</span></a>
-    <div class="flex items-center gap-7 text-sm font-medium text-neutral-600">
+    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-7 w-auto" />MNTR Tutoring<span class="text-neutral-500">.</span></a>
+    <div class="flex items-center gap-7 text-sm font-medium text-neutral-300">
       <!-- Language Switcher -->
       <div class="relative">
-        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-black transition-colors">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-300 hover:text-white transition-colors">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           EN
         </button>
@@ -62,9 +85,9 @@
           <a href="user-agreement-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
         </div>
       </div>
-      <a href="index.html" class="hover:text-black transition-colors">Home</a>
-      <a href="faq.html" class="hover:text-black transition-colors hidden sm:inline">FAQ</a>
-      <a href="index.html#contact" class="bg-black text-white px-5 py-2.5 rounded-full hover:bg-neutral-800 transition-colors">Contact us</a>
+      <a href="index.html" class="hover:text-white transition-colors">Home</a>
+      <a href="faq.html" class="hover:text-white transition-colors hidden sm:inline">FAQ</a>
+      <a href="index.html#contact" class="bg-white text-black px-5 py-2.5 rounded-full hover:bg-neutral-200 transition-colors">Contact us</a>
     </div>
   </div>
 </header>
@@ -75,7 +98,7 @@
 <section class="max-w-3xl mx-auto px-6 pt-24 md:pt-32 pb-12 text-center">
   <p class="reveal text-xs tracking-[0.3em] mb-5 eyebrow-grad">LEGAL</p>
   <h1 class="reveal font-serif text-5xl md:text-6xl leading-tight mb-6">User Agreement</h1>
-  <p class="reveal text-neutral-600 text-lg">Last updated: July 2026. Questions? <a href="index.html#contact" class="text-black underline underline-offset-4 hover:no-underline">Get in touch</a>.</p>
+  <p class="reveal text-neutral-300 text-lg">Last updated: July 2026. Questions? <a href="index.html#contact" class="text-white underline underline-offset-4 hover:no-underline">Get in touch</a>.</p>
 </section>
 
 <!-- ============================================================
@@ -86,18 +109,18 @@
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">1. Acceptance of terms</h2>
-      <p class="text-neutral-600 leading-relaxed">By booking a session, submitting a form, or otherwise using the MNTR Tutoring website and services, you agree to this User Agreement. If you are booking on behalf of a minor, you confirm that you are their parent or legal guardian and accept these terms on their behalf.</p>
+      <p class="text-neutral-300 leading-relaxed">By booking a session, submitting a form, or otherwise using the MNTR Tutoring website and services, you agree to this User Agreement. If you are booking on behalf of a minor, you confirm that you are their parent or legal guardian and accept these terms on their behalf.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">2. Our services</h2>
-      <p class="text-neutral-600 leading-relaxed">MNTR Tutoring provides one-on-one academic tutoring and CASPer/MMI interview preparation, delivered online by our tutors. Sessions are educational support only; we do not guarantee specific grades, test scores, admissions outcomes, or interview results.</p>
+      <p class="text-neutral-300 leading-relaxed">MNTR Tutoring provides one-on-one academic tutoring and CASPer/MMI interview preparation, delivered online by our tutors. Sessions are educational support only; we do not guarantee specific grades, test scores, admissions outcomes, or interview results.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">3. Booking &amp; payment</h2>
-      <p class="text-neutral-600 leading-relaxed mb-3">Sessions and packages are booked and paid for through our website. By completing a booking you agree to:</p>
-      <ul class="list-disc list-outside pl-5 space-y-2 text-neutral-600 leading-relaxed">
+      <p class="text-neutral-300 leading-relaxed mb-3">Sessions and packages are booked and paid for through our website. By completing a booking you agree to:</p>
+      <ul class="list-disc list-outside pl-5 space-y-2 text-neutral-300 leading-relaxed">
         <li>Pay the listed price for the session or package selected at the time of booking</li>
         <li>Provide accurate contact, scheduling, and payment information</li>
         <li>Payment processed securely through our third-party payment provider; we never see or store your full card number</li>
@@ -107,38 +130,38 @@
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">4. Cancellations &amp; rescheduling</h2>
-      <p class="text-neutral-600 leading-relaxed">We ask for at least 24 hours' notice to cancel or reschedule a session at no charge. Sessions cancelled with less than 24 hours' notice, or missed without notice, may be charged in full. We will always try to work with you if something genuinely unexpected comes up — just reach out as soon as you can.</p>
+      <p class="text-neutral-300 leading-relaxed">We ask for at least 24 hours' notice to cancel or reschedule a session at no charge. Sessions cancelled with less than 24 hours' notice, or missed without notice, may be charged in full. We will always try to work with you if something genuinely unexpected comes up — just reach out as soon as you can.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">5. Conduct</h2>
-      <p class="text-neutral-600 leading-relaxed">We expect respectful, appropriate conduct from everyone in a session — students, parents, and tutors alike. We reserve the right to end a session early, decline future bookings, or reassign a tutor if conduct is abusive, harassing, or otherwise inappropriate.</p>
+      <p class="text-neutral-300 leading-relaxed">We expect respectful, appropriate conduct from everyone in a session — students, parents, and tutors alike. We reserve the right to end a session early, decline future bookings, or reassign a tutor if conduct is abusive, harassing, or otherwise inappropriate.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">6. Tutor non-solicitation policy</h2>
-      <p class="text-neutral-600 leading-relaxed">Clients matched with a tutor through MNTR Tutoring remain MNTR Tutoring clients. Arranging to work privately with a tutor outside of the platform, without our involvement, is not permitted. This keeps pricing fair and ensures continuity and accountability for every family we work with.</p>
+      <p class="text-neutral-300 leading-relaxed">Clients matched with a tutor through MNTR Tutoring remain MNTR Tutoring clients. Arranging to work privately with a tutor outside of the platform, without our involvement, is not permitted. This keeps pricing fair and ensures continuity and accountability for every family we work with.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">7. Limitation of liability</h2>
-      <p class="text-neutral-600 leading-relaxed">MNTR Tutoring and its tutors provide educational support in good faith but make no guarantees about academic, test, or admissions outcomes. To the fullest extent permitted by law, our liability for any claim arising from our services is limited to the amount you paid for the session or package in question.</p>
+      <p class="text-neutral-300 leading-relaxed">MNTR Tutoring and its tutors provide educational support in good faith but make no guarantees about academic, test, or admissions outcomes. To the fullest extent permitted by law, our liability for any claim arising from our services is limited to the amount you paid for the session or package in question.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">8. Privacy</h2>
-      <p class="text-neutral-600 leading-relaxed">Information about how we collect, use, and protect your personal information is set out in our <a href="privacy.html" class="text-black underline underline-offset-4 hover:no-underline">Privacy Policy</a>, which forms part of this agreement.</p>
+      <p class="text-neutral-300 leading-relaxed">Information about how we collect, use, and protect your personal information is set out in our <a href="privacy.html" class="text-white underline underline-offset-4 hover:no-underline">Privacy Policy</a>, which forms part of this agreement.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">9. Changes to this agreement</h2>
-      <p class="text-neutral-600 leading-relaxed">We may update this agreement from time to time as our services evolve. Any changes will be posted on this page with an updated "last updated" date. Continued use of our services after a change means you accept the updated terms.</p>
+      <p class="text-neutral-300 leading-relaxed">We may update this agreement from time to time as our services evolve. Any changes will be posted on this page with an updated "last updated" date. Continued use of our services after a change means you accept the updated terms.</p>
     </div>
 
   </div>
 
   <!-- CTA -->
-  <div class="reveal mt-16 bg-black text-white rounded-3xl px-8 py-14 text-center">
+  <div class="pkg-featured relative reveal mt-16 rounded-3xl px-8 py-14 text-center">
     <h2 class="font-serif text-3xl md:text-4xl mb-4">Still have questions?</h2>
     <p class="text-neutral-300 mb-8 max-w-md mx-auto">Reach out and we'll walk you through anything that's unclear.</p>
     <a href="index.html#contact" class="inline-block bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Contact us</a>
@@ -148,7 +171,7 @@
 <!-- ============================================================
      FOOTER
 ============================================================ -->
-<footer class="bg-black text-white py-12 px-6 md:px-12">
+<footer class="bg-[#0A0A0C] text-white py-10 px-6 border-t border-white/10" style="background-image: radial-gradient(500px circle at 20% -20%, rgba(240,166,200,.12), transparent 60%), radial-gradient(500px circle at 85% 130%, rgba(156,192,255,.11), transparent 60%);">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
     <a href="index.html" class="font-serif text-xl inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-5 w-auto" />MNTR Tutoring<span class="text-neutral-500">.</span></a>
     <p class="text-neutral-500 text-sm">© 2026 MNTR Tutoring · Premium University Tutoring · Québec</p>

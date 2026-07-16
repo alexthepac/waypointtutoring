@@ -35,25 +35,48 @@
 
 <style>
   html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; }
+  body { font-family: 'Inter', sans-serif; background: #0A0A0C; color: #fff; }
   .eyebrow-grad { background: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
   .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Featured / CTA glow (same treatment as the homepage pricing) ---------- */
+  .pkg-featured {
+    background: linear-gradient(180deg, #17161d, #0d0c11);
+    box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 24px 60px -20px rgba(154,134,230,.55);
+  }
+  .pkg-featured::before {
+    content: '';
+    position: absolute;
+    inset: -1.5px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(120deg, #e488b4, #9a86e6 50%, #7aa7f5);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+    animation: pkg-glow 3.6s ease-in-out infinite;
+  }
+  @keyframes pkg-glow { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .pkg-featured::before { animation: none; opacity: .85; }
+  }
 </style>
 </head>
 
-<body class="bg-white text-black antialiased">
+<body class="bg-[#0A0A0C] text-white antialiased">
 
 <!-- ============================================================
      TOP BAR
 ============================================================ -->
-<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
+<header class="sticky top-0 z-50 bg-[#0A0A0C]/85 backdrop-blur-md border-b border-white/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />Tutorat MNTR<span class="text-neutral-400">.</span></a>
-    <div class="flex items-center gap-7 text-sm font-medium text-neutral-600">
+    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-7 w-auto" />Tutorat MNTR<span class="text-neutral-500">.</span></a>
+    <div class="flex items-center gap-7 text-sm font-medium text-neutral-300">
       <!-- Language Switcher -->
       <div class="relative">
-        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-black transition-colors">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-300 hover:text-white transition-colors">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           FR
         </button>
@@ -62,9 +85,9 @@
           <a href="user-agreement-fr.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">Français</a>
         </div>
       </div>
-      <a href="index-fr.html" class="hover:text-black transition-colors">Accueil</a>
-      <a href="faq-fr.html" class="hover:text-black transition-colors hidden sm:inline">FAQ</a>
-      <a href="index-fr.html#contact" class="bg-black text-white px-5 py-2.5 rounded-full hover:bg-neutral-800 transition-colors">Contactez-nous</a>
+      <a href="index-fr.html" class="hover:text-white transition-colors">Accueil</a>
+      <a href="faq-fr.html" class="hover:text-white transition-colors hidden sm:inline">FAQ</a>
+      <a href="index-fr.html#contact" class="bg-white text-black px-5 py-2.5 rounded-full hover:bg-neutral-200 transition-colors">Contactez-nous</a>
     </div>
   </div>
 </header>
@@ -75,7 +98,7 @@
 <section class="max-w-3xl mx-auto px-6 pt-24 md:pt-32 pb-12 text-center">
   <p class="reveal text-xs tracking-[0.3em] mb-5 eyebrow-grad">LÉGAL</p>
   <h1 class="reveal font-serif text-5xl md:text-6xl leading-tight mb-6">Contrat utilisateur</h1>
-  <p class="reveal text-neutral-600 text-lg">Dernière mise à jour : juillet 2026. Questions ? <a href="index-fr.html#contact" class="text-black underline underline-offset-4 hover:no-underline">Contactez-nous</a>.</p>
+  <p class="reveal text-neutral-300 text-lg">Dernière mise à jour : juillet 2026. Questions ? <a href="index-fr.html#contact" class="text-white underline underline-offset-4 hover:no-underline">Contactez-nous</a>.</p>
 </section>
 
 <!-- ============================================================
@@ -86,18 +109,18 @@
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">1. Acceptation des conditions</h2>
-      <p class="text-neutral-600 leading-relaxed">En réservant une session, en soumettant un formulaire, ou en utilisant autrement le site web et les services de Tutorat MNTR, vous acceptez ce Contrat utilisateur. Si vous réservez au nom d'un mineur, vous confirmez que vous êtes son parent ou son représentant légal et acceptez ces conditions en son nom.</p>
+      <p class="text-neutral-300 leading-relaxed">En réservant une session, en soumettant un formulaire, ou en utilisant autrement le site web et les services de Tutorat MNTR, vous acceptez ce Contrat utilisateur. Si vous réservez au nom d'un mineur, vous confirmez que vous êtes son parent ou son représentant légal et acceptez ces conditions en son nom.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">2. Nos services</h2>
-      <p class="text-neutral-600 leading-relaxed">Tutorat MNTR fournit du tutorat académique individuel et une préparation CASPer/MEM, livrés en ligne par nos personnes tutrices. Les sessions sont un soutien éducatif uniquement ; nous ne garantissons pas de notes spécifiques, de résultats aux tests, d'admissions ou de résultats d'entrevue.</p>
+      <p class="text-neutral-300 leading-relaxed">Tutorat MNTR fournit du tutorat académique individuel et une préparation CASPer/MEM, livrés en ligne par nos personnes tutrices. Les sessions sont un soutien éducatif uniquement ; nous ne garantissons pas de notes spécifiques, de résultats aux tests, d'admissions ou de résultats d'entrevue.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">3. Réservation &amp; paiement</h2>
-      <p class="text-neutral-600 leading-relaxed mb-3">Les sessions et forfaits sont réservés et payés via notre site web. En complétant une réservation, vous acceptez de :</p>
-      <ul class="list-disc list-outside pl-5 space-y-2 text-neutral-600 leading-relaxed">
+      <p class="text-neutral-300 leading-relaxed mb-3">Les sessions et forfaits sont réservés et payés via notre site web. En complétant une réservation, vous acceptez de :</p>
+      <ul class="list-disc list-outside pl-5 space-y-2 text-neutral-300 leading-relaxed">
         <li>Payer le prix indiqué pour la session ou le forfait sélectionné au moment de la réservation</li>
         <li>Fournir des renseignements de contact, de planification et de paiement exacts</li>
         <li>Reconnaître que le paiement est traité de manière sécurisée via notre fournisseur de paiement tiers ; nous ne voyons ni ne stockons jamais votre numéro de carte complet</li>
@@ -107,38 +130,38 @@
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">4. Annulations &amp; reprogrammation</h2>
-      <p class="text-neutral-600 leading-relaxed">Nous demandons un préavis d'au moins 24 heures pour annuler ou reprogrammer une session sans frais. Les sessions annulées avec moins de 24 heures de préavis, ou manquées sans préavis, peuvent être facturées au complet. Nous essaierons toujours de travailler avec vous si quelque chose d'inattendu survient — contactez-nous dès que possible.</p>
+      <p class="text-neutral-300 leading-relaxed">Nous demandons un préavis d'au moins 24 heures pour annuler ou reprogrammer une session sans frais. Les sessions annulées avec moins de 24 heures de préavis, ou manquées sans préavis, peuvent être facturées au complet. Nous essaierons toujours de travailler avec vous si quelque chose d'inattendu survient — contactez-nous dès que possible.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">5. Conduite</h2>
-      <p class="text-neutral-600 leading-relaxed">Nous nous attendons à une conduite respectueuse et appropriée de la part de tous dans une session — étudiants, parents et personnes tutrices. Nous nous réservons le droit de mettre fin à une session plus tôt, de refuser les réservations futures ou de réassigner une personne tutrice si la conduite est abusive, harcelante ou autrement inappropriée.</p>
+      <p class="text-neutral-300 leading-relaxed">Nous nous attendons à une conduite respectueuse et appropriée de la part de tous dans une session — étudiants, parents et personnes tutrices. Nous nous réservons le droit de mettre fin à une session plus tôt, de refuser les réservations futures ou de réassigner une personne tutrice si la conduite est abusive, harcelante ou autrement inappropriée.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">6. Politique de non-sollicitation des personnes tutrices</h2>
-      <p class="text-neutral-600 leading-relaxed">Les clients jumelés avec une personne tutrice via Tutorat MNTR demeurent des clients de Tutorat MNTR. S'arranger pour travailler en privé avec une personne tutrice en dehors de la plateforme, sans notre participation, n'est pas permis. Cela maintient des tarifs équitables et assure la continuité et la responsabilité pour chaque famille avec laquelle nous travaillons.</p>
+      <p class="text-neutral-300 leading-relaxed">Les clients jumelés avec une personne tutrice via Tutorat MNTR demeurent des clients de Tutorat MNTR. S'arranger pour travailler en privé avec une personne tutrice en dehors de la plateforme, sans notre participation, n'est pas permis. Cela maintient des tarifs équitables et assure la continuité et la responsabilité pour chaque famille avec laquelle nous travaillons.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">7. Limitation de responsabilité</h2>
-      <p class="text-neutral-600 leading-relaxed">Tutorat MNTR et ses personnes tutrices fournissent un soutien éducatif de bonne foi mais ne font aucune garantie quant aux résultats académiques, de tests ou d'admissions. Dans la mesure maximale permise par la loi, notre responsabilité pour toute réclamation découlant de nos services est limitée au montant que vous avez payé pour la session ou le forfait en question.</p>
+      <p class="text-neutral-300 leading-relaxed">Tutorat MNTR et ses personnes tutrices fournissent un soutien éducatif de bonne foi mais ne font aucune garantie quant aux résultats académiques, de tests ou d'admissions. Dans la mesure maximale permise par la loi, notre responsabilité pour toute réclamation découlant de nos services est limitée au montant que vous avez payé pour la session ou le forfait en question.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">8. Confidentialité</h2>
-      <p class="text-neutral-600 leading-relaxed">Des informations sur la façon dont nous collectons, utilisons et protégeons vos informations personnelles sont énoncées dans notre <a href="privacy-fr.html" class="text-black underline underline-offset-4 hover:no-underline">Politique de confidentialité</a>, qui fait partie de ce contrat.</p>
+      <p class="text-neutral-300 leading-relaxed">Des informations sur la façon dont nous collectons, utilisons et protégeons vos informations personnelles sont énoncées dans notre <a href="privacy-fr.html" class="text-white underline underline-offset-4 hover:no-underline">Politique de confidentialité</a>, qui fait partie de ce contrat.</p>
     </div>
 
     <div>
       <h2 class="font-serif text-2xl md:text-3xl mb-4">9. Modifications de ce contrat</h2>
-      <p class="text-neutral-600 leading-relaxed">Nous pouvons mettre à jour ce contrat de temps à autre à mesure que nos services évoluent. Tout changement sera affiché sur cette page, accompagné d'une nouvelle date de « dernière mise à jour ». L'utilisation continue de nos services après un changement signifie que vous acceptez les conditions mises à jour.</p>
+      <p class="text-neutral-300 leading-relaxed">Nous pouvons mettre à jour ce contrat de temps à autre à mesure que nos services évoluent. Tout changement sera affiché sur cette page, accompagné d'une nouvelle date de « dernière mise à jour ». L'utilisation continue de nos services après un changement signifie que vous acceptez les conditions mises à jour.</p>
     </div>
 
   </div>
 
   <!-- CTA -->
-  <div class="reveal mt-16 bg-black text-white rounded-3xl px-8 py-14 text-center">
+  <div class="pkg-featured relative reveal mt-16 rounded-3xl px-8 py-14 text-center">
     <h2 class="font-serif text-3xl md:text-4xl mb-4">Vous avez encore des questions ?</h2>
     <p class="text-neutral-300 mb-8 max-w-md mx-auto">Contactez-nous et nous vous expliquerons tout ce qui n'est pas clair.</p>
     <a href="index-fr.html#contact" class="inline-block bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Contactez-nous</a>
@@ -148,7 +171,7 @@
 <!-- ============================================================
      FOOTER
 ============================================================ -->
-<footer class="bg-black text-white py-12 px-6 md:px-12">
+<footer class="bg-[#0A0A0C] text-white py-10 px-6 border-t border-white/10" style="background-image: radial-gradient(500px circle at 20% -20%, rgba(240,166,200,.12), transparent 60%), radial-gradient(500px circle at 85% 130%, rgba(156,192,255,.11), transparent 60%);">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
     <a href="index-fr.html" class="font-serif text-xl inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-5 w-auto" />Tutorat MNTR<span class="text-neutral-500">.</span></a>
     <p class="text-neutral-500 text-sm">© 2026 Tutorat MNTR · Québec</p>

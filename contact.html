@@ -32,23 +32,46 @@
 
 <style>
   html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; }
+  body { font-family: 'Inter', sans-serif; background: #0A0A0C; color: #fff; }
   .eyebrow-grad { background: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
   @keyframes toastUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
   .toast-enter { animation: toastUp .5s cubic-bezier(.22,.61,.36,1) both; }
+
+  /* ---------- Featured / CTA glow (same treatment as the homepage pricing) ---------- */
+  .pkg-featured {
+    background: linear-gradient(180deg, #17161d, #0d0c11);
+    box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 24px 60px -20px rgba(154,134,230,.55);
+  }
+  .pkg-featured::before {
+    content: '';
+    position: absolute;
+    inset: -1.5px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(120deg, #e488b4, #9a86e6 50%, #7aa7f5);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+    animation: pkg-glow 3.6s ease-in-out infinite;
+  }
+  @keyframes pkg-glow { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .pkg-featured::before { animation: none; opacity: .85; }
+  }
 </style>
 </head>
 
-<body class="bg-white text-black antialiased">
+<body class="bg-[#0A0A0C] text-white antialiased">
 
 <!-- Header -->
-<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
+<header class="sticky top-0 z-50 bg-[#0A0A0C]/85 backdrop-blur-md border-b border-white/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />MNTR Tutoring<span class="text-neutral-400">.</span></a>
+    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-7 w-auto" />MNTR Tutoring<span class="text-neutral-500">.</span></a>
     <div class="flex items-center gap-3">
       <!-- Language Switcher -->
       <div class="relative">
-        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 text-sm font-medium hover:text-black transition-colors">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-300 text-sm font-medium hover:text-white transition-colors">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           EN
         </button>
@@ -57,14 +80,14 @@
           <a href="contact-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
         </div>
       </div>
-      <a href="index.html#services" class="text-sm font-medium text-neutral-600 hover:text-black transition-colors">All services</a>
+      <a href="index.html#services" class="text-sm font-medium text-neutral-300 hover:text-white transition-colors">All services</a>
     </div>
   </div>
 </header>
 
 <main class="max-w-5xl mx-auto px-6 py-16 md:py-24">
 
-  <a href="index.html" class="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-black transition-colors mb-10">
+  <a href="index.html" class="inline-flex items-center gap-1.5 text-sm text-neutral-400 hover:text-white transition-colors mb-10">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
     Back to home
   </a>
@@ -73,7 +96,7 @@
   <div class="text-center mb-16">
     <p class="text-xs tracking-[0.3em] text-neutral-500 mb-5 eyebrow-grad">LET'S CONNECT</p>
     <h1 class="font-serif text-4xl md:text-5xl mb-5">Book your free call</h1>
-    <p class="text-neutral-600 text-lg max-w-xl mx-auto">30 minutes, no commitment. We'll learn about your goals, identify where you need support, and pair you with the right tutor.</p>
+    <p class="text-neutral-300 text-lg max-w-xl mx-auto">30 minutes, no commitment. We'll learn about your goals, identify where you need support, and pair you with the right tutor.</p>
   </div>
 
   <!-- Two-column: perks left · booking card right -->
@@ -82,51 +105,51 @@
     <!-- Left: what to expect -->
     <div class="flex flex-col gap-8 md:pt-4">
       <div class="flex gap-5 items-start">
-        <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0">
+        <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
         <div>
-          <h3 class="font-semibold text-base mb-1">Completely free</h3>
-          <p class="text-neutral-500 text-sm leading-relaxed">No credit card, no obligation. The intro call is on us.</p>
+          <h3 class="font-semibold text-base mb-1 text-white">Completely free</h3>
+          <p class="text-neutral-400 text-sm leading-relaxed">No credit card, no obligation. The intro call is on us.</p>
         </div>
       </div>
       <div class="flex gap-5 items-start">
-        <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0">
+        <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
         <div>
-          <h3 class="font-semibold text-base mb-1">Matched to the right tutor</h3>
-          <p class="text-neutral-500 text-sm leading-relaxed">We assess your goals and pair you with the mentor who fits your exact needs.</p>
+          <h3 class="font-semibold text-base mb-1 text-white">Matched to the right tutor</h3>
+          <p class="text-neutral-400 text-sm leading-relaxed">We assess your goals and pair you with the mentor who fits your exact needs.</p>
         </div>
       </div>
       <div class="flex gap-5 items-start">
-        <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0">
+        <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
         <div>
-          <h3 class="font-semibold text-base mb-1">A personalized roadmap</h3>
-          <p class="text-neutral-500 text-sm leading-relaxed">You leave with a clear plan, not just a tutor's contact info.</p>
+          <h3 class="font-semibold text-base mb-1 text-white">A personalized roadmap</h3>
+          <p class="text-neutral-400 text-sm leading-relaxed">You leave with a clear plan, not just a tutor's contact info.</p>
         </div>
       </div>
       <div class="flex gap-5 items-start">
-        <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0">
+        <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
         <div>
-          <h3 class="font-semibold text-base mb-1">100% online</h3>
-          <p class="text-neutral-500 text-sm leading-relaxed">Pick a time that works for you. We'll send a video link automatically.</p>
+          <h3 class="font-semibold text-base mb-1 text-white">100% online</h3>
+          <p class="text-neutral-400 text-sm leading-relaxed">Pick a time that works for you. We'll send a video link automatically.</p>
         </div>
       </div>
     </div>
 
     <!-- Booking lives on its own page (book.html) -->
-    <div class='rounded-3xl border border-black/10 shadow-sm p-8 md:p-10 flex flex-col items-center justify-center text-center md:min-h-[440px]'>
-      <div class='w-14 h-14 rounded-full bg-black flex items-center justify-center mb-6'>
+    <div class='pkg-featured relative rounded-3xl p-8 md:p-10 flex flex-col items-center justify-center text-center md:min-h-[440px]'>
+      <div class='w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-6'>
         <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2'/><path d='M16 2v4M8 2v4M3 10h18'/></svg>
       </div>
-      <h3 class='font-serif text-2xl mb-3'>Pick a time that works</h3>
-      <p class='text-neutral-500 text-sm mb-7 max-w-xs'>See live availability and lock in your free 30-minute call on our booking page.</p>
-      <a href='book.html' class='inline-flex items-center gap-2 bg-black text-white font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-neutral-800 transition-colors'>Book your free call
+      <h3 class='font-serif text-2xl mb-3 text-white'>Pick a time that works</h3>
+      <p class='text-neutral-400 text-sm mb-7 max-w-xs'>See live availability and lock in your free 30-minute call on our booking page.</p>
+      <a href='book.html' class='inline-flex items-center gap-2 bg-white text-black font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-neutral-200 transition-colors'>Book your free call
         <svg width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>
       </a>
     </div>
@@ -134,20 +157,20 @@
 
   <!-- Divider -->
   <div class="flex items-center gap-6 mb-8">
-    <div class="flex-1 h-px bg-black/10"></div>
-    <p class="text-sm text-neutral-500 shrink-0">Or send us a message</p>
-    <div class="flex-1 h-px bg-black/10"></div>
+    <div class="flex-1 h-px bg-white/10"></div>
+    <p class="text-sm text-neutral-400 shrink-0">Or send us a message</p>
+    <div class="flex-1 h-px bg-white/10"></div>
   </div>
 
-  <p class="text-center text-sm text-neutral-500 mb-16">You can also email us directly at
-    <a href="mailto:mntrtutoring.info@gmail.com" class="font-semibold text-black hover:underline">mntrtutoring.info@gmail.com</a>
+  <p class="text-center text-sm text-neutral-400 mb-16">You can also email us directly at
+    <a href="mailto:mntrtutoring.info@gmail.com" class="font-semibold text-white hover:underline">mntrtutoring.info@gmail.com</a>
   </p>
 
   <!-- General inquiry form -->
   <div class="max-w-xl mx-auto">
     <div class="text-center mb-10">
       <h3 class="font-serif text-2xl md:text-3xl mb-3">Have a specific question?</h3>
-      <p class="text-neutral-500 text-sm">Not ready to book yet? Drop us a note and we'll reply the same day.</p>
+      <p class="text-neutral-400 text-sm">Not ready to book yet? Drop us a note and we'll reply the same day.</p>
     </div>
 
     <form id='contactForm' action='https://formsubmit.co/ajax/mntrtutoring.info@gmail.com' method='POST' class='space-y-5'>
@@ -158,34 +181,34 @@
       <input type='text' name='_honey' class='hidden' style='display:none' tabindex='-1' autocomplete='off' />
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label for="name" class="block text-sm font-semibold mb-2">Name</label>
+          <label for="name" class="block text-sm font-semibold mb-2 text-neutral-200">Name</label>
           <input id="name" name="name" type="text" required maxlength="100"
-                 class="w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors text-sm" placeholder="Your name" />
+                 class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3.5 text-white placeholder:text-neutral-500 focus:outline-none focus:border-white transition-colors text-sm" placeholder="Your name" />
         </div>
         <div>
-          <label for="email" class="block text-sm font-semibold mb-2">Email</label>
+          <label for="email" class="block text-sm font-semibold mb-2 text-neutral-200">Email</label>
           <input id="email" name="email" type="email" required maxlength="254"
-                 class="w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors text-sm" placeholder="you@email.com" />
+                 class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3.5 text-white placeholder:text-neutral-500 focus:outline-none focus:border-white transition-colors text-sm" placeholder="you@email.com" />
         </div>
       </div>
       <div>
-        <label for="subject" class="block text-sm font-semibold mb-2">Subject or topic</label>
+        <label for="subject" class="block text-sm font-semibold mb-2 text-neutral-200">Subject or topic</label>
         <input id="subject" name="topic" type="text" maxlength="150"
-               class="w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors text-sm" placeholder="e.g. Calculus, Chemistry, pricing question…" />
+               class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3.5 text-white placeholder:text-neutral-500 focus:outline-none focus:border-white transition-colors text-sm" placeholder="e.g. Calculus, Chemistry, pricing question…" />
       </div>
       <div>
-        <label for="message" class="block text-sm font-semibold mb-2">Message</label>
+        <label for="message" class="block text-sm font-semibold mb-2 text-neutral-200">Message</label>
         <textarea id="message" name="message" rows="4" required maxlength="5000"
-               class="w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors resize-none text-sm" placeholder="What would you like to know?"></textarea>
+               class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3.5 text-white placeholder:text-neutral-500 focus:outline-none focus:border-white transition-colors resize-none text-sm" placeholder="What would you like to know?"></textarea>
       </div>
       <button type="submit"
-              class="w-full bg-black text-white font-semibold py-4 rounded-full hover:bg-neutral-800 transition-colors text-sm">
+              class="pkg-featured relative w-full text-white font-semibold py-4 rounded-full transition-colors text-sm">
         Send message
       </button>
     </form>
 
     <!-- Success popup -->
-    <div id="formSuccess" class="hidden bg-black text-white rounded-3xl px-8 py-16 text-center shadow-2xl">
+    <div id="formSuccess" class="hidden bg-[#101014] border border-white/15 text-white rounded-3xl px-8 py-16 text-center shadow-2xl">
       <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-white/10 flex items-center justify-center">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
       </div>
