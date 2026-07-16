@@ -293,54 +293,32 @@
         <h2 class="font-serif text-4xl md:text-5xl text-white">Ce que nous offrons</h2>
       </div>
 
-      <!-- 2 service cards · static grid (no horizontal scroll) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch max-w-6xl mx-auto">
+      <!-- Groupe A : Consultation gratuite + Préparation CASPer & MEM · 2 grandes cartes -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
 
-        <!-- Service 1 -->
-        <div onclick="pickService('Free Academic Consultation')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
-          <h3 class="font-serif text-2xl leading-tight mb-4">Consultation académique gratuite</h3>
-          <div class="flex items-baseline gap-1.5 mb-1">
-            <span class="text-3xl font-semibold">Gratuit</span>
-          </div>
-          <p class="text-neutral-400 text-sm mb-6">30 minutes · En ligne (Appel vidéo)</p>
-          <p class="text-neutral-300 text-sm leading-relaxed">Un appel gratuit de 30 minutes pour définir vos objectifs et vous jumeler avec la bonne personne tutrice.</p>
-          <div class="mt-auto pt-8">
+        <!-- Consultation gratuite · EN VEDETTE (même traitement que Meilleure Valeur) -->
+        <div onclick="pickService('Free Academic Consultation')" class="pkg-featured group cursor-pointer reveal relative rounded-3xl p-9 pt-12 flex flex-col text-white hover:-translate-y-2 transition-all duration-300">
+          <span class="pkg-badge">COMMENCEZ ICI</span>
+          <h3 class="font-serif text-2xl md:text-3xl leading-tight mb-2">Consultation académique gratuite</h3>
+          <p class="text-neutral-400 text-sm mb-8">30 minutes &middot; En ligne (Appel vidéo)</p>
+          <div class="mt-auto">
+            <div class="text-4xl font-semibold mb-5">Gratuit</div>
             <span class="inline-flex items-center gap-1.5 text-white font-semibold text-sm group-hover:gap-2.5 transition-all">Commencer
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </span>
           </div>
         </div>
 
-        <!-- Service 2 -->
-        <div onclick="pickService('1-on-1 Subject Tutoring')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
-          <h3 class="font-serif text-2xl leading-tight mb-4">Tutorat individuel</h3>
-          <div class="flex items-baseline gap-1.5 mb-1">
-            <span class="text-3xl font-semibold">$54.97</span>
-            <span class="text-neutral-400 text-sm">/ session</span>
-          </div>
-          <p class="text-neutral-400 text-sm mb-6">1 heure · En ligne</p>
-          <p class="text-neutral-300 text-sm leading-relaxed">Tutorat STEM individuel par des étudiants en médecine, conçu autour de vos cours précis. Nous ne couvrons pas seulement la matière : nous vous apprenons à apprendre, avec un accompagnement sur les méthodes d'étude et l'organisation intégré à chaque session pour bâtir des habitudes durables.</p>
-          <div class="mt-auto pt-8">
-            <span class="inline-flex items-center gap-1.5 text-white font-semibold text-sm group-hover:gap-2.5 transition-all">Commencer
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </span>
-          </div>
-        </div>
-
-        <!-- Service 3 · CASPer & MEM Prep -->
-        <div id='casper' onclick="pickService('CASPer & MEM Prep')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col shadow-2xl hover:border-white/30 transition-colors">
-          <h3 class="font-serif text-2xl leading-tight mb-4">Préparation CASPer &amp; MEM</h3>
-          <div class="flex items-baseline gap-1.5 mb-1">
-            <span class="text-3xl font-semibold">$69.99</span>
-            <span class="text-neutral-400 text-sm">/ session</span>
-          </div>
-          <p class="text-neutral-400 text-sm mb-6">1 heure · En ligne</p>
-          <p class="text-neutral-300 text-sm leading-relaxed">Simulations chronométrées réalistes du CASPer ou mini-stations d'entrevue MEM, avec des retours individuels d'experts, par des mentors admis aux quatre écoles de médecine du Québec. Des cadres de réponse éprouvés pour rester calme et vif le jour de l'entrevue.</p>
-          <a href="https://med-prep.ca/auth" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="inline-flex items-center gap-1.5 text-white/70 hover:text-white text-xs font-medium underline underline-offset-4 decoration-white/30 hover:decoration-white transition-colors mt-4">
-            Essayez gratuitement notre préparation CASPer par IA
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
-          </a>
-          <div class="mt-auto pt-8">
+        <!-- Préparation CASPer & MEM -->
+        <div id='casper' onclick="pickService('CASPer & MEM Prep')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-9 flex flex-col hover:border-white/30 hover:-translate-y-1 transition-all duration-300">
+          <h3 class="font-serif text-2xl md:text-3xl leading-tight mb-2">Préparation CASPer &amp; MEM</h3>
+          <p class="text-neutral-400 text-sm mb-8">1 heure &middot; En ligne &middot; Mentors admis aux 4 écoles de médecine du Québec</p>
+          <div class="mt-auto">
+            <div class="text-4xl font-semibold mb-5">$69.99<span class="text-neutral-400 text-base font-normal"> / session</span></div>
+            <a href="https://med-prep.ca/auth" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="inline-flex items-center gap-1.5 text-white/70 hover:text-white text-xs font-medium underline underline-offset-4 decoration-white/30 hover:decoration-white transition-colors mb-5">
+              Essayez gratuitement notre préparation CASPer par IA
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
             <span class="inline-flex items-center gap-1.5 text-white font-semibold text-sm group-hover:gap-2.5 transition-all">Préparez-vous avec nous
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </span>
@@ -349,50 +327,50 @@
 
       </div>
 
-      <!-- Tutoring packages (apply to 1-on-1 tutoring only) -->
+      <!-- Groupe B : forfaits de tutorat individuel · 3 grandes cartes -->
       <div class="mt-16 md:mt-24">
         <div class="reveal text-center mb-10 md:mb-14">
           <p class="text-xs tracking-[0.3em] text-white/70 mb-4 eyebrow-grad">VERROUILLEZ VOTRE TARIF</p>
-          <h3 class="font-serif text-3xl md:text-5xl text-white">Économisez plus avec un forfait</h3>
-          <p class="text-neutral-400 text-sm mt-4 max-w-md mx-auto">S'applique au tutorat individuel. Plus vous réservez de sessions, plus votre tarif baisse &mdash; automatiquement.</p>
+          <h3 class="font-serif text-3xl md:text-5xl text-white">Tutorat individuel &mdash; Choisissez votre forfait</h3>
+          <p class="text-neutral-400 text-sm mt-4 max-w-md mx-auto">Plus vous réservez de sessions, plus votre tarif baisse &mdash; automatiquement.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-7 md:gap-6 max-w-5xl mx-auto items-center">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
 
           <!-- Session unique (prix de référence) -->
-          <div onclick="pickService('1-on-1 Subject Tutoring')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col hover:border-white/30 hover:-translate-y-1 transition-all duration-300">
-            <h4 class="font-serif text-xl mb-1">Session unique</h4>
-            <p class="text-neutral-500 text-xs mb-7">Essayez sans engagement</p>
+          <div onclick="pickService('1-on-1 Subject Tutoring')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-9 flex flex-col hover:border-white/30 hover:-translate-y-1 transition-all duration-300">
+            <h4 class="font-serif text-2xl mb-1">Session unique</h4>
+            <p class="text-neutral-500 text-sm mb-8">Essayez sans engagement</p>
             <div class="mt-auto">
-              <div class="text-3xl font-semibold mb-1.5">$54.97<span class="text-neutral-400 text-sm font-normal"> / session</span></div>
-              <div class="text-neutral-500 text-xs">$54.97 total</div>
+              <div class="text-4xl font-semibold mb-2">$54.97<span class="text-neutral-400 text-base font-normal"> / session</span></div>
+              <div class="text-neutral-500 text-sm">$54.97 total</div>
             </div>
           </div>
 
           <!-- Forfait 5 sessions -->
-          <div onclick="pickService('5-Session Package')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-8 flex flex-col hover:border-white/30 hover:-translate-y-1 transition-all duration-300">
-            <h4 class="font-serif text-xl mb-1">Forfait 5 sessions</h4>
-            <p class="text-[#e79bc0] text-xs font-semibold mb-7">Économisez 25 $</p>
+          <div onclick="pickService('5-Session Package')" class="group cursor-pointer reveal bg-[#101014] text-white border border-white/15 rounded-3xl p-9 flex flex-col hover:border-white/30 hover:-translate-y-1 transition-all duration-300">
+            <h4 class="font-serif text-2xl mb-1">Forfait 5 sessions</h4>
+            <p class="text-[#e79bc0] text-sm font-semibold mb-8">Économisez 25 $</p>
             <div class="mt-auto">
-              <div class="flex items-baseline gap-2 mb-1.5">
-                <span class="text-neutral-500 text-base line-through">$54.97</span>
-                <span class="text-3xl font-semibold">$50<span class="text-neutral-400 text-sm font-normal"> / session</span></span>
+              <div class="flex items-baseline gap-2 mb-2">
+                <span class="text-neutral-500 text-lg line-through">$54.97</span>
+                <span class="text-4xl font-semibold">$50<span class="text-neutral-400 text-base font-normal"> / session</span></span>
               </div>
-              <div class="text-neutral-500 text-xs">$250 total</div>
+              <div class="text-neutral-500 text-sm">$250 total</div>
             </div>
           </div>
 
           <!-- Forfait 10 sessions · EN VEDETTE -->
-          <div onclick="pickService('10-Session Package')" class="pkg-featured group cursor-pointer reveal relative rounded-3xl p-8 pt-10 flex flex-col text-white hover:-translate-y-2 transition-all duration-300 md:scale-[1.07] z-10">
+          <div onclick="pickService('10-Session Package')" class="pkg-featured group cursor-pointer reveal relative rounded-3xl p-9 pt-12 flex flex-col text-white hover:-translate-y-2 transition-all duration-300 md:scale-[1.08] z-10">
             <span class="pkg-badge">MEILLEURE VALEUR</span>
-            <h4 class="font-serif text-xl mb-1">Forfait 10 sessions</h4>
-            <p class="text-xs font-bold mb-7 eyebrow-grad">Économisez <span data-count="100" data-suffix="">0</span> $</p>
+            <h4 class="font-serif text-2xl mb-1">Forfait 10 sessions</h4>
+            <p class="text-sm font-bold mb-8 eyebrow-grad">Économisez <span data-count="100" data-suffix="">0</span> $</p>
             <div class="mt-auto">
-              <div class="flex items-baseline gap-2 mb-1.5">
-                <span class="text-neutral-500 text-base line-through">$54.97</span>
-                <span class="text-3xl font-semibold">$45<span class="text-neutral-400 text-sm font-normal"> / session</span></span>
+              <div class="flex items-baseline gap-2 mb-2">
+                <span class="text-neutral-500 text-lg line-through">$54.97</span>
+                <span class="text-4xl font-semibold">$45<span class="text-neutral-400 text-base font-normal"> / session</span></span>
               </div>
-              <div class="text-neutral-400 text-xs">$450 total</div>
+              <div class="text-neutral-400 text-sm">$450 total</div>
             </div>
           </div>
 
