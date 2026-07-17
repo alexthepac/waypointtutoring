@@ -24,52 +24,52 @@
 <!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  tailwind.config = { theme: { extend: { fontFamily: {
-    sans: ['Inter', 'system-ui', 'sans-serif'],
-    serif: ['Fraunces', 'Georgia', 'serif'],
-  } } } };
+  tailwind.config = { theme: { extend: {
+    fontFamily: {
+      sans: ['Inter', 'system-ui', 'sans-serif'],
+      serif: ['Fraunces', 'Georgia', 'serif'],
+    },
+    colors: { ink: '#16141c', paper: '#f7f5f1' },
+  } } };
 </script>
 
 <style>
+  :root {
+    --ink: #16141c;
+    --paper: #f7f5f1;
+    --grad-eyebrow: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5);
+    --wave-1: #efeafa;
+    --wave-2: #fdeef5;
+  }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; background: #0A0A0C; color: #fff; }
-  .eyebrow-grad { background: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+  /* Mobile: drop the sticky-header frosted blur (expensive to composite while scrolling) */
+  @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
+  .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
 
-  /* ---------- Featured / CTA glow (same treatment as the homepage pricing) ---------- */
+  /* ---------- Wavy background shapes (same as the homepage) ---------- */
+  .wave-wrap { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .wave-wrap svg { position: absolute; }
+
+  /* ---------- Featured panel: sleek black outline (same treatment as the homepage pricing) ---------- */
   .pkg-featured {
-    background: linear-gradient(180deg, #17161d, #0d0c11);
-    box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 24px 60px -20px rgba(154,134,230,.55);
-  }
-  .pkg-featured::before {
-    content: '';
-    position: absolute;
-    inset: -1.5px;
-    border-radius: inherit;
-    padding: 1.5px;
-    background: linear-gradient(120deg, #e488b4, #9a86e6 50%, #7aa7f5);
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-    pointer-events: none;
-    animation: pkg-glow 3.6s ease-in-out infinite;
-  }
-  @keyframes pkg-glow { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
-  @media (prefers-reduced-motion: reduce) {
-    .pkg-featured::before { animation: none; opacity: .85; }
+    background: #fff;
+    border: 2px solid var(--ink);
+    box-shadow: 0 28px 60px -26px rgba(22,20,28,.35);
   }
 </style>
 </head>
 
-<body class="bg-[#0A0A0C] text-white antialiased">
+<body class="bg-paper text-ink antialiased">
 
 <!-- Header -->
-<header class="sticky top-0 z-50 bg-[#0A0A0C]/85 backdrop-blur-md border-b border-white/10">
+<header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-7 w-auto" />MNTR Tutoring<span class="text-neutral-500">.</span></a>
+    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />MNTR Tutoring<span class="text-neutral-400">.</span></a>
     <div class="flex items-center gap-3">
       <!-- Language Switcher -->
       <div class="relative">
-        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-300 text-sm font-medium hover:text-white transition-colors">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 text-sm font-medium hover:text-ink transition-colors">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           EN
         </button>
@@ -78,59 +78,71 @@
           <a href="checkout-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
         </div>
       </div>
-      <a href="index.html#services" class="text-sm font-medium text-neutral-300 hover:text-white transition-colors">All services</a>
+      <a href="index.html#services" class="text-sm font-medium text-neutral-600 hover:text-ink transition-colors">All services</a>
     </div>
   </div>
 </header>
 
-<main class="max-w-5xl mx-auto px-6 py-16 md:py-24">
-  <a href="index.html#services" class="inline-flex items-center gap-1.5 text-sm text-neutral-400 hover:text-white transition-colors mb-10">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-    Back to services
-  </a>
+<main class="relative overflow-hidden">
+  <!-- Wavy organic background shapes (inspo 1, same colour as the homepage) -->
+  <div class="wave-wrap" aria-hidden="true">
+    <svg style="top:-60px; right:-18%; width:70%; min-width:520px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-1)" d="M105 92C258-32 522-18 700 60c178 78 232 224 148 330-84 106-306 146-492 96C170 436 22 342 24 250 26 158 48 138 105 92Z"/>
+    </svg>
+    <svg style="bottom:-80px; left:-20%; width:65%; min-width:480px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-2)" d="M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z"/>
+    </svg>
+  </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-14 items-start">
+  <div class="relative max-w-5xl mx-auto px-6 py-16 md:py-24">
+    <a href="index.html#services" class="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-ink transition-colors mb-10">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back to services
+    </a>
 
-    <!-- Left: service summary -->
-    <div class="md:col-span-3">
-      <p class="text-[11px] tracking-[0.3em] mb-4 eyebrow-grad">SECURE CHECKOUT</p>
-      <h1 id="svc-name" class="font-serif text-4xl md:text-5xl leading-tight mb-4">Service</h1>
-      <p id="svc-desc" class="text-neutral-300 text-lg leading-relaxed mb-8"></p>
-      <div class="border-t border-white/10 pt-8">
-        <h2 class="font-semibold mb-5">What's included</h2>
-        <ul id="svc-includes" class="space-y-3"></ul>
-      </div>
-    </div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-14 items-start">
 
-    <!-- Right: order / payment panel -->
-    <div class="md:col-span-2">
-      <div class="pkg-featured relative rounded-3xl p-7 md:sticky md:top-28">
-        <div class="flex items-baseline justify-between">
-          <span class="text-neutral-400 text-sm">Price</span>
-          <span id="svc-price" class="text-3xl font-semibold">$0</span>
+      <!-- Left: service summary -->
+      <div class="md:col-span-3">
+        <p class="text-[11px] font-bold tracking-[0.3em] mb-4 eyebrow-grad">SECURE CHECKOUT</p>
+        <h1 id="svc-name" class="font-serif text-4xl md:text-5xl leading-tight mb-4 text-ink">Service</h1>
+        <p id="svc-desc" class="text-neutral-600 text-lg leading-relaxed mb-8"></p>
+        <div class="border-t border-ink/10 pt-8">
+          <h2 class="font-semibold mb-5 text-ink">What's included</h2>
+          <ul id="svc-includes" class="space-y-3"></ul>
         </div>
-        <p id="svc-unit" class="text-neutral-400 text-sm text-right mb-6"></p>
-
-        <a id="pay-btn" href="#" class="block w-fit mx-auto text-center bg-white text-black font-semibold text-sm px-7 py-3 rounded-lg hover:bg-neutral-200 transition-colors">
-          Proceed to secure payment
-        </a>
-
-        <div class="flex items-center justify-center gap-2 mt-4 text-neutral-400 text-xs">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Secure payment powered by Stripe
-        </div>
-        <p class="text-neutral-500 text-xs text-center mt-4 leading-relaxed">You'll receive an email confirmation and receipt as soon as your payment goes through.</p>
       </div>
-    </div>
 
+      <!-- Right: order / payment panel -->
+      <div class="md:col-span-2">
+        <div class="pkg-featured relative rounded-3xl p-7 md:sticky md:top-28">
+          <div class="flex items-baseline justify-between">
+            <span class="text-neutral-500 text-sm">Price</span>
+            <span id="svc-price" class="text-3xl font-semibold text-ink">$0</span>
+          </div>
+          <p id="svc-unit" class="text-neutral-500 text-sm text-right mb-6"></p>
+
+          <a id="pay-btn" href="#" class="block w-fit mx-auto text-center bg-ink text-white font-semibold text-sm px-7 py-3 rounded-lg hover:bg-black transition-colors">
+            Proceed to secure payment
+          </a>
+
+          <div class="flex items-center justify-center gap-2 mt-4 text-neutral-500 text-xs">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Secure payment powered by Stripe
+          </div>
+          <p class="text-neutral-400 text-xs text-center mt-4 leading-relaxed">You'll receive an email confirmation and receipt as soon as your payment goes through.</p>
+        </div>
+      </div>
+
+    </div>
   </div>
 </main>
 
 <!-- Footer -->
-<footer class="bg-[#0A0A0C] text-white py-10 px-6 mt-10" style="background-image: radial-gradient(500px circle at 20% -20%, rgba(240,166,200,.12), transparent 60%), radial-gradient(500px circle at 85% 130%, rgba(156,192,255,.11), transparent 60%);">
+<footer class="bg-ink text-white py-10 px-6 mt-10 rounded-t-[22px]">
   <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
     <a href="index.html" class="font-serif text-lg inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-5 w-auto" />MNTR Tutoring<span class="text-neutral-500">.</span></a>
-    <p class="text-neutral-500 text-sm">&copy; 2026 MNTR Tutoring &middot; Qu&eacute;bec &middot; <a href="privacy.html" class="hover:text-white transition-colors underline underline-offset-2">Privacy Policy</a> &middot; <a href="user-agreement.html" class="hover:text-white transition-colors underline underline-offset-2">User Agreement</a></p>
+    <p class="text-neutral-400 text-sm">&copy; 2026 MNTR Tutoring &middot; Qu&eacute;bec &middot; <a href="privacy.html" class="hover:text-white transition-colors underline underline-offset-2">Privacy Policy</a> &middot; <a href="user-agreement.html" class="hover:text-white transition-colors underline underline-offset-2">User Agreement</a></p>
   </div>
 </footer>
 
@@ -229,9 +241,9 @@
     var ul = document.getElementById('svc-includes');
     svc.includes.forEach(function (item) {
       var li = document.createElement('li');
-      li.className = 'flex items-start gap-3 text-neutral-300 text-sm';
+      li.className = 'flex items-start gap-3 text-neutral-600 text-sm';
       var chk = document.createElement('span');
-      chk.className = 'text-white font-bold shrink-0';
+      chk.className = 'text-[#9a86e6] font-bold shrink-0';
       chk.textContent = '✓';
       var txt = document.createElement('span');
       txt.textContent = item;

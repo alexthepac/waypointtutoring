@@ -23,54 +23,55 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  tailwind.config = { theme: { extend: { fontFamily: {
-    sans: ['Inter', 'system-ui', 'sans-serif'],
-    serif: ['Fraunces', 'Georgia', 'serif'],
-  } } } };
+  tailwind.config = { theme: { extend: {
+    fontFamily: {
+      sans: ['Inter', 'system-ui', 'sans-serif'],
+      serif: ['Fraunces', 'Georgia', 'serif'],
+    },
+    colors: { ink: '#16141c', paper: '#f7f5f1' },
+  } } };
 </script>
 
 <style>
+  :root {
+    --ink: #16141c;
+    --paper: #f7f5f1;
+    --grad-eyebrow: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5);
+    --wave-1: #efeafa;
+    --wave-2: #fdeef5;
+  }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; background: #0A0A0C; color: #fff; }
-  .eyebrow-grad { background: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+  /* Mobile: drop the sticky-header frosted blur (expensive to composite while scrolling) */
+  @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
+  .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  .reveal { opacity: 0; transform: translateY(28px) scale(.98); transition: opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1); transition-delay: var(--rd, 0s); }
   .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 
-  /* ---------- Featured / CTA glow (same treatment as the homepage pricing) ---------- */
+  /* ---------- Wavy background shapes (same as the homepage) ---------- */
+  .wave-wrap { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .wave-wrap svg { position: absolute; }
+
+  /* ---------- Featured / CTA card: sleek black outline (same treatment as the homepage pricing) ---------- */
   .pkg-featured {
-    background: linear-gradient(180deg, #17161d, #0d0c11);
-    box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 24px 60px -20px rgba(154,134,230,.55);
-  }
-  .pkg-featured::before {
-    content: '';
-    position: absolute;
-    inset: -1.5px;
-    border-radius: inherit;
-    padding: 1.5px;
-    background: linear-gradient(120deg, #e488b4, #9a86e6 50%, #7aa7f5);
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-    pointer-events: none;
-    animation: pkg-glow 3.6s ease-in-out infinite;
-  }
-  @keyframes pkg-glow { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
-  @media (prefers-reduced-motion: reduce) {
-    .pkg-featured::before { animation: none; opacity: .85; }
+    background: #fff;
+    border: 2px solid var(--ink);
+    box-shadow: 0 28px 60px -26px rgba(22,20,28,.35);
   }
 </style>
 </head>
 
-<body class="bg-[#0A0A0C] text-white antialiased">
+<body class="bg-paper text-ink antialiased">
 
 <!-- Header -->
-<header class="sticky top-0 z-50 bg-[#0A0A0C]/85 backdrop-blur-md border-b border-white/10">
+<header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
   <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-7 w-auto" />Tutorat MNTR<span class="text-neutral-500">.</span></a>
-    <div class="flex items-center gap-7 text-sm font-medium text-neutral-300">
+    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />Tutorat MNTR<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-7 text-sm font-medium text-neutral-600">
       <!-- Language Switcher -->
       <div class="relative">
-        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-300 hover:text-white transition-colors">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-ink transition-colors">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           FR
         </button>
@@ -79,123 +80,137 @@
           <a href="casper-fr.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">Français</a>
         </div>
       </div>
-      <a href="#pricing" class="hover:text-white transition-colors hidden sm:inline">Tarifs</a>
-      <a href="book-fr.html" class="bg-white text-black px-5 py-2.5 rounded-full hover:bg-neutral-200 transition-colors">Appel stratégique gratuit</a>
+      <a href="#pricing" class="hover:text-ink transition-colors hidden sm:inline">Tarifs</a>
+      <a href="book-fr.html" class="bg-ink text-white px-5 py-2.5 rounded-full hover:bg-black transition-colors">Appel stratégique gratuit</a>
     </div>
   </div>
 </header>
 
 <!-- HERO -->
-<section class="relative overflow-hidden bg-[#0A0A0C]">
-  <div class='pointer-events-none absolute -top-24 -left-20 w-[480px] h-[480px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(240,166,200,.38),transparent 60%)'></div>
-  <div class='pointer-events-none absolute -bottom-32 -right-10 w-[560px] h-[560px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(156,192,255,.36),transparent 60%)'></div>
+<section class="relative overflow-hidden">
+  <!-- Wavy organic background shapes (inspo 1, same colour as the homepage) -->
+  <div class="wave-wrap" aria-hidden="true">
+    <svg style="top:-50px; right:-16%; width:72%; min-width:540px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-1)" d="M105 92C258-32 522-18 700 60c178 78 232 224 148 330-84 106-306 146-492 96C170 436 22 342 24 250 26 158 48 138 105 92Z"/>
+    </svg>
+    <svg style="bottom:-70px; left:-20%; width:66%; min-width:500px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-2)" d="M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z"/>
+    </svg>
+  </div>
   <div class="relative max-w-4xl mx-auto px-6 py-24 md:py-32 text-center">
-    <p class="reveal in text-xs tracking-[0.3em] mb-6 eyebrow-grad">PRÉPARATION CASPER &amp; MEM</p>
-    <h1 class="reveal in font-serif text-4xl md:text-6xl leading-tight text-white mb-6">Abordez le jour de l'entrevue et du test en toute confiance</h1>
-    <p class="reveal in text-neutral-300 text-lg leading-relaxed max-w-2xl mx-auto mb-10">Le test Casper et l'entrevue MEM comptent parmi les parties les plus importantes de votre candidature à l'école de médecine, et chaque année, de solides candidatures aux excellentes notes sont refusées faute de préparation. La pratique est la clé : nous vous préparons avec des simulations réalistes, des entrevues simulées en direct et de puissants outils d'IA, le tout encadré par des mentors admis aux quatre écoles de médecine du Québec.</p>
+    <p class="reveal in text-xs font-bold tracking-[0.3em] mb-6 eyebrow-grad">PRÉPARATION CASPER &amp; MEM</p>
+    <h1 class="reveal in font-serif text-4xl md:text-6xl leading-tight text-ink mb-6">Abordez le jour de l'entrevue et du test en toute confiance</h1>
+    <p class="reveal in text-neutral-600 text-lg leading-relaxed max-w-2xl mx-auto mb-10">Le test Casper et l'entrevue MEM comptent parmi les parties les plus importantes de votre candidature à l'école de médecine, et chaque année, de solides candidatures aux excellentes notes sont refusées faute de préparation. La pratique est la clé : nous vous préparons avec des simulations réalistes, des entrevues simulées en direct et de puissants outils d'IA, le tout encadré par des mentors admis aux quatre écoles de médecine du Québec.</p>
     <div class="reveal in flex flex-wrap items-center justify-center gap-4">
-      <a href="#pricing" class="bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Voir les plans de préparation</a>
-      <a href="book-fr.html" class="border border-white/30 text-white font-semibold px-8 py-4 rounded-full hover:bg-white/10 transition-colors">Réserver un appel stratégique gratuit</a>
+      <a href="#pricing" class="bg-ink text-white font-semibold px-8 py-4 rounded-full hover:bg-black transition-colors">Voir les plans de préparation</a>
+      <a href="book-fr.html" class="border border-ink/25 text-ink font-semibold px-8 py-4 rounded-full hover:bg-ink/5 transition-colors">Réserver un appel stratégique gratuit</a>
     </div>
   </div>
 </section>
 
 <!-- WHAT ARE CASPER / MEM -->
-<section class="bg-[#0A0A0C] py-20 md:py-28 px-6">
+<section class="py-20 md:py-28 px-6">
   <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
     <div class="reveal">
-      <p class="text-xs tracking-[0.3em] text-neutral-400 mb-4">QU'EST-CE QUE CASPER</p>
-      <h2 class="font-serif text-2xl md:text-3xl mb-4 text-white">Un test chronométré de jugement, pas de connaissances.</h2>
-      <p class="text-neutral-300 leading-relaxed">Casper présente des scénarios éthiques et interpersonnels réalistes et évalue votre manière de raisonner face à eux, sous la pression du temps. On ne peut pas « étudier » son contenu, mais on peut s'entraîner — de façon éprouvée — au format, au rythme et à la structure d'une réponse solide.</p>
+      <p class="text-xs tracking-[0.3em] text-neutral-500 mb-4">QU'EST-CE QUE CASPER</p>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4 text-ink">Un test chronométré de jugement, pas de connaissances.</h2>
+      <p class="text-neutral-600 leading-relaxed">Casper présente des scénarios éthiques et interpersonnels réalistes et évalue votre manière de raisonner face à eux, sous la pression du temps. On ne peut pas « étudier » son contenu, mais on peut s'entraîner — de façon éprouvée — au format, au rythme et à la structure d'une réponse solide.</p>
     </div>
-    <div class="reveal">
-      <p class="text-xs tracking-[0.3em] text-neutral-400 mb-4">QU'EST-CE QUE LA MEM</p>
-      <h2 class="font-serif text-2xl md:text-3xl mb-4 text-white">Une série de stations courtes à haute pression.</h2>
-      <p class="text-neutral-300 leading-relaxed">Les mini-entrevues multiples (MEM) vous font passer par plusieurs stations courtes, chacune évaluant la communication, l'éthique et le sang-froid. Pour la plupart des candidats, la première véritable tentative a lieu le jour même de l'entrevue. La nôtre, non.</p>
+    <div class="reveal" style="--rd:.12s">
+      <p class="text-xs tracking-[0.3em] text-neutral-500 mb-4">QU'EST-CE QUE LA MEM</p>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4 text-ink">Une série de stations courtes à haute pression.</h2>
+      <p class="text-neutral-600 leading-relaxed">Les mini-entrevues multiples (MEM) vous font passer par plusieurs stations courtes, chacune évaluant la communication, l'éthique et le sang-froid. Pour la plupart des candidats, la première véritable tentative a lieu le jour même de l'entrevue. La nôtre, non.</p>
     </div>
   </div>
 </section>
 
 <!-- AI SUPPLEMENT -->
-<section class="bg-[#101014] py-20 md:py-24 px-6 border-y border-white/10">
-  <div class="max-w-4xl mx-auto text-center">
-    <p class="reveal text-xs tracking-[0.3em] mb-4 eyebrow-grad">PRATIQUE À LA DEMANDE</p>
-    <h2 class="reveal font-serif text-3xl md:text-4xl mb-6 text-white">Outil d'apprentissage IA puissant</h2>
-    <p class="reveal text-neutral-300 text-lg leading-relaxed mb-10">Complétez vos sessions en direct avec notre simulateur IA avancé. Il fournit une rétroaction instantanée et ciblée sur vos réponses MEM et Casper 24/7. Le système évalue votre raisonnement central, votre empathie et votre structure, en gardant à l'esprit que l'orthographe ne compte pas pour les évaluations Casper.</p>
+<section class="relative overflow-hidden py-20 md:py-24 px-6" style="background: var(--wave-1);">
+  <div class="relative max-w-4xl mx-auto text-center">
+    <p class="reveal text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">PRATIQUE À LA DEMANDE</p>
+    <h2 class="reveal font-serif text-3xl md:text-4xl mb-6 text-ink">Outil d'apprentissage IA puissant</h2>
+    <p class="reveal text-neutral-600 text-lg leading-relaxed mb-10">Complétez vos sessions en direct avec notre simulateur IA avancé. Il fournit une rétroaction instantanée et ciblée sur vos réponses MEM et Casper 24/7. Le système évalue votre raisonnement central, votre empathie et votre structure, en gardant à l'esprit que l'orthographe ne compte pas pour les évaluations Casper.</p>
     <div class="reveal">
-      <a href="https://med-prep.ca/auth" class="inline-block bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Accéder au simulateur IA</a>
+      <a href="https://med-prep.ca/auth" class="inline-block bg-ink text-white font-semibold px-8 py-4 rounded-full hover:bg-black transition-colors">Accéder au simulateur IA</a>
     </div>
   </div>
 </section>
 
 <!-- WHAT'S INCLUDED IN EVERY PLAN -->
-<section class="bg-[#0A0A0C] py-20 md:py-28 px-6">
+<section class="py-20 md:py-28 px-6">
   <div class="max-w-6xl mx-auto">
     <div class="reveal text-center mb-14">
-      <p class="text-xs tracking-[0.3em] mb-4 eyebrow-grad">CHAQUE PLAN INCLUT</p>
-      <h2 class="font-serif text-3xl md:text-4xl text-white">Les fondamentaux, intégrés dès le départ</h2>
+      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">CHAQUE PLAN INCLUT</p>
+      <h2 class="font-serif text-3xl md:text-4xl text-ink">Les fondamentaux, intégrés dès le départ</h2>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
       <div class="reveal">
-        <div class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center mb-4">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <div class="w-11 h-11 rounded-full bg-ink/5 flex items-center justify-center mb-4">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
         </div>
-        <h3 class="font-semibold text-sm mb-1.5 text-white">Simulations chronométrées réalistes</h3>
-        <p class="text-neutral-400 text-sm leading-relaxed">Pratiquez sous la même pression temporelle et le même format que le vrai test.</p>
+        <h3 class="font-semibold text-sm mb-1.5 text-ink">Simulations chronométrées réalistes</h3>
+        <p class="text-neutral-500 text-sm leading-relaxed">Pratiquez sous la même pression temporelle et le même format que le vrai test.</p>
       </div>
-      <div class="reveal">
-        <div class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center mb-4">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      <div class="reveal" style="--rd:.1s">
+        <div class="w-11 h-11 rounded-full bg-ink/5 flex items-center justify-center mb-4">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
-        <h3 class="font-semibold text-sm mb-1.5 text-white">Cadres de réponse éprouvés</h3>
-        <p class="text-neutral-400 text-sm leading-relaxed">Approches structurées pour les questions situationnelles, éthiques et personnelles.</p>
+        <h3 class="font-semibold text-sm mb-1.5 text-ink">Cadres de réponse éprouvés</h3>
+        <p class="text-neutral-500 text-sm leading-relaxed">Approches structurées pour les questions situationnelles, éthiques et personnelles.</p>
       </div>
-      <div class="reveal">
-        <div class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center mb-4">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8V6a5 5 0 0 0-10 0v2M5 8h14l-1 12H6L5 8Z"/></svg>
+      <div class="reveal" style="--rd:.2s">
+        <div class="w-11 h-11 rounded-full bg-ink/5 flex items-center justify-center mb-4">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8V6a5 5 0 0 0-10 0v2M5 8h14l-1 12H6L5 8Z"/></svg>
         </div>
-        <h3 class="font-semibold text-sm mb-1.5 text-white">Rétroaction honnête et détaillée</h3>
-        <p class="text-neutral-400 text-sm leading-relaxed">Notes spécifiques et actionnables après chaque simulation et entrevue simulée.</p>
+        <h3 class="font-semibold text-sm mb-1.5 text-ink">Rétroaction honnête et détaillée</h3>
+        <p class="text-neutral-500 text-sm leading-relaxed">Notes spécifiques et actionnables après chaque simulation et entrevue simulée.</p>
       </div>
-      <div class="reveal">
-        <div class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center mb-4">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      <div class="reveal" style="--rd:.3s">
+        <div class="w-11 h-11 rounded-full bg-ink/5 flex items-center justify-center mb-4">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         </div>
-        <h3 class="font-semibold text-sm mb-1.5 text-white">Mentors qui ont réussi</h3>
-        <p class="text-neutral-400 text-sm leading-relaxed">Encadrement assuré par des personnes tutrices admises aux quatre écoles de médecine du Québec.</p>
+        <h3 class="font-semibold text-sm mb-1.5 text-ink">Mentors qui ont réussi</h3>
+        <p class="text-neutral-500 text-sm leading-relaxed">Encadrement assuré par des personnes tutrices admises aux quatre écoles de médecine du Québec.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PRICING TIERS -->
-<section id="pricing" class="relative overflow-hidden bg-[#0A0A0C]">
-  <div class='pointer-events-none absolute -top-24 -left-20 w-[480px] h-[480px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(240,166,200,.32),transparent 60%)'></div>
-  <div class='pointer-events-none absolute -bottom-32 -right-10 w-[560px] h-[560px] rounded-full blur-3xl' style='background:radial-gradient(circle,rgba(156,192,255,.30),transparent 60%)'></div>
+<section id="pricing" class="relative overflow-hidden">
+  <!-- Wavy organic background shapes -->
+  <div class="wave-wrap" aria-hidden="true">
+    <svg style="top:-30px; left:-18%; width:68%; min-width:500px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-2)" d="M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z"/>
+    </svg>
+    <svg style="bottom:-50px; right:-16%; width:70%; min-width:520px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-1)" d="M105 92C258-32 522-18 700 60c178 78 232 224 148 330-84 106-306 146-492 96C170 436 22 342 24 250 26 158 48 138 105 92Z"/>
+    </svg>
+  </div>
   <div class="relative max-w-6xl mx-auto px-6 py-24 md:py-32">
 
     <div class="reveal text-center mb-14 md:mb-16">
-      <p class="text-xs tracking-[0.3em] mb-4 eyebrow-grad">TARIFICATION SIMPLE</p>
-      <h2 class="font-serif text-4xl md:text-5xl text-white">Préparation individuelle, à l'heure</h2>
-      <p class="text-neutral-400 mt-4 max-w-xl mx-auto">Chaque session commence par un appel stratégique gratuit afin que nous puissions recommander le bon focus avant que vous ne réserviez quoi que ce soit.</p>
+      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">TARIFICATION SIMPLE</p>
+      <h2 class="font-serif text-4xl md:text-5xl text-ink">Préparation individuelle, à l'heure</h2>
+      <p class="text-neutral-500 mt-4 max-w-xl mx-auto">Chaque session commence par un appel stratégique gratuit afin que nous puissions recommander le bon focus avant que vous ne réserviez quoi que ce soit.</p>
     </div>
 
     <div class="max-w-md mx-auto">
-      <div onclick="location.href='checkout-fr.html?service=casper-hourly'" class="pkg-featured relative cursor-pointer reveal text-white rounded-3xl p-8 flex flex-col">
+      <div onclick="location.href='checkout-fr.html?service=casper-hourly'" class="pkg-featured relative cursor-pointer reveal text-ink rounded-3xl p-8 flex flex-col">
         <p class="text-[11px] tracking-[0.25em] text-neutral-500 mb-5">PRÉPARATION CASPER &amp; MEM</p>
         <div class="flex items-baseline gap-1.5 mb-1">
           <span class="text-4xl font-semibold">$69.99</span>
-          <span class="text-neutral-400 text-sm">/ session</span>
+          <span class="text-neutral-500 text-sm">/ session</span>
         </div>
-        <p class="text-neutral-400 text-sm mb-6">1 heure · Individuel · En ligne</p>
-        <ul class="space-y-3 text-sm text-neutral-300 flex-1">
-          <li class="flex gap-2.5"><span class="text-white/40">✓</span>Simulations Casper chronométrées ou stations MEM simulées</li>
-          <li class="flex gap-2.5"><span class="text-white/40">✓</span>Rétroaction d'expert 1-sur-1 après chaque session</li>
-          <li class="flex gap-2.5"><span class="text-white/40">✓</span>Cadres de réponse éprouvés &amp; grille d'évaluation</li>
-          <li class="flex gap-2.5"><span class="text-white/40">✓</span>Mentors admis aux quatre écoles de médecine du Québec</li>
+        <p class="text-neutral-500 text-sm mb-6">1 heure · Individuel · En ligne</p>
+        <ul class="space-y-3 text-sm text-neutral-600 flex-1">
+          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Simulations Casper chronométrées ou stations MEM simulées</li>
+          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Rétroaction d'expert 1-sur-1 après chaque session</li>
+          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Cadres de réponse éprouvés &amp; grille d'évaluation</li>
+          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Mentors admis aux quatre écoles de médecine du Québec</li>
         </ul>
-        <div class="mt-8 pt-6 border-t border-white/10">
-          <span class="inline-flex items-center gap-1.5 text-white font-semibold text-sm">Commencer
+        <div class="mt-8 pt-6 border-t border-ink/10">
+          <span class="inline-flex items-center gap-1.5 text-ink font-semibold text-sm">Commencer
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </span>
         </div>
@@ -206,28 +221,28 @@
 </section>
 
 <!-- REASSURANCE -->
-<section class="bg-[#0A0A0C] py-20 md:py-28 px-6">
+<section class="py-20 md:py-28 px-6">
   <div class="max-w-3xl mx-auto text-center">
-    <p class="text-xs tracking-[0.3em] mb-5 eyebrow-grad">NOTRE ENGAGEMENT</p>
-    <h2 class="font-serif text-3xl md:text-4xl mb-6 text-white">Préparez-vous avec confiance, pas avec pression.</h2>
-    <p class="text-neutral-300 text-lg leading-relaxed">Si notre approche ne vous convient pas après votre première simulation ou entrevue simulée, dites-le-nous et nous corrigerons la situation, que cela passe par un autre mentor, un plan ajusté ou un remboursement de cette session. Chaque plan commence également par un appel stratégique gratuit : vous savez ainsi exactement ce que vous obtenez avant de vous engager à quoi que ce soit.</p>
+    <p class="text-xs font-bold tracking-[0.3em] mb-5 eyebrow-grad">NOTRE ENGAGEMENT</p>
+    <h2 class="font-serif text-3xl md:text-4xl mb-6 text-ink">Préparez-vous avec confiance, pas avec pression.</h2>
+    <p class="text-neutral-600 text-lg leading-relaxed">Si notre approche ne vous convient pas après votre première simulation ou entrevue simulée, dites-le-nous et nous corrigerons la situation, que cela passe par un autre mentor, un plan ajusté ou un remboursement de cette session. Chaque plan commence également par un appel stratégique gratuit : vous savez ainsi exactement ce que vous obtenez avant de vous engager à quoi que ce soit.</p>
   </div>
 </section>
 
 <!-- FINAL CTA -->
-<section class="bg-[#0A0A0C] py-20 md:py-28 px-6" style="background-image: radial-gradient(600px circle at 20% -20%, rgba(240,166,200,.16), transparent 60%), radial-gradient(600px circle at 85% 130%, rgba(156,192,255,.15), transparent 60%);">
+<section class="py-20 md:py-28 px-6">
   <div class="max-w-2xl mx-auto text-center">
-    <h2 class="font-serif text-3xl md:text-4xl text-white mb-5">Vous ne savez pas quel plan vous convient ?</h2>
-    <p class="text-neutral-400 mb-9">Réservez un appel stratégique gratuit de 30 minutes. Nous passerons en revue votre calendrier et vos entrevues, puis vous recommanderons honnêtement un plan, même s'il s'agit du plus modeste.</p>
-    <a href="book-fr.html" class="inline-block bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Réservez votre appel stratégique gratuit</a>
+    <h2 class="font-serif text-3xl md:text-4xl text-ink mb-5">Vous ne savez pas quel plan vous convient ?</h2>
+    <p class="text-neutral-500 mb-9">Réservez un appel stratégique gratuit de 30 minutes. Nous passerons en revue votre calendrier et vos entrevues, puis vous recommanderons honnêtement un plan, même s'il s'agit du plus modeste.</p>
+    <a href="book-fr.html" class="inline-block bg-ink text-white font-semibold px-8 py-4 rounded-full hover:bg-black transition-colors">Réservez votre appel stratégique gratuit</a>
   </div>
 </section>
 
 <!-- Footer -->
-<footer class="bg-[#0A0A0C] text-white py-10 px-6 border-t border-white/10" style="background-image: radial-gradient(500px circle at 20% -20%, rgba(240,166,200,.12), transparent 60%), radial-gradient(500px circle at 85% 130%, rgba(156,192,255,.11), transparent 60%);">
+<footer class="bg-ink text-white py-10 px-6 rounded-t-[22px]">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
     <a href="index-fr.html" class="font-serif text-xl inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-5 w-auto" />Tutorat MNTR<span class="text-neutral-500">.</span></a>
-    <p class="text-neutral-500 text-sm">© 2026 Tutorat MNTR · Québec · <a href="privacy-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Politique de confidentialité</a> · <a href="user-agreement-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Contrat utilisateur</a></p>
+    <p class="text-neutral-400 text-sm">© 2026 Tutorat MNTR · Québec · <a href="privacy-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Politique de confidentialité</a> · <a href="user-agreement-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Contrat utilisateur</a></p>
   </div>
 </footer>
 
