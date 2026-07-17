@@ -26,57 +26,49 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
-    theme: { extend: { fontFamily: {
-      sans:  ['Inter', 'system-ui', 'sans-serif'],
-      serif: ['Fraunces', 'Georgia', 'serif'],
-    } } },
+    theme: { extend: {
+      fontFamily: {
+        sans:  ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Fraunces', 'Georgia', 'serif'],
+      },
+      colors: { ink: '#16141c', paper: '#f7f5f1' },
+    } },
   };
 </script>
 
 <style>
+  :root {
+    --ink: #16141c;
+    --paper: #f7f5f1;
+    --grad-eyebrow: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5);
+  }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; background: #0A0A0C; color: #fff; }
-  .eyebrow-grad { background: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+  .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
   .reveal.in { opacity: 1; transform: none; }
 
-  /* ---------- Featured / CTA glow (same treatment as the homepage pricing) ---------- */
+  /* ---------- Featured / CTA card: sleek black outline (same treatment as the homepage pricing) ---------- */
   .pkg-featured {
-    background: linear-gradient(180deg, #17161d, #0d0c11);
-    box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 24px 60px -20px rgba(154,134,230,.55);
-  }
-  .pkg-featured::before {
-    content: '';
-    position: absolute;
-    inset: -1.5px;
-    border-radius: inherit;
-    padding: 1.5px;
-    background: linear-gradient(120deg, #e488b4, #9a86e6 50%, #7aa7f5);
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-    pointer-events: none;
-    animation: pkg-glow 3.6s ease-in-out infinite;
-  }
-  @keyframes pkg-glow { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
-  @media (prefers-reduced-motion: reduce) {
-    .pkg-featured::before { animation: none; opacity: .85; }
+    background: #fff;
+    border: 2px solid var(--ink);
+    box-shadow: 0 28px 60px -26px rgba(22,20,28,.35);
   }
 </style>
 </head>
 
-<body class="bg-[#0A0A0C] text-white antialiased">
+<body class="bg-paper text-ink antialiased">
 
 <!-- ============================================================
      TOP BAR
 ============================================================ -->
-<header class="sticky top-0 z-50 bg-[#0A0A0C]/85 backdrop-blur-md border-b border-white/10">
+<header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-7 w-auto" />Tutorat MNTR<span class="text-neutral-500">.</span></a>
-    <div class="flex items-center gap-7 text-sm font-medium text-neutral-300">
+    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />Tutorat MNTR<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-7 text-sm font-medium text-neutral-600">
       <!-- Language Switcher -->
       <div class="relative">
-        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-300 hover:text-white transition-colors">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-ink transition-colors">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           FR
         </button>
@@ -85,9 +77,9 @@
           <a href="privacy-fr.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">Français</a>
         </div>
       </div>
-      <a href="index-fr.html" class="hover:text-white transition-colors">Accueil</a>
-      <a href="faq-fr.html" class="hover:text-white transition-colors hidden sm:inline">FAQ</a>
-      <a href="index-fr.html#contact" class="bg-white text-black px-5 py-2.5 rounded-full hover:bg-neutral-200 transition-colors">Contactez-nous</a>
+      <a href="index-fr.html" class="hover:text-ink transition-colors">Accueil</a>
+      <a href="faq-fr.html" class="hover:text-ink transition-colors hidden sm:inline">FAQ</a>
+      <a href="index-fr.html#contact" class="bg-ink text-white px-5 py-2.5 rounded-full hover:bg-black transition-colors">Contactez-nous</a>
     </div>
   </div>
 </header>
@@ -96,9 +88,9 @@
      TITLE
 ============================================================ -->
 <section class="max-w-3xl mx-auto px-6 pt-24 md:pt-32 pb-12 text-center">
-  <p class="reveal text-xs tracking-[0.3em] mb-5 eyebrow-grad">LÉGAL</p>
-  <h1 class="reveal font-serif text-5xl md:text-6xl leading-tight mb-6">Politique de confidentialité</h1>
-  <p class="reveal text-neutral-300 text-lg">Dernière mise à jour : juillet 2026. Questions ? <a href="index-fr.html#contact" class="text-white underline underline-offset-4 hover:no-underline">Contactez-nous</a>.</p>
+  <p class="reveal text-xs font-bold tracking-[0.3em] mb-5 eyebrow-grad">LÉGAL</p>
+  <h1 class="reveal font-serif text-5xl md:text-6xl leading-tight mb-6 text-ink">Politique de confidentialité</h1>
+  <p class="reveal text-neutral-600 text-lg">Dernière mise à jour : juillet 2026. Questions ? <a href="index-fr.html#contact" class="text-ink underline underline-offset-4 hover:no-underline">Contactez-nous</a>.</p>
 </section>
 
 <!-- ============================================================
@@ -108,14 +100,14 @@
   <div class="reveal space-y-12">
 
     <div>
-      <h2 class="font-serif text-2xl md:text-3xl mb-4">1. Confidentialité des clients</h2>
-      <p class="text-neutral-300 leading-relaxed">Toute information que vous partagez avec Tutorat MNTR — y compris votre nom, vos coordonnées, vos dossiers académiques, les notes de session, les informations de paiement, et tout ce qui est discuté pendant une session ou une consultation — est gardée confidentielle. Nous ne vendons, ne louons ni ne partageons vos informations personnelles avec des tiers, sauf lorsque cela est nécessaire pour faire fonctionner le service lui-même (par exemple, le traitement sécurisé des paiements) ou lorsque la loi l'exige.</p>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4 text-ink">1. Confidentialité des clients</h2>
+      <p class="text-neutral-600 leading-relaxed">Toute information que vous partagez avec Tutorat MNTR — y compris votre nom, vos coordonnées, vos dossiers académiques, les notes de session, les informations de paiement, et tout ce qui est discuté pendant une session ou une consultation — est gardée confidentielle. Nous ne vendons, ne louons ni ne partageons vos informations personnelles avec des tiers, sauf lorsque cela est nécessaire pour faire fonctionner le service lui-même (par exemple, le traitement sécurisé des paiements) ou lorsque la loi l'exige.</p>
     </div>
 
     <div>
-      <h2 class="font-serif text-2xl md:text-3xl mb-4">2. Informations que nous collectons</h2>
-      <p class="text-neutral-300 leading-relaxed mb-3">Nous ne collectons que ce qui est nécessaire pour vous jumeler avec la bonne personne tutrice et faire fonctionner vos sessions sans problème :</p>
-      <ul class="list-disc list-outside pl-5 space-y-2 text-neutral-300 leading-relaxed">
+      <h2 class="font-serif text-2xl md:text-3xl mb-4 text-ink">2. Informations que nous collectons</h2>
+      <p class="text-neutral-600 leading-relaxed mb-3">Nous ne collectons que ce qui est nécessaire pour vous jumeler avec la bonne personne tutrice et faire fonctionner vos sessions sans problème :</p>
+      <ul class="list-disc list-outside pl-5 space-y-2 text-neutral-600 leading-relaxed">
         <li>Les coordonnées que vous fournissez (nom, courriel) via nos formulaires ou page de réservation</li>
         <li>Les objectifs académiques, les matières et les préférences d'horaire que vous partagez avec nous</li>
         <li>Les détails de paiement, gérés entièrement par notre processeur de paiement (Stripe) — nous ne voyons ni ne stockons jamais votre numéro de carte complet</li>
@@ -124,47 +116,47 @@
     </div>
 
     <div>
-      <h2 class="font-serif text-2xl md:text-3xl mb-4">3. Politique de non-sollicitation des personnes tutrices</h2>
-      <p class="text-neutral-300 leading-relaxed">Toutes les personnes tutrices de Tutorat MNTR acceptent, comme condition de leur collaboration avec nous, que les clients qui leur sont jumelés via Tutorat MNTR demeurent des clients de Tutorat MNTR. Les personnes tutrices ne peuvent solliciter, rediriger ou s'arranger pour travailler en privé avec un client qui leur a été présenté via Tutorat MNTR, en dehors de la plateforme et sans notre participation, que ce soit pendant leur collaboration avec nous ou pour une période raisonnable par la suite. Cela maintient des tarifs équitables, assure la continuité et la responsabilité pour chaque famille avec laquelle nous travaillons, et protège le processus de jumelage qui vous a menés à la bonne personne tutrice en premier lieu.</p>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4 text-ink">3. Politique de non-sollicitation des personnes tutrices</h2>
+      <p class="text-neutral-600 leading-relaxed">Toutes les personnes tutrices de Tutorat MNTR acceptent, comme condition de leur collaboration avec nous, que les clients qui leur sont jumelés via Tutorat MNTR demeurent des clients de Tutorat MNTR. Les personnes tutrices ne peuvent solliciter, rediriger ou s'arranger pour travailler en privé avec un client qui leur a été présenté via Tutorat MNTR, en dehors de la plateforme et sans notre participation, que ce soit pendant leur collaboration avec nous ou pour une période raisonnable par la suite. Cela maintient des tarifs équitables, assure la continuité et la responsabilité pour chaque famille avec laquelle nous travaillons, et protège le processus de jumelage qui vous a menés à la bonne personne tutrice en premier lieu.</p>
     </div>
 
     <div>
-      <h2 class="font-serif text-2xl md:text-3xl mb-4">4. Utilisation de vos informations</h2>
-      <p class="text-neutral-300 leading-relaxed">Nous utilisons vos informations uniquement pour : vous jumeler avec une personne tutrice appropriée, planifier et faire fonctionner les sessions, traiter les paiements de manière sécurisée, répondre à vos questions, et envoyer occasionnellement des mises à jour auxquelles vous avez souscrit (comme notre infolettre). Nous n'utilisons pas vos informations pour la publicité ou ne les partageons pas avec des courtiers de données.</p>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4 text-ink">4. Utilisation de vos informations</h2>
+      <p class="text-neutral-600 leading-relaxed">Nous utilisons vos informations uniquement pour : vous jumeler avec une personne tutrice appropriée, planifier et faire fonctionner les sessions, traiter les paiements de manière sécurisée, répondre à vos questions, et envoyer occasionnellement des mises à jour auxquelles vous avez souscrit (comme notre infolettre). Nous n'utilisons pas vos informations pour la publicité ou ne les partageons pas avec des courtiers de données.</p>
     </div>
 
     <div>
-      <h2 class="font-serif text-2xl md:text-3xl mb-4">5. Stockage des données &amp; sécurité</h2>
-      <p class="text-neutral-300 leading-relaxed">Nous utilisons des services tiers réputés pour faire fonctionner certaines parties de notre opération — y compris Stripe pour les paiements, Cal.com pour la planification, et Web3Forms pour la livraison du formulaire de contact. Chacun de ces fournisseurs maintient ses propres normes de sécurité pour les données qui passent par eux. Nous prenons des mesures raisonnables pour garder les informations que nous détenons sécurisées, mais aucune méthode de stockage ou de transmission sur Internet n'est jamais garantie à 100 %.</p>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4 text-ink">5. Stockage des données &amp; sécurité</h2>
+      <p class="text-neutral-600 leading-relaxed">Nous utilisons des services tiers réputés pour faire fonctionner certaines parties de notre opération — y compris Stripe pour les paiements, Cal.com pour la planification, et Web3Forms pour la livraison du formulaire de contact. Chacun de ces fournisseurs maintient ses propres normes de sécurité pour les données qui passent par eux. Nous prenons des mesures raisonnables pour garder les informations que nous détenons sécurisées, mais aucune méthode de stockage ou de transmission sur Internet n'est jamais garantie à 100 %.</p>
     </div>
 
     <div>
-      <h2 class="font-serif text-2xl md:text-3xl mb-4">6. Vos droits</h2>
-      <p class="text-neutral-300 leading-relaxed">Vous pouvez nous demander d'accéder, corriger ou supprimer les informations personnelles que nous détenons sur vous à tout moment, et vous pouvez vous désabonner de notre infolettre quand vous le souhaitez. Pour faire une demande, contactez-nous simplement via le <a href="index-fr.html#contact" class="text-white underline underline-offset-4 hover:no-underline">formulaire de contact</a>.</p>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4 text-ink">6. Vos droits</h2>
+      <p class="text-neutral-600 leading-relaxed">Vous pouvez nous demander d'accéder, corriger ou supprimer les informations personnelles que nous détenons sur vous à tout moment, et vous pouvez vous désabonner de notre infolettre quand vous le souhaitez. Pour faire une demande, contactez-nous simplement via le <a href="index-fr.html#contact" class="text-ink underline underline-offset-4 hover:no-underline">formulaire de contact</a>.</p>
     </div>
 
     <div>
-      <h2 class="font-serif text-2xl md:text-3xl mb-4">7. Modifications de cette politique</h2>
-      <p class="text-neutral-300 leading-relaxed">Nous pouvons mettre à jour cette politique de temps à autre à mesure que nos services évoluent. Tout changement sera affiché sur cette page, accompagné d'une nouvelle date de « dernière mise à jour ».</p>
+      <h2 class="font-serif text-2xl md:text-3xl mb-4 text-ink">7. Modifications de cette politique</h2>
+      <p class="text-neutral-600 leading-relaxed">Nous pouvons mettre à jour cette politique de temps à autre à mesure que nos services évoluent. Tout changement sera affiché sur cette page, accompagné d'une nouvelle date de « dernière mise à jour ».</p>
     </div>
 
   </div>
 
   <!-- CTA -->
   <div class="pkg-featured relative reveal mt-16 rounded-3xl px-8 py-14 text-center">
-    <h2 class="font-serif text-3xl md:text-4xl mb-4">Vous avez encore des questions ?</h2>
-    <p class="text-neutral-300 mb-8 max-w-md mx-auto">Contactez-nous et nous vous expliquerons tout ce qui n'est pas clair.</p>
-    <a href="index-fr.html#contact" class="inline-block bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Contactez-nous</a>
+    <h2 class="font-serif text-3xl md:text-4xl mb-4 text-ink">Vous avez encore des questions ?</h2>
+    <p class="text-neutral-600 mb-8 max-w-md mx-auto">Contactez-nous et nous vous expliquerons tout ce qui n'est pas clair.</p>
+    <a href="index-fr.html#contact" class="inline-block bg-ink text-white font-semibold px-8 py-4 rounded-full hover:bg-black transition-colors">Contactez-nous</a>
   </div>
 </section>
 
 <!-- ============================================================
      FOOTER
 ============================================================ -->
-<footer class="bg-[#0A0A0C] text-white py-10 px-6 border-t border-white/10" style="background-image: radial-gradient(500px circle at 20% -20%, rgba(240,166,200,.12), transparent 60%), radial-gradient(500px circle at 85% 130%, rgba(156,192,255,.11), transparent 60%);">
+<footer class="bg-ink text-white py-10 px-6 rounded-t-[22px]">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
     <a href="index-fr.html" class="font-serif text-xl inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-5 w-auto" />Tutorat MNTR<span class="text-neutral-500">.</span></a>
-    <p class="text-neutral-500 text-sm">© 2026 Tutorat MNTR · Québec · <a href="user-agreement-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Contrat utilisateur</a></p>
+    <p class="text-neutral-400 text-sm">© 2026 Tutorat MNTR · Québec · <a href="user-agreement-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Contrat utilisateur</a></p>
   </div>
 </footer>
 
