@@ -172,7 +172,7 @@
      Until a real https:// link is in, the button routes to the contact page.
 
      PAYMENT ARCHITECTURE:
-     - Per-session services (tutoring $54.97, casper-hourly $69.99) use 'cal':
+     - Per-session services (tutoring $45, casper-hourly $60) use 'cal':
        the button goes straight to the Cal.com event, which has the price
        set via the Cal.com Stripe app. Payment is enforced at booking.
        Keep these events PUBLIC with their price ON.
@@ -188,23 +188,23 @@
   var SERVICES = {
     tutoring: {
       name: 'Private 1-on-1 Tutoring',
-      price: '$54.97', unit: 'per 60-minute session',
+      price: '$45', unit: 'per 60-minute session',
       desc: 'One-on-one tutoring with top medical and university students, prepared in advance around your exact courses.',
       includes: ['A full 60-minute live online session', 'Prepared around your syllabus and goals', 'STEM subjects from high school to university', 'Study-method coaching built into every session'],
       cal: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring'
     },
     pack5: {
       name: '5-Session Tutoring Package',
-      price: '$250', unit: '$50 / session · save $25',
+      price: '$200', unit: '$40 / session · save $25',
       desc: 'Five one-on-one tutoring sessions at a reduced per-session rate, for students who want steady, ongoing support.',
-      includes: ['Five 60-minute live online sessions', '$50 per session (save $25 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
+      includes: ['Five 60-minute live online sessions', '$40 per session (save $25 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
       stripe: 'https://buy.stripe.com/14AbJ3flg1S0bFAbZvdUY09'
     },
     pack10: {
       name: '10-Session Tutoring Package',
-      price: '$450', unit: '$45 / session · save $100',
+      price: '$350', unit: '$35 / session · save $100',
       desc: 'Ten one-on-one tutoring sessions at our best per-session rate, ideal for a full term of consistent support.',
-      includes: ['Ten 60-minute live online sessions', '$45 per session (save $100 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
+      includes: ['Ten 60-minute live online sessions', '$35 per session (save $100 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
       stripe: 'https://buy.stripe.com/28EfZj4GCdAI5hcaVrdUY08'
     },
     coaching: {
@@ -216,7 +216,7 @@
     },
     'casper-hourly': {
       name: 'Casper & MMI Prep',
-      price: '$69.99', unit: 'per 60-minute session',
+      price: '$60', unit: 'per 60-minute session',
       desc: 'One-on-one Casper and MMI prep: realistic timed simulations or mock stations with expert feedback, from mentors admitted to all four Quebec medical schools.',
       includes: ['A full 60-minute live online session', 'Timed Casper simulations or MMI mock stations', '1-on-1 expert feedback after every session', 'Proven answer frameworks & scoring rubric'],
       cal: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep'
