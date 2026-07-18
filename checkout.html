@@ -116,15 +116,31 @@
       <!-- Right: order / payment panel -->
       <div class="md:col-span-2">
         <div class="pkg-featured relative rounded-3xl p-7 md:sticky md:top-28">
-          <div class="flex items-baseline justify-between">
+          <div class="flex items-baseline justify-between gap-3">
             <span class="text-neutral-500 text-sm">Price</span>
-            <span id="svc-price" class="text-3xl font-semibold text-ink">$0</span>
+            <span class="text-right">
+              <span id="svc-price-original" class="hidden text-neutral-400 text-base line-through mr-1.5"></span>
+              <span id="svc-price" class="text-3xl font-semibold text-ink">$0</span>
+            </span>
           </div>
-          <p id="svc-unit" class="text-neutral-500 text-sm text-right mb-6"></p>
+          <p id="svc-unit" class="text-neutral-500 text-sm text-right mb-2"></p>
+          <p id="promo-savings" class="hidden text-xs text-right mb-4 font-medium" style="color:#2f9e5c"></p>
+
+          <!-- Promo code -->
+          <div class="mb-6 pt-2 border-t border-ink/10">
+            <label for="promo-input" class="block text-xs font-medium text-neutral-500 mt-4 mb-2">Promo code</label>
+            <div class="flex gap-2">
+              <input id="promo-input" type="text" placeholder="Enter code" maxlength="40" autocomplete="off"
+                     class="flex-1 min-w-0 bg-white border border-ink/20 rounded-lg px-3 py-2.5 text-sm text-ink placeholder:text-neutral-400 uppercase focus:outline-none focus:border-ink transition-colors" />
+              <button id="promo-apply" type="button" class="shrink-0 border border-ink/20 text-ink text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-ink/5 transition-colors">Apply</button>
+            </div>
+            <p id="promo-msg" class="text-xs mt-2 hidden"></p>
+          </div>
 
           <a id="pay-btn" href="#" class="block w-fit mx-auto text-center bg-ink text-white font-semibold text-sm px-7 py-3 rounded-lg hover:bg-black transition-colors">
             Proceed to secure payment
           </a>
+          <p id="promo-cal-note" class="hidden text-xs text-center mt-3 text-neutral-500 leading-relaxed"></p>
 
           <div class="flex items-center justify-center gap-2 mt-4 text-neutral-500 text-xs">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -223,7 +239,29 @@
     }
   };
 
+  /* =====================================================================
+     PROMO CODES
+     Add/edit codes here. type: 'percent' (0-100) or 'flat' (dollar amount
+     off). For a Stripe-paid service (pack5, pack10, coaching), the code is
+     also appended to the Stripe Payment Link as ?prefilled_promo_code=CODE
+     so it pre-fills at Stripe's own checkout — but that only actually
+     discounts the charge if you've BOTH (1) turned on "Allow promotion
+     codes" on that Payment Link in the Stripe Dashboard, and (2) created a
+     Promotion Code in Stripe with the exact same code text. The price
+     shown on this page is a preview only; Stripe is the source of truth
+     for what's actually charged.
+     Cal.com events (tutoring, casper-hourly) don't support coupon codes,
+     so those just show a note asking the client to mention the code —
+     the discount has to be applied manually on your end for those.
+  ===================================================================== */
+  var PROMO_CODES = {
+    WELCOME10: { type: 'percent', value: 10 },
+    SAVE20:    { type: 'flat',    value: 20 }
+  };
+
   function getParam(name) { return new URLSearchParams(window.location.search).get(name); }
+  function parsePrice(str) { return parseFloat(String(str).replace(/[^0-9.]/g, '')) || 0; }
+  function formatPrice(n) { return '$' + (Number.isInteger(n) ? n : n.toFixed(2)); }
 
   var key = getParam('service');
   var svc = SERVICES[key];
@@ -232,9 +270,11 @@
     // Unknown or free service -> send them to the booking section
     window.location.replace('index.html#contact');
   } else {
+    var basePrice = parsePrice(svc.price);
+    var appliedPromo = null; // { code, discountAmount }
+
     document.getElementById('svc-name').textContent = svc.name;
     document.getElementById('svc-desc').textContent = svc.desc;
-    document.getElementById('svc-price').textContent = svc.price;
     document.getElementById('svc-unit').textContent = svc.unit;
     document.title = svc.name + ' · Checkout · MNTR Tutoring';
 
@@ -253,16 +293,84 @@
     });
 
     var btn = document.getElementById('pay-btn');
-    if (svc.stripe && svc.stripe.indexOf('http') === 0) {
-      btn.href = svc.stripe;                       // real Stripe Payment Link
-    } else if (svc.cal && svc.cal.indexOf('http') === 0) {
-      btn.href = svc.cal;                          // Cal.com event (pay while booking)
-      btn.textContent = 'Book & pay — pick your time';
-    } else {
-      // No real payment link yet -> fall back to the contact page
-      btn.href = 'index.html#contact';
-      btn.textContent = (svc.price === 'Custom') ? 'Contact us to enroll' : 'Payment link coming soon — contact us';
+    var isStripe = !!(svc.stripe && svc.stripe.indexOf('http') === 0);
+    var isCal = !isStripe && !!(svc.cal && svc.cal.indexOf('http') === 0);
+
+    function updatePayButton() {
+      if (isStripe) {
+        var url = svc.stripe;
+        if (appliedPromo) {
+          url += (url.indexOf('?') === -1 ? '?' : '&') + 'prefilled_promo_code=' + encodeURIComponent(appliedPromo.code);
+        }
+        btn.href = url;
+      } else if (isCal) {
+        btn.href = svc.cal;
+        btn.textContent = 'Book & pay — pick your time';
+      } else {
+        // No real payment link yet -> fall back to the contact page
+        btn.href = 'index.html#contact';
+        btn.textContent = (svc.price === 'Custom') ? 'Contact us to enroll' : 'Payment link coming soon — contact us';
+      }
     }
+    updatePayButton();
+
+    function renderPrice() {
+      var priceEl = document.getElementById('svc-price');
+      var originalEl = document.getElementById('svc-price-original');
+      var savingsEl = document.getElementById('promo-savings');
+      var calNoteEl = document.getElementById('promo-cal-note');
+
+      if (appliedPromo) {
+        var finalPrice = Math.max(0, basePrice - appliedPromo.discountAmount);
+        originalEl.textContent = formatPrice(basePrice);
+        originalEl.classList.remove('hidden');
+        priceEl.textContent = formatPrice(finalPrice);
+        savingsEl.textContent = 'Code ' + appliedPromo.code + ' applied — you saved ' + formatPrice(basePrice - finalPrice);
+        savingsEl.classList.remove('hidden');
+        if (isCal) {
+          calNoteEl.textContent = 'This is booked directly through our calendar, so let us know you used code ' + appliedPromo.code + ' and we\'ll apply the discount for you.';
+          calNoteEl.classList.remove('hidden');
+        } else {
+          calNoteEl.classList.add('hidden');
+        }
+      } else {
+        originalEl.classList.add('hidden');
+        priceEl.textContent = svc.price;
+        savingsEl.classList.add('hidden');
+        calNoteEl.classList.add('hidden');
+      }
+      updatePayButton();
+    }
+    renderPrice();
+
+    function showPromoMsg(text, ok) {
+      var msg = document.getElementById('promo-msg');
+      msg.textContent = text;
+      msg.style.color = ok ? '#2f9e5c' : '#c0392b';
+      msg.classList.remove('hidden');
+    }
+
+    function applyPromo() {
+      var input = document.getElementById('promo-input');
+      var code = input.value.trim().toUpperCase();
+      if (!code) { return; }
+      var promo = PROMO_CODES[code];
+      if (!promo) {
+        appliedPromo = null;
+        renderPrice();
+        showPromoMsg('That code isn\'t valid.', false);
+        return;
+      }
+      var discountAmount = promo.type === 'percent' ? basePrice * (promo.value / 100) : promo.value;
+      appliedPromo = { code: code, discountAmount: discountAmount };
+      renderPrice();
+      showPromoMsg('Promo code applied!', true);
+    }
+
+    document.getElementById('promo-apply').addEventListener('click', applyPromo);
+    document.getElementById('promo-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); applyPromo(); }
+    });
   }
 </script>
 </body>
