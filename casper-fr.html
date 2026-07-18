@@ -10,7 +10,7 @@
   gtag('config', 'AW-18318813201');
 </script>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Préparation Casper &amp; MEM · Tutorat MNTR</title>
 <meta name="description" content="Préparation Casper et MEM pour les candidats à l'école de médecine : simulations réalistes, entrevues simulées en direct par des mentors admis aux quatre écoles de médecine du Québec." />
 <link rel='icon' type='image/png' href='favicon.png?v=2' />
@@ -42,6 +42,13 @@
   }
   html { scroll-behavior: smooth; }
   body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+
+  /* ---------- Mobile polish ---------- */
+  /* No gray tap flash on iOS/Android; taps get feedback from the elements' own active states */
+  a, button, [onclick] { -webkit-tap-highlight-color: transparent; }
+  body { touch-action: manipulation; }   /* removes the double-tap-to-zoom delay on links/buttons */
+  /* iOS auto-zooms into form fields under 16px - keep them at 16px on phones */
+  @media (max-width: 767px) { input, textarea, select { font-size: 16px !important; } }
   /* Mobile: drop the sticky-header frosted blur (expensive to composite while scrolling) */
   @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
   .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
@@ -67,8 +74,8 @@
 <!-- Header -->
 <header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
   <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />Tutorat MNTR<span class="text-neutral-400">.</span></a>
-    <div class="flex items-center gap-7 text-sm font-medium text-neutral-600">
+    <a href="index-fr.html" class="font-serif text-xl sm:text-2xl font-semibold tracking-tight inline-flex items-center gap-2 whitespace-nowrap shrink-0"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-6 sm:h-7 w-auto" />Tutorat MNTR<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-3 sm:gap-7 text-sm font-medium text-neutral-600">
       <!-- Language Switcher -->
       <div class="relative">
         <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-ink transition-colors">
@@ -81,7 +88,7 @@
         </div>
       </div>
       <a href="#pricing" class="hover:text-ink transition-colors hidden sm:inline">Tarifs</a>
-      <a href="book-fr.html" class="bg-ink text-white px-5 py-2.5 rounded-full hover:bg-black transition-colors">Appel stratégique gratuit</a>
+      <a href="book-fr.html" class="bg-ink text-white text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-full hover:bg-black transition-colors whitespace-nowrap">Appel stratégique gratuit</a>
     </div>
   </div>
 </header>
@@ -101,9 +108,9 @@
     <p class="reveal in text-xs font-bold tracking-[0.3em] mb-6 eyebrow-grad">PRÉPARATION CASPER &amp; MEM</p>
     <h1 class="reveal in font-serif text-4xl md:text-6xl leading-tight text-ink mb-6">Abordez le jour de l'entrevue et du test en toute confiance</h1>
     <p class="reveal in text-neutral-600 text-lg leading-relaxed max-w-2xl mx-auto mb-10">Le test Casper et l'entrevue MEM comptent parmi les parties les plus importantes de votre candidature à l'école de médecine, et chaque année, de solides candidatures aux excellentes notes sont refusées faute de préparation. La pratique est la clé : nous vous préparons avec des simulations réalistes, des entrevues simulées en direct et de puissants outils d'IA, le tout encadré par des mentors admis aux quatre écoles de médecine du Québec.</p>
-    <div class="reveal in flex flex-wrap items-center justify-center gap-4">
-      <a href="#pricing" class="bg-ink text-white font-semibold px-8 py-4 rounded-full hover:bg-black transition-colors">Voir les plans de préparation</a>
-      <a href="book-fr.html" class="border border-ink/25 text-ink font-semibold px-8 py-4 rounded-full hover:bg-ink/5 transition-colors">Réserver un appel stratégique gratuit</a>
+    <div class="reveal in flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
+      <a href="#pricing" class="bg-ink text-white font-semibold px-8 py-4 rounded-full hover:bg-black active:scale-[.98] transition-all text-center">Voir les plans de préparation</a>
+      <a href="book-fr.html" class="border border-ink/25 text-ink font-semibold px-8 py-4 rounded-full hover:bg-ink/5 active:scale-[.98] transition-all text-center">Réserver un appel stratégique gratuit</a>
     </div>
   </div>
 </section>

@@ -10,7 +10,7 @@
   gtag('config', 'AW-18318813201');
 </script>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Casper &amp; MMI Preparation · MNTR Tutoring</title>
 <meta name='description' content='Casper and MMI preparation for medical school applicants: realistic simulations, live mock interviews from mentors admitted to all four Québec medical schools.' />
 <link rel='icon' type='image/png' href='favicon.png?v=2' />
@@ -42,6 +42,13 @@
   }
   html { scroll-behavior: smooth; }
   body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+
+  /* ---------- Mobile polish ---------- */
+  /* No gray tap flash on iOS/Android; taps get feedback from the elements' own active states */
+  a, button, [onclick] { -webkit-tap-highlight-color: transparent; }
+  body { touch-action: manipulation; }   /* removes the double-tap-to-zoom delay on links/buttons */
+  /* iOS auto-zooms into form fields under 16px - keep them at 16px on phones */
+  @media (max-width: 767px) { input, textarea, select { font-size: 16px !important; } }
   /* Mobile: drop the sticky-header frosted blur (expensive to composite while scrolling) */
   @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
   .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
@@ -67,8 +74,8 @@
 <!-- Header -->
 <header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
   <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />MNTR Tutoring<span class="text-neutral-400">.</span></a>
-    <div class="flex items-center gap-7 text-sm font-medium text-neutral-600">
+    <a href="index.html" class="font-serif text-xl sm:text-2xl font-semibold tracking-tight inline-flex items-center gap-2 whitespace-nowrap shrink-0"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-6 sm:h-7 w-auto" />MNTR Tutoring<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-3 sm:gap-7 text-sm font-medium text-neutral-600">
       <!-- Language Switcher -->
       <div class="relative">
         <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-ink transition-colors">
@@ -81,7 +88,7 @@
         </div>
       </div>
       <a href="#pricing" class="hover:text-ink transition-colors hidden sm:inline">Pricing</a>
-      <a href="book.html" class="bg-ink text-white px-5 py-2.5 rounded-full hover:bg-black transition-colors">Free strategy call</a>
+      <a href="book.html" class="bg-ink text-white text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-full hover:bg-black transition-colors whitespace-nowrap">Free strategy call</a>
     </div>
   </div>
 </header>
@@ -101,9 +108,9 @@
     <p class="reveal in text-xs font-bold tracking-[0.3em] mb-6 eyebrow-grad">CASPER &amp; MMI PREPARATION</p>
     <h1 class="reveal in font-serif text-4xl md:text-6xl leading-tight text-ink mb-6">Feel confident and prepared for interview and test day</h1>
     <p class="reveal in text-neutral-600 text-lg leading-relaxed max-w-2xl mx-auto mb-10">The Casper test and MMI are the most important parts of your application to medical school, and every year strong applicants with excellent grades are turned away because they are not prepared. Practice is key: we prepare you with realistic simulations, live mock interviews, powerful AI tools from mentors who were admitted to all four Québec medical schools.</p>
-    <div class="reveal in flex flex-wrap items-center justify-center gap-4">
-      <a href="#pricing" class="bg-ink text-white font-semibold px-8 py-4 rounded-full hover:bg-black transition-colors">See prep plans</a>
-      <a href="book.html" class="border border-ink/25 text-ink font-semibold px-8 py-4 rounded-full hover:bg-ink/5 transition-colors">Book a free strategy call</a>
+    <div class="reveal in flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
+      <a href="#pricing" class="bg-ink text-white font-semibold px-8 py-4 rounded-full hover:bg-black active:scale-[.98] transition-all text-center">See prep plans</a>
+      <a href="book.html" class="border border-ink/25 text-ink font-semibold px-8 py-4 rounded-full hover:bg-ink/5 active:scale-[.98] transition-all text-center">Book a free strategy call</a>
     </div>
   </div>
 </section>

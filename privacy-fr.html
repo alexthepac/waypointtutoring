@@ -10,7 +10,7 @@
   gtag('config', 'AW-18318813201');
 </script>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Politique de confidentialité · Tutorat MNTR</title>
 <meta name='description' content='Politique de confidentialité Tutorat MNTR : comment nous protégeons la confidentialité des clients et notre politique de non-sollicitation pour les personnes tutrices.' />
 <link rel='icon' type='image/png' href='favicon.png?v=2' />
@@ -44,6 +44,13 @@
   }
   html { scroll-behavior: smooth; }
   body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+
+  /* ---------- Mobile polish ---------- */
+  /* No gray tap flash on iOS/Android; taps get feedback from the elements' own active states */
+  a, button, [onclick] { -webkit-tap-highlight-color: transparent; }
+  body { touch-action: manipulation; }   /* removes the double-tap-to-zoom delay on links/buttons */
+  /* iOS auto-zooms into form fields under 16px - keep them at 16px on phones */
+  @media (max-width: 767px) { input, textarea, select { font-size: 16px !important; } }
   /* Mobile: drop the sticky-header frosted blur (expensive to composite while scrolling) */
   @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
   .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
@@ -66,8 +73,8 @@
 ============================================================ -->
 <header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />Tutorat MNTR<span class="text-neutral-400">.</span></a>
-    <div class="flex items-center gap-7 text-sm font-medium text-neutral-600">
+    <a href="index-fr.html" class="font-serif text-xl sm:text-2xl font-semibold tracking-tight inline-flex items-center gap-2 whitespace-nowrap shrink-0"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-6 sm:h-7 w-auto" />Tutorat MNTR<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-3 sm:gap-7 text-sm font-medium text-neutral-600">
       <!-- Language Switcher -->
       <div class="relative">
         <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-ink transition-colors">
@@ -81,7 +88,7 @@
       </div>
       <a href="index-fr.html" class="hover:text-ink transition-colors">Accueil</a>
       <a href="faq-fr.html" class="hover:text-ink transition-colors hidden sm:inline">FAQ</a>
-      <a href="index-fr.html#contact" class="bg-ink text-white px-5 py-2.5 rounded-full hover:bg-black transition-colors">Contactez-nous</a>
+      <a href="index-fr.html#contact" class="bg-ink text-white text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-full hover:bg-black transition-colors whitespace-nowrap">Contactez-nous</a>
     </div>
   </div>
 </header>
