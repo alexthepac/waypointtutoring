@@ -143,8 +143,8 @@
        Payment Link collects payment, then its "After payment" redirect
        (set in Stripe Dashboard -> Payment Links -> Edit) sends the client
        to a FREE + HIDDEN Cal.com event to schedule their sessions:
-       pack5    ...Y06 -> hidden "Tutoring Session (Package)" event
-       pack10   ...Y03 -> hidden "Tutoring Session (Package)" event
+       pack5    ...Y0a -> hidden "Tutoring Session (Package)" event
+       pack10   ...Y0b -> hidden "Tutoring Session (Package)" event
        coaching ...Y02 -> hidden coaching event (or the package event)
      Button priority: stripe link > cal link > contact fallback.
   ===================================================================== */
@@ -161,14 +161,14 @@
       price: '$250', unit: '$50 / session · save $25',
       desc: 'Five one-on-one tutoring sessions at a reduced per-session rate, for students who want steady, ongoing support.',
       includes: ['Five 60-minute live online sessions', '$50 per session (save $25 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
-      stripe: 'https://buy.stripe.com/14AbJ3flg1S0bFAbZvdUY09'
+      stripe: 'https://buy.stripe.com/00waEZehcfIQaBwd3zdUY0a'
     },
     pack10: {
       name: '10-Session Tutoring Package',
       price: '$450', unit: '$45 / session · save $100',
       desc: 'Ten one-on-one tutoring sessions at our best per-session rate, ideal for a full term of consistent support.',
       includes: ['Ten 60-minute live online sessions', '$45 per session (save $100 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
-      stripe: 'https://buy.stripe.com/28EfZj4GCdAI5hcaVrdUY08'
+      stripe: 'https://buy.stripe.com/6oUaEZc94fIQ6lg4x3dUY0b'
     },
     coaching: {
       name: 'Academic & Lifestyle Coaching',
