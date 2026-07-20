@@ -71,16 +71,27 @@
   .marquee:hover .marquee-track { animation-play-state: paused; }
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  /* ---------- Hero: inset rounded block (inspo 2) ---------- */
-  .hero-block { animation: heroBlock 1.1s cubic-bezier(.22,.61,.36,1) both; transform-origin: center top; }
+  /* ---------- Hero: inset rounded block (inspo 2) ----------
+     Animations start paused (holding their "from" frame via fill-mode) and are
+     only released once JS flips on .hero-animate after window 'load'. This
+     avoids a race on first (cold-cache) visits where the Tailwind CDN script
+     and web fonts can take long enough to apply layout that the animation's
+     clock runs out before the hero is actually visible — on a reload, cached
+     assets resolve fast enough that it happens to still be mid-animation, so
+     it only ever *looked* like reload-only behavior. */
+  .hero-block { animation: heroBlock 1.1s cubic-bezier(.22,.61,.36,1) both paused; transform-origin: center top; }
   @keyframes heroBlock { from { transform: scale(.965); opacity: .4; } to { transform: none; opacity: 1; } }
 
   /* Hero title: each word blurs + settles into place, staggered (inspo 2) */
-  .hero-word { display: inline-block; animation: wordIn .75s cubic-bezier(.22,.61,.36,1) both; }
+  .hero-word { display: inline-block; animation: wordIn .75s cubic-bezier(.22,.61,.36,1) both paused; }
   @keyframes wordIn { from { opacity: 0; transform: translateY(16px) scale(1.14); filter: blur(9px); } to { opacity: 1; transform: none; filter: blur(0); } }
 
-  .hero-fade { animation: fadeUp .85s cubic-bezier(.22,.61,.36,1) both; }
+  .hero-fade { animation: fadeUp .85s cubic-bezier(.22,.61,.36,1) both paused; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+  html.hero-animate .hero-block,
+  html.hero-animate .hero-word,
+  html.hero-animate .hero-fade { animation-play-state: running; }
 
   @media (prefers-reduced-motion: reduce) {
     .hero-block, .hero-word, .hero-fade { animation: none; }
@@ -659,6 +670,11 @@
      JAVASCRIPT
 ============================================================ -->
 <script>
+  /* ---------- Hero entrance animation: release once the page has fully loaded ---------- */
+  function releaseHeroAnimation() { document.documentElement.classList.add('hero-animate'); }
+  if (document.readyState === 'complete') { releaseHeroAnimation(); }
+  else { window.addEventListener('load', releaseHeroAnimation); }
+
   /* ---------- Hamburger menu toggle ---------- */
   const overlay = document.getElementById('menuOverlay');
   const burger  = document.getElementById('burger');
