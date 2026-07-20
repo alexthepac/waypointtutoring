@@ -416,8 +416,14 @@
 
   <div class='relative py-20 md:py-28'>
 
+    <!-- Scroll-left arrow (top-right, left of its pair): nudges the card row back toward earlier tutors -->
+    <button type='button' onclick='scrollStaff(-1)' aria-label='Voir les personnes tutrices précédentes'
+            class='absolute top-8 right-20 md:right-28 z-30 w-12 h-12 rounded-full border border-ink/15 bg-white hidden md:flex items-center justify-center text-ink shadow-sm hover:bg-ink hover:text-white transition-colors'>
+      <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M15 6l-6 6 6 6'/></svg>
+    </button>
+
     <!-- Scroll-right arrow (top-right): nudges the card row to reveal more tutors -->
-    <button type='button' onclick='scrollStaff()' aria-label='Voir plus de personnes tutrices'
+    <button type='button' onclick='scrollStaff(1)' aria-label='Voir plus de personnes tutrices'
             class='absolute top-8 right-6 md:right-12 z-30 w-12 h-12 rounded-full border border-ink/15 bg-white hidden md:flex items-center justify-center text-ink shadow-sm hover:bg-ink hover:text-white transition-colors'>
       <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 6l6 6-6 6'/></svg>
     </button>
@@ -739,10 +745,10 @@
     if (contact) contact.scrollIntoView({ behavior: 'smooth' });
   }
 
-  /* ---------- Staff: top-right arrow nudges the card row ---------- */
-  function scrollStaff() {
+  /* ---------- Staff: top-right arrow pair nudges the card row back/forward ---------- */
+  function scrollStaff(dir) {
     const s = document.querySelector('#staff .staff-scroll');
-    if (s) s.scrollBy({ left: 340, behavior: 'smooth' });
+    if (s) s.scrollBy({ left: 340 * dir, behavior: 'smooth' });
   }
 
   /* ---------- Cal.com: stop the page jumping when a date is clicked ----------
