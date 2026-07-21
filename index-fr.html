@@ -73,12 +73,12 @@
 
   /* ---------- Hero: inset rounded block (inspo 2) ----------
      Animations start paused (holding their "from" frame via fill-mode) and are
-     only released once JS flips on .hero-animate after window 'load'. This
-     avoids a race on first (cold-cache) visits where the Tailwind CDN script
-     and web fonts can take long enough to apply layout that the animation's
-     clock runs out before the hero is actually visible — on a reload, cached
-     assets resolve fast enough that it happens to still be mid-animation, so
-     it only ever *looked* like reload-only behavior. */
+     released by JS adding .hero-animate on DOMContentLoaded + a double
+     requestAnimationFrame. rAF callbacks only run once the browser is actually
+     producing frames, so on a cold-cache first visit the animation clock can't
+     burn down before first paint — and unlike window 'load', DOMContentLoaded
+     doesn't wait on images/trackers, so a slow or stalled request can't keep
+     the hero text hidden. */
   .hero-block { animation: heroBlock 1.1s cubic-bezier(.22,.61,.36,1) both paused; transform-origin: center top; }
   @keyframes heroBlock { from { transform: scale(.965); opacity: .4; } to { transform: none; opacity: 1; } }
 
@@ -175,6 +175,8 @@
   @keyframes toastUp { from { opacity: 0; transform: translateY(48px); } to { opacity: 1; transform: none; } }
   .toast-enter { animation: toastUp .55s cubic-bezier(.22,.61,.36,1) both; }
 </style>
+<!-- If JS never runs, the paused hero animations would hold their hidden first frame forever — show everything statically instead. -->
+<noscript><style>.hero-block, .hero-word, .hero-fade { animation: none; }</style></noscript>
 </head>
 
 <body class="bg-paper text-ink antialiased">
@@ -672,10 +674,20 @@
      JAVASCRIPT
 ============================================================ -->
 <script>
-  /* ---------- Hero entrance animation: release once the page has fully loaded ---------- */
-  function releaseHeroAnimation() { document.documentElement.classList.add('hero-animate'); }
-  if (document.readyState === 'complete') { releaseHeroAnimation(); }
-  else { window.addEventListener('load', releaseHeroAnimation); }
+  /* ---------- Hero entrance animation: release at the first painted frame ----------
+     DOMContentLoaded (doesn't wait on images/trackers, unlike window 'load')
+     + double requestAnimationFrame (rAF only fires once the browser is really
+     rendering frames), so the animation starts exactly when the hero becomes
+     visible — on cold first visits, cached reloads, and background tabs alike. */
+  function releaseHeroAnimation() {
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        document.documentElement.classList.add('hero-animate');
+      });
+    });
+  }
+  if (document.readyState !== 'loading') { releaseHeroAnimation(); }
+  else { document.addEventListener('DOMContentLoaded', releaseHeroAnimation); }
 
   /* ---------- Hamburger menu toggle ---------- */
   const overlay = document.getElementById('menuOverlay');
