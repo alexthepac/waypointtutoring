@@ -64,6 +64,13 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'Inter', sans-serif; background: #ffffff; color: #000; }
 
+  /* Critical hero styles, applied before the Tailwind runtime compiles, so the
+     hero photo never flashes at full size ("zoom") while the page loads.
+     100svh keeps mobile browsers from rescaling the hero when the address bar
+     hides on scroll. */
+  .hero-shell { position: relative; height: 100vh; height: 100svh; min-height: 640px; display: flex; flex-direction: column; overflow: hidden; background-color: #0A0A0C; color: #fff; }
+  :where(.hero-shell a) { color: inherit; text-decoration: none; }
+
   /* ---------- Infinite university ticker marquee ---------- */
   .marquee { overflow: hidden; }
   .marquee-track { display: flex; width: max-content; animation: marquee 34s linear infinite; }
@@ -143,11 +150,10 @@
 <!-- ============================================================
      HERO  (Centific-style: full-bleed image, text overlaid directly, NO box)
 ============================================================ -->
-<header class="relative h-screen min-h-[640px] flex flex-col overflow-hidden">
+<header class="hero-shell" style="background-image:url('hero.jpg');background-size:cover;background-position:center">
 
-  <!-- Full-bleed background image (compressed from "graduation person handing.png") -->
-  <img src="hero.jpg" alt="Cérémonie de remise des diplômes universitaires"
-       class="absolute inset-0 w-full h-full object-cover" />
+  <!-- Background photo is set inline above so it renders correctly from the
+       first frame, before the Tailwind runtime finishes compiling. -->
 
   <!-- Gradient scrims for text legibility (soft fade, NOT a solid box) -->
   <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/25"></div>
