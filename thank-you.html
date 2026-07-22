@@ -113,17 +113,15 @@
   });
 
   /* =====================================================================
-     BOOKING LINKS: paste the hidden (free) Cal.com event URL for each
-     service below — the same URLs currently used as the Stripe
-     after-payment redirects. The ?service= query param picks which one
-     the button points to, e.g. thank-you.html?service=pack5
+     BOOKING LINKS: the Cal.com event the "Schedule your sessions" button
+     points to, picked by the ?service= query param,
+     e.g. thank-you.html?service=pack5
      If a link is empty or the param is unknown, the button falls back
      to the contact section.
   ===================================================================== */
   var BOOKING_LINKS = {
-    pack5: '',    // hidden "Tutoring Session (Package)" event
-    pack10: '',   // hidden "Tutoring Session (Package)" event
-    coaching: ''  // hidden coaching event
+    pack5: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring',
+    pack10: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring'
   };
 
   var service = new URLSearchParams(window.location.search).get('service');

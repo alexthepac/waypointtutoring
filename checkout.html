@@ -139,13 +139,13 @@
        the button goes straight to the Cal.com event, which has the price
        set via the Cal.com Stripe app. Payment is enforced at booking.
        Keep these events PUBLIC with their price ON.
-     - Packages (pack5, pack10) and coaching use 'stripe': the Stripe
-       Payment Link collects payment, then its "After payment" redirect
+     - Packages (pack5, pack10) use 'stripe': the Stripe Payment Link
+       collects payment, then its "After payment" redirect
        (set in Stripe Dashboard -> Payment Links -> Edit) sends the client
-       to a FREE + HIDDEN Cal.com event to schedule their sessions:
-       pack5    ...Y0a -> hidden "Tutoring Session (Package)" event
-       pack10   ...Y0b -> hidden "Tutoring Session (Package)" event
-       coaching ...Y02 -> hidden coaching event (or the package event)
+       to the thank-you page, which fires the Google Ads conversion and
+       links them to Cal.com to schedule their sessions:
+       pack5    ...Y0a -> thank-you.html?service=pack5
+       pack10   ...Y0b -> thank-you.html?service=pack10
      Button priority: stripe link > cal link > contact fallback.
   ===================================================================== */
   var SERVICES = {
@@ -169,13 +169,6 @@
       desc: 'Ten one-on-one tutoring sessions at our best per-session rate, ideal for a full term of consistent support.',
       includes: ['Ten 60-minute live online sessions', '$45 per session (save $100 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
       stripe: 'https://buy.stripe.com/6oUaEZc94fIQ6lg4x3dUY0b'
-    },
-    coaching: {
-      name: 'Academic & Lifestyle Coaching',
-      price: '$50', unit: 'per 60-minute session',
-      desc: 'Coaching that goes beyond the textbook: study habits, time management, and the daily routines behind sustainable results.',
-      includes: ['A full 60-minute live online session', 'Personalized study-method coaching', 'Time-management and routine building', 'A plan shaped around your consultation'],
-      stripe: 'https://buy.stripe.com/3cI4gB7SOgMUcJEgfLdUY02'
     },
     'casper-hourly': {
       name: 'CASPer & MMI Prep',
