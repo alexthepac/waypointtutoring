@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18318813201"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18318813201');
+</script>
+<!-- Event snippet for Purchase conversion page.
+     transaction_id comes from Stripe: set each Payment Link's after-payment
+     redirect to .../thank-you-fr.html?service=pack5&session_id={CHECKOUT_SESSION_ID}
+     so every conversion is counted exactly once, even if the page is refreshed.
+     No session_id (a direct visit) -> no conversion is recorded. -->
+<script>
+  (function () {
+    var txid = new URLSearchParams(window.location.search).get('session_id');
+    if (txid) {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-18318813201/wszKCNuflM8cEJHQi59E',
+        'transaction_id': txid
+      });
+    }
+  })();
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Merci · Tutorat MNTR</title>
+<link rel='icon' type='image/png' href='favicon.png?v=2' />
+<link rel='shortcut icon' href='favicon.ico' />
+<link rel='apple-touch-icon' href='apple-touch-icon.png' />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: {
+      sans: ['Inter', 'system-ui', 'sans-serif'],
+      serif: ['Fraunces', 'Georgia', 'serif'],
+    },
+    colors: { ink: '#16141c', paper: '#f7f5f1' },
+  } } };
+</script>
+
+<style>
+  :root {
+    --ink: #16141c;
+    --paper: #f7f5f1;
+    --grad-eyebrow: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5);
+    --wave-1: #efeafa;
+    --wave-2: #fdeef5;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+  @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
+  .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+
+  /* ---------- Wavy background shapes (same as the homepage) ---------- */
+  .wave-wrap { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .wave-wrap svg { position: absolute; }
+  /* Pre-Tailwind guards: keep waves contained and the logo mark small during
+     the brief moment before styles compile. */
+  main { position: relative; overflow: hidden; }
+  img[src^="logo-mark"] { height: 1.75rem; width: auto; }
+</style>
+</head>
+
+<body class="bg-paper text-ink antialiased">
+
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
+  <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
+    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />Tutorat MNTR<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-3">
+      <!-- Language Switcher -->
+      <div class="relative">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 text-sm font-medium hover:text-ink transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          FR
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-xl overflow-hidden z-50">
+          <a href="thank-you.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">English</a>
+          <a href="thank-you-fr.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">Français</a>
+        </div>
+      </div>
+      <a href="index-fr.html#services" class="text-sm font-medium text-neutral-600 hover:text-ink transition-colors">Tous les services</a>
+    </div>
+  </div>
+</header>
+
+<main class="relative overflow-hidden">
+  <!-- Wavy organic background shapes (same as the homepage) -->
+  <div class="wave-wrap" aria-hidden="true">
+    <svg style="top:-60px; right:-18%; width:70%; min-width:520px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-1)" d="M105 92C258-32 522-18 700 60c178 78 232 224 148 330-84 106-306 146-492 96C170 436 22 342 24 250 26 158 48 138 105 92Z"/>
+    </svg>
+    <svg style="bottom:-80px; left:-20%; width:65%; min-width:480px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-2)" d="M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z"/>
+    </svg>
+  </div>
+
+  <div class="relative max-w-5xl mx-auto px-6 py-20 md:py-28">
+    <div class="max-w-xl mx-auto text-center">
+      <div class="w-16 h-16 mx-auto mb-8 rounded-full bg-ink text-white flex items-center justify-center">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <p class="text-[11px] font-bold tracking-[0.3em] mb-4 eyebrow-grad">PAIEMENT CONFIRMÉ</p>
+      <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-5 text-ink">Merci — tout est en ordre.</h1>
+      <p class="text-neutral-600 text-lg leading-relaxed mb-4">Votre paiement a été traité et un reçu est en route vers votre boîte courriel.</p>
+      <p id="next-step" class="text-neutral-600 text-lg leading-relaxed mb-10">Dernière étape : choisissez les horaires de vos sessions.</p>
+
+      <a id="book-btn" href="index-fr.html#contact" class="inline-block bg-ink text-white font-semibold text-sm px-8 py-3.5 rounded-lg hover:bg-black transition-colors">
+        Planifier vos sessions
+      </a>
+
+      <p class="text-neutral-500 text-sm mt-8 leading-relaxed">Des questions ou un problème de réservation? <a href="contact-fr.html" class="underline underline-offset-2 hover:text-ink transition-colors">Contactez-nous</a> et nous nous en occuperons.</p>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-ink text-white py-10 px-6 mt-10 rounded-t-[22px]">
+  <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+    <a href="index-fr.html" class="font-serif text-lg inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-5 w-auto" />Tutorat MNTR<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-400 text-sm">&copy; 2026 Tutorat MNTR &middot; Qu&eacute;bec &middot; <a href="privacy-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Politique de confidentialité</a> &middot; <a href="user-agreement-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Contrat utilisateur</a></p>
+  </div>
+</footer>
+
+<script>
+  /* Language switcher */
+  function toggleLangMenu() {
+    var menu = document.getElementById('langMenu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  }
+
+  // Close language menu when clicking outside
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('langMenu');
+    var button = e.target.closest('button');
+    if (menu && !menu.contains(e.target) && (!button || !button.onclick || !button.onclick.toString().includes('toggleLangMenu'))) {
+      menu.classList.add('hidden');
+    }
+  });
+
+  /* =====================================================================
+     BOOKING LINKS: the Cal.com event the "Schedule your sessions" button
+     points to, picked by the ?service= query param,
+     e.g. thank-you-fr.html?service=pack5
+     If a link is empty or the param is unknown, the button falls back
+     to the contact section.
+  ===================================================================== */
+  var BOOKING_LINKS = {
+    pack5: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring',
+    pack10: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring'
+  };
+
+  var service = new URLSearchParams(window.location.search).get('service');
+  var link = BOOKING_LINKS[service];
+  if (link && link.indexOf('http') === 0) {
+    document.getElementById('book-btn').href = link;
+  } else {
+    document.getElementById('next-step').textContent = 'Dernière étape : contactez-nous pour planifier vos sessions.';
+    document.getElementById('book-btn').textContent = 'Contactez-nous pour planifier';
+  }
+</script>
+</body>
+</html>
