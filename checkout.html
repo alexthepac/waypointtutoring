@@ -297,7 +297,9 @@
         }
         btn.href = url;
       } else if (isCal) {
-        btn.href = svc.cal;
+        // Booking happens in the on-site Cal.com embed so the Google Ads
+        // conversion fires when the booking completes.
+        btn.href = 'book-session.html?service=' + encodeURIComponent(key);
         btn.textContent = 'Book & pay — pick your time';
       } else {
         // No real payment link yet -> fall back to the contact page

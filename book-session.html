@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18318813201"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18318813201');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book your session · MNTR Tutoring</title>
+<link rel='icon' type='image/png' href='favicon.png?v=2' />
+<link rel='shortcut icon' href='favicon.ico' />
+<link rel='apple-touch-icon' href='apple-touch-icon.png' />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: {
+      sans: ['Inter', 'system-ui', 'sans-serif'],
+      serif: ['Fraunces', 'Georgia', 'serif'],
+    },
+    colors: { ink: '#16141c', paper: '#f7f5f1' },
+  } } };
+</script>
+
+<style>
+  :root {
+    --ink: #16141c;
+    --paper: #f7f5f1;
+    --grad-eyebrow: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+  @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
+  .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  /* The Cal.com inline embed grows to fit; give it room so the calendar
+     doesn't render squashed while loading. */
+  #cal-embed { min-height: 640px; width: 100%; overflow: auto; }
+</style>
+</head>
+
+<body class="bg-paper text-ink antialiased">
+
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
+  <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
+    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />MNTR Tutoring<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-3">
+      <!-- Language Switcher -->
+      <div class="relative">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 text-sm font-medium hover:text-ink transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          EN
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-xl overflow-hidden z-50">
+          <a id="lang-en" href="book-session.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">English</a>
+          <a id="lang-fr" href="book-session-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
+        </div>
+      </div>
+      <a href="index.html#services" class="text-sm font-medium text-neutral-600 hover:text-ink transition-colors">All services</a>
+    </div>
+  </div>
+</header>
+
+<main class="relative max-w-5xl mx-auto px-6 py-12 md:py-16">
+  <a href="index.html#services" class="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-ink transition-colors mb-8">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+    Back to services
+  </a>
+
+  <p class="text-[11px] font-bold tracking-[0.3em] mb-3 eyebrow-grad">BOOK &amp; PAY</p>
+  <h1 id="svc-name" class="font-serif text-3xl md:text-4xl leading-tight mb-2 text-ink">Book your session</h1>
+  <p id="svc-price" class="text-neutral-600 mb-8"></p>
+
+  <!-- Cal.com inline embed mounts here -->
+  <div id="cal-embed" class="rounded-2xl bg-white/60 border border-ink/10"></div>
+
+  <p class="text-neutral-500 text-sm mt-6 leading-relaxed">Calendar not loading? <a id="cal-direct" href="https://cal.com/mntr-iif8ix" target="_blank" rel="noopener" class="underline underline-offset-2 hover:text-ink transition-colors">Book directly on Cal.com</a> or <a href="contact.html" class="underline underline-offset-2 hover:text-ink transition-colors">contact us</a>.</p>
+</main>
+
+<!-- Footer -->
+<footer class="bg-ink text-white py-10 px-6 mt-10 rounded-t-[22px]">
+  <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+    <a href="index.html" class="font-serif text-lg inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-5 w-auto" />MNTR Tutoring<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-400 text-sm">&copy; 2026 MNTR Tutoring &middot; Qu&eacute;bec &middot; <a href="privacy.html" class="hover:text-white transition-colors underline underline-offset-2">Privacy Policy</a> &middot; <a href="user-agreement.html" class="hover:text-white transition-colors underline underline-offset-2">User Agreement</a></p>
+  </div>
+</footer>
+
+<!-- Cal.com embed loader (official snippet) -->
+<script>
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+</script>
+
+<script>
+  /* Language switcher */
+  function toggleLangMenu() {
+    var menu = document.getElementById('langMenu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  }
+
+  // Close language menu when clicking outside
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('langMenu');
+    var button = e.target.closest('button');
+    if (menu && !menu.contains(e.target) && (!button || !button.onclick || !button.onclick.toString().includes('toggleLangMenu'))) {
+      menu.classList.add('hidden');
+    }
+  });
+
+  /* =====================================================================
+     EMBEDDED BOOKING with Google Ads conversion tracking.
+     ?service= picks which PAID Cal.com event to embed. When the visitor
+     completes a booking, the embed fires "bookingSuccessful" and we send
+     the Purchase conversion with the booking uid as transaction_id so
+     each booking counts exactly once. Free package sessions do NOT go
+     through this page, so they are never counted as sales.
+  ===================================================================== */
+  var SERVICES = {
+    tutoring: {
+      name: 'Private 1-on-1 Tutoring',
+      price: '$45 per 60-minute session — pay while booking below.',
+      cal: 'mntr-iif8ix/1-on-1-tutoring'
+    },
+    'casper-hourly': {
+      name: 'Casper & MMI Prep',
+      price: '$60 per 60-minute session — pay while booking below.',
+      cal: 'mntr-iif8ix/1-on-1-casper-and-mmi-prep'
+    }
+  };
+
+  var key = new URLSearchParams(window.location.search).get('service');
+  var svc = SERVICES[key];
+
+  if (!svc) {
+    window.location.replace('index.html#services');
+  } else {
+    document.getElementById('svc-name').textContent = svc.name;
+    document.getElementById('svc-price').textContent = svc.price;
+    document.getElementById('cal-direct').href = 'https://cal.com/' + svc.cal;
+    document.getElementById('lang-en').href = 'book-session.html?service=' + encodeURIComponent(key);
+    document.getElementById('lang-fr').href = 'book-session-fr.html?service=' + encodeURIComponent(key);
+    document.title = svc.name + ' · Book · MNTR Tutoring';
+
+    Cal("init", { origin: "https://cal.com" });
+    Cal("inline", { elementOrSelector: "#cal-embed", calLink: svc.cal, layout: "month_view" });
+    Cal("on", {
+      action: "bookingSuccessful",
+      callback: function (e) {
+        try {
+          var d = (e && e.detail && e.detail.data) || {};
+          var uid = (d.booking && (d.booking.uid || d.booking.id)) || d.uid || '';
+          var txid = uid ? 'cal-' + uid : 'cal-' + key + '-' + Date.now();
+          // sessionStorage guard: never send the same booking twice from this tab
+          if (!sessionStorage.getItem('conv-' + txid)) {
+            sessionStorage.setItem('conv-' + txid, '1');
+            gtag('event', 'conversion', {
+              'send_to': 'AW-18318813201/wszKCNuflM8cEJHQi59E',
+              'transaction_id': txid
+            });
+          }
+        } catch (err) { /* tracking must never break booking */ }
+      }
+    });
+  }
+</script>
+</body>
+</html>

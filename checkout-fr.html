@@ -298,7 +298,9 @@
         }
         btn.href = url;
       } else if (isCal) {
-        btn.href = svc.cal;
+        // La réservation se fait dans l'embed Cal.com sur le site pour que la
+        // conversion Google Ads parte quand la réservation est complétée.
+        btn.href = 'book-session-fr.html?service=' + encodeURIComponent(key);
         btn.textContent = 'Réserver et payer — choisissez votre heure';
       } else {
         // No real payment link yet -> fall back to the contact page
