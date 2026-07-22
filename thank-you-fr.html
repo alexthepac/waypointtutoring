@@ -152,21 +152,24 @@
   });
 
   /* =====================================================================
-     BOOKING LINKS: the Cal.com event the "Schedule your sessions" button
-     points to, picked by the ?service= query param,
-     e.g. thank-you-fr.html?service=pack5
-     If a link is empty or the param is unknown, the button falls back
-     to the contact section.
+     PROCHAINE ÉTAPE par service, choisie par le paramètre ?service= :
+       pack5/pack10 -> événement forfait GRATUIT caché (déjà payé)
+       intro        -> book-fr.html?hold=complete (frais de réservation 5 $
+                       payés; ce paramètre déverrouille le calendrier)
+     Service inconnu/absent : repli vers la section contact.
   ===================================================================== */
-  var BOOKING_LINKS = {
-    pack5: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy',   // hidden FREE package event
-    pack10: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy'   // hidden FREE package event
+  var NEXT_STEPS = {
+    pack5:  { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'Dernière étape : choisissez les horaires de vos sessions.', btn: 'Planifier vos sessions' },
+    pack10: { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'Dernière étape : choisissez les horaires de vos sessions.', btn: 'Planifier vos sessions' },
+    intro:  { link: 'book-fr.html?hold=complete', note: 'Votre place est réservée — dernière étape : choisissez l\'heure de votre appel d\'introduction gratuit.', btn: 'Réserver votre appel d\'introduction' }
   };
 
   var service = new URLSearchParams(window.location.search).get('service');
-  var link = BOOKING_LINKS[service];
-  if (link && link.indexOf('http') === 0) {
-    document.getElementById('book-btn').href = link;
+  var step = NEXT_STEPS[service];
+  if (step) {
+    document.getElementById('book-btn').href = step.link;
+    document.getElementById('book-btn').textContent = step.btn;
+    document.getElementById('next-step').textContent = step.note;
   } else {
     document.getElementById('next-step').textContent = 'Dernière étape : contactez-nous pour planifier vos sessions.';
     document.getElementById('book-btn').textContent = 'Contactez-nous pour planifier';
