@@ -12,20 +12,42 @@
      - only requests coming from the real site are accepted (CORS allowlist)
 
    Endpoints:
-     POST /api/contact     { name, email, topic?, message, website?, t? }
-     POST /api/newsletter  { email, page?, website?, t? }
+     POST /api/contact         { name, email, topic?, message, website?, t? }
+     POST /api/newsletter      { email, page?, website?, t? }
+     POST /api/stripe-webhook  Stripe checkout.session.completed events —
+                               emails package buyers their booking link so
+                               they can always get back to it.
 
    Environment variables (set in the Cloudflare dashboard or via
    `wrangler secret put` — see backend/README.md):
-     CONTACT_ENDPOINT     FormSubmit AJAX URL for contact messages,
-                          e.g. https://formsubmit.co/ajax/<your-alias-or-email>
-     NEWSLETTER_ENDPOINT  FormSubmit AJAX URL for newsletter notifications
-                          (can be the same as CONTACT_ENDPOINT)
-     SHEET_WEBAPP_URL     Google Apps Script Web App URL that logs newsletter
-                          signups to the Google Sheet
-     ALLOWED_ORIGINS      optional comma-separated origin allowlist; defaults
-                          to the production domains below
+     CONTACT_ENDPOINT       FormSubmit AJAX URL for contact messages,
+                            e.g. https://formsubmit.co/ajax/<your-alias-or-email>
+     NEWSLETTER_ENDPOINT    FormSubmit AJAX URL for newsletter notifications
+                            (can be the same as CONTACT_ENDPOINT)
+     SHEET_WEBAPP_URL       Google Apps Script Web App URL that logs newsletter
+                            signups to the Google Sheet
+     STRIPE_WEBHOOK_SECRET  Signing secret of the Stripe webhook endpoint
+                            (starts with whsec_…). Used to verify events are
+                            genuinely from Stripe. Without it, /api/stripe-webhook
+                            rejects everything.
+     BOOKING_EMAIL_URL      Google Apps Script Web App URL that sends the
+                            "book your sessions" email from your Gmail
+                            (see backend/booking-email.gs)
+     BOOKING_EMAIL_TOKEN    Shared secret sent to BOOKING_EMAIL_URL so only
+                            this Worker can trigger those emails
+     ALLOWED_ORIGINS        optional comma-separated origin allowlist; defaults
+                            to the production domains below
    ========================================================================== */
+
+/* Any Stripe Payment Link checkout at or above this amount (in cents) is
+   treated as a package purchase and triggers the booking-link email. Packages
+   are $200 (5-pack) and $375 (10-pack); single sessions ($45/$60) and the $5
+   reservation fee are all well below this, so they never trigger it — even
+   with a promo code applied to a pack. Update if pack pricing ever changes. */
+const PACK_MIN_CENTS = 15000;
+
+/* How long after Stripe signs an event we still accept it (replay protection). */
+const STRIPE_SIG_TOLERANCE_S = 5 * 60;
 
 const DEFAULT_ALLOWED_ORIGINS = [
   'https://mntrtutoring.ca',
@@ -55,6 +77,14 @@ export default {
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: cors });
+    }
+
+    /* Stripe webhook: handled first, before the CORS/rate-limit/JSON-parse
+       path. Stripe posts server-to-server (no Origin header) and its signature
+       must be verified against the RAW request body, so this can't share the
+       generic body = await request.json() flow below. */
+    if (new URL(request.url).pathname === '/api/stripe-webhook') {
+      return handleStripeWebhook(request, env);
     }
 
     if (request.method !== 'POST') {
@@ -191,6 +221,140 @@ async function handleNewsletter(body, env, cors) {
   return sheetOk || mailOk
     ? json({ success: true }, 200, cors)
     : json({ success: false, error: 'Signup failed. Please try again.' }, 502, cors);
+}
+
+/* -------------------------------------------------------- Stripe webhook */
+
+/* Emails a package buyer their booking link when Stripe reports a completed
+   checkout. Returns 200 for anything we intentionally ignore (so Stripe stops
+   retrying), 400 for a bad/forged signature, 500 only when a genuine package
+   email fails to send (so Stripe retries it). */
+async function handleStripeWebhook(request, env) {
+  if (request.method !== 'POST') {
+    return new Response('Method not allowed', { status: 405 });
+  }
+  if (!env.STRIPE_WEBHOOK_SECRET) {
+    /* Not configured yet — refuse rather than trust unsigned input. */
+    return new Response('Webhook not configured', { status: 503 });
+  }
+
+  const raw = await request.text();
+  const sigHeader = request.headers.get('Stripe-Signature') || '';
+
+  const valid = await verifyStripeSignature(raw, sigHeader, env.STRIPE_WEBHOOK_SECRET);
+  if (!valid) {
+    return new Response('Invalid signature', { status: 400 });
+  }
+
+  let event;
+  try {
+    event = JSON.parse(raw);
+  } catch (e) {
+    return new Response('Bad JSON', { status: 400 });
+  }
+
+  /* We only act on completed checkouts. Everything else is acknowledged. */
+  if (!event || event.type !== 'checkout.session.completed') {
+    return new Response('ignored', { status: 200 });
+  }
+
+  const session = (event.data && event.data.object) || {};
+  const amount = typeof session.amount_total === 'number' ? session.amount_total : 0;
+
+  /* Only package purchases (>= PACK_MIN_CENTS) get the booking email. */
+  if (amount < PACK_MIN_CENTS) {
+    return new Response('not a package', { status: 200 });
+  }
+
+  const email =
+    (session.customer_details && session.customer_details.email) ||
+    session.customer_email ||
+    '';
+  if (!isEmail(email)) {
+    /* Paid but no usable email — nothing we can send to; don't make Stripe
+       retry forever. */
+    return new Response('no email', { status: 200 });
+  }
+
+  if (!env.BOOKING_EMAIL_URL || !env.BOOKING_EMAIL_TOKEN) {
+    return new Response('email sender not configured', { status: 503 });
+  }
+
+  const name =
+    (session.customer_details && session.customer_details.name) || '';
+
+  try {
+    const res = await fetch(env.BOOKING_EMAIL_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body:
+        'token=' + encodeURIComponent(env.BOOKING_EMAIL_TOKEN) +
+        '&email=' + encodeURIComponent(email) +
+        '&name=' + encodeURIComponent(name) +
+        '&amount=' + encodeURIComponent(String(amount)),
+    });
+    if (!res.ok) {
+      /* Let Stripe retry the delivery. */
+      return new Response('send failed', { status: 500 });
+    }
+  } catch (e) {
+    return new Response('send error', { status: 500 });
+  }
+
+  return new Response('ok', { status: 200 });
+}
+
+/* Verify a Stripe-Signature header against the raw body using the endpoint's
+   signing secret (HMAC-SHA256), with timestamp tolerance and a constant-time
+   compare. Mirrors Stripe's own construct-event check. */
+async function verifyStripeSignature(rawBody, sigHeader, secret) {
+  if (!sigHeader) return false;
+
+  let t = '';
+  const v1 = [];
+  for (const part of sigHeader.split(',')) {
+    const idx = part.indexOf('=');
+    if (idx === -1) continue;
+    const k = part.slice(0, idx).trim();
+    const val = part.slice(idx + 1).trim();
+    if (k === 't') t = val;
+    else if (k === 'v1') v1.push(val);
+  }
+  if (!t || v1.length === 0) return false;
+
+  /* Reject stale/replayed events. */
+  const ts = parseInt(t, 10);
+  if (!Number.isFinite(ts)) return false;
+  const nowS = Math.floor(Date.now() / 1000);
+  if (Math.abs(nowS - ts) > STRIPE_SIG_TOLERANCE_S) return false;
+
+  const enc = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    'raw',
+    enc.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const sigBuf = await crypto.subtle.sign('HMAC', key, enc.encode(t + '.' + rawBody));
+  const expected = [...new Uint8Array(sigBuf)]
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+
+  /* Stripe may list several v1 signatures; accept if any matches. */
+  return v1.some((sig) => timingSafeEqual(sig, expected));
+}
+
+/* Length-and-content constant-time string compare. */
+function timingSafeEqual(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) {
+    return false;
+  }
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) {
+    diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return diff === 0;
 }
 
 /* ----------------------------------------------------------------- helpers */

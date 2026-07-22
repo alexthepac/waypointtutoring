@@ -121,6 +121,46 @@ page source for anyone who looked, so after the backend is live:
 
 ---
 
+## Automatic "book your sessions" email to package buyers
+
+When someone buys a 5- or 10-session package, Stripe notifies the Worker, and
+the Worker has your Gmail email them the booking link — so if they ever lose
+the thank-you-page link, the email always gets them back to the calendar.
+Single sessions and the $5 reservation fee do **not** trigger it.
+
+**A) Create the email-sender Apps Script** — follow the SETUP steps at the top
+of [`booking-email.gs`](./booking-email.gs). You end up with a `/exec` URL and
+a secret token you chose.
+
+**B) Add three secrets to the Worker** (Settings → Variables and Secrets → Add,
+type **Secret**):
+
+| Name | Value |
+|---|---|
+| `BOOKING_EMAIL_URL` | the Apps Script `/exec` URL from step A |
+| `BOOKING_EMAIL_TOKEN` | the **same** token you set inside `booking-email.gs` |
+| `STRIPE_WEBHOOK_SECRET` | the signing secret from step C (starts with `whsec_`) |
+
+**C) Point Stripe at the Worker** — in the Stripe Dashboard:
+1. **Developers → Webhooks → Add endpoint**.
+2. Endpoint URL: `https://mntr-forms.alexthepac.workers.dev/api/stripe-webhook`
+3. Under "Select events", choose **`checkout.session.completed`** (just that one).
+4. Add the endpoint, then click it and **reveal the Signing secret** (`whsec_…`)
+   — that's the value for the `STRIPE_WEBHOOK_SECRET` secret in step B.
+
+**D) Redeploy the Worker** with the updated `worker.js` (Edit code → paste →
+Deploy, or `npx wrangler deploy`).
+
+**Test it:** in Stripe → Webhooks → your endpoint → **Send test webhook** →
+`checkout.session.completed`. Set the test event's `amount_total` to `20000`
+and a real `customer_details.email` you can check, and you should receive the
+booking email. (Live purchases are the real test once your Payment Links run.)
+
+Notes: the email is sent from `mntrtutoring.info@gmail.com` (free Gmail sends
+up to ~100 emails/day — far more than enough). The `$150` package threshold and
+the booking link both live near the top of `worker.js` / `booking-email.gs` if
+they ever need changing.
+
 ## What this does *not* need to cover
 
 - **Payments** — Stripe Payment Links and Cal.com run on their own hosted,
