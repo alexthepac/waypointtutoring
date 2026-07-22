@@ -14,10 +14,15 @@
      redirect to .../thank-you-fr.html?service=pack5&session_id={CHECKOUT_SESSION_ID}
      so every conversion is counted exactly once, even if the page is refreshed. -->
 <script>
-  gtag('event', 'conversion', {
-    'send_to': 'AW-18318813201/wszKCNuflM8cEJHQi59E',
-    'transaction_id': new URLSearchParams(window.location.search).get('session_id') || ''
-  });
+  (function () {
+    var txid = new URLSearchParams(window.location.search).get('session_id');
+    if (txid) {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-18318813201/wszKCNuflM8cEJHQi59E',
+        'transaction_id': txid
+      });
+    }
+  })();
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
