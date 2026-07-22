@@ -33,6 +33,10 @@ var SECRET_TOKEN = 'CHANGE_ME_to_a_long_random_string_1234567890';
 /* The hidden, free Cal.com event where package customers book their sessions. */
 var BOOKING_URL = 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy';
 
+/* Logo shown at the top of the email — the dark mountain mark, hosted on the
+   live site, since it needs to be visible on the email's white background. */
+var LOGO_URL = 'https://mntrtutoring.ca/logo-mark.png';
+
 function doPost(e) {
   try {
     var p = (e && e.parameter) || {};
@@ -55,6 +59,9 @@ function doPost(e) {
 
     var htmlBody =
       '<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;color:#16141c;line-height:1.6">' +
+        '<p style="text-align:center;margin:0 0 24px">' +
+          '<img src="' + LOGO_URL + '" alt="MNTR Tutoring" width="40" height="40" style="display:inline-block" />' +
+        '</p>' +
         '<h2 style="font-family:Georgia,serif;font-size:22px;margin:0 0 16px">Thank you for your purchase!</h2>' +
         '<p>' + _esc(greetingEn) + '</p>' +
         '<p>Your tutoring package is confirmed. Use the button below to schedule your sessions — ' +
