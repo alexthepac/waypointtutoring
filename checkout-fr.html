@@ -141,6 +141,7 @@
           Procéder au paiement sécurisé
         </a>
         <p id="promo-cal-note" class="hidden text-xs text-center mt-3 text-neutral-500 leading-relaxed"></p>
+        <p id="svc-note" class="hidden text-[13px] text-center mt-4 text-ink leading-relaxed bg-ink/5 rounded-xl px-4 py-3">&#9993;&#65039; <span id="svc-note-text"></span></p>
 
         <div class="flex items-center justify-center gap-2 mt-4 text-neutral-500 text-xs">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -213,6 +214,7 @@
       name: 'Forfait de tutorat 5 sessions',
       price: '$162.50', unit: '$32.50 / session · économisez $12.50',
       desc: 'Cinq sessions de tutorat individuel à un taux réduit par session, pour les étudiants qui veulent un soutien régulier.',
+      note: 'Après votre paiement, nous communiquerons avec vous par courriel afin de connaître vos préférences concernant votre personne tutrice et l’horaire de vos sessions.',
       includes: ['Cinq sessions en ligne de 60 minutes', '$32.50 par session (économisez $12.50 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
       stripe: 'https://buy.stripe.com/7sY5kF7SO0NWbFA9RndUY0f'
     },
@@ -220,6 +222,7 @@
       name: 'Forfait de tutorat 10 sessions',
       price: '$300', unit: '$30 / session · économisez $50',
       desc: 'Dix sessions de tutorat individuel à notre meilleur taux par session, idéal pour un trimestre complet de soutien constant.',
+      note: 'Après votre paiement, nous communiquerons avec vous par courriel afin de connaître vos préférences concernant votre personne tutrice et l’horaire de vos sessions.',
       includes: ['Dix sessions en ligne de 60 minutes', '$30 par session (économisez $50 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
       stripe: 'https://buy.stripe.com/aFa00l2yufIQ7pk3sZdUY0d'
     },
@@ -271,6 +274,11 @@
     document.getElementById('svc-desc').textContent = svc.desc;
     document.getElementById('svc-unit').textContent = svc.unit;
     document.title = svc.name + ' · Commande · Tutorat MNTR';
+
+    if (svc.note) {
+      document.getElementById('svc-note-text').textContent = svc.note;
+      document.getElementById('svc-note').classList.remove('hidden');
+    }
 
     var ul = document.getElementById('svc-includes');
     svc.includes.forEach(function (item) {

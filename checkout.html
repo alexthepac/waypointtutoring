@@ -141,6 +141,7 @@
             Proceed to secure payment
           </a>
           <p id="promo-cal-note" class="hidden text-xs text-center mt-3 text-neutral-500 leading-relaxed"></p>
+          <p id="svc-note" class="hidden text-[13px] text-center mt-4 text-ink leading-relaxed bg-ink/5 rounded-xl px-4 py-3">&#9993;&#65039; <span id="svc-note-text"></span></p>
 
           <div class="flex items-center justify-center gap-2 mt-4 text-neutral-500 text-xs">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -213,6 +214,7 @@
       name: '5-Session Tutoring Package',
       price: '$162.50', unit: '$32.50 / session · save $12.50',
       desc: 'Five one-on-one tutoring sessions at a reduced per-session rate, for students who want steady, ongoing support.',
+      note: 'After payment, we’ll contact you by email to get your preferences for tutors and session times.',
       includes: ['Five 60-minute live online sessions', '$32.50 per session (save $12.50 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
       stripe: 'https://buy.stripe.com/7sY5kF7SO0NWbFA9RndUY0f'
     },
@@ -220,6 +222,7 @@
       name: '10-Session Tutoring Package',
       price: '$300', unit: '$30 / session · save $50',
       desc: 'Ten one-on-one tutoring sessions at our best per-session rate, ideal for a full term of consistent support.',
+      note: 'After payment, we’ll contact you by email to get your preferences for tutors and session times.',
       includes: ['Ten 60-minute live online sessions', '$30 per session (save $50 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
       stripe: 'https://buy.stripe.com/aFa00l2yufIQ7pk3sZdUY0d'
     },
@@ -270,6 +273,11 @@
     document.getElementById('svc-desc').textContent = svc.desc;
     document.getElementById('svc-unit').textContent = svc.unit;
     document.title = svc.name + ' · Checkout · MNTR Tutoring';
+
+    if (svc.note) {
+      document.getElementById('svc-note-text').textContent = svc.note;
+      document.getElementById('svc-note').classList.remove('hidden');
+    }
 
     var ul = document.getElementById('svc-includes');
     svc.includes.forEach(function (item) {
