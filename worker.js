@@ -41,10 +41,11 @@
 
 /* Any Stripe Payment Link checkout at or above this amount (in cents) is
    treated as a package purchase and triggers the booking-link email. Packages
-   are $200 (5-pack) and $375 (10-pack); single sessions ($45/$60) and the $5
-   reservation fee are all well below this, so they never trigger it — even
-   with a promo code applied to a pack. Update if pack pricing ever changes. */
-const PACK_MIN_CENTS = 15000;
+   are $162.50 (5-pack) and $300 (10-pack); single sessions ($35/$34.99) and
+   the $5 reservation fee are all well below this, so they never trigger it —
+   even with a promo code applied to a pack. Update if pack pricing ever
+   changes. */
+const PACK_MIN_CENTS = 10000;
 
 /* How long after Stripe signs an event we still accept it (replay protection). */
 const STRIPE_SIG_TOLERANCE_S = 5 * 60;

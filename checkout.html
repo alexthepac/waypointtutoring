@@ -188,7 +188,7 @@
      Until a real https:// link is in, the button routes to the contact page.
 
      PAYMENT ARCHITECTURE:
-     - Per-session services (tutoring $45, casper-hourly $34.99) use 'cal':
+     - Per-session services (tutoring $35, casper-hourly $34.99) use 'cal':
        the button goes straight to the Cal.com event, which has the price
        set via the Cal.com Stripe app. Payment is enforced at booking.
        Keep these events PUBLIC with their price ON.
@@ -197,31 +197,31 @@
        (set in Stripe Dashboard -> Payment Links -> Edit) sends the client
        to the thank-you page, which fires the Google Ads conversion and
        links them to Cal.com to schedule their sessions:
-       pack5    ...Y0a -> thank-you.html?service=pack5
-       pack10   ...Y0b -> thank-you.html?service=pack10
+       pack5    ...Y0f -> thank-you.html?service=pack5
+       pack10   ...Y0d -> thank-you.html?service=pack10
      Button priority: stripe link > cal link > contact fallback.
   ===================================================================== */
   var SERVICES = {
     tutoring: {
-      name: 'Private 1-on-1 Tutoring',
-      price: '$45', unit: 'per 60-minute session',
+      name: 'Private 1-on-1 STEM Tutoring',
+      price: '$35', unit: 'per 60-minute session',
       desc: 'One-on-one tutoring with top medical and university students, prepared in advance around your exact courses.',
       includes: ['A full 60-minute live online session', 'Prepared around your syllabus and goals', 'STEM subjects from high school to university', 'Study-method coaching built into every session'],
       cal: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring'
     },
     pack5: {
       name: '5-Session Tutoring Package',
-      price: '$200', unit: '$40 / session · save $25',
+      price: '$162.50', unit: '$32.50 / session · save $12.50',
       desc: 'Five one-on-one tutoring sessions at a reduced per-session rate, for students who want steady, ongoing support.',
-      includes: ['Five 60-minute live online sessions', '$40 per session (save $25 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
-      stripe: 'https://buy.stripe.com/00waEZehcfIQaBwd3zdUY0a'
+      includes: ['Five 60-minute live online sessions', '$32.50 per session (save $12.50 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
+      stripe: 'https://buy.stripe.com/7sY5kF7SO0NWbFA9RndUY0f'
     },
     pack10: {
       name: '10-Session Tutoring Package',
-      price: '$375', unit: '$37.50 / session · save $75',
+      price: '$300', unit: '$30 / session · save $50',
       desc: 'Ten one-on-one tutoring sessions at our best per-session rate, ideal for a full term of consistent support.',
-      includes: ['Ten 60-minute live online sessions', '$37.50 per session (save $75 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
-      stripe: 'https://buy.stripe.com/6oUaEZc94fIQ6lg4x3dUY0b'
+      includes: ['Ten 60-minute live online sessions', '$30 per session (save $50 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
+      stripe: 'https://buy.stripe.com/aFa00l2yufIQ7pk3sZdUY0d'
     },
     'casper-hourly': {
       name: 'Casper & MMI Prep',

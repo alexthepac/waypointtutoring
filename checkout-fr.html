@@ -188,7 +188,7 @@
      Until a real https:// link is in, the button routes to the contact page.
 
      PAYMENT ARCHITECTURE:
-     - Per-session services (tutoring $45, casper-hourly $34.99) use 'cal':
+     - Per-session services (tutoring $35, casper-hourly $34.99) use 'cal':
        the button goes straight to the Cal.com event, which has the price
        set via the Cal.com Stripe app. Payment is enforced at booking.
        Keep these events PUBLIC with their price ON.
@@ -197,31 +197,31 @@
        (set in Stripe Dashboard -> Payment Links -> Edit) sends the client
        to the thank-you page, which fires the Google Ads conversion and
        links them to Cal.com to schedule their sessions:
-       pack5    ...Y0a -> thank-you-fr.html?service=pack5
-       pack10   ...Y0b -> thank-you-fr.html?service=pack10
+       pack5    ...Y0f -> thank-you-fr.html?service=pack5
+       pack10   ...Y0d -> thank-you-fr.html?service=pack10
      Button priority: stripe link > cal link > contact fallback.
   ===================================================================== */
   var SERVICES = {
     tutoring: {
-      name: 'Tutorat individuel',
-      price: '$45', unit: 'par session de 60 minutes',
+      name: 'Tutorat STEM individuel',
+      price: '$35', unit: 'par session de 60 minutes',
       desc: 'Tutorat individuel avec des étudiants en médecine, préparé à l\'avance autour de vos cours précis.',
       includes: ['Une session en ligne complète de 60 minutes', 'Préparé autour de votre programme d\'études et de vos objectifs', 'Matières STEM du secondaire à l\'université', 'Coaching sur les méthodes d\'étude intégré à chaque session'],
       cal: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring'
     },
     pack5: {
       name: 'Forfait de tutorat 5 sessions',
-      price: '$200', unit: '$40 / session · économisez $25',
+      price: '$162.50', unit: '$32.50 / session · économisez $12.50',
       desc: 'Cinq sessions de tutorat individuel à un taux réduit par session, pour les étudiants qui veulent un soutien régulier.',
-      includes: ['Cinq sessions en ligne de 60 minutes', '$40 par session (économisez $25 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
-      stripe: 'https://buy.stripe.com/00waEZehcfIQaBwd3zdUY0a'
+      includes: ['Cinq sessions en ligne de 60 minutes', '$32.50 par session (économisez $12.50 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
+      stripe: 'https://buy.stripe.com/7sY5kF7SO0NWbFA9RndUY0f'
     },
     pack10: {
       name: 'Forfait de tutorat 10 sessions',
-      price: '$375', unit: '$37.50 / session · économisez $75',
+      price: '$300', unit: '$30 / session · économisez $50',
       desc: 'Dix sessions de tutorat individuel à notre meilleur taux par session, idéal pour un trimestre complet de soutien constant.',
-      includes: ['Dix sessions en ligne de 60 minutes', '$37.50 par session (économisez $75 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
-      stripe: 'https://buy.stripe.com/6oUaEZc94fIQ6lg4x3dUY0b'
+      includes: ['Dix sessions en ligne de 60 minutes', '$30 par session (économisez $50 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
+      stripe: 'https://buy.stripe.com/aFa00l2yufIQ7pk3sZdUY0d'
     },
     'casper-hourly': {
       name: 'Préparation Casper & MEM',
