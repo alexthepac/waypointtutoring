@@ -30,8 +30,12 @@
    Worker's BOOKING_EMAIL_TOKEN secret. */
 var SECRET_TOKEN = 'CHANGE_ME_to_a_long_random_string_1234567890';
 
-/* The hidden, free Cal.com event where package customers book their sessions. */
+/* The hidden, FREE Cal.com events where package customers book their sessions.
+   Tutoring packages and Casper packages cost exactly the same ($162.50 / $300),
+   so the Worker cannot tell them apart from the payment amount alone — the
+   email therefore lists both, clearly labelled, and the customer picks theirs. */
 var BOOKING_URL = 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy';
+var BOOKING_URL_CASPER = 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep-copy-copy';
 
 /* Logo shown at the top of the email — the dark mountain mark, hosted on the
    live site, since it needs to be visible on the email's white background. */
@@ -64,18 +68,23 @@ function doPost(e) {
         '</p>' +
         '<h2 style="font-family:Georgia,serif;font-size:22px;margin:0 0 16px">Thank you for your purchase!</h2>' +
         '<p>' + _esc(greetingEn) + '</p>' +
-        '<p>Your tutoring package is confirmed. Use the button below to schedule your sessions — ' +
+        '<p>Your package is confirmed. Use the button below that matches what you bought to schedule your sessions — ' +
           '<strong>bookmark this email</strong> so you can come back and book each session whenever you\'re ready.</p>' +
-        '<p style="text-align:center;margin:28px 0">' +
+        '<p style="text-align:center;margin:28px 0 10px">' +
           '<a href="' + BOOKING_URL + '" style="background:#16141c;color:#fff;text-decoration:none;' +
-          'font-weight:bold;padding:14px 28px;border-radius:8px;display:inline-block">Book your sessions</a>' +
+          'font-weight:bold;padding:14px 28px;border-radius:8px;display:inline-block">Book tutoring sessions</a>' +
         '</p>' +
-        '<p style="font-size:13px;color:#666">Or paste this link into your browser:<br>' +
-          '<a href="' + BOOKING_URL + '" style="color:#16141c">' + BOOKING_URL + '</a></p>' +
+        '<p style="text-align:center;margin:0 0 24px">' +
+          '<a href="' + BOOKING_URL_CASPER + '" style="background:#16141c;color:#fff;text-decoration:none;' +
+          'font-weight:bold;padding:14px 28px;border-radius:8px;display:inline-block">Book Casper &amp; MMI sessions</a>' +
+        '</p>' +
+        '<p style="font-size:13px;color:#666">Use the button that matches the package you bought. Or paste the link into your browser:<br>' +
+          'Tutoring: <a href="' + BOOKING_URL + '" style="color:#16141c">' + BOOKING_URL + '</a><br>' +
+          'Casper &amp; MMI: <a href="' + BOOKING_URL_CASPER + '" style="color:#16141c">' + BOOKING_URL_CASPER + '</a></p>' +
         '<hr style="border:none;border-top:1px solid #eee;margin:28px 0">' +
         '<h2 style="font-family:Georgia,serif;font-size:22px;margin:0 0 16px">Merci pour votre achat!</h2>' +
         '<p>' + _esc(greetingFr) + '</p>' +
-        '<p>Votre forfait de tutorat est confirmé. Utilisez le bouton ci-dessus pour planifier vos sessions — ' +
+        '<p>Votre forfait de tutorat est confirmé. Utilisez le bouton ci-dessus correspondant à votre forfait pour planifier vos sessions — ' +
           '<strong>gardez ce courriel</strong> pour revenir réserver chaque session quand vous le souhaitez.</p>' +
         '<p style="font-size:13px;color:#666;margin-top:28px">MNTR Tutoring · Québec<br>' +
           'Des questions? Répondez simplement à ce courriel.</p>' +
@@ -83,14 +92,18 @@ function doPost(e) {
 
     var plainBody =
       greetingEn + '\n\n' +
-      'Your tutoring package is confirmed. Book your sessions here (keep this ' +
-      'email so you can book each one whenever you\'re ready):\n' +
-      BOOKING_URL + '\n\n' +
+      'Your package is confirmed. Book your sessions with the link that matches ' +
+      'what you bought (keep this email so you can book each one whenever ' +
+      'you\'re ready):\n' +
+      'Tutoring: ' + BOOKING_URL + '\n' +
+      'Casper & MMI: ' + BOOKING_URL_CASPER + '\n\n' +
       '-----\n\n' +
       greetingFr + '\n\n' +
-      'Votre forfait est confirmé. Réservez vos sessions ici (gardez ce ' +
-      'courriel pour réserver chacune quand vous le souhaitez):\n' +
-      BOOKING_URL + '\n\n' +
+      'Votre forfait est confirmé. Réservez vos sessions avec le lien qui ' +
+      'correspond à votre achat (gardez ce courriel pour réserver chacune ' +
+      'quand vous le souhaitez):\n' +
+      'Tutorat : ' + BOOKING_URL + '\n' +
+      'Casper & MEM : ' + BOOKING_URL_CASPER + '\n\n' +
       'MNTR Tutoring · Québec';
 
     GmailApp.sendEmail(email, subject, plainBody, {
