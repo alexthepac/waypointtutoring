@@ -414,6 +414,56 @@
       </div>
     </div>
 
+    <!-- Group C: Casper & MMI prep pricing ladder · 3 big cards -->
+    <div class="mt-16 md:mt-24">
+      <div class="reveal text-center mb-10 md:mb-14">
+        <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">INTERVIEW SEASON</p>
+        <h3 class="font-serif text-3xl md:text-5xl text-ink">Casper &amp; MMI Prep &mdash; Choose Your Plan</h3>
+        <p class="text-neutral-500 text-sm mt-4 max-w-md mx-auto">1-on-1 with medical students who sat these exact interviews &mdash; and got in.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+
+        <!-- Single session (anchor price) -->
+        <div onclick="pickService('Casper &amp; MMI Prep')" class="card-light group cursor-pointer reveal rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
+          <h4 class="font-serif text-2xl mb-1">Single Session</h4>
+          <p class="text-neutral-400 text-sm mb-8">Try it out &mdash; no commitment</p>
+          <div class="mt-auto">
+            <div class="text-4xl font-semibold mb-2">$34.99<span class="text-neutral-500 text-base font-normal"> / session</span></div>
+            <div class="text-neutral-400 text-sm">$34.99 total</div>
+          </div>
+        </div>
+
+        <!-- 5-session Casper package -->
+        <div onclick="pickService('Casper 5-Session Package')" class="card-light group cursor-pointer reveal rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300" style="--rd:.12s">
+          <h4 class="font-serif text-2xl mb-1">5-Session Package</h4>
+          <p class="text-[#d0679f] text-sm font-semibold mb-8">Save $12.45</p>
+          <div class="mt-auto">
+            <div class="flex items-baseline gap-2 mb-2">
+              <span class="text-neutral-400 text-lg line-through">$34.99</span>
+              <span class="text-4xl font-semibold">$32.50<span class="text-neutral-500 text-base font-normal"> / session</span></span>
+            </div>
+            <div class="text-neutral-400 text-sm">$162.50 total</div>
+          </div>
+        </div>
+
+        <!-- 10-session Casper package · FEATURED -->
+        <div onclick="pickService('Casper 10-Session Package')" class="pkg-featured group cursor-pointer reveal relative rounded-3xl p-9 pt-12 flex flex-col text-ink hover:-translate-y-2 transition-all duration-300 md:scale-[1.08] z-10" style="--rd:.24s">
+          <span class="pkg-badge">BEST VALUE</span>
+          <h4 class="font-serif text-2xl mb-1">10-Session Package</h4>
+          <p class="text-sm font-bold mb-8 eyebrow-grad">Save $49.90</p>
+          <div class="mt-auto">
+            <div class="flex items-baseline gap-2 mb-2">
+              <span class="text-neutral-400 text-lg line-through">$34.99</span>
+              <span class="text-4xl font-semibold">$30<span class="text-neutral-500 text-base font-normal"> / session</span></span>
+            </div>
+            <div class="text-neutral-500 text-sm">$300 total</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -768,6 +818,8 @@
       '5-Session Package':             'checkout.html?service=pack5',
       '10-Session Package':            'checkout.html?service=pack10',
       'Casper & MMI Prep':             'checkout.html?service=casper-hourly',
+      'Casper 5-Session Package':      'checkout.html?service=casper-pack5',
+      'Casper 10-Session Package':     'checkout.html?service=casper-pack10',
     };
     if (routes[value]) { window.location.href = routes[value]; return; }
     // Free consultation (and anything else) -> scroll to the booking section
