@@ -161,7 +161,12 @@
   var NEXT_STEPS = {
     pack5:  { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'Dernière étape : choisissez les horaires de vos sessions.', btn: 'Planifier vos sessions' },
     pack10: { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'Dernière étape : choisissez les horaires de vos sessions.', btn: 'Planifier vos sessions' },
-    intro:  { link: 'book-fr.html?hold=complete', note: 'Votre place est réservée — dernière étape : choisissez l\'heure de votre appel d\'introduction gratuit.', btn: 'Réserver votre appel d\'introduction' }
+    intro:  { link: 'book-fr.html?hold=complete', note: 'Votre place est réservée — dernière étape : choisissez l\'heure de votre appel d\'introduction gratuit.', btn: 'Réserver votre appel d\'introduction' },
+    /* Forfaits Casper : aucun événement Casper GRATUIT caché n'existe encore, et
+       l'événement public est payant par session — y envoyer les acheteurs les
+       ferait payer deux fois. En attendant, on les dirige vers le contact. */
+    'casper-pack5':  { link: 'contact-fr.html', note: 'Votre forfait est confirmé — nous vous écrirons sous peu pour fixer vos horaires. Besoin de nous joindre avant? Utilisez le bouton ci-dessous.', btn: 'Contactez-nous pour planifier' },
+    'casper-pack10': { link: 'contact-fr.html', note: 'Votre forfait est confirmé — nous vous écrirons sous peu pour fixer vos horaires. Besoin de nous joindre avant? Utilisez le bouton ci-dessous.', btn: 'Contactez-nous pour planifier' }
   };
 
   var service = new URLSearchParams(window.location.search).get('service');

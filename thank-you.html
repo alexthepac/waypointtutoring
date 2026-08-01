@@ -161,7 +161,13 @@
   var NEXT_STEPS = {
     pack5:  { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'One last step: pick the times for your sessions.', btn: 'Schedule your sessions' },
     pack10: { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'One last step: pick the times for your sessions.', btn: 'Schedule your sessions' },
-    intro:  { link: 'book.html?hold=complete', note: 'Your spot is reserved — one last step: pick a time for your free intro call.', btn: 'Book your intro call' }
+    intro:  { link: 'book.html?hold=complete', note: 'Your spot is reserved — one last step: pick a time for your free intro call.', btn: 'Book your intro call' },
+    /* Casper packages: there is no FREE hidden Casper event yet, and the public
+       Casper event charges per session — so sending buyers there would double-
+       charge them. Until a free hidden Casper event exists, route them to
+       contact and we schedule by email (matches the note on the checkout page). */
+    'casper-pack5':  { link: 'contact.html', note: 'Your package is confirmed — we’ll email you shortly to set up your session times. Need to reach us first? Use the button below.', btn: 'Contact us to schedule' },
+    'casper-pack10': { link: 'contact.html', note: 'Your package is confirmed — we’ll email you shortly to set up your session times. Need to reach us first? Use the button below.', btn: 'Contact us to schedule' }
   };
 
   var service = new URLSearchParams(window.location.search).get('service');
