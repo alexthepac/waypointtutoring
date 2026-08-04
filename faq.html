@@ -13,6 +13,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>FAQ · MNTR Tutoring</title>
 <link rel='icon' type='image/png' href='favicon.png?v=2' />
+<link rel='shortcut icon' href='favicon.ico' />
+<link rel='apple-touch-icon' href='apple-touch-icon.png' />
 
 <!-- ===================== FONTS ===================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,16 +25,25 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
-    theme: { extend: { fontFamily: {
-      sans:  ['Inter', 'system-ui', 'sans-serif'],
-      serif: ['Fraunces', 'Georgia', 'serif'],
-    } } },
+    theme: { extend: {
+      fontFamily: {
+        sans:  ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Fraunces', 'Georgia', 'serif'],
+      },
+      colors: { ink: '#16141c', paper: '#f7f5f1' },
+    } },
   };
 </script>
 
 <style>
+  :root {
+    --ink: #16141c;
+    --paper: #f7f5f1;
+  }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+  /* Mobile: drop the sticky-header frosted blur (expensive to composite while scrolling) */
+  @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
 
   /* Accordion: rotate the + into an × and reveal the answer */
   details > summary { list-style: none; }
@@ -42,21 +53,28 @@
 
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
   .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Featured / CTA card: sleek black outline (same treatment as the homepage pricing) ---------- */
+  .pkg-featured {
+    background: #fff;
+    border: 2px solid var(--ink);
+    box-shadow: 0 28px 60px -26px rgba(22,20,28,.35);
+  }
 </style>
 </head>
 
-<body class="bg-white text-black antialiased">
+<body class="bg-paper text-ink antialiased">
 
 <!-- ============================================================
      TOP BAR
 ============================================================ -->
-<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
+<header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight">MNTR Tutoring<span class="text-neutral-400">.</span></a>
+    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />MNTR Tutoring<span class="text-neutral-400">.</span></a>
     <div class="flex items-center gap-7 text-sm font-medium text-neutral-600">
       <!-- Language Switcher -->
       <div class="relative">
-        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-black transition-colors">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-ink transition-colors">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           EN
         </button>
@@ -65,9 +83,9 @@
           <a href="faq-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
         </div>
       </div>
-      <a href="index.html" class="hover:text-black transition-colors">Home</a>
-      <a href="index.html#services" class="hover:text-black transition-colors hidden sm:inline">Pricing</a>
-      <a href="index.html#contact" class="bg-black text-white px-5 py-2.5 rounded-full hover:bg-neutral-800 transition-colors">Contact us</a>
+      <a href="index.html" class="hover:text-ink transition-colors">Home</a>
+      <a href="index.html#services" class="hover:text-ink transition-colors hidden sm:inline">Pricing</a>
+      <a href="index.html#contact" class="bg-ink text-white px-5 py-2.5 rounded-full hover:bg-black transition-colors">Contact us</a>
     </div>
   </div>
 </header>
@@ -77,8 +95,8 @@
 ============================================================ -->
 <section class="max-w-3xl mx-auto px-6 pt-24 md:pt-32 pb-12 text-center">
   <p class="reveal text-xs tracking-[0.3em] text-neutral-500 mb-5">HELP CENTRE</p>
-  <h1 class="reveal font-serif text-5xl md:text-6xl leading-tight mb-6">Frequently Asked Questions</h1>
-  <p class="reveal text-neutral-600 text-lg">Everything you need to know about tutoring with MNTR. Can't find your answer? <a href="index.html#contact" class="text-black underline underline-offset-4 hover:no-underline">Get in touch</a>.</p>
+  <h1 class="reveal font-serif text-5xl md:text-6xl leading-tight mb-6 text-ink">Frequently Asked Questions</h1>
+  <p class="reveal text-neutral-600 text-lg">Everything you need to know about tutoring with MNTR. Can't find your answer? <a href="index.html#contact" class="text-ink underline underline-offset-4 hover:no-underline">Get in touch</a>.</p>
 </section>
 
 <!-- ============================================================
@@ -86,7 +104,7 @@
      To add a question, copy one <details> block and edit the text.
 ============================================================ -->
 <section class="max-w-3xl mx-auto px-6 pb-24 md:pb-32">
-  <div class="reveal divide-y divide-black/10 border-y border-black/10">
+  <div class="reveal divide-y divide-ink/10 border-y border-ink/10">
 
     <!-- Item -->
     <details class="group py-6">
@@ -121,7 +139,7 @@
         <h2 class="font-serif text-xl md:text-2xl">How much does it cost?</h2>
         <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
       </summary>
-      <p class="text-neutral-600 leading-relaxed mt-4">Your first 30-minute consultation is completely free. After that, 1-on-1 subject tutoring is $54.97 per session, with study-method and lifestyle coaching built into every session. Package discounts are also available. See the <a href="index.html#services" class="text-black underline underline-offset-4 hover:no-underline">full breakdown here</a>.</p>
+      <p class="text-neutral-600 leading-relaxed mt-4">Your first 30-minute consultation is completely free. After that, 1-on-1 STEM subject tutoring is $35 per session, with study-method and lifestyle coaching built into every session. Package discounts are also available. See the <a href="index.html#services" class="text-ink underline underline-offset-4 hover:no-underline">full breakdown here</a>.</p>
     </details>
 
     <!-- Item -->
@@ -139,7 +157,7 @@
         <h2 class="font-serif text-xl md:text-2xl">How do I get started?</h2>
         <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
       </summary>
-      <p class="text-neutral-600 leading-relaxed mt-4">Book your free consultation through the <a href="index.html#contact" class="text-black underline underline-offset-4 hover:no-underline">contact form</a>. We'll assess your needs, identify your goals, and pair you with the tutor who fits best.</p>
+      <p class="text-neutral-600 leading-relaxed mt-4">Book your free consultation through the <a href="index.html#contact" class="text-ink underline underline-offset-4 hover:no-underline">contact form</a>. We'll assess your needs, identify your goals, and pair you with the tutor who fits best.</p>
     </details>
 
     <!-- Item -->
@@ -157,26 +175,26 @@
         <h2 class="font-serif text-xl md:text-2xl">Do you offer packages or discounts?</h2>
         <span class="plus text-2xl text-neutral-400 shrink-0">+</span>
       </summary>
-      <p class="text-neutral-600 leading-relaxed mt-4">Yes, we offer multi-session packages for students committing to regular support. Reach out via the <a href="index.html#contact" class="text-black underline underline-offset-4 hover:no-underline">contact form</a> and we'll put together a plan that fits.</p>
+      <p class="text-neutral-600 leading-relaxed mt-4">Yes, we offer multi-session packages for students committing to regular support. Reach out via the <a href="index.html#contact" class="text-ink underline underline-offset-4 hover:no-underline">contact form</a> and we'll put together a plan that fits.</p>
     </details>
 
   </div>
 
   <!-- CTA -->
-  <div class="reveal mt-16 bg-black text-white rounded-3xl px-8 py-14 text-center">
-    <h2 class="font-serif text-3xl md:text-4xl mb-4">Still have questions?</h2>
-    <p class="text-neutral-300 mb-8 max-w-md mx-auto">Book a free intro call and we'll walk you through everything.</p>
-    <a href="index.html#contact" class="inline-block bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Contact us</a>
+  <div class="pkg-featured relative reveal mt-16 rounded-3xl px-8 py-14 text-center">
+    <h2 class="font-serif text-3xl md:text-4xl mb-4 text-ink">Still have questions?</h2>
+    <p class="text-neutral-600 mb-8 max-w-md mx-auto">Book a free intro call and we'll walk you through everything.</p>
+    <a href="index.html#contact" class="inline-block bg-ink text-white font-semibold px-8 py-4 rounded-full hover:bg-black transition-colors">Contact us</a>
   </div>
 </section>
 
 <!-- ============================================================
      FOOTER
 ============================================================ -->
-<footer class="bg-black text-white py-12 px-6 md:px-12">
+<footer class="bg-ink text-white py-10 px-6 rounded-t-[22px]">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-    <a href="index.html" class="font-serif text-xl">MNTR Tutoring<span class="text-neutral-500">.</span></a>
-    <p class="text-neutral-500 text-sm">© 2026 MNTR Tutoring · Premium University Tutoring · Québec · <a href="privacy.html" class="hover:text-white transition-colors underline underline-offset-2">Privacy Policy</a> · <a href="user-agreement.html" class="hover:text-white transition-colors underline underline-offset-2">User Agreement</a></p>
+    <a href="index.html" class="font-serif text-xl inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-5 w-auto" />MNTR Tutoring<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-400 text-sm">© 2026 MNTR Tutoring · Premium University Tutoring · Québec · <a href="privacy.html" class="hover:text-white transition-colors underline underline-offset-2">Privacy Policy</a> · <a href="user-agreement.html" class="hover:text-white transition-colors underline underline-offset-2">User Agreement</a></p>
   </div>
 </footer>
 

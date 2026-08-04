@@ -13,6 +13,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Contactez-nous · Tutorat MNTR</title>
 <link rel='icon' type='image/png' href='favicon.png?v=2' />
+<link rel='shortcut icon' href='favicon.ico' />
+<link rel='apple-touch-icon' href='apple-touch-icon.png' />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,31 +24,55 @@
 <!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  tailwind.config = { theme: { extend: { fontFamily: {
-    sans: ['Inter', 'system-ui', 'sans-serif'],
-    serif: ['Fraunces', 'Georgia', 'serif'],
-  } } } };
+  tailwind.config = { theme: { extend: {
+    fontFamily: {
+      sans: ['Inter', 'system-ui', 'sans-serif'],
+      serif: ['Fraunces', 'Georgia', 'serif'],
+    },
+    colors: { ink: '#16141c', paper: '#f7f5f1' },
+  } } };
 </script>
 
 <style>
+  :root {
+    --ink: #16141c;
+    --paper: #f7f5f1;
+    --grad-eyebrow: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5);
+  }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; }
-  .eyebrow-grad { background: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+  /* Mobile: drop the sticky-header frosted blur (expensive to composite while scrolling) */
+  @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
+  .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
   @keyframes toastUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
   .toast-enter { animation: toastUp .5s cubic-bezier(.22,.61,.36,1) both; }
+
+  /* ---------- Featured / CTA card: sleek black outline (same treatment as the homepage pricing) ---------- */
+  .pkg-featured {
+    background: #fff;
+    border: 2px solid var(--ink);
+    box-shadow: 0 28px 60px -26px rgba(22,20,28,.35);
+  }
+
+  /* ---------- Plain light card ---------- */
+  .card-light {
+    background: #fff;
+    border: 1px solid rgba(22,20,28,.08);
+    box-shadow: 0 18px 50px -28px rgba(22,20,28,.22);
+  }
 </style>
 </head>
 
-<body class="bg-white text-black antialiased">
+<body class="bg-paper text-ink antialiased">
 
 <!-- Header -->
-<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
+<header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight">Tutorat MNTR<span class="text-neutral-400">.</span></a>
+    <a href="index-fr.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />Tutorat MNTR<span class="text-neutral-400">.</span></a>
     <div class="flex items-center gap-3">
       <!-- Language Switcher -->
       <div class="relative">
-        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 text-sm font-medium hover:text-black transition-colors">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 text-sm font-medium hover:text-ink transition-colors">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           FR
         </button>
@@ -55,22 +81,22 @@
           <a href="contact-fr.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">Français</a>
         </div>
       </div>
-      <a href="index-fr.html#services" class="text-sm font-medium text-neutral-600 hover:text-black transition-colors">Tous les services</a>
+      <a href="index-fr.html#services" class="text-sm font-medium text-neutral-600 hover:text-ink transition-colors">Tous les services</a>
     </div>
   </div>
 </header>
 
 <main class="max-w-5xl mx-auto px-6 py-16 md:py-24">
 
-  <a href="index-fr.html" class="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-black transition-colors mb-10">
+  <a href="index-fr.html" class="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-ink transition-colors mb-10">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
     Retour à l'accueil
   </a>
 
   <!-- Header -->
   <div class="text-center mb-16">
-    <p class="text-xs tracking-[0.3em] text-neutral-500 mb-5 eyebrow-grad">RESTONS CONNECTÉS</p>
-    <h1 class="font-serif text-4xl md:text-5xl mb-5">Réservez votre appel gratuit</h1>
+    <p class="text-xs font-bold tracking-[0.3em] mb-5 eyebrow-grad">RESTONS CONNECTÉS</p>
+    <h1 class="font-serif text-4xl md:text-5xl mb-5 text-ink">Réservez votre appel gratuit</h1>
     <p class="text-neutral-600 text-lg max-w-xl mx-auto">30 minutes, sans engagement. Nous apprendrons à connaître vos objectifs, identifierons où vous avez besoin de soutien, et vous jumellerons avec la bonne personne tutrice.</p>
   </div>
 
@@ -80,51 +106,51 @@
     <!-- Left: what to expect -->
     <div class="flex flex-col gap-8 md:pt-4">
       <div class="flex gap-5 items-start">
-        <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <div class="w-10 h-10 rounded-full bg-ink/5 flex items-center justify-center shrink-0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
         <div>
-          <h3 class="font-semibold text-base mb-1">Entièrement gratuit</h3>
+          <h3 class="font-semibold text-base mb-1 text-ink">Entièrement gratuit</h3>
           <p class="text-neutral-500 text-sm leading-relaxed">Aucune carte de crédit, aucune obligation. L'appel d'introduction est gratuit.</p>
         </div>
       </div>
       <div class="flex gap-5 items-start">
-        <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <div class="w-10 h-10 rounded-full bg-ink/5 flex items-center justify-center shrink-0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
         <div>
-          <h3 class="font-semibold text-base mb-1">Jumelage avec la bonne personne tutrice</h3>
+          <h3 class="font-semibold text-base mb-1 text-ink">Jumelage avec la bonne personne tutrice</h3>
           <p class="text-neutral-500 text-sm leading-relaxed">Nous évaluons vos objectifs et vous jumelons avec le mentor qui correspond exactement à vos besoins.</p>
         </div>
       </div>
       <div class="flex gap-5 items-start">
-        <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <div class="w-10 h-10 rounded-full bg-ink/5 flex items-center justify-center shrink-0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
         <div>
-          <h3 class="font-semibold text-base mb-1">Une feuille de route personnalisée</h3>
+          <h3 class="font-semibold text-base mb-1 text-ink">Une feuille de route personnalisée</h3>
           <p class="text-neutral-500 text-sm leading-relaxed">Vous repartez avec un plan clair, pas seulement les coordonnées d'une personne tutrice.</p>
         </div>
       </div>
       <div class="flex gap-5 items-start">
-        <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <div class="w-10 h-10 rounded-full bg-ink/5 flex items-center justify-center shrink-0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
         <div>
-          <h3 class="font-semibold text-base mb-1">100 % en ligne</h3>
+          <h3 class="font-semibold text-base mb-1 text-ink">100 % en ligne</h3>
           <p class="text-neutral-500 text-sm leading-relaxed">Choisissez un moment qui vous convient. Nous vous enverrons automatiquement un lien vidéo.</p>
         </div>
       </div>
     </div>
 
     <!-- Booking lives on its own page (book-fr.html) -->
-    <div class='rounded-3xl border border-black/10 shadow-sm p-8 md:p-10 flex flex-col items-center justify-center text-center md:min-h-[440px]'>
-      <div class='w-14 h-14 rounded-full bg-black flex items-center justify-center mb-6'>
-        <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2'/><path d='M16 2v4M8 2v4M3 10h18'/></svg>
+    <div class='pkg-featured relative rounded-3xl p-8 md:p-10 flex flex-col items-center justify-center text-center md:min-h-[440px]'>
+      <div class='w-14 h-14 rounded-full bg-ink/5 flex items-center justify-center mb-6'>
+        <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#16141c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2'/><path d='M16 2v4M8 2v4M3 10h18'/></svg>
       </div>
-      <h3 class='font-serif text-2xl mb-3'>Choisissez un moment qui vous convient</h3>
+      <h3 class='font-serif text-2xl mb-3 text-ink'>Choisissez un moment qui vous convient</h3>
       <p class='text-neutral-500 text-sm mb-7 max-w-xs'>Consultez les disponibilités en direct et réservez votre appel gratuit de 30 minutes sur notre page de réservation.</p>
-      <a href='book-fr.html' class='inline-flex items-center gap-2 bg-black text-white font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-neutral-800 transition-colors'>Réservez votre appel gratuit
+      <a href='book-fr.html' class='inline-flex items-center gap-2 bg-ink text-white font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-black transition-colors'>Réservez votre appel gratuit
         <svg width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>
       </a>
     </div>
@@ -132,19 +158,19 @@
 
   <!-- Divider -->
   <div class="flex items-center gap-6 mb-8">
-    <div class="flex-1 h-px bg-black/10"></div>
+    <div class="flex-1 h-px bg-ink/10"></div>
     <p class="text-sm text-neutral-500 shrink-0">Ou envoyez-nous un message</p>
-    <div class="flex-1 h-px bg-black/10"></div>
+    <div class="flex-1 h-px bg-ink/10"></div>
   </div>
 
   <p class="text-center text-sm text-neutral-500 mb-16">Vous pouvez aussi nous écrire directement à
-    <a href="mailto:mntrtutoring.info@gmail.com" class="font-semibold text-black hover:underline">mntrtutoring.info@gmail.com</a>
+    <a href="mailto:mntrtutoring.info@gmail.com" class="font-semibold text-ink hover:underline">mntrtutoring.info@gmail.com</a>
   </p>
 
   <!-- General inquiry form -->
   <div class="max-w-xl mx-auto">
     <div class="text-center mb-10">
-      <h3 class="font-serif text-2xl md:text-3xl mb-3">Une question précise ?</h3>
+      <h3 class="font-serif text-2xl md:text-3xl mb-3 text-ink">Une question précise ?</h3>
       <p class="text-neutral-500 text-sm">Envie de poser une question avant de réserver ? Laissez-nous un message et nous répondrons le jour même.</p>
     </div>
 
@@ -156,49 +182,49 @@
       <input type='text' name='_honey' class='hidden' style='display:none' tabindex='-1' autocomplete='off' />
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label for="name" class="block text-sm font-semibold mb-2">Nom</label>
-          <input id="name" name="name" type="text" required
-                 class="w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors text-sm" placeholder="Votre nom" />
+          <label for="name" class="block text-sm font-semibold mb-2 text-neutral-700">Nom</label>
+          <input id="name" name="name" type="text" required maxlength="100"
+                 class="w-full bg-white border border-ink/15 rounded-xl px-4 py-3.5 text-ink placeholder:text-neutral-400 focus:outline-none focus:border-ink transition-colors text-sm" placeholder="Votre nom" />
         </div>
         <div>
-          <label for="email" class="block text-sm font-semibold mb-2">Courriel</label>
-          <input id="email" name="email" type="email" required
-                 class="w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors text-sm" placeholder="vous@courriel.com" />
+          <label for="email" class="block text-sm font-semibold mb-2 text-neutral-700">Courriel</label>
+          <input id="email" name="email" type="email" required maxlength="254"
+                 class="w-full bg-white border border-ink/15 rounded-xl px-4 py-3.5 text-ink placeholder:text-neutral-400 focus:outline-none focus:border-ink transition-colors text-sm" placeholder="vous@courriel.com" />
         </div>
       </div>
       <div>
-        <label for="subject" class="block text-sm font-semibold mb-2">Sujet</label>
-        <input id="subject" name="topic" type="text"
-               class="w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors text-sm" placeholder="ex. Calcul, Chimie, question sur les tarifs…" />
+        <label for="subject" class="block text-sm font-semibold mb-2 text-neutral-700">Sujet</label>
+        <input id="subject" name="topic" type="text" maxlength="150"
+               class="w-full bg-white border border-ink/15 rounded-xl px-4 py-3.5 text-ink placeholder:text-neutral-400 focus:outline-none focus:border-ink transition-colors text-sm" placeholder="ex. Calcul, Chimie, question sur les tarifs…" />
       </div>
       <div>
-        <label for="message" class="block text-sm font-semibold mb-2">Message</label>
-        <textarea id="message" name="message" rows="4" required
-               class="w-full border border-black/20 rounded-xl px-4 py-3.5 focus:outline-none focus:border-black transition-colors resize-none text-sm" placeholder="Que souhaitez-vous savoir ?"></textarea>
+        <label for="message" class="block text-sm font-semibold mb-2 text-neutral-700">Message</label>
+        <textarea id="message" name="message" rows="4" required maxlength="5000"
+               class="w-full bg-white border border-ink/15 rounded-xl px-4 py-3.5 text-ink placeholder:text-neutral-400 focus:outline-none focus:border-ink transition-colors resize-none text-sm" placeholder="Que souhaitez-vous savoir ?"></textarea>
       </div>
       <button type="submit"
-              class="w-full bg-black text-white font-semibold py-4 rounded-full hover:bg-neutral-800 transition-colors text-sm">
+              class="relative w-full bg-ink text-white font-semibold py-4 rounded-full hover:bg-black transition-colors text-sm shadow-[0_20px_45px_-18px_rgba(22,20,28,.5)]">
         Envoyer le message
       </button>
     </form>
 
     <!-- Success popup -->
-    <div id="formSuccess" class="hidden bg-black text-white rounded-3xl px-8 py-16 text-center shadow-2xl">
-      <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-white/10 flex items-center justify-center">
+    <div id="formSuccess" class="hidden card-light text-ink rounded-3xl px-8 py-16 text-center">
+      <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-ink/5 flex items-center justify-center">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
       </div>
       <h3 class="font-serif text-3xl md:text-4xl mb-3">Message envoyé !</h3>
-      <p class="text-neutral-300 max-w-md mx-auto">Nous vous contacterons sous peu. Nous répondons le jour même !</p>
+      <p class="text-neutral-600 max-w-md mx-auto">Nous vous contacterons sous peu. Nous répondons le jour même !</p>
     </div>
   </div>
 
 </main>
 
 <!-- Footer -->
-<footer class="bg-[#0A0A0C] text-white py-10 px-6 mt-10" style="background-image: radial-gradient(500px circle at 20% -20%, rgba(240,166,200,.12), transparent 60%), radial-gradient(500px circle at 85% 130%, rgba(156,192,255,.11), transparent 60%);">
+<footer class="bg-ink text-white py-10 px-6 mt-10 rounded-t-[22px]">
   <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-    <a href="index-fr.html" class="font-serif text-lg">Tutorat MNTR<span class="text-neutral-500">.</span></a>
-    <p class="text-neutral-500 text-sm">&copy; 2026 Tutorat MNTR &middot; Qu&eacute;bec &middot; <a href="privacy-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Politique de confidentialité</a> &middot; <a href="user-agreement-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Contrat utilisateur</a></p>
+    <a href="index-fr.html" class="font-serif text-lg inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-5 w-auto" />Tutorat MNTR<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-400 text-sm">&copy; 2026 Tutorat MNTR &middot; Qu&eacute;bec &middot; <a href="privacy-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Politique de confidentialité</a> &middot; <a href="user-agreement-fr.html" class="hover:text-white transition-colors underline underline-offset-2">Contrat utilisateur</a></p>
   </div>
 </footer>
 
@@ -220,6 +246,15 @@
     }
   });
 
+  /* ---------- Security: protected backend ----------
+     Once the Cloudflare Worker in /backend is deployed (see backend/README.md),
+     paste its URL here (e.g. 'https://mntr-forms.you.workers.dev'). Submissions
+     then go through the backend, which hides the destination email, validates
+     every field, rate-limits by IP and drops bots. Leave '' to keep posting
+     directly to FormSubmit as before. */
+  const BACKEND_URL = 'https://mntr-forms.alexthepac.workers.dev';
+  const pageLoadedAt = Date.now();
+
   /* ---------- Contact form: show success popup, then restore the form ---------- */
   const contactForm = document.getElementById('contactForm');
   const formSuccess = document.getElementById('formSuccess');
@@ -236,20 +271,50 @@
       }, 10000);                       // popup stays for 10 seconds, then the form returns
     };
 
+    /* Bot check: hidden honeypot field filled in, or the form submitted less
+       than 3 seconds after the page loaded. Bots are shown the success popup
+       without anything being sent, so they can't tell they were filtered. */
+    const isBotSubmission = () => {
+      const honey = contactForm.elements['_honey'];
+      return (honey && honey.value.trim() !== '') || (Date.now() - pageLoadedAt < 3000);
+    };
+
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (isBotSubmission()) { showSuccess(); return; }
       const btn = contactForm.querySelector('button[type=submit]');
       const label = btn ? btn.textContent : '';
       if (btn) { btn.textContent = 'Envoi...'; btn.disabled = true; }
       try {
-        const res = await fetch(contactForm.action, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: new FormData(contactForm),
-        });
-        const data = await res.json();
-        if (res.ok && (data.success === true || data.success === 'true')) {
-          showSuccess();               // sent to mntrtutoring.info@gmail.com via FormSubmit → show popup
+        let ok;
+        if (BACKEND_URL) {
+          /* Protected path: the backend validates, rate-limits and forwards. */
+          const res = await fetch(BACKEND_URL.replace(/\/+$/, '') + '/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              name: contactForm.elements['name'].value,
+              email: contactForm.elements['email'].value,
+              topic: contactForm.elements['topic'].value,
+              message: contactForm.elements['message'].value,
+              website: '',
+              t: Date.now() - pageLoadedAt,
+            }),
+          });
+          const data = await res.json();
+          ok = res.ok && data.success === true;
+        } else {
+          /* Direct path (backend not deployed yet): post to FormSubmit. */
+          const res = await fetch(contactForm.action, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new FormData(contactForm),
+          });
+          const data = await res.json();
+          ok = res.ok && (data.success === true || data.success === 'true');
+        }
+        if (ok) {
+          showSuccess();               // delivered to the MNTR inbox → show popup
         } else {
           alert('Un problème est survenu. Veuillez nous écrire directement à mntrtutoring.info@gmail.com');
         }

@@ -13,6 +13,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Book your free call · MNTR Tutoring</title>
 <link rel='icon' type='image/png' href='favicon.png?v=2' />
+<link rel='shortcut icon' href='favicon.ico' />
+<link rel='apple-touch-icon' href='apple-touch-icon.png' />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,31 +24,55 @@
 <!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  tailwind.config = { theme: { extend: { fontFamily: {
-    sans: ['Inter', 'system-ui', 'sans-serif'],
-    serif: ['Fraunces', 'Georgia', 'serif'],
-  } } } };
+  tailwind.config = { theme: { extend: {
+    fontFamily: {
+      sans: ['Inter', 'system-ui', 'sans-serif'],
+      serif: ['Fraunces', 'Georgia', 'serif'],
+    },
+    colors: { ink: '#16141c', paper: '#f7f5f1' },
+  } } };
 </script>
 
 <style>
+  :root {
+    --ink: #16141c;
+    --paper: #f7f5f1;
+    --grad-eyebrow: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5);
+  }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; }
-  .eyebrow-grad { background: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+  /* Mobile: drop the sticky-header frosted blur (expensive to composite while scrolling) */
+  @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
+  .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
   @keyframes toastUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
   .toast-enter { animation: toastUp .5s cubic-bezier(.22,.61,.36,1) both; }
+
+  /* ---------- Featured / CTA card: sleek black outline (same treatment as the homepage pricing) ---------- */
+  .pkg-featured {
+    background: #fff;
+    border: 2px solid var(--ink);
+    box-shadow: 0 28px 60px -26px rgba(22,20,28,.35);
+  }
+
+  /* ---------- Plain light card ---------- */
+  .card-light {
+    background: #fff;
+    border: 1px solid rgba(22,20,28,.08);
+    box-shadow: 0 18px 50px -28px rgba(22,20,28,.22);
+  }
 </style>
 </head>
 
-<body class="bg-white text-black antialiased">
+<body class="bg-paper text-ink antialiased">
 
 <!-- Header -->
-<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-black/10">
+<header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
   <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-5">
-    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight">MNTR Tutoring<span class="text-neutral-400">.</span></a>
+    <a href="index.html" class="font-serif text-2xl font-semibold tracking-tight inline-flex items-center gap-2"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-7 w-auto" />MNTR Tutoring<span class="text-neutral-400">.</span></a>
     <div class="flex items-center gap-3">
       <!-- Language Switcher -->
       <div class="relative">
-        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 text-sm font-medium hover:text-black transition-colors">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 text-sm font-medium hover:text-ink transition-colors">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           EN
         </button>
@@ -55,22 +81,22 @@
           <a href="book-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
         </div>
       </div>
-      <a href="index.html#services" class="text-sm font-medium text-neutral-600 hover:text-black transition-colors">All services</a>
+      <a href="index.html#services" class="text-sm font-medium text-neutral-600 hover:text-ink transition-colors">All services</a>
     </div>
   </div>
 </header>
 
 <main class="max-w-4xl mx-auto px-6 py-16 md:py-24">
 
-  <a href="index.html" class="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-black transition-colors mb-10">
+  <a href="index.html" class="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-ink transition-colors mb-10">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
     Back to home
   </a>
 
   <!-- Title -->
   <div class="text-center mb-14">
-    <p class="text-[11px] tracking-[0.3em] mb-4 eyebrow-grad">FREE CONSULTATION</p>
-    <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-5">Book your free intro call</h1>
+    <p class="text-[11px] font-bold tracking-[0.3em] mb-4 eyebrow-grad">FREE CONSULTATION</p>
+    <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-5 text-ink">Book your free intro call</h1>
     <p class="text-neutral-600 text-lg max-w-xl mx-auto">A free 30-minute call to map your goals and match you with the right tutor. Complete one of the options below first — then you can pick a time.</p>
   </div>
 
@@ -78,41 +104,43 @@
   <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-16">
 
     <!-- Option A: newsletter -->
-    <div class="rounded-3xl border border-black/10 shadow-sm p-7 flex flex-col">
+    <div class="pkg-featured relative rounded-3xl p-7 flex flex-col">
       <div class="flex items-center gap-2 mb-3">
-        <span class="text-[11px] font-semibold tracking-[0.2em] eyebrow-grad">FREE</span>
-        <span class="text-neutral-400 text-xs">most popular</span>
+        <span class="text-[11px] font-bold tracking-[0.2em] eyebrow-grad">FREE</span>
+        <span class="text-neutral-500 text-xs">most popular</span>
       </div>
-      <h2 class="font-serif text-2xl mb-2">Join our newsletter</h2>
+      <h2 class="font-serif text-2xl mb-2 text-ink">Join our newsletter</h2>
       <p class="text-neutral-500 text-sm mb-6">Get study tips, deadlines and offers in your inbox. That's all we ask to hold your free spot.</p>
 
       <form id="newsletterForm" class="space-y-3 mt-auto">
-        <input id="nl-email" name="email" type="email" required placeholder="you@email.com"
-               class="w-full border border-black/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-black transition-colors" />
-        <button type="submit" class="w-full bg-black text-white font-semibold text-sm py-3.5 rounded-xl hover:bg-neutral-800 transition-colors">Sign up &amp; unlock booking</button>
+        <!-- Honeypot spam filter (hidden from humans) -->
+        <input type="text" name="website" id="nl-website" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <input id="nl-email" name="email" type="email" required maxlength="254" placeholder="you@email.com"
+               class="w-full bg-ink/5 border border-ink/15 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-neutral-400 focus:outline-none focus:border-ink transition-colors" />
+        <button type="submit" class="w-full bg-ink text-white font-semibold text-sm py-3.5 rounded-xl hover:bg-black transition-colors">Sign up &amp; unlock booking</button>
       </form>
 
-      <div id="nl-success" class="hidden mt-4 rounded-xl bg-neutral-100 px-4 py-3 text-sm text-neutral-700 text-center toast-enter">
+      <div id="nl-success" class="hidden mt-4 rounded-xl bg-ink/5 px-4 py-3 text-sm text-neutral-700 text-center toast-enter">
         You're on the list! Pick your time below.
       </div>
     </div>
 
     <!-- Option B: $5 hold -->
-    <div class="rounded-3xl border border-black/10 shadow-sm p-7 flex flex-col">
+    <div class="card-light rounded-3xl p-7 flex flex-col">
       <div class="flex items-center gap-2 mb-3">
         <span class="text-[11px] font-semibold tracking-[0.2em] text-neutral-500">NO EMAILS</span>
       </div>
-      <h2 class="font-serif text-2xl mb-2">Reserve with $5</h2>
+      <h2 class="font-serif text-2xl mb-2 text-ink">Reserve with $5</h2>
       <p class="text-neutral-500 text-sm mb-6">Prefer to skip the newsletter? Place a small $5 hold to lock your spot. It's applied toward your first paid session.</p>
       <div class="mt-auto">
-        <a id="hold-btn" href="#" class="block text-center w-full bg-black text-white font-semibold text-sm py-3.5 rounded-xl hover:bg-neutral-800 transition-colors">Reserve with $5</a>
-        <div class="flex items-center justify-center gap-2 mt-3 text-neutral-400 text-xs">
+        <a id="hold-btn" href="#" class="block text-center w-full bg-ink text-white font-semibold text-sm py-3.5 rounded-xl hover:bg-black transition-colors">Reserve with $5</a>
+        <div class="flex items-center justify-center gap-2 mt-3 text-neutral-500 text-xs">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           Secure payment powered by Stripe
         </div>
         <p class="text-neutral-400 text-xs text-center mt-3">After payment, you'll return here to pick your time.</p>
       </div>
-      <div id="hold-success" class="hidden mt-4 rounded-xl bg-neutral-100 px-4 py-3 text-sm text-neutral-700 text-center toast-enter">
+      <div id="hold-success" class="hidden mt-4 rounded-xl bg-ink/5 px-4 py-3 text-sm text-neutral-700 text-center toast-enter">
         Payment received — pick your time below.
       </div>
     </div>
@@ -120,22 +148,22 @@
   </div>
 
   <!-- Locked placeholder (shown until newsletter or $5 hold is completed) -->
-  <div id="booking-locked" class="rounded-2xl border border-dashed border-black/15 bg-neutral-50 px-6 py-16 text-center">
-    <div class="w-12 h-12 mx-auto mb-5 rounded-full bg-black/5 flex items-center justify-center">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-400"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+  <div id="booking-locked" class="rounded-2xl border border-dashed border-ink/15 bg-white px-6 py-16 text-center">
+    <div class="w-12 h-12 mx-auto mb-5 rounded-full bg-ink/5 flex items-center justify-center">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-500"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
     </div>
-    <h2 class="font-serif text-2xl md:text-3xl mb-2">Pick your time</h2>
+    <h2 class="font-serif text-2xl md:text-3xl mb-2 text-ink">Pick your time</h2>
     <p class="text-neutral-500 text-sm max-w-md mx-auto">Scheduling is locked until you join our newsletter or complete the $5 hold above.</p>
   </div>
 
   <!-- Calendar (hidden until unlocked) -->
   <div id="booking-section" class="hidden">
     <div id="calendar" class="text-center mb-8">
-      <h2 class="font-serif text-2xl md:text-3xl mb-2">Pick your time</h2>
+      <h2 class="font-serif text-2xl md:text-3xl mb-2 text-ink">Pick your time</h2>
       <p class="text-neutral-500 text-sm">All times are shown in your local timezone.</p>
     </div>
 
-    <div class="rounded-2xl overflow-hidden border border-black/10 shadow-sm" style="height:720px">
+    <div class="rounded-2xl overflow-hidden border border-ink/10 bg-white" style="height:720px">
       <div id="my-cal-inline" style="width:100%;height:720px;overflow:auto"></div>
     </div>
   </div>
@@ -143,10 +171,10 @@
 </main>
 
 <!-- Footer -->
-<footer class="bg-[#0A0A0C] text-white py-10 px-6 mt-10" style="background-image: radial-gradient(500px circle at 20% -20%, rgba(240,166,200,.12), transparent 60%), radial-gradient(500px circle at 85% 130%, rgba(156,192,255,.11), transparent 60%);">
+<footer class="bg-ink text-white py-10 px-6 mt-10 rounded-t-[22px]">
   <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-    <a href="index.html" class="font-serif text-lg">MNTR Tutoring<span class="text-neutral-500">.</span></a>
-    <p class="text-neutral-500 text-sm">&copy; 2026 MNTR Tutoring &middot; Qu&eacute;bec &middot; <a href="privacy.html" class="hover:text-white transition-colors underline underline-offset-2">Privacy Policy</a> &middot; <a href="user-agreement.html" class="hover:text-white transition-colors underline underline-offset-2">User Agreement</a></p>
+    <a href="index.html" class="font-serif text-lg inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-5 w-auto" />MNTR Tutoring<span class="text-neutral-500">.</span></a>
+    <p class="text-neutral-400 text-sm">&copy; 2026 MNTR Tutoring &middot; Qu&eacute;bec &middot; <a href="privacy.html" class="hover:text-white transition-colors underline underline-offset-2">Privacy Policy</a> &middot; <a href="user-agreement.html" class="hover:text-white transition-colors underline underline-offset-2">User Agreement</a></p>
   </div>
 </footer>
 
@@ -168,9 +196,21 @@
     }
   });
 
+  /* ---------- Security: protected backend ----------
+     Once the Cloudflare Worker in /backend is deployed (see backend/README.md),
+     paste its URL here (e.g. 'https://mntr-forms.you.workers.dev'). Signups then
+     go through the backend — which hides the email + Sheet URL below, validates
+     input, rate-limits by IP and drops bots — instead of calling them directly
+     from the browser (where anyone reading the page source can abuse them). */
+  var BACKEND_URL = 'https://mntr-forms.alexthepac.workers.dev';
+  var pageLoadedAt = Date.now();
+
   var NEWSLETTER_TO = 'mntrtutoring.info@gmail.com';
   /* Paste the Google Apps Script Web App URL here (see setup instructions) so
-     newsletter signups get logged as a row in the Google Sheet. */
+     newsletter signups get logged as a row in the Google Sheet.
+     NOTE: this URL is public in the page source. After deploying the backend,
+     move it there (SHEET_WEBAPP_URL secret) and create a NEW Apps Script
+     deployment so this exposed one stops working — see backend/README.md. */
   var SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzXgIbhOJDcZq_OtjFE5SmI1g3shmgiEr8c28KlrvHcJc784dk2bDwXV7BJ4mKqhakp/exec';
   var HOLD_STRIPE_LINK = 'https://buy.stripe.com/7sYfZjdd868g8to3sZdUY01';
   var UNLOCK_KEY = 'mntr_book_unlocked';
@@ -251,9 +291,45 @@
       var email = emailInput ? emailInput.value.trim() : '';
       if (!email) return;
 
+      /* Bot check: hidden honeypot field filled in, or the form submitted less
+         than 3 seconds after the page loaded. Bots get the normal success UI
+         but nothing is sent, so they can't tell they were filtered. */
+      var honey = document.getElementById('nl-website');
+      if ((honey && honey.value.trim() !== '') || Date.now() - pageLoadedAt < 3000) {
+        form.classList.add('hidden');
+        unlockBooking('newsletter');
+        return;
+      }
+
       var btn = form.querySelector('button[type=submit]');
       var label = btn ? btn.textContent : '';
       if (btn) { btn.textContent = 'Signing up...'; btn.disabled = true; }
+
+      /* Protected path: one call to the backend, which validates the email,
+         rate-limits, logs the Sheet row and sends the notification email.
+         As with the direct path below, booking unlocks even if the network
+         call fails — a logging hiccup shouldn't block a real student. */
+      if (BACKEND_URL) {
+        form.classList.add('hidden');
+        unlockBooking('newsletter');
+        try {
+          await fetch(BACKEND_URL.replace(/\/+$/, '') + '/api/newsletter', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              email: email,
+              page: location.href,
+              website: honey ? honey.value : '',
+              t: Date.now() - pageLoadedAt,
+            }),
+          });
+        } catch (err) {
+          console.warn('Newsletter backend call failed, but booking still unlocked.', err);
+        } finally {
+          if (btn) { btn.textContent = label; btn.disabled = false; }
+        }
+        return;
+      }
 
       /* 1) Log the signup as a row in the Google Sheet (fire-and-forget: Apps
             Script Web Apps don't return readable CORS responses to the browser,

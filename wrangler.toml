@@ -1,0 +1,24 @@
+# Cloudflare Worker config for the MNTR Tutoring form backend.
+# Deploy with:  npx wrangler deploy   (run from the repo root)
+# Full setup steps: see backend/README.md
+#
+# This file and worker.js live at the REPO ROOT (not in backend/) on purpose:
+# Cloudflare's Git-connected Worker deploy looks for wrangler.toml at the
+# repository root by default, with no way to point it at a subfolder in the
+# simple dashboard flow. Keeping them here avoids needing a "root directory"
+# setting at all.
+
+name = "mntr-forms"
+main = "worker.js"
+compatibility_date = "2026-07-01"
+
+# Do NOT put the real endpoint URLs here — this file is committed to a public
+# repository. Set them as secrets instead (they stay in Cloudflare only):
+#
+#   npx wrangler secret put CONTACT_ENDPOINT
+#   npx wrangler secret put NEWSLETTER_ENDPOINT
+#   npx wrangler secret put SHEET_WEBAPP_URL
+#
+# Optional plain variable (not sensitive — these origins are public anyway):
+# [vars]
+# ALLOWED_ORIGINS = "https://mntrtutoring.ca,https://www.mntrtutoring.ca"
