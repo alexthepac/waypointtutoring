@@ -26,7 +26,7 @@
   })();
 </script>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Merci · Tutorat MNTR</title>
 <link rel='icon' type='image/png' href='favicon.png?v=2' />
 <link rel='shortcut icon' href='favicon.ico' />
@@ -59,6 +59,13 @@
   }
   html { scroll-behavior: smooth; }
   body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+
+  /* ---------- Mobile polish ---------- */
+  /* No gray tap flash on iOS/Android; taps get feedback from the elements' own active states */
+  a, button, [onclick] { -webkit-tap-highlight-color: transparent; }
+  body { touch-action: manipulation; }   /* removes the double-tap-to-zoom delay on links/buttons */
+  /* iOS auto-zooms into form fields under 16px - keep them at 16px on phones */
+  @media (max-width: 767px) { input, textarea, select { font-size: 16px !important; } }
   @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
   .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
 
