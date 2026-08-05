@@ -294,12 +294,23 @@ async function handleStripeWebhook(request, env) {
         '&name=' + encodeURIComponent(name) +
         '&amount=' + encodeURIComponent(String(amount)),
     });
-    if (!res.ok) {
-      /* Let Stripe retry the delivery. */
-      return new Response('send failed', { status: 500 });
+
+    /* Apps Script answers 200 even when it REFUSES to send (wrong token, bad
+       email, internal error) — the outcome is in the body, not the status. So
+       checking res.ok alone silently swallows every failure and tells Stripe
+       the mail went out. Only the literal 'sent' means it actually did. */
+    const body = (await res.text() || '').trim().toLowerCase();
+    if (!res.ok || body !== 'sent') {
+      const reason = body || ('http ' + res.status);
+      /* 'bad email' can't be fixed by retrying — acknowledge so Stripe stops,
+         but say why. Everything else is worth a retry. */
+      if (reason === 'bad email') {
+        return new Response('email rejected by sender: ' + reason, { status: 200 });
+      }
+      return new Response('booking email not sent: ' + reason, { status: 500 });
     }
   } catch (e) {
-    return new Response('send error', { status: 500 });
+    return new Response('send error: ' + (e && e.message ? e.message : e), { status: 500 });
   }
 
   return new Response('ok', { status: 200 });
