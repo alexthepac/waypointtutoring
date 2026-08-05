@@ -125,13 +125,9 @@
         <div class="pkg-featured relative rounded-3xl p-7 md:sticky md:top-28">
           <div class="flex items-baseline justify-between gap-3">
             <span class="text-neutral-500 text-sm">Price</span>
-            <span class="text-right">
-              <span id="svc-price-original" class="hidden text-neutral-400 text-base line-through mr-1.5"></span>
-              <span id="svc-price" class="text-3xl font-semibold text-ink">$0</span>
-            </span>
+            <span id="svc-price" class="text-3xl font-semibold text-ink">$0</span>
           </div>
           <p id="svc-unit" class="text-neutral-500 text-sm text-right mb-2"></p>
-          <p id="promo-savings" class="hidden text-xs text-right mb-4 font-medium" style="color:#2f9e5c"></p>
 
           <!-- Promo code -->
           <div class="mb-6 pt-2 border-t border-ink/10">
@@ -263,27 +259,20 @@
 
   /* =====================================================================
      PROMO CODES
-     Add/edit codes here. type: 'percent' (0-100) or 'flat' (dollar amount
-     off). For a Stripe-paid service (pack5, pack10), the code is
-     also appended to the Stripe Payment Link as ?prefilled_promo_code=CODE
-     so it pre-fills at Stripe's own checkout — but that only actually
-     discounts the charge if you've BOTH (1) turned on "Allow promotion
-     codes" on that Payment Link in the Stripe Dashboard, and (2) created a
-     Promotion Code in Stripe with the exact same code text. The price
-     shown on this page is a preview only; Stripe is the source of truth
-     for what's actually charged.
+     Stripe is the source of truth. Whatever the client types is forwarded
+     to the Stripe Payment Link as ?prefilled_promo_code=CODE, and Stripe
+     decides whether it's valid and what it's worth. That means a code
+     works the moment you create it in Stripe — nothing here needs editing.
+
+     For it to actually discount, each Payment Link needs "Allow promotion
+     codes" turned ON: Stripe Dashboard -> Payment Links -> Edit.
+
      Cal.com events (tutoring, casper-hourly) don't support coupon codes,
-     so those just show a note asking the client to mention the code —
-     the discount has to be applied manually on your end for those.
+     so those show a note asking the client to mention the code, and the
+     discount is applied manually on your end.
   ===================================================================== */
-  var PROMO_CODES = {
-    WELCOME10: { type: 'percent', value: 10 },
-    SAVE20:    { type: 'flat',    value: 20 }
-  };
 
   function getParam(name) { return new URLSearchParams(window.location.search).get(name); }
-  function parsePrice(str) { return parseFloat(String(str).replace(/[^0-9.]/g, '')) || 0; }
-  function formatPrice(n) { return '$' + (Number.isInteger(n) ? n : n.toFixed(2)); }
 
   var key = getParam('service');
   var svc = SERVICES[key];
@@ -292,11 +281,11 @@
     // Unknown or free service -> send them to the booking section
     window.location.replace('index.html#contact');
   } else {
-    var basePrice = parsePrice(svc.price);
-    var appliedPromo = null; // { code, discountAmount }
+    var appliedPromo = null;   // code string, forwarded to Stripe
 
     document.getElementById('svc-name').textContent = svc.name;
     document.getElementById('svc-desc').textContent = svc.desc;
+    document.getElementById('svc-price').textContent = svc.price;
     document.getElementById('svc-unit').textContent = svc.unit;
     document.title = svc.name + ' · Checkout · MNTR Tutoring';
 
@@ -327,7 +316,7 @@
       if (isStripe) {
         var url = svc.stripe;
         if (appliedPromo) {
-          url += (url.indexOf('?') === -1 ? '?' : '&') + 'prefilled_promo_code=' + encodeURIComponent(appliedPromo.code);
+          url += (url.indexOf('?') === -1 ? '?' : '&') + 'prefilled_promo_code=' + encodeURIComponent(appliedPromo);
         }
         btn.href = url;
       } else if (isCal) {
@@ -343,57 +332,41 @@
     }
     updatePayButton();
 
-    function renderPrice() {
-      var priceEl = document.getElementById('svc-price');
-      var originalEl = document.getElementById('svc-price-original');
-      var savingsEl = document.getElementById('promo-savings');
-      var calNoteEl = document.getElementById('promo-cal-note');
-
-      if (appliedPromo) {
-        var finalPrice = Math.max(0, basePrice - appliedPromo.discountAmount);
-        originalEl.textContent = formatPrice(basePrice);
-        originalEl.classList.remove('hidden');
-        priceEl.textContent = formatPrice(finalPrice);
-        savingsEl.textContent = 'Code ' + appliedPromo.code + ' applied — you saved ' + formatPrice(basePrice - finalPrice);
-        savingsEl.classList.remove('hidden');
-        if (isCal) {
-          calNoteEl.textContent = 'This is booked directly through our calendar, so let us know you used code ' + appliedPromo.code + ' and we\'ll apply the discount for you.';
-          calNoteEl.classList.remove('hidden');
-        } else {
-          calNoteEl.classList.add('hidden');
-        }
-      } else {
-        originalEl.classList.add('hidden');
-        priceEl.textContent = svc.price;
-        savingsEl.classList.add('hidden');
-        calNoteEl.classList.add('hidden');
-      }
-      updatePayButton();
-    }
-    renderPrice();
-
     function showPromoMsg(text, ok) {
       var msg = document.getElementById('promo-msg');
+      if (!text) { msg.classList.add('hidden'); return; }
       msg.textContent = text;
       msg.style.color = ok ? '#2f9e5c' : '#c0392b';
       msg.classList.remove('hidden');
     }
 
+    /* We can't price the discount here — only Stripe knows what a code is
+       worth — so we confirm it's attached and let Stripe show the new total. */
+    function renderPromo() {
+      var calNoteEl = document.getElementById('promo-cal-note');
+      if (appliedPromo && isCal) {
+        calNoteEl.textContent = 'This is booked directly through our calendar, so mention code ' + appliedPromo + ' and we\'ll apply the discount for you.';
+        calNoteEl.classList.remove('hidden');
+      } else {
+        calNoteEl.classList.add('hidden');
+      }
+      updatePayButton();
+    }
+
     function applyPromo() {
       var input = document.getElementById('promo-input');
       var code = input.value.trim().toUpperCase();
-      if (!code) { return; }
-      var promo = PROMO_CODES[code];
-      if (!promo) {
+      if (!code) {
         appliedPromo = null;
-        renderPrice();
-        showPromoMsg('That code isn\'t valid.', false);
+        renderPromo();
+        showPromoMsg('', true);
         return;
       }
-      var discountAmount = promo.type === 'percent' ? basePrice * (promo.value / 100) : promo.value;
-      appliedPromo = { code: code, discountAmount: discountAmount };
-      renderPrice();
-      showPromoMsg('Promo code applied!', true);
+      appliedPromo = code;
+      renderPromo();
+      showPromoMsg(isCal
+        ? 'Code ' + code + ' saved — mention it when you book.'
+        : 'Code ' + code + ' added — your discount is applied at payment.', true);
     }
 
     document.getElementById('promo-apply').addEventListener('click', applyPromo);
