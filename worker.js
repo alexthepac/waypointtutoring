@@ -39,12 +39,13 @@
                             to the production domains below
    ========================================================================== */
 
-/* Any Stripe Payment Link checkout at or above this amount (in cents) is
-   treated as a package purchase and triggers the booking-link email. Packages
-   are $162.50 (5-pack) and $300 (10-pack); single sessions ($35) and
-   the $5 reservation fee are all well below this, so they never trigger it —
-   even with a promo code applied to a pack. Update if pack pricing ever
-   changes. */
+/* Any Stripe Payment Link checkout whose PRE-discount subtotal is at or above
+   this amount (in cents) is treated as a package purchase and triggers the
+   booking-link email. Packages are $162.50 (5-pack) and $300 (10-pack);
+   single sessions ($35) and the $5 reservation fee are all well below this, so
+   they never trigger it. Because the check runs on the subtotal rather than
+   the amount charged, a promo code — even a 100%-off one — still delivers the
+   email. Update if pack pricing ever changes. */
 const PACK_MIN_CENTS = 10000;
 
 /* How long after Stripe signs an event we still accept it (replay protection). */
@@ -260,7 +261,17 @@ async function handleStripeWebhook(request, env) {
   }
 
   const session = (event.data && event.data.object) || {};
-  const amount = typeof session.amount_total === 'number' ? session.amount_total : 0;
+
+  /* Gate on the PRE-discount subtotal, not the amount actually charged.
+     A promo code reduces amount_total but not amount_subtotal, and a large
+     enough discount pushes the total under the threshold — a 100%-off code
+     makes it 0 — which would misread a real package purchase as a small one
+     and silently skip the booking email. amount_subtotal reflects what was
+     bought, which is what we're actually trying to identify. Falls back to
+     amount_total for any event shape that omits the subtotal. */
+  const subtotal = typeof session.amount_subtotal === 'number' ? session.amount_subtotal : 0;
+  const total = typeof session.amount_total === 'number' ? session.amount_total : 0;
+  const amount = Math.max(subtotal, total);
 
   /* Only package purchases (>= PACK_MIN_CENTS) get the booking email. */
   if (amount < PACK_MIN_CENTS) {
