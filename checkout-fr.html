@@ -142,6 +142,7 @@
         </a>
         <p id="promo-cal-note" class="hidden text-xs text-center mt-3 text-neutral-500 leading-relaxed"></p>
         <p id="svc-note" class="hidden text-[13px] text-center mt-4 text-ink leading-relaxed bg-ink/5 rounded-xl px-4 py-3">&#9993;&#65039; <span id="svc-note-text"></span></p>
+        <p class="text-neutral-500 text-xs text-center mt-3 leading-relaxed">Des questions&nbsp;? Écrivez-nous à <a href="mailto:mntrtutoring.info@gmail.com" class="text-ink font-medium underline underline-offset-2 hover:text-black transition-colors break-all">mntrtutoring.info@gmail.com</a>. Vous pouvez aussi nous texter ou nous appeler au <a href="tel:+15146520018" class="text-ink font-medium underline underline-offset-2 hover:text-black transition-colors whitespace-nowrap">+1&nbsp;514-652-0018</a> &mdash; horaire d&rsquo;été&nbsp;: du lundi au vendredi, de 9&nbsp;h à 16&nbsp;h.</p>
 
         <div class="flex items-center justify-center gap-2 mt-4 text-neutral-500 text-xs">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -208,13 +209,14 @@
       price: '$35', unit: 'par session de 60 minutes',
       desc: 'Tutorat individuel avec des étudiants en médecine, préparé à l\'avance autour de vos cours précis.',
       includes: ['Une session en ligne complète de 60 minutes', 'Préparé autour de votre programme d\'études et de vos objectifs', 'Matières STEM du secondaire à l\'université', 'Coaching sur les méthodes d\'étude intégré à chaque session'],
+      note: 'Nous communiquerons avec vous par courriel afin de tout confirmer, et vous pourrez choisir votre personne tutrice à l’étape de réservation.',
       cal: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring'
     },
     pack5: {
       name: 'Forfait de tutorat 5 sessions',
       price: '$162.50', unit: '$32.50 / session · économisez $12.50',
       desc: 'Cinq sessions de tutorat individuel à un taux réduit par session, pour les étudiants qui veulent un soutien régulier.',
-      note: 'Après votre paiement, nous communiquerons avec vous par courriel afin de connaître vos préférences concernant votre personne tutrice et l’horaire de vos sessions.',
+      note: 'Vous pourrez choisir votre personne tutrice à l’étape de réservation. Après votre paiement, nous communiquerons avec vous par courriel afin de connaître vos préférences à ce sujet et de confirmer l’horaire de vos sessions.',
       includes: ['Cinq sessions en ligne de 60 minutes', '$32.50 par session (économisez $12.50 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
       stripe: 'https://buy.stripe.com/7sY5kF7SO0NWbFA9RndUY0f'
     },
@@ -222,7 +224,7 @@
       name: 'Forfait de tutorat 10 sessions',
       price: '$300', unit: '$30 / session · économisez $50',
       desc: 'Dix sessions de tutorat individuel à notre meilleur taux par session, idéal pour un trimestre complet de soutien constant.',
-      note: 'Après votre paiement, nous communiquerons avec vous par courriel afin de connaître vos préférences concernant votre personne tutrice et l’horaire de vos sessions.',
+      note: 'Vous pourrez choisir votre personne tutrice à l’étape de réservation. Après votre paiement, nous communiquerons avec vous par courriel afin de connaître vos préférences à ce sujet et de confirmer l’horaire de vos sessions.',
       includes: ['Dix sessions en ligne de 60 minutes', '$30 par session (économisez $50 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
       stripe: 'https://buy.stripe.com/aFa00l2yufIQ7pk3sZdUY0d'
     },
@@ -230,7 +232,7 @@
       name: 'Forfait 5 sessions Casper & MEM',
       price: '$162.50', unit: '32,50 $ / session · économisez 12,50 $',
       desc: 'Cinq sessions individuelles avec des étudiants en médecine qui ont passé ces mêmes entrevues et qui ont été admis. Assez de temps pour couvrir l\u2019ensemble des scénarios Casper et des types de stations MEM, bâtir un cadre de réponse reproductible et vous exercer sous une vraie pression de temps jusqu\u2019à ce que ça devienne automatique.',
-      note: 'Après le paiement, nous vous contacterons par courriel pour connaître vos préférences de mentors et d\u2019horaires.',
+      note: 'Vous pourrez choisir votre mentor à l\u2019étape de réservation. Après votre paiement, nous communiquerons avec vous par courriel afin de connaître vos préférences à ce sujet et de confirmer l\u2019horaire de vos sessions.',
       includes: ['Cinq sessions en ligne de 60 minutes', '32,50 $ par session (économisez 12,50 $ au total)', 'Simulations Casper chronométrées et stations MEM simulées', 'Rétroaction individuelle détaillée après chaque session', 'Cadres de réponse éprouvés & grille d\u2019évaluation', 'Jumelage constant avec votre mentor'],
       stripe: 'https://buy.stripe.com/6oUeVf4GC0NW5hc1kRdUY0g'
     },
@@ -238,7 +240,7 @@
       name: 'Forfait 10 sessions Casper & MEM',
       price: '$300', unit: '30 $ / session · économisez 50 $',
       desc: 'Notre préparation la plus complète aux entrevues : dix sessions individuelles avec des étudiants admis en médecine au Québec. Conçu pour les candidats qui veulent passer du premier essai à la maîtrise complète \u2014 dilemmes éthiques, scénarios de collaboration et de communication, et circuits MEM complets, avec vos réponses affinées session après session.',
-      note: 'Après le paiement, nous vous contacterons par courriel pour connaître vos préférences de mentors et d\u2019horaires.',
+      note: 'Vous pourrez choisir votre mentor à l\u2019étape de réservation. Après votre paiement, nous communiquerons avec vous par courriel afin de connaître vos préférences à ce sujet et de confirmer l\u2019horaire de vos sessions.',
       includes: ['Dix sessions en ligne de 60 minutes', '30 $ par session (économisez 50 $ au total)', 'Simulations Casper complètes et circuits MEM simulés', 'Rétroaction individuelle détaillée après chaque session', 'Cadres de réponse éprouvés & grille d\u2019évaluation', 'Jumelage constant avec votre mentor'],
       stripe: 'https://buy.stripe.com/3cI5kF6OK7ck10W2oVdUY0h'
     },
@@ -247,6 +249,7 @@
       price: '$35', unit: 'par session de 60 minutes',
       desc: 'Préparation individuelle Casper et MEM : simulations chronométrées réalistes ou stations simulées avec rétroaction d\'expert, de mentors admis aux quatre écoles de médecine du Québec.',
       includes: ['Une session en ligne complète de 60 minutes', 'Simulations Casper chronométrées ou stations MEM simulées', 'Rétroaction d\'expert 1-sur-1 après chaque session', 'Cadres de réponse éprouvés & grille d\'évaluation'],
+      note: 'Nous communiquerons avec vous par courriel afin de tout confirmer, et vous pourrez choisir votre mentor à l’étape de réservation.',
       cal: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep-copy'
     }
   };

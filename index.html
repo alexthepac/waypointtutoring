@@ -150,6 +150,49 @@
   .wave-wrap { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
   .wave-wrap svg { position: absolute; }
 
+  /* ---------- Falling STEM / medical objects (pricing section) ----------
+     Motion reproduced from alloprof.qc.ca's home-splash "rain": the objects
+     fall at a CONSTANT speed (no gravity), untwisting from a big start angle
+     to 0 on the way down, recycling forever. Hovering or tapping one slows it
+     to a quarter speed and grows it to 1.75x; a tap also fires three glint
+     sparks. Their structure is mirrored too — a lane carries the vertical
+     position, the item centres itself on the lane, and only the artwork
+     rotates and scales, so the three transforms never fight each other. */
+  .fall-layer {
+    position: absolute; inset: 0;
+    overflow: hidden;          /* clips the objects behind the hero's bottom edge */
+    pointer-events: none;      /* only the objects themselves are clickable */
+    z-index: 20;               /* above the cards, as alloprof's stickers are */
+    --laneW: 3.4rem;
+  }
+  @media (min-width: 768px) { .fall-layer { --laneW: 5rem; } }
+
+  .fall-lane {
+    position: absolute; top: 0;
+    width: var(--laneW); height: 100%;
+    margin-left: calc(var(--laneW) / -2);   /* centre the lane on its left% */
+    display: none;                          /* JS shows a lane once it's falling */
+    will-change: transform;
+  }
+  .fall-item {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: var(--laneW);
+    color: var(--fall-c, var(--ink));
+    opacity: var(--fall-o, .4);
+    pointer-events: auto;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity .35s ease;
+  }
+  .fall-item.is-held { opacity: 1; }        /* picked up: comes fully forward */
+  .fall-art { display: block; width: 100%; height: 100%; overflow: visible; will-change: transform; }
+
+  /* Impact glints: three spark lines that streak outward when an object is
+     tapped. alloprof drives all three off one 0..1 value — opacity, and a
+     translate of -350% / -380% / -400% at -45deg / 0deg / 50deg. */
+  .fall-glint { position: absolute; top: 50%; left: 50%; width: .5rem; height: 1.7rem; opacity: 0; overflow: visible; }
+  .fall-glint line { stroke: currentColor; stroke-width: 3.5; stroke-linecap: round; }
+
   /* ---------- Pricing cards (light) ---------- */
   .card-light {
     background: #fff;
@@ -320,6 +363,188 @@
     <svg style='bottom:-60px; left:-18%; width:70%; min-width:520px;' viewBox='0 0 900 520' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <path fill='var(--wave-2)' d='M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z'/>
     </svg>
+  </div>
+
+  <!-- ============================================================
+       FALLING OBJECTS (alloprof-style rain). One .fall-lane per object; JS
+       assigns each a column, angle and speed and recycles it forever. Colour
+       and resting opacity are the two per-object knobs on .fall-item.
+  ============================================================ -->
+  <div class='fall-layer' aria-hidden='true'>
+    <!-- Calculator -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-o:.34">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
+          <rect x='4' y='2' width='16' height='20' rx='2.5'/><rect x='7' y='5' width='10' height='3.5' rx='1'/>
+          <path d='M8 12h.01M12 12h.01M16 12h.01M8 15.5h.01M12 15.5h.01M16 15.5h.01M8 19h.01M12 19h.01M16 19h.01'/>
+      </svg>
+      </div>
+    </div>
+
+    <!-- Integral sign -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-c:var(--accent-violet);--fall-o:.6">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24'><text x='12' y='20' text-anchor='middle' font-family='Fraunces,Georgia,serif' font-size='25' fill='currentColor' stroke='none'>&#8747;</text></svg>
+      </div>
+    </div>
+
+    <!-- Pi -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-c:var(--accent-pink);--fall-o:.62">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24'><text x='12' y='19' text-anchor='middle' font-family='Fraunces,Georgia,serif' font-size='21' fill='currentColor' stroke='none'>&#960;</text></svg>
+      </div>
+    </div>
+
+    <!-- Stethoscope -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-o:.34">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
+          <path d='M5 3v5.5a5 5 0 0 0 10 0V3'/><circle cx='5' cy='2.6' r='1.1'/><circle cx='15' cy='2.6' r='1.1'/>
+          <path d='M10 13.5V16a4 4 0 0 0 8 0v-1.6'/><circle cx='18' cy='12.2' r='2.2'/>
+      </svg>
+      </div>
+    </div>
+
+    <!-- DNA helix -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-c:var(--accent-blue);--fall-o:.62">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
+          <path d='M7 2c0 5 10 5 10 10s-10 5-10 10'/><path d='M17 2c0 5-10 5-10 10s10 5 10 10'/>
+          <path d='M7.7 2.7h8.6M9.1 5.6h5.8M7.4 12h9.2M9.1 18.4h5.8M7.7 21.3h8.6'/>
+      </svg>
+      </div>
+    </div>
+
+    <!-- Bone -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-o:.32">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
+          <circle cx='5.6' cy='15.8' r='2.1'/><circle cx='7.8' cy='18' r='2.1'/>
+          <circle cx='16.2' cy='6' r='2.1'/><circle cx='18.4' cy='8.2' r='2.1'/>
+          <path d='M8.4 15.4 15.4 8.4'/>
+      </svg>
+      </div>
+    </div>
+
+    <!-- Erlenmeyer flask -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-c:var(--accent-violet);--fall-o:.58">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
+          <path d='M9.5 2v6.2L4.4 18.8A1.6 1.6 0 0 0 5.8 21.2h12.4a1.6 1.6 0 0 0 1.4-2.4L14.5 8.2V2'/>
+          <path d='M8.2 2h7.6M7 15.4h10'/>
+      </svg>
+      </div>
+    </div>
+
+    <!-- Square root -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-o:.36">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24'><text x='12' y='19' text-anchor='middle' font-family='Fraunces,Georgia,serif' font-size='22' fill='currentColor' stroke='none'>&#8730;</text></svg>
+      </div>
+    </div>
+
+    <!-- Atom -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-c:var(--accent-pink);--fall-o:.55">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1'>
+          <circle cx='12' cy='12' r='1.9'/>
+          <ellipse cx='12' cy='12' rx='10' ry='4.1'/>
+          <ellipse cx='12' cy='12' rx='10' ry='4.1' transform='rotate(60 12 12)'/>
+          <ellipse cx='12' cy='12' rx='10' ry='4.1' transform='rotate(-60 12 12)'/>
+      </svg>
+      </div>
+    </div>
+
+    <!-- Neuron -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-o:.34">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
+          <circle cx='7.4' cy='12' r='2.7'/>
+          <!-- dendrites: three forked branches off the soma -->
+          <path d='M5.5 10.1 3.1 7.7M3.1 7.7 1.4 8.2M3.1 7.7 2.8 5.9'/>
+          <path d='M5.5 13.9 3.1 16.3M3.1 16.3 1.4 15.8M3.1 16.3 2.8 18.1'/>
+          <path d='M7.4 9.3V6.3M7.4 6.3 6 5.1M7.4 6.3 8.8 5.1'/>
+          <!-- axon out to a branched terminal -->
+          <path d='M10.1 12H19.3M19.3 12 21.9 9.9M19.3 12 21.9 14.1M19.3 12h2.9'/>
+      </svg>
+      </div>
+    </div>
+
+    <!-- Pencil -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-c:var(--accent-violet);--fall-o:.55">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
+          <path d='M4 20.2 5.2 15.6 16.4 4.4a1.9 1.9 0 0 1 2.7 0l1.5 1.5a1.9 1.9 0 0 1 0 2.7L9.4 19.8z'/>
+          <path d='M14.6 6.2 18.8 10.4M5.2 15.6l3.9 4'/>
+      </svg>
+      </div>
+    </div>
+
+    <!-- Sigma -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-c:var(--accent-blue);--fall-o:.6">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24'><text x='12' y='19' text-anchor='middle' font-family='Fraunces,Georgia,serif' font-size='22' fill='currentColor' stroke='none'>&#931;</text></svg>
+      </div>
+    </div>
+
+    <!-- Book -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-o:.33">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
+          <path d='M4.5 4.2A2.2 2.2 0 0 1 6.7 2h12.8v16.4H6.7a2.2 2.2 0 0 0-2.2 2.2z'/>
+          <path d='M4.5 18.4V20.6A1.4 1.4 0 0 0 5.9 22h13.6'/><path d='M9 6.5h7'/>
+      </svg>
+      </div>
+    </div>
+
+    <!-- Cell -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-c:var(--accent-pink);--fall-o:.55">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
+          <circle cx='12' cy='12' r='9.3'/><circle cx='10' cy='10.2' r='3.2'/><circle cx='10' cy='10.2' r='.9'/>
+          <ellipse cx='16' cy='15.4' rx='2.7' ry='1.4' transform='rotate(-34 16 15.4)'/>
+          <ellipse cx='6.6' cy='15.8' rx='2.1' ry='1.1' transform='rotate(22 6.6 15.8)'/>
+      </svg>
+      </div>
+    </div>
+
+    <!-- Heart + pulse trace -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-o:.34">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
+          <path d='M12 20.6S3.4 15.2 3.4 9.6A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 8.6 2.2c0 5.6-8.6 11-8.6 11z'/>
+          <path d='M4.6 12.4h3.1l1.6-2.9 2.3 5.6 1.7-2.7h5.9'/>
+      </svg>
+      </div>
+    </div>
+
+    <!-- Graduation cap -->
+    <div class='fall-lane'>
+      <div class="fall-item" style="--fall-c:var(--accent-violet);--fall-o:.55">
+        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
+        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
+          <path d='M12 3.2 22 7.6 12 12 2 7.6z'/>
+          <path d='M6 9.9v4.9c0 1.7 2.7 3.1 6 3.1s6-1.4 6-3.1V9.9'/>
+          <path d='M22 7.6v5.2'/>
+      </svg>
+      </div>
+    </div>
+
   </div>
 
   <div class='relative max-w-6xl mx-auto px-6 py-20 md:py-28'>
@@ -695,6 +920,13 @@
             </a>
           </li>
           <li><a href='mailto:mntrtutoring.info@gmail.com' class='hover:text-white transition-colors break-all'>mntrtutoring.info@gmail.com</a></li>
+          <li>
+            <a href='tel:+15146520018' class='inline-flex items-center gap-2 hover:text-white transition-colors whitespace-nowrap'>
+              <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z'/></svg>
+              +1&nbsp;514-652-0018
+            </a>
+          </li>
+          <li class='text-neutral-500 text-xs leading-relaxed'>Summer hours: text or call<br />Monday to Friday, 9&nbsp;a.m. to 4&nbsp;p.m.</li>
         </ul>
       </div>
     </div>
@@ -759,6 +991,144 @@
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  /* ---------- Falling objects: alloprof-style rain over the pricing section ----------
+     Constants are the ones alloprof.qc.ca's home-splash component uses. Per
+     frame, for each falling object:
+         accel  -> 1, or decays to .25 while held   (+.1 / -.075 per frame)
+         y      += speed * accel                    (constant speed, no gravity)
+         rot     = rotStart * (1 - y / 100)         (untwists to 0 on the way down)
+         scale  -> 1.75 while held, else 1          (lerped at .2)
+     y runs -50% -> 100% of the section height, then the object recycles with a
+     fresh lane, angle and speed. Only CONCURRENT objects fall at once and one
+     more is released every RELEASE_EVERY frames, which is what keeps the
+     stream staggered instead of arriving in a clump. */
+  (function () {
+    const layer = document.querySelector('#services .fall-layer');
+    const section = document.getElementById('services');
+    if (!layer || !section) return;
+
+    const SPEED_MIN = .25, SPEED_MAX = .55;      // % of section height per frame
+    const ACCEL_UP = .1, ACCEL_DOWN = .075, ACCEL_MIN = .25;
+    const HELD_SCALE = 1.75, LERP = .2;
+    const ANGLES = [-110, -90, -75, -45, 45, 75, 90, 110];
+    const LANE_COUNT = 12, LANE_SLOTS = [1, 2, 10, 11];   // outer columns only
+    const Y_START = -50, Y_END = 100;
+    const RELEASE_EVERY = 40;                    // frames between releases
+    const desktop = window.matchMedia('(min-width: 768px)').matches;
+    const CONCURRENT = desktop ? 6 : 2;
+    const SPARK_MS = 500;
+
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    const clamp = (lo, hi, v) => Math.min(hi, Math.max(lo, v));
+
+    // Lanes are popped from a shuffled pool and refilled when it runs low, so
+    // consecutive objects can't stack up in the same column.
+    let pool = [];
+    const nextLane = () => {
+      if (pool.length <= 1) pool = LANE_SLOTS.slice().sort(() => Math.random() - .5);
+      return clamp(5, 92, pool.pop() * (100 / LANE_COUNT));
+    };
+
+    const objs = [...layer.querySelectorAll('.fall-lane')].map((lane, i) => ({
+      lane: lane,
+      item: lane.querySelector('.fall-item'),
+      art:  lane.querySelector('.fall-art'),
+      glints: [...lane.querySelectorAll('.fall-glint')],
+      id: i, y: Y_START, speed: 0, accel: 1, rot: 0, rotStart: 0,
+      scale: 1, glint: 0, held: false, pinned: false, falling: false
+    }));
+    if (!objs.length) return;
+
+    const respawn = (o) => {
+      o.falling = false; o.held = false; o.pinned = false;
+      o.y = Y_START; o.accel = 1; o.scale = 1; o.glint = 0;
+      o.rotStart = o.rot = ANGLES[Math.floor(Math.random() * ANGLES.length)];
+      o.speed = rnd(SPEED_MIN, SPEED_MAX);
+      o.lane.style.left = nextLane().toFixed(3) + '%';
+      o.lane.style.display = 'none';
+      o.item.classList.remove('is-held');
+    };
+
+    const draw = (o) => {
+      o.lane.style.transform = 'translate3d(0,' + o.y.toFixed(2) + '%,0)';
+      o.art.style.transform  = 'rotate(' + o.rot.toFixed(2) + 'deg) scale(' + o.scale.toFixed(3) + ')';
+      const g = o.glint;
+      o.glints[0].style.opacity = o.glints[1].style.opacity = o.glints[2].style.opacity = g.toFixed(3);
+      o.glints[0].style.transform = 'rotate(-45deg) translateY(' + (g * -350).toFixed(1) + '%) translate(-50%,-50%)';
+      o.glints[1].style.transform = 'translateY(' + (g * -380).toFixed(1) + '%) translate(-50%,-50%)';
+      o.glints[2].style.transform = 'rotate(50deg) translateY(' + (g * -400).toFixed(1) + '%) translate(-50%,-50%)';
+    };
+
+    objs.forEach((o) => { respawn(o); draw(o); });
+
+    const active = [];
+    const release = () => {
+      if (active.length >= CONCURRENT) return;
+      const idle = objs.filter((o) => !o.falling);
+      if (!idle.length) return;
+      const o = idle[Math.floor(Math.random() * idle.length)];
+      respawn(o);
+      o.falling = true;
+      o.lane.style.display = 'block';
+      active.push(o);
+    };
+
+    const setHeld = (o, on) => {
+      o.held = on;
+      o.item.classList.toggle('is-held', on);
+    };
+
+    objs.forEach((o) => {
+      o.item.addEventListener('mouseenter', () => setHeld(o, true));
+      o.item.addEventListener('mouseleave', () => { if (!o.pinned) setHeld(o, false); });
+      o.item.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        o.pinned = !o.pinned;
+        setHeld(o, o.pinned);
+        if (o.pinned) {                       // fire the sparks, then let them fade
+          o.spark = true;
+          clearTimeout(o.sparkT);
+          o.sparkT = setTimeout(() => { o.spark = false; }, SPARK_MS);
+        } else { o.spark = false; }
+      });
+    });
+
+    let frame = 0, raf = 0;
+    const step = () => {
+      if (++frame % RELEASE_EVERY === 0) release();
+      for (let i = active.length - 1; i >= 0; i--) {
+        const o = active[i];
+        if (o.y >= Y_END) { respawn(o); active.splice(i, 1); continue; }
+        o.accel = o.held ? Math.max(o.accel - ACCEL_DOWN, ACCEL_MIN)
+                         : Math.min(o.accel + ACCEL_UP, 1);
+        o.scale += ((o.held ? HELD_SCALE : 1) - o.scale) * LERP;
+        o.glint += ((o.spark ? 1 : 0) - o.glint) * LERP;
+        o.y += o.speed * o.accel;
+        o.rot = o.rotStart * (1 - o.y / Y_END);
+        draw(o);
+      }
+      raf = requestAnimationFrame(step);
+    };
+
+    // Reduced motion: park a few objects in the gutters, no loop, no rotation.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      objs.slice(0, 6).forEach((o, i) => {
+        o.rot = 0; o.y = 8 + i * 15; o.lane.style.display = 'block'; draw(o);
+      });
+      return;
+    }
+
+    // Run only while the pricing section is on screen — alloprof unbinds its
+    // rAF the same way, so the compositor idles once you scroll past.
+    const fio = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting && !raf) { frame = RELEASE_EVERY - 1; raf = requestAnimationFrame(step); }
+        else if (!e.isIntersecting && raf) { cancelAnimationFrame(raf); raf = 0; }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -15% 0px' });
+    fio.observe(section);
+  })();
 
   /* ---------- Count-up stats (animate when scrolled into view) ---------- */
   const countEls = document.querySelectorAll('[data-count]');
