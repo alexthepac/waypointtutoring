@@ -26,7 +26,7 @@
 <!-- ===================== FONTS ===================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
 <!-- ===================== TAILWIND (CDN) ===================== -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -192,6 +192,15 @@
   .fall-glint { position: absolute; top: 50%; left: 50%; width: .5rem; height: 1.7rem; opacity: 0; overflow: visible; }
   .fall-glint line { stroke: currentColor; stroke-width: 3.5; stroke-linecap: round; }
 
+  /* Cartoon burst: short lines firing radially out of an icon as it pops. */
+  .pop-burst {
+    position: absolute; left: 50%; top: 50%;
+    width: 150%; height: 150%;
+    transform: translate(-50%, -50%);
+    opacity: 0; overflow: visible; pointer-events: none;
+  }
+  .pop-burst line { stroke: currentColor; stroke-width: 6.5; stroke-linecap: round; }
+
 
   /* ---------- Hero buddy: gradient blob whose eyes follow the cursor ---------- */
   .hero-buddy { position: relative; animation: buddyBob 5.4s ease-in-out infinite; filter: drop-shadow(0 14px 24px rgba(0,0,0,.28)); }
@@ -230,6 +239,330 @@
     white-space: nowrap;
     box-shadow: 0 6px 16px -6px rgba(22,20,28,.5);
   }
+
+  /* ---------- Level picker: two boxes that unfold into their pricing ladder ----------
+     The unfold is a 0fr -> 1fr grid-row transition, so the panel animates to its
+     own natural height without JS measuring anything. The clip child carries the
+     overflow:hidden the animation needs; its padding keeps the featured card's
+     badge and drop shadow from being shaved off at the clip edge. */
+  .level-card {
+    position: relative; z-index: 40;   /* above .school-layer, so it hides crests still inside it */
+    width: 100%; text-align: left;
+    background: #fff;
+    border: 1px solid rgba(22,20,28,.08);
+    border-radius: 1.5rem;
+    box-shadow: 0 18px 50px -28px rgba(22,20,28,.22);
+    transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+  }
+  .level-card:hover { border-color: rgba(22,20,28,.22); transform: translateY(-4px); }
+  .level-card.open {
+    border-color: var(--ink);
+    box-shadow: 0 28px 60px -26px rgba(22,20,28,.35);
+  }
+  .level-chev { transition: transform .32s cubic-bezier(.22,.61,.36,1); }
+  .level-card.open .level-chev { transform: rotate(180deg); }
+  .level-card .lbl-open { display: none; }
+  .level-card.open .lbl-open { display: inline; }
+  .level-card.open .lbl-shut { display: none; }
+
+  .level-panel {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows .38s cubic-bezier(.22,.61,.36,1);
+  }
+  .level-panel > .level-clip { overflow: hidden; }
+  /* Clipping is only needed while the height animates. Once open we stop, so
+     the panel paints exactly like any other part of the page - no clipped
+     shadows, no edge, the same flat background everywhere. */
+  .level-panel.unclipped > .level-clip { overflow: visible; }
+  .level-panel.open { grid-template-rows: 1fr; }
+
+  /* The three plans rise in with a stagger once their panel is open. The wrapper
+     animates, never the card, so the featured card keeps its own scale + hover. */
+  .pkg-col { opacity: 0; transform: translateX(-30px) scale(.94); }
+  /* Held back until the crests have stopped bouncing (see dropSchools' onSettled). */
+  .level-panel.cards-in .pkg-col { animation: pkgIn .55s cubic-bezier(.21,.9,.3,1.04) forwards; }
+  .level-panel.cards-in .pkg-col:nth-child(2) { animation-delay: .11s; }
+  .level-panel.cards-in .pkg-col:nth-child(3) { animation-delay: .22s; }
+  @keyframes pkgIn { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .level-panel, .level-chev, .level-card { transition: none; }
+    .pkg-col { opacity: 1; transform: none; }
+    .level-panel.cards-in .pkg-col { animation: none; }
+  }
+
+  /* ---------- School crests: cartoon badges that spill out of a level box ----------
+     Purely decorative, so the layer is aria-hidden and never takes pointer events.
+     transform-origin sits at the bottom edge so the squash-on-impact keeps each
+     badge planted on the divider line instead of sinking through it. */
+  /* ---------- Level box sneeze ----------
+     First press on a box: the text steps aside for a face drawn in the same plain
+     line-art as the faces on the background blobs. The card leans away, swells,
+     then lets go - snapping the other way and flopping side to side like a ragdoll.
+     Both animations run LINEAR over densely sampled keyframes; a single easing
+     curve across few keyframes gets re-applied between every pair and reads as a
+     stutter. The packages and crests are released on the snap, at 70% of 1.5s. */
+  .lvl-face {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(62%, 190px); height: auto;
+    opacity: 0; pointer-events: none;
+  }
+  .level-card > span { transition: opacity .16s ease; }
+  /* One flag for the whole performance: sneezing ends 240ms before the scowl
+     begins, and without this the text would flash back in during the gap. */
+  .level-card.sneezing > span,
+  .level-card.busy > span { opacity: 0; }
+  .level-card.sneezing {
+    animation: boxSneeze 1.5s linear both;
+    transition: none;                       /* don't let the hover transition fight it */
+    will-change: transform;
+    backface-visibility: hidden;
+    z-index: 41;
+  }
+  .level-card.sneezing .lvl-face  { animation: faceShow 1.5s linear both; }
+  .level-card.sneezing .face-eye-open { animation: eyeOpen 1.5s linear both; }
+  .level-card.sneezing .face-eye-shut { animation: eyeShut 1.5s linear both; }
+  .level-card.sneezing .face-mouth    { animation: mouthSneeze 1.5s linear both; }
+  .face-mouth { transform-box: fill-box; transform-origin: center; }
+
+  @keyframes boxSneeze {
+    0% { transform: translateX(-0px) rotate(-0deg) scale(1); }
+    3% { transform: translateX(-0.023px) rotate(-0.023deg) scale(1); }
+    6% { transform: translateX(-0.084px) rotate(-0.086deg) scale(1.002); }
+    9% { transform: translateX(-0.182px) rotate(-0.186deg) scale(1.004); }
+    12% { transform: translateX(-0.314px) rotate(-0.321deg) scale(1.006); }
+    15% { transform: translateX(-0.479px) rotate(-0.491deg) scale(1.009); }
+    18% { transform: translateX(-0.678px) rotate(-0.695deg) scale(1.013); }
+    21% { transform: translateX(-0.908px) rotate(-0.931deg) scale(1.018); }
+    24% { transform: translateX(-1.17px) rotate(-1.2deg) scale(1.023); }
+    27% { transform: translateX(-1.464px) rotate(-1.501deg) scale(1.028); }
+    30% { transform: translateX(-1.788px) rotate(-1.833deg) scale(1.035); }
+    33% { transform: translateX(-2.144px) rotate(-2.197deg) scale(1.042); }
+    36% { transform: translateX(-2.529px) rotate(-2.592deg) scale(1.049); }
+    39% { transform: translateX(-2.944px) rotate(-3.018deg) scale(1.057); }
+    42% { transform: translateX(-3.389px) rotate(-3.474deg) scale(1.066); }
+    45% { transform: translateX(-3.864px) rotate(-3.961deg) scale(1.075); }
+    48% { transform: translateX(-4.368px) rotate(-4.478deg) scale(1.085); }
+    51% { transform: translateX(-4.902px) rotate(-5.024deg) scale(1.095); }
+    54% { transform: translateX(-5.464px) rotate(-5.601deg) scale(1.106); }
+    57% { transform: translateX(-6.055px) rotate(-6.206deg) scale(1.117); }
+    60% { transform: translateX(-6.675px) rotate(-6.842deg) scale(1.129); }
+    63% { transform: translateX(-7.323px) rotate(-7.506deg) scale(1.142); }
+    66% { transform: translateX(-8px) rotate(-8.2deg) scale(1.155); }
+    70% { transform: translateX(21px) rotate(7.2deg) scale(0.9); }
+    72% { transform: translateX(19.569px) rotate(7.201deg) scale(1.008); }
+    74% { transform: translateX(4.712px) rotate(-1.639deg) scale(0.954); }
+    76% { transform: translateX(-12.159px) rotate(-5.287deg) scale(0.983); }
+    78% { transform: translateX(-6.129px) rotate(-0.16deg) scale(1.027); }
+    80% { transform: translateX(6.784px) rotate(3.553deg) scale(1.018); }
+    82% { transform: translateX(5.797px) rotate(0.964deg) scale(0.986); }
+    84% { transform: translateX(-3.212px) rotate(-2.181deg) scale(0.985); }
+    86% { transform: translateX(-4.712px) rotate(-1.18deg) scale(1.006); }
+    88% { transform: translateX(1.048px) rotate(1.198deg) scale(1.012); }
+    90% { transform: translateX(3.453px) rotate(1.09deg) scale(0.999); }
+    92% { transform: translateX(0.12px) rotate(-0.551deg) scale(0.992); }
+    94% { transform: translateX(-2.317px) rotate(-0.873deg) scale(0.999); }
+    96% { transform: translateX(-0.639px) rotate(0.164deg) scale(1.005); }
+    98% { transform: translateX(1.42px) rotate(0.633deg) scale(1.002); }
+    100% { transform: translateX(0px) rotate(0deg) scale(1); }
+  }
+  @keyframes faceShow { 0% { opacity: 0; } 7%, 86% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes eyeOpen  { 0%, 64% { opacity: 1; } 66%, 100% { opacity: 0; } }
+  @keyframes eyeShut  { 0%, 64% { opacity: 0; } 66%, 100% { opacity: 1; } }
+  @keyframes mouthSneeze {
+    0% { transform: scale(0.45, 0.38); }
+    4% { transform: scale(0.456, 0.391); }
+    8% { transform: scale(0.469, 0.413); }
+    12% { transform: scale(0.486, 0.443); }
+    16% { transform: scale(0.507, 0.48); }
+    20% { transform: scale(0.531, 0.524); }
+    24% { transform: scale(0.559, 0.572); }
+    28% { transform: scale(0.589, 0.626); }
+    32% { transform: scale(0.623, 0.685); }
+    36% { transform: scale(0.659, 0.748); }
+    40% { transform: scale(0.697, 0.815); }
+    44% { transform: scale(0.737, 0.887); }
+    48% { transform: scale(0.78, 0.963); }
+    52% { transform: scale(0.826, 1.042); }
+    56% { transform: scale(0.873, 1.126); }
+    60% { transform: scale(0.922, 1.213); }
+    64% { transform: scale(0.974, 1.303); }
+    70% { transform: scale(1.75, 1.95); }
+    73% { transform: scale(1.413, 1.548); }
+    76% { transform: scale(1.163, 1.251); }
+    79% { transform: scale(0.979, 1.03); }
+    82% { transform: scale(0.842, 0.867); }
+    85% { transform: scale(0.74, 0.746); }
+    88% { transform: scale(0.665, 0.656); }
+    91% { transform: scale(0.609, 0.59); }
+    94% { transform: scale(0.568, 0.541); }
+    97% { transform: scale(0.537, 0.504); }
+    100% { transform: scale(0.515, 0.477); }
+  }
+  /* ---------- ...and then one last effort ----------
+     A beat after the sneeze the box screws up a cheerful, straining face and
+     rattles itself once more to shake loose the one school still stuck inside. */
+  .face-eye-shut { opacity: 0; }             /* only shown mid-sneeze */
+  .face-cheer    { opacity: 0; }
+  .level-card.lastheave {
+    animation: boxLastHeave .75s linear both;
+    transition: none; will-change: transform; backface-visibility: hidden; z-index: 41;
+  }
+  .level-card.lastheave .lvl-face { animation: faceStay .75s linear both; }
+  .level-card.lastheave .face-cheer { opacity: 1; }
+  .level-card.lastheave .face-eye-open { opacity: 0; }  /* the happy squint takes over */
+  .level-card.lastheave .face-mouth { opacity: 0; }    /* ...and brings its own grin */
+
+  @keyframes faceStay { 0% { opacity: 0; } 10%, 82% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes boxLastHeave {
+    0% { transform: translateX(0px) rotate(0deg) scale(1); }
+    3% { transform: translateX(-1.75px) rotate(-1.375deg) scale(1.015); }
+    6% { transform: translateX(-3.5px) rotate(-2.75deg) scale(1.03); }
+    9% { transform: translateX(-5.25px) rotate(-4.125deg) scale(1.045); }
+    12% { transform: translateX(-7px) rotate(-5.5deg) scale(1.06); }
+    15% { transform: translateX(15.359px) rotate(7.712deg) scale(1.025); }
+    18% { transform: translateX(15.642px) rotate(4.434deg) scale(0.983); }
+    21% { transform: translateX(2.888px) rotate(-2.032deg) scale(0.962); }
+    24% { transform: translateX(-10.339px) rotate(-5.834deg) scale(0.975); }
+    27% { transform: translateX(-12.981px) rotate(-4.216deg) scale(1.007); }
+    30% { transform: translateX(-4.441px) rotate(0.66deg) scale(1.029); }
+    33% { transform: translateX(6.499px) rotate(4.252deg) scale(1.023); }
+    36% { transform: translateX(10.389px) rotate(3.77deg) scale(0.999); }
+    39% { transform: translateX(5.062px) rotate(0.229deg) scale(0.98); }
+    42% { transform: translateX(-3.666px) rotate(-2.968deg) scale(0.98); }
+    45% { transform: translateX(-8.031px) rotate(-3.216deg) scale(0.997); }
+    48% { transform: translateX(-5.066px) rotate(-0.756deg) scale(1.014); }
+    51% { transform: translateX(1.66px) rotate(1.961deg) scale(1.017); }
+    54% { transform: translateX(5.992px) rotate(2.639deg) scale(1.005); }
+    57% { transform: translateX(4.693px) rotate(1.022deg) scale(0.991); }
+    60% { transform: translateX(-0.308px) rotate(-1.199deg) scale(0.987); }
+    63% { transform: translateX(-4.298px) rotate(-2.089deg) scale(0.994); }
+    66% { transform: translateX(-4.115px) rotate(-1.109deg) scale(1.005); }
+    69% { transform: translateX(-0.542px) rotate(0.644deg) scale(1.01); }
+    72% { transform: translateX(2.943px) rotate(1.598deg) scale(1.006); }
+    75% { transform: translateX(3.457px) rotate(1.08deg) scale(0.998); }
+    78% { transform: translateX(1.022px) rotate(-0.257deg) scale(0.992); }
+    81% { transform: translateX(-1.894px) rotate(-1.179deg) scale(0.994); }
+    84% { transform: translateX(-2.797px) rotate(-0.982deg) scale(1.001); }
+    87% { transform: translateX(-1.24px) rotate(0deg) scale(1.006); }
+    90% { transform: translateX(1.112px) rotate(0.834deg) scale(1.005); }
+    93% { transform: translateX(2.185px) rotate(0.85deg) scale(1.001); }
+    96% { transform: translateX(1.281px) rotate(0.157deg) scale(0.996); }
+    100% { transform: translateX(0px) rotate(0deg) scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .level-card.sneezing, .level-card.sneezing .lvl-face,
+    .level-card.sneezing .face-eye-open, .level-card.sneezing .face-eye-shut,
+    .level-card.sneezing .face-mouth, .level-card.lastheave, .level-card.lastheave .lvl-face { animation: none; }
+    .level-card.sneezing > span, .level-card.busy > span { opacity: 1; }
+  }
+
+
+  /* ---------- Phones & small tablets ----------
+     A level box is nearly the full width of a phone, so the desktop sneeze swung
+     it clean off both edges. These are the same motions sampled at amplitudes
+     that stay on screen, plus smaller crests and a tighter burst. */
+  @keyframes boxSneezeSm {
+    0% { transform: translateX(-0px) rotate(-0deg) scale(1); }
+    3% { transform: translateX(-0.011px) rotate(-0.012deg) scale(1); }
+    6% { transform: translateX(-0.042px) rotate(-0.044deg) scale(1.001); }
+    9% { transform: translateX(-0.091px) rotate(-0.095deg) scale(1.001); }
+    12% { transform: translateX(-0.157px) rotate(-0.165deg) scale(1.002); }
+    15% { transform: translateX(-0.24px) rotate(-0.252deg) scale(1.004); }
+    18% { transform: translateX(-0.339px) rotate(-0.356deg) scale(1.005); }
+    21% { transform: translateX(-0.454px) rotate(-0.477deg) scale(1.007); }
+    24% { transform: translateX(-0.585px) rotate(-0.614deg) scale(1.009); }
+    27% { transform: translateX(-0.732px) rotate(-0.769deg) scale(1.011); }
+    30% { transform: translateX(-0.894px) rotate(-0.939deg) scale(1.013); }
+    33% { transform: translateX(-1.072px) rotate(-1.125deg) scale(1.016); }
+    36% { transform: translateX(-1.264px) rotate(-1.328deg) scale(1.019); }
+    39% { transform: translateX(-1.472px) rotate(-1.546deg) scale(1.022); }
+    42% { transform: translateX(-1.695px) rotate(-1.779deg) scale(1.025); }
+    45% { transform: translateX(-1.932px) rotate(-2.029deg) scale(1.029); }
+    48% { transform: translateX(-2.184px) rotate(-2.293deg) scale(1.033); }
+    51% { transform: translateX(-2.451px) rotate(-2.573deg) scale(1.037); }
+    54% { transform: translateX(-2.732px) rotate(-2.869deg) scale(1.041); }
+    57% { transform: translateX(-3.028px) rotate(-3.179deg) scale(1.045); }
+    60% { transform: translateX(-3.337px) rotate(-3.504deg) scale(1.05); }
+    63% { transform: translateX(-3.662px) rotate(-3.845deg) scale(1.055); }
+    66% { transform: translateX(-4px) rotate(-4.2deg) scale(1.06); }
+    70% { transform: translateX(7px) rotate(3deg) scale(0.955); }
+    72% { transform: translateX(6.523px) rotate(3.411deg) scale(1.004); }
+    74% { transform: translateX(1.571px) rotate(-0.776deg) scale(0.977); }
+    76% { transform: translateX(-4.053px) rotate(-2.504deg) scale(0.992); }
+    78% { transform: translateX(-2.043px) rotate(-0.076deg) scale(1.013); }
+    80% { transform: translateX(2.261px) rotate(1.683deg) scale(1.009); }
+    82% { transform: translateX(1.932px) rotate(0.457deg) scale(0.993); }
+    84% { transform: translateX(-1.071px) rotate(-1.033deg) scale(0.992); }
+    86% { transform: translateX(-1.571px) rotate(-0.559deg) scale(1.003); }
+    88% { transform: translateX(0.349px) rotate(0.567deg) scale(1.006); }
+    90% { transform: translateX(1.151px) rotate(0.516deg) scale(0.999); }
+    92% { transform: translateX(0.04px) rotate(-0.261deg) scale(0.996); }
+    94% { transform: translateX(-0.772px) rotate(-0.414deg) scale(0.999); }
+    96% { transform: translateX(-0.213px) rotate(0.078deg) scale(1.003); }
+    98% { transform: translateX(0.473px) rotate(0.3deg) scale(1.001); }
+    100% { transform: translateX(0px) rotate(0deg) scale(1); }
+  }
+  @keyframes boxLastHeaveSm {
+    0% { transform: translateX(0px) rotate(0deg) scale(1); }
+    3% { transform: translateX(-0.875px) rotate(-0.75deg) scale(1.008); }
+    6% { transform: translateX(-1.75px) rotate(-1.5deg) scale(1.015); }
+    9% { transform: translateX(-2.625px) rotate(-2.25deg) scale(1.022); }
+    12% { transform: translateX(-3.5px) rotate(-3deg) scale(1.03); }
+    15% { transform: translateX(6.144px) rotate(3.856deg) scale(1.015); }
+    18% { transform: translateX(6.257px) rotate(2.217deg) scale(0.99); }
+    21% { transform: translateX(1.155px) rotate(-1.016deg) scale(0.977); }
+    24% { transform: translateX(-4.136px) rotate(-2.917deg) scale(0.985); }
+    27% { transform: translateX(-5.193px) rotate(-2.108deg) scale(1.004); }
+    30% { transform: translateX(-1.777px) rotate(0.33deg) scale(1.017); }
+    33% { transform: translateX(2.6px) rotate(2.126deg) scale(1.014); }
+    36% { transform: translateX(4.156px) rotate(1.885deg) scale(1); }
+    39% { transform: translateX(2.025px) rotate(0.114deg) scale(0.988); }
+    42% { transform: translateX(-1.466px) rotate(-1.484deg) scale(0.988); }
+    45% { transform: translateX(-3.213px) rotate(-1.608deg) scale(0.998); }
+    48% { transform: translateX(-2.027px) rotate(-0.378deg) scale(1.008); }
+    51% { transform: translateX(0.664px) rotate(0.981deg) scale(1.01); }
+    54% { transform: translateX(2.397px) rotate(1.319deg) scale(1.003); }
+    57% { transform: translateX(1.877px) rotate(0.511deg) scale(0.995); }
+    60% { transform: translateX(-0.123px) rotate(-0.6deg) scale(0.992); }
+    63% { transform: translateX(-1.719px) rotate(-1.045deg) scale(0.996); }
+    66% { transform: translateX(-1.646px) rotate(-0.555deg) scale(1.003); }
+    69% { transform: translateX(-0.217px) rotate(0.322deg) scale(1.006); }
+    72% { transform: translateX(1.177px) rotate(0.799deg) scale(1.004); }
+    75% { transform: translateX(1.383px) rotate(0.54deg) scale(0.999); }
+    78% { transform: translateX(0.409px) rotate(-0.128deg) scale(0.995); }
+    81% { transform: translateX(-0.758px) rotate(-0.589deg) scale(0.996); }
+    84% { transform: translateX(-1.119px) rotate(-0.491deg) scale(1); }
+    87% { transform: translateX(-0.496px) rotate(0deg) scale(1.003); }
+    90% { transform: translateX(0.445px) rotate(0.417deg) scale(1.003); }
+    93% { transform: translateX(0.874px) rotate(0.425deg) scale(1); }
+    96% { transform: translateX(0.512px) rotate(0.078deg) scale(0.998); }
+    100% { transform: translateX(0px) rotate(0deg) scale(1); }
+  }
+
+  .school-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 30; }
+  .school-chip {
+    position: absolute; top: 0; left: 0;
+    width: 92px; height: 92px;
+    /* The seal's ink stops short of the box (the lower arc of text is the lowest
+       thing in it). dropSchools measures exactly where and overrides this inline,
+       so the crest rests on its writing instead of sinking past the line. */
+    transform-origin: 50% 82.6%;
+    will-change: transform, opacity;
+    filter: drop-shadow(0 7px 12px rgba(22,20,28,.18));
+  }
+  .school-chip svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+  @media (max-width: 767px) {
+    .level-card.sneezing  { animation-name: boxSneezeSm; }
+    .level-card.lastheave { animation-name: boxLastHeaveSm; }
+    .lvl-face { width: min(58%, 150px); }
+    .school-chip { width: 68px; height: 68px; }
+    .pop-burst { width: 128%; height: 128%; }
+    .pop-burst line { stroke-width: 7.5; }
+  }
+
 
   /* ---------- Contact success popup (slides up from the bottom) ---------- */
   @keyframes toastUp { from { opacity: 0; transform: translateY(48px); } to { opacity: 1; transform: none; } }
@@ -403,15 +736,6 @@
         <text x='534' y='174' font-size='46' transform='rotate(-12 534 174)'>z</text>
         <text x='590' y='146' font-size='33' transform='rotate(10 590 146)'>z</text>
         <text x='598' y='104' font-size='24' transform='rotate(-7 598 104)'>z</text>
-      </g>
-    </svg>
-    <svg style='bottom:-60px; left:-18%; width:70%; min-width:520px;' viewBox='0 0 900 520' fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <path fill='var(--wave-2)' d='M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z'/>
-      <!-- happy face doodle on the pink blob -->
-      <g stroke='rgba(22,20,28,.13)' stroke-width='7' stroke-linecap='round' fill='none'>
-        <path d='M470 290q22 -24 44 0'/>
-        <path d='M570 290q22 -24 44 0'/>
-        <path d='M517 326q25 20 50 0'/>
       </g>
     </svg>
   </div>
@@ -611,6 +935,9 @@
 
   </div>
 
+  <!-- Cartoon school crests, dropped by dropSchools() when a level box first opens -->
+  <div id='schoolLayer' class='school-layer' aria-hidden='true'></div>
+
 <div class='relative max-w-6xl mx-auto px-6 py-20 md:py-28'>
 
     <!-- Section heading -->
@@ -669,61 +996,200 @@
       </div>
     </div>
 
-    <!-- Groupe B : forfaits de tutorat individuel · 3 grandes cartes -->
+    <!-- Groupe B : tutorat individuel · deux boîtes de niveau qui se déplient sur leurs forfaits -->
     <div class="mt-16 md:mt-24">
       <div class="reveal text-center mb-10 md:mb-14">
         <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">VERROUILLEZ VOTRE TARIF</p>
-        <h3 class="font-serif text-3xl md:text-5xl text-ink">Tutorat STEM individuel &mdash; Choisissez votre forfait</h3>
-        <p class="text-neutral-500 text-sm mt-4 max-w-md mx-auto">Plus vous réservez de sessions, plus votre tarif baisse &mdash; automatiquement.</p>
+        <h3 class="font-serif text-3xl md:text-5xl text-ink">Tutorat STEM individuel &mdash; Choisissez votre niveau</h3>
+        <p class="text-neutral-500 text-sm mt-4 max-w-lg mx-auto">Ouvrez votre niveau pour voir les forfaits. Plus vous réservez de sessions, plus votre tarif baisse &mdash; automatiquement.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
 
-        <!-- Session unique (prix de référence) -->
-        <div onclick="pickService('1-on-1 Subject Tutoring')" class="card-light group cursor-pointer reveal rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
-          <h4 class="font-serif text-2xl mb-1">Session unique</h4>
-          <p class="text-neutral-400 text-sm mb-8">Essayez sans engagement</p>
-          <div class="mt-auto">
-            <div class="text-4xl font-semibold mb-2">$35<span class="text-neutral-500 text-base font-normal"> / session</span></div>
-            <div class="text-neutral-400 text-sm">$35 total</div>
-          </div>
-        </div>
+        <button type="button" id="lvlbtn-hs" onclick="toggleLevel('hs')"
+                aria-expanded="false" aria-controls="lvl-hs"
+                class="level-card reveal p-8 md:p-9 flex flex-col">
+          <span class="text-[11px] tracking-[0.25em] text-neutral-500 mb-3">SECONDAIRE 1 À 5</span>
+          <span class="font-serif text-2xl md:text-3xl text-ink leading-tight mb-2">Tutorat scientifique au secondaire</span>
+          <span class="text-neutral-500 text-sm leading-relaxed mb-7">Maths, physique, chimie et biologie &mdash; enseignés par des mentors qui les ont maîtrisées.</span>
+          <span class="mt-auto flex items-center gap-3 w-full">
+            <span class="inline-flex items-center rounded-full bg-ink text-white text-[10.5px] font-extrabold tracking-[0.12em] px-3.5 py-1.5 whitespace-nowrap"><span class="lbl-shut">CLIQUEZ ICI</span><span class="lbl-open">FERMER</span></span>
+            <span class="text-neutral-400 text-xs">pour voir les forfaits</span>
+            <svg class="level-chev ml-auto shrink-0 text-ink" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </span>
+          <svg class="lvl-face" viewBox="0 0 140 90" fill="none" aria-hidden="true">
+            <g stroke="#16141c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" opacity=".82">
+              <g class="face-eye-open"><path d="M33 43q13 15 26 0"/><path d="M81 43q13 15 26 0"/></g>
+              <g class="face-eye-shut"><path d="M33 51q13 -17 26 0"/><path d="M81 51q13 -17 26 0"/></g>
+              <g class="face-cheer">
+                <path d="M33 48q13 -16 26 0"/><path d="M81 48q13 -16 26 0"/>
+                <path d="M50 66q20 19 40 0"/>
+              </g>
+              <ellipse class="face-mouth" cx="70" cy="70" rx="11" ry="8"/>
+            </g>
+          </svg>
+        </button>
 
-        <!-- Forfait 5 sessions -->
-        <div onclick="pickService('5-Session Package')" class="card-light group cursor-pointer reveal rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300" style="--rd:.12s">
-          <h4 class="font-serif text-2xl mb-1">Forfait 5 sessions</h4>
-          <p class="text-[#d0679f] text-sm font-semibold mb-8">Économisez 12,50 $</p>
-          <div class="mt-auto">
-            <div class="flex items-baseline gap-2 mb-2">
-              <span class="text-neutral-400 text-lg line-through">$35</span>
-              <span class="text-4xl font-semibold">$32.50<span class="text-neutral-500 text-base font-normal"> / session</span></span>
+        <button type="button" id="lvlbtn-cegep" onclick="toggleLevel('cegep')"
+                aria-expanded="false" aria-controls="lvl-cegep"
+                class="level-card reveal p-8 md:p-9 flex flex-col" style="--rd:.12s">
+          <span class="text-[11px] tracking-[0.25em] text-neutral-500 mb-3">SCIENCES &amp; GÉNIE</span>
+          <span class="font-serif text-2xl md:text-3xl text-ink leading-tight mb-2">Tutorat STEM au CEGEP</span>
+          <span class="text-neutral-500 text-sm leading-relaxed mb-7">Tous les cours de physique, chimie, biologie et mathématiques &mdash; au rythme du cégep.</span>
+          <span class="mt-auto flex items-center gap-3 w-full">
+            <span class="inline-flex items-center rounded-full bg-ink text-white text-[10.5px] font-extrabold tracking-[0.12em] px-3.5 py-1.5 whitespace-nowrap"><span class="lbl-shut">CLIQUEZ ICI</span><span class="lbl-open">FERMER</span></span>
+            <span class="text-neutral-400 text-xs">pour voir les forfaits</span>
+            <svg class="level-chev ml-auto shrink-0 text-ink" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </span>
+          <svg class="lvl-face" viewBox="0 0 140 90" fill="none" aria-hidden="true">
+            <g stroke="#16141c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" opacity=".82">
+              <g class="face-eye-open"><path d="M32 42q14 9 28 0"/><path d="M80 42q14 9 28 0"/></g>
+              <g class="face-eye-shut"><path d="M32 50l14 -13 14 13"/><path d="M80 50l14 -13 14 13"/></g>
+              <g class="face-cheer">
+                <path d="M32 47q14 -14 28 0"/><path d="M80 47q14 -14 28 0"/>
+                <path d="M48 66q22 20 44 0"/>
+              </g>
+              <ellipse class="face-mouth" cx="70" cy="70" rx="13" ry="7"/>
+            </g>
+          </svg>
+        </button>
+
+      </div>
+
+      <div id="lvl-hs" class="level-panel" role="region" aria-labelledby="lvlbtn-hs">
+        <div class="level-clip">
+          <div class="pt-10 pb-6 px-5 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+
+              <!-- Single session (anchor price) -->
+              <div class="pkg-col">
+                <div onclick="pickService('1-on-1 Subject Tutoring')" class="card-light group cursor-pointer rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
+                  <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">SECONDAIRE</p>
+                  <h4 class="font-serif text-2xl mb-1">Session unique</h4>
+                  <p class="text-neutral-400 text-sm mb-8">Essayez sans engagement</p>
+                  <div class="mt-auto">
+                    <div class="text-4xl font-semibold mb-2">$35<span class="text-neutral-500 text-base font-normal"> / session</span></div>
+                    <div class="text-neutral-400 text-sm">$35 total</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5-session package -->
+              <div class="pkg-col">
+                <div onclick="pickService('5-Session Package')" class="card-light group cursor-pointer rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
+                  <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">SECONDAIRE</p>
+                  <h4 class="font-serif text-2xl mb-1">Forfait 5 sessions</h4>
+                  <p class="text-[#d0679f] text-sm font-semibold mb-8">Économisez 12,50 $</p>
+                  <div class="mt-auto">
+                    <div class="flex items-baseline gap-2 mb-2">
+                      <span class="text-neutral-400 text-lg line-through">$35</span>
+                      <span class="text-4xl font-semibold">$32.50<span class="text-neutral-500 text-base font-normal"> / session</span></span>
+                    </div>
+                    <div class="text-neutral-400 text-sm">$162.50 total</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 10-session package · FEATURED (sleek black outline) -->
+              <div class="pkg-col">
+                <div onclick="pickService('10-Session Package')" class="pkg-featured group cursor-pointer relative rounded-3xl p-9 pt-12 flex flex-col text-ink hover:-translate-y-2 transition-all duration-300 md:scale-[1.08] z-10">
+                  <span class="pkg-badge">MEILLEURE VALEUR</span>
+                  <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">SECONDAIRE</p>
+                  <h4 class="font-serif text-2xl mb-1">Forfait 10 sessions</h4>
+                  <p class="text-sm font-bold mb-8 eyebrow-grad">Économisez 50 $</p>
+                  <div class="mt-auto">
+                    <div class="flex items-baseline gap-2 mb-2">
+                      <span class="text-neutral-400 text-lg line-through">$35</span>
+                      <span class="text-4xl font-semibold">$30<span class="text-neutral-500 text-base font-normal"> / session</span></span>
+                    </div>
+                    <div class="text-neutral-500 text-sm">$300 total</div>
+                  </div>
+                </div>
+              </div>
+
             </div>
-            <div class="text-neutral-400 text-sm">$162.50 total</div>
           </div>
         </div>
+      </div>
 
-        <!-- Forfait 10 sessions · EN VEDETTE (contour noir épuré) -->
-        <div onclick="pickService('10-Session Package')" class="pkg-featured group cursor-pointer reveal relative rounded-3xl p-9 pt-12 flex flex-col text-ink hover:-translate-y-2 transition-all duration-300 md:scale-[1.08] z-10" style="--rd:.24s">
-          <span class="pkg-badge">MEILLEURE VALEUR</span>
-          <h4 class="font-serif text-2xl mb-1">Forfait 10 sessions</h4>
-          <p class="text-sm font-bold mb-8 eyebrow-grad">Économisez <span data-count="50" data-suffix="">0</span> $</p>
-          <div class="mt-auto">
-            <div class="flex items-baseline gap-2 mb-2">
-              <span class="text-neutral-400 text-lg line-through">$35</span>
-              <span class="text-4xl font-semibold">$30<span class="text-neutral-500 text-base font-normal"> / session</span></span>
+      <div id="lvl-cegep" class="level-panel" role="region" aria-labelledby="lvlbtn-cegep">
+        <div class="level-clip">
+          <div class="pt-10 pb-6 px-5 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+
+              <!-- Single session (anchor price) -->
+              <div class="pkg-col">
+                <div onclick="pickService('1-on-1 Subject Tutoring')" class="card-light group cursor-pointer rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
+                  <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">CÉGEP</p>
+                  <h4 class="font-serif text-2xl mb-1">Session unique</h4>
+                  <p class="text-neutral-400 text-sm mb-8">Essayez sans engagement</p>
+                  <div class="mt-auto">
+                    <div class="text-4xl font-semibold mb-2">$35<span class="text-neutral-500 text-base font-normal"> / session</span></div>
+                    <div class="text-neutral-400 text-sm">$35 total</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5-session package -->
+              <div class="pkg-col">
+                <div onclick="pickService('5-Session Package')" class="card-light group cursor-pointer rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
+                  <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">CÉGEP</p>
+                  <h4 class="font-serif text-2xl mb-1">Forfait 5 sessions</h4>
+                  <p class="text-[#d0679f] text-sm font-semibold mb-8">Économisez 12,50 $</p>
+                  <div class="mt-auto">
+                    <div class="flex items-baseline gap-2 mb-2">
+                      <span class="text-neutral-400 text-lg line-through">$35</span>
+                      <span class="text-4xl font-semibold">$32.50<span class="text-neutral-500 text-base font-normal"> / session</span></span>
+                    </div>
+                    <div class="text-neutral-400 text-sm">$162.50 total</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 10-session package · FEATURED (sleek black outline) -->
+              <div class="pkg-col">
+                <div onclick="pickService('10-Session Package')" class="pkg-featured group cursor-pointer relative rounded-3xl p-9 pt-12 flex flex-col text-ink hover:-translate-y-2 transition-all duration-300 md:scale-[1.08] z-10">
+                  <span class="pkg-badge">MEILLEURE VALEUR</span>
+                  <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">CÉGEP</p>
+                  <h4 class="font-serif text-2xl mb-1">Forfait 10 sessions</h4>
+                  <p class="text-sm font-bold mb-8 eyebrow-grad">Économisez 50 $</p>
+                  <div class="mt-auto">
+                    <div class="flex items-baseline gap-2 mb-2">
+                      <span class="text-neutral-400 text-lg line-through">$35</span>
+                      <span class="text-4xl font-semibold">$30<span class="text-neutral-500 text-base font-normal"> / session</span></span>
+                    </div>
+                    <div class="text-neutral-500 text-sm">$300 total</div>
+                  </div>
+                </div>
+              </div>
+
             </div>
-            <div class="text-neutral-500 text-sm">$300 total</div>
           </div>
         </div>
-
       </div>
     </div>
 
     <!-- Séparateur épuré entre les forfaits et la consultation gratuite -->
-    <div class="reveal mt-16 md:mt-24 h-px max-w-xl mx-auto bg-gradient-to-r from-transparent via-neutral-300 to-transparent" aria-hidden="true"></div>
+    <div id="pkg-divider" class="reveal mt-16 md:mt-24 h-px max-w-xl mx-auto bg-gradient-to-r from-transparent via-neutral-300 to-transparent" aria-hidden="true"></div>
 
-    <!-- Groupe C : Consultation gratuite · carte unique centrée -->
-    <div class="mt-14 md:mt-20 max-w-md mx-auto">
+    <!-- Groupe C : Consultation gratuite · carte unique centrée.
+         The pink blob lives here rather than in the section's wave-wrap: anchored to
+         the section's bottom it slid whenever a panel unfolded, dragging its edge
+         across the pricing cards and changing their backdrop. Pinned to this block
+         it stays put relative to the card it belongs to. -->
+    <div class="relative mt-14 md:mt-20">
+      <div class='pointer-events-none absolute inset-0' aria-hidden='true'>
+        <svg style='position:absolute; top:-30px; left:-18%; width:70%; min-width:520px;' viewBox='0 0 900 520' fill='none' xmlns='http://www.w3.org/2000/svg'>
+          <path fill='var(--wave-2)' d='M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z'/>
+          <!-- happy face doodle on the pink blob -->
+          <g stroke='rgba(22,20,28,.13)' stroke-width='7' stroke-linecap='round' fill='none'>
+            <path d='M470 290q22 -24 44 0'/>
+            <path d='M570 290q22 -24 44 0'/>
+            <path d='M517 326q25 20 50 0'/>
+          </g>
+        </svg>
+      </div>
+      <div class="relative max-w-md mx-auto">
       <!-- Consultation gratuite · EN VEDETTE (contour noir épuré) -->
       <div onclick="pickService('Free Academic Consultation')" class="pkg-featured group cursor-pointer reveal relative rounded-3xl p-9 pt-12 flex flex-col text-ink hover:-translate-y-2 transition-all duration-300">
         <span class="pkg-badge">COMMENCEZ ICI</span>
@@ -735,6 +1201,7 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </span>
         </div>
+      </div>
       </div>
     </div>
 
@@ -1148,7 +1615,7 @@
 
     const respawn = (o) => {
       o.falling = false; o.held = false; o.pinned = false;
-      o.y = Y_START; o.accel = 1; o.scale = 1; o.glint = 0;
+      o.y = Y_START; o.accel = 1; o.scale = 1; o.glint = 0; o.popPx = null;
       o.rotStart = o.rot = ANGLES[Math.floor(Math.random() * ANGLES.length)];
       o.speed = rnd(SPEED_MIN, SPEED_MAX);
       o.lane.style.left = nextLane().toFixed(3) + '%';
@@ -1157,7 +1624,9 @@
     };
 
     const draw = (o) => {
-      o.lane.style.transform = 'translate3d(0,' + o.y.toFixed(2) + '%,0)';
+      o.lane.style.transform = o.popPx != null
+        ? 'translate3d(0,' + o.popPx.toFixed(1) + 'px,0)'   // pinned mid-pop
+        : 'translate3d(0,' + o.y.toFixed(2) + '%,0)';
       o.art.style.transform  = 'rotate(' + o.rot.toFixed(2) + 'deg) scale(' + o.scale.toFixed(3) + ')';
       const g = o.glint;
       o.glints[0].style.opacity = o.glints[1].style.opacity = o.glints[2].style.opacity = g.toFixed(3);
@@ -1166,11 +1635,36 @@
       o.glints[2].style.transform = 'rotate(50deg) translateY(' + (g * -400).toFixed(1) + '%) translate(-50%,-50%)';
     };
 
+    /* Eight lines radiating from the icon's centre, alternating long and short so
+       the burst reads as hand-drawn rather than a perfect asterisk. Built once per
+       icon, the first time it pops, then reused. */
+    const makeBurst = (o) => {
+      const NS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('class', 'pop-burst');
+      svg.setAttribute('viewBox', '0 0 100 100');
+      const g = document.createElementNS(NS, 'g');
+      for (let i = 0; i < 8; i++) {
+        const a = i * Math.PI / 4, long = i % 2 === 0;
+        const r1 = long ? 20 : 22, r2 = long ? 31 : 26;
+        const ln = document.createElementNS(NS, 'line');
+        ln.setAttribute('x1', (50 + Math.cos(a) * r1).toFixed(2));
+        ln.setAttribute('y1', (50 + Math.sin(a) * r1).toFixed(2));
+        ln.setAttribute('x2', (50 + Math.cos(a) * r2).toFixed(2));
+        ln.setAttribute('y2', (50 + Math.sin(a) * r2).toFixed(2));
+        g.appendChild(ln);
+      }
+      svg.appendChild(g);
+      o.item.appendChild(svg);
+      o.burst = svg; o.burstG = g;
+    };
+
     objs.forEach((o) => { respawn(o); draw(o); });
 
     const active = [];
+    let suspended = false;                    // true while the school crests play
     const release = () => {
-      if (active.length >= CONCURRENT) return;
+      if (suspended || active.length >= CONCURRENT) return;
       const idle = objs.filter((o) => !o.falling);
       if (!idle.length) return;
       const o = idle[Math.floor(Math.random() * idle.length)];
@@ -1205,6 +1699,27 @@
       if (++frame % RELEASE_EVERY === 0) release();
       for (let i = active.length - 1; i >= 0; i--) {
         const o = active[i];
+        if (o.popping) {
+          /* Swell for 5 frames, then shrink away while a ring of cartoon lines
+             fires outward from the centre. ~14 frames end to end (~230ms). */
+          o.popT++;
+          o.scale = o.popT <= 5 ? 1 + o.popT * .11 : Math.max(0, 1.55 - (o.popT - 5) * .31);
+          o.glint = 0;                          // the old 3-spark flash stays out of this
+          if (o.popT === 5 && !o.burst) makeBurst(o);
+          if (o.burst) {
+            const t = Math.min(1, Math.max(0, (o.popT - 5) / 9));
+            o.burst.style.opacity = o.popT < 5 ? '0' : (1 - t).toFixed(3);
+            o.burstG.setAttribute('transform',
+              'translate(50,50) scale(' + (1 + t * .55).toFixed(3) + ') translate(-50,-50)');
+          }
+          draw(o);
+          if (o.popT >= 14) {
+            o.popping = false; o.spark = false;
+            if (o.burst) o.burst.style.opacity = '0';
+            respawn(o); active.splice(i, 1);
+          }
+          continue;
+        }
         if (o.y >= Y_END) { respawn(o); active.splice(i, 1); continue; }
         o.accel = o.held ? Math.max(o.accel - ACCEL_DOWN, ACCEL_MIN)
                          : Math.min(o.accel + ACCEL_UP, 1);
@@ -1215,6 +1730,20 @@
         draw(o);
       }
       raf = requestAnimationFrame(step);
+    };
+
+    /* Let the school-crest effect clear the sky and hand it back afterwards. */
+    window.mntrRain = {
+      pop: function () {
+        suspended = true;
+        const lh = layer.getBoundingClientRect().height || 1;
+        active.forEach(function (o) {
+          o.popping = true; o.popT = 0; o.spark = true;
+          o.popPx = o.y / 100 * lh;           // freeze in place while it bursts
+          o.held = false; o.pinned = false; o.item.classList.remove('is-held');
+        });
+      },
+      resume: function () { suspended = false; }
     };
 
     // Reduced motion: park a few objects in the gutters, no loop, no rotation.
@@ -1269,6 +1798,307 @@
     };
     staffScroll.addEventListener('scroll', kick, { passive: true });
     kick();
+  }
+
+  /* ---------- School crests: cartoon badges that spill out of a level box ----------
+     Fires once per box per page load. The STEM rain pops away first so the two
+     effects never compete for the same space; the crests then fall under gravity
+     and bounce on the hairline divider before fading out and handing the rain back.
+     The emblems are original cartoon shapes, NOT the schools' real logos. */
+  const SCHOOLS = {
+    hs: [
+      { t: 'Collège', b: 'Notre-Dame', e: 'tower' },
+      { t: 'LaurenHill', b: 'Academy', e: 'star' },
+      { t: 'Collège de', b: 'Montréal', e: 'book' },
+      { t: 'Royal West', b: 'Academy', e: 'crown' },
+      { t: 'Westmount', b: 'High School', e: 'pennant' }
+    ],
+    cegep: [
+      { t: 'Dawson', b: 'College', e: 'shield' },
+      { t: 'Marianopolis', b: 'College', e: 'book' },
+      { t: 'Vanier', b: 'College', e: 'star' },
+      { t: 'Collège de', b: 'Bois-de-Boulogne', e: 'leaf' },
+      { t: 'Collège', b: 'Jean-de-Brébeuf', e: 'tower' },
+      { t: 'Collège', b: 'André-Grasset', e: 'pennant' }
+    ]
+  };
+  const schoolShown = { hs: false, cegep: false };
+
+  function chipEmblem(kind) {
+    const art = {
+      shield:  "<path d='M12 2.6 20.4 5.6v6.2c0 4.6-3.6 7.8-8.4 9.4-4.8-1.6-8.4-4.8-8.4-9.4V5.6z'/>",
+      book:    "<rect x='3.4' y='4' width='17.2' height='16' rx='2.4'/><path d='M12 4v16' fill='none' stroke='#fff' stroke-width='2'/>",
+      tower:   "<path d='M12 2.4 18.4 8.2V20.4H5.6V8.2z'/><rect x='10' y='13.4' width='4' height='7' rx='1.6' fill='#fff' stroke='none'/>",
+      star:    "<path d='m12 2.8 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9z'/>",
+      leaf:    "<path d='M20 4c0 9-5 13.4-12 13.4C8 8.6 13 4 20 4Z'/><path d='M5 21c2-5.4 5-8.6 10-10.6' fill='none' stroke='#fff' stroke-width='2'/>",
+      pennant: "<path d='M6 3v18' fill='none'/><path d='M6 4.6h13l-3.4 4.2L19 13H6z'/>",
+      crown:   "<path d='M3.4 8.4 7 12l5-7.6 5 7.6 3.6-3.6-1.7 11H5.1z'/>"
+    };
+    return "<g fill='#16141c' stroke='#16141c' stroke-width='1.6' " +
+           "stroke-linejoin='round' stroke-linecap='round'>" + (art[kind] || art.shield) + "</g>";
+  }
+
+  /* Builds one mini crest: a cartoon mark with the school's name warped around it
+     on two arcs - upper text over the top, lower text under the bottom, both
+     upright. Path ids are per-chip so several crests can be on screen at once. */
+  let chipUid = 0;
+  function chipLogo(s) {
+    const id = 'sc' + (++chipUid);
+    return "<svg viewBox='0 0 132 132'>" +
+             "<defs>" +
+               "<path id='" + id + "t' d='M34 66A32 32 0 0 1 98 66' fill='none'/>" +
+               "<path id='" + id + "b' d='M26 66A40 40 0 0 0 106 66' fill='none'/>" +
+             "</defs>" +
+             "<g fill='#16141c' stroke='none' font-family='Inter,system-ui,sans-serif' font-size='12' font-weight='900'>" +
+               "<text><textPath href='#" + id + "t' startOffset='50%' text-anchor='middle'>" + s.t + "</textPath></text>" +
+               "<text><textPath href='#" + id + "b' startOffset='50%' text-anchor='middle'>" + s.b + "</textPath></text>" +
+             "</g>" +
+             "<g transform='translate(45,45) scale(1.75)'>" + chipEmblem(s.e) + "</g>" +
+           "</svg>";
+  }
+
+  /* The box sneezes the crests out: it winds up for 840ms, then lets go. The drop
+     is fired at that beat rather than on the click, which also means the packages
+     have finished unfolding and the floor has stopped moving before anything lands. */
+  const SNEEZE_MS = 1500, ACHOO_AT = 1050;              // the snap sits at 70% of the clock
+  const HEAVE_AT = 1780, HEAVE_MS = 750;
+  /* boxLastHeave's rattle peaks clockwise ~115ms in and counter-clockwise ~186ms in.
+     The right-hand box lets go on the clockwise swing so its crest is thrown
+     right; the left-hand box waits for the counter-clockwise one. */
+  const FLING_AT = { cegep: 115, hs: 186 };
+  const sneezed = { hs: false, cegep: false };
+  let sneezeBusy = false;                              // clicks are ignored mid-sneeze
+
+  const shuffled = function (arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  };
+
+  /* Winds the box up, then on the sneeze opens the packages and lets the crests
+     go at the same instant - the box blows both of them out of itself. */
+  function sneezeThenOpen(key, panel) {
+    const btn = document.getElementById('lvlbtn-' + key);
+    /* Shuffled, so which schools come out first - and which one is left behind for
+       the angry second shake - is different every time. */
+    const wide = window.matchMedia('(min-width: 768px)').matches;
+    const pool = shuffled(SCHOOLS[key]).slice(0, wide ? SCHOOLS[key].length : 3);
+    const firstOut = pool.slice(0, -1), heldBack = pool.slice(-1);
+
+    const reveal = function () {
+      panel.classList.add('open');                       // the space opens on the sneeze
+      setTimeout(function () { panel.classList.add('unclipped'); }, 420);
+      let shown = false;
+      const showCards = function () {
+        if (shown) return;
+        shown = true;
+        panel.classList.add('cards-in');                 // ...the plans only once they land
+        setTimeout(function () { panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 200);
+      };
+      schoolShown[key] = true;
+      dropSchools(key, showCards, firstOut);
+      setTimeout(showCards, 4000);                       // safety net if nothing ever settles
+    };
+    if (!btn || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      sneezed[key] = true; reveal(); return;
+    }
+    sneezed[key] = true;
+    sneezeBusy = true;
+    if (window.mntrRain) window.mntrRain.pop();        // clear the sky as it winds up
+    btn.classList.add('sneezing', 'busy');
+    setTimeout(reveal, ACHOO_AT);
+    setTimeout(function () { btn.classList.remove('sneezing'); }, SNEEZE_MS + 40);
+    // A beat later it scowls, rattles itself, and shakes the last one loose.
+    setTimeout(function () { btn.classList.add('lastheave'); }, HEAVE_AT);
+    const throwDir = key === 'cegep' ? 1 : -1;          // right box throws right, left throws left
+    setTimeout(function () { dropSchools(key, null, heldBack, throwDir); },
+               HEAVE_AT + (FLING_AT[key] || 150));
+    setTimeout(function () {
+      btn.classList.remove('lastheave', 'busy');          // text only returns once it's all over
+      sneezeBusy = false;
+    }, HEAVE_AT + HEAVE_MS + 40);
+  }
+
+  function dropSchools(key, onSettled, subset, fling) {
+    const settled = onSettled || function () {};
+    // A subset means the caller is orchestrating the drops and owns the once-per-box rule.
+    if (!subset && schoolShown[key]) { settled(); return; }
+    const section = document.getElementById('services');
+    const layer = document.getElementById('schoolLayer');
+    const btn = document.getElementById('lvlbtn-' + key);
+    const divider = document.getElementById('pkg-divider');
+    if (!section || !layer || !btn || !divider) { settled(); return; }
+    if (!subset) schoolShown[key] = true;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { settled(); return; }
+
+    if (window.mntrRain) window.mntrRain.pop();         // clear the STEM rain first
+
+    const wide = window.matchMedia('(min-width: 768px)').matches;
+    const list = subset || (wide ? SCHOOLS[key] : SCHOOLS[key].slice(0, 3));
+    const sRect = () => section.getBoundingClientRect();
+    /* Offsets, not rects: the box is mid-sneeze here (scaled and thrown sideways)
+       and getBoundingClientRect would hand back those transformed coordinates. */
+    const boxOf = function (el) {
+      let x = 0, y = 0, n = el;
+      while (n && n !== section) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
+      return { x: x, y: y, w: el.offsetWidth, h: el.offsetHeight };
+    };
+    const b = boxOf(btn);
+
+    const els = list.map(function (s) {
+      const el = document.createElement('div');
+      el.className = 'school-chip';
+      el.innerHTML = chipLogo(s);
+      el.style.opacity = '0';               // stays hidden until its turn to drop
+      layer.appendChild(el);
+      return el;
+    });
+    const w = els[0].offsetWidth, h = els[0].offsetHeight;
+    /* Seat a crest on its WRITING, not on its box. The lower arc of text is the
+       lowest ink in the seal, so measure where it actually ends and use that as
+       the contact edge - and as the squash pivot, so it never sinks into the
+       line. Measured rather than hard-coded, so it stays right if the arcs move. */
+    let INK = .826;
+    try {
+      const probe = els[0].querySelectorAll('text')[1];
+      const bb = probe.getBBox();
+      if (bb.height) INK = (bb.y + bb.height) / 132;      // 132 = the seal's viewBox
+    } catch (e) { /* keep the fallback */ }
+    els.forEach(function (el) { el.style.transformOrigin = '50% ' + (INK * 100).toFixed(2) + '%'; });
+    const GRAV = .62, DRAG = .995, HOLD = 150;   // bounciness is per crest, see below
+
+    /* Each crest starts half-way up inside the box - hidden behind it, since the
+       card paints on top - and slides out from under its bottom edge as it falls.
+       Spread across the box's own width, dropping vertically. */
+    const startY = b.y + b.h * .5;
+    const chips = els.map(function (el, i) {
+      const t = list.length === 1 ? .5 : i / (list.length - 1);
+      return {
+        el: el, h: h, w: w,
+        x: b.x + 8 + Math.max(0, b.w - w - 16) * t + (Math.random() - .5) * 8,
+        y: startY,
+        /* A flung crest is hurled sideways and slightly upward, so it arcs out of
+           the box the way the tilt is throwing it rather than just dropping. */
+        vy: fling ? -(1.8 + Math.random() * 1.8) : .4 + Math.random() * 2.4,
+        vx: fling ? fling * (wide ? 9 + Math.random() * 2 : 5 + Math.random() * 1.5) : (Math.random() - .5) * .16,
+        rot: (Math.random() - .5) * 16,
+        vrot: fling ? fling * (2.4 + Math.random() * 1.8) : (Math.random() - .5) * .8,
+        flung: !!fling,
+        // The thrown one is springy and keeps going, so it bounces its way back
+        // across to join the rest instead of parking against the wall.
+        bounciness: fling ? .62 + Math.random() * .1 : .34 + Math.random() * .34,
+        maxBounce: fling ? 5 + Math.floor(Math.random() * 3) : 2 + Math.floor(Math.random() * 4),
+        sx: 1, sy: 1, bounces: 0, delay: i * 6,
+        done: false, rest: false, settleAt: 0
+      };
+    });
+
+    /* On a phone the packages stack, putting the divider more than a screen below
+       the box - the crests would drop straight past the fold and bounce out of
+       sight. Cap where they land so the whole spill happens in one screenful. The
+       divider still governs the mask, so they are covered by the floor as before. */
+    const LAND_CAP = wide ? 0 : startY + Math.round(window.innerHeight * .5);
+    let f = 0, alive = chips.length, settledFired = false;
+    const finish = function (c) {
+      c.done = true;
+      if (--alive === 0) setTimeout(function () { if (window.mntrRain) window.mntrRain.resume(); }, 620);
+    };
+
+    const step = () => {
+      f++;
+      const floorY = divider.getBoundingClientRect().top - sRect().top;
+      /* Everything below the divider is floor, so mask the layer there. Folding the
+         packages away slides that line up the page and the crests are simply covered
+         by it - no separate wipe animation that could lag behind the panel. */
+      const lh = layer.getBoundingClientRect().height;
+      layer.style.clipPath = 'inset(0 0 ' + Math.max(0, lh - floorY).toFixed(1) + 'px 0)';
+      const landY = LAND_CAP ? Math.min(floorY, LAND_CAP) : floorY;
+
+      chips.forEach(function (c) {
+        if (c.done || f < c.delay) return;
+        if (!c.shown) { c.shown = true; c.el.style.opacity = '1'; }
+
+        // Only retire a crest once the floor has covered it completely.
+        if (floorY <= c.y) { if (c.el.parentNode) c.el.remove(); finish(c); return; }
+
+        // Floor dropped away beneath a settled crest (panel opened again): fall on.
+        if (c.rest && c.y + c.h * INK < landY - 6) { c.rest = false; c.vy = 0; }
+
+        if (!c.rest) {
+          c.vy += GRAV; c.y += c.vy; c.x += c.vx; c.vx *= DRAG; c.rot += c.vrot; c.vrot *= .99;
+          // Side walls: a crest thrown hard enough smacks into the edge and rebounds.
+          const wallR = sRect().width - c.w - 4;
+          const wallK = c.flung ? .58 : .42;
+          if (c.x < 4)          { c.x = 4;     c.vx = -c.vx * wallK; c.vrot *= -.5; c.sx = .74; c.sy = 1.24; }
+          else if (c.x > wallR) { c.x = wallR; c.vx = -c.vx * wallK; c.vrot *= -.5; c.sx = .74; c.sy = 1.24; }
+          const floor = landY - c.h * INK;       // seat the seal's ink on the line
+          if (c.y >= floor) {
+            c.y = floor;
+            if (c.bounces >= c.maxBounce || Math.abs(c.vy) < (c.flung ? .9 : 1.8)) {
+              c.rest = true; c.vy = c.vx = c.vrot = 0; c.settleAt = f;   // keep the angle it landed at
+            } else {
+              // A normal crest dumps its sideways speed on landing so it stays in its
+              // lane; the flung one keeps almost all of it and travels as it bounces.
+              c.vy = -c.vy * c.bounciness;
+              c.vx *= c.flung ? .88 : (c.bounces === 0 ? .1 : .6);
+              c.vrot *= .55; c.bounces++;
+              c.sx = 1.42; c.sy = .58;                 // proper splat on impact
+            }
+          }
+        } else if (f - c.settleAt > HOLD) {
+          c.el.style.transition = 'opacity .5s ease, transform .5s ease';
+          c.el.style.opacity = '0';
+          setTimeout(function () { if (c.el.parentNode) c.el.remove(); }, 560);
+          finish(c);
+        }
+        /* Squash and stretch: drawn out along a fast fall, splatted flat on impact,
+           springing back to round in between. */
+        const tsx = c.rest ? 1 : 1 - Math.min(.10, Math.abs(c.vy) * .009);
+        const tsy = c.rest ? 1 : 1 + Math.min(.17, Math.abs(c.vy) * .014);
+        c.sx += (tsx - c.sx) * .16; c.sy += (tsy - c.sy) * .16;
+        c.el.style.transform = 'translate3d(' + c.x.toFixed(1) + 'px,' + c.y.toFixed(1) + 'px,0) rotate(' +
+                               c.rot.toFixed(1) + 'deg) scale(' + c.sx.toFixed(3) + ',' + c.sy.toFixed(3) + ')';
+      });
+      // Everything has stopped bouncing - now the packages may come in.
+      if (!settledFired && chips.every(function (c) { return c.rest || c.done; })) {
+        settledFired = true; settled();
+      }
+      if (chips.some(function (c) { return !c.done; })) requestAnimationFrame(step);
+      else layer.style.clipPath = '';
+    };
+    requestAnimationFrame(step);
+  }
+
+  /* ---------- Level picker: unfold one tutoring level at a time ---------- */
+  function toggleLevel(key) {
+    if (sneezeBusy) return;                  // a box is mid-sneeze; let it finish
+    const panel = document.getElementById('lvl-' + key);
+    const btn = document.getElementById('lvlbtn-' + key);
+    if (!panel || !btn) return;
+    const opening = !panel.classList.contains('open');
+    // Accordion: whatever is open closes first, so only one ladder shows at a time.
+    document.querySelectorAll('.level-panel.open').forEach((p) => {
+      p.classList.remove('open');
+      const b = document.getElementById('lvlbtn-' + p.id.slice(4));
+      p.classList.remove('cards-in', 'unclipped');
+      if (b) { b.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); }
+    });
+    if (!opening) return;
+    btn.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+    if (!sneezed[key]) {
+      // First time: the packages stay in until the box sneezes them out.
+      sneezeThenOpen(key, panel);
+      return;
+    }
+    panel.classList.add('open', 'cards-in');
+    setTimeout(function () { panel.classList.add('unclipped'); }, 420);
+    // On phones the panel sits below BOTH boxes - nudge it into view once it has
+    // opened. 'nearest' means an already-visible panel is left alone.
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 190);
   }
 
   /* ---------- Service cards -> branded checkout page (paid) or booking (free) ---------- */
