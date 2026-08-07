@@ -562,7 +562,7 @@
     .level-card.sneezing  { animation-name: boxSneezeSm; }
     .level-card.lastheave { animation-name: boxLastHeaveSm; }
     .lvl-face { width: min(58%, 150px); }
-    .school-chip { width: 68px; height: 68px; }
+    .school-chip { width: 60px; height: 60px; }
     .pop-burst { width: 128%; height: 128%; }
     .pop-burst line { stroke-width: 7.5; }
   }
@@ -1889,7 +1889,7 @@
     /* Shuffled, so which schools come out first - and which one is left behind for
        the angry second shake - is different every time. */
     const wide = window.matchMedia('(min-width: 768px)').matches;
-    const pool = shuffled(SCHOOLS[key]).slice(0, wide ? SCHOOLS[key].length : 3);
+    const pool = shuffled(SCHOOLS[key]);               // every school, on every screen
     const firstOut = pool.slice(0, -1), heldBack = pool.slice(-1);
 
     const reveal = function () {
@@ -1944,7 +1944,7 @@
     otherBoxes.forEach(function (el) { el.classList.add('behind'); });
 
     const wide = window.matchMedia('(min-width: 768px)').matches;
-    const list = subset || (wide ? SCHOOLS[key] : SCHOOLS[key].slice(0, 3));
+    const list = subset || SCHOOLS[key];
     const sRect = () => section.getBoundingClientRect();
     /* Offsets, not rects: the box is mid-sneeze here (scaled and thrown sideways)
        and getBoundingClientRect would hand back those transformed coordinates. */
@@ -2019,11 +2019,20 @@
       return Math.max(startY + 60, Math.min(r.height - 6, window.innerHeight - r.top - 10));
     };
     /* Land on the screen edge whenever the divider is too far below to be seen.
-       Keyed on the actual drop against the actual viewport rather than on width,
-       so a phone held sideways or a short window is covered too, not just a
-       narrow one. */
+       Keyed on the drop against the viewport rather than on width, so a phone held
+       sideways or a short window is covered too, not just a narrow one.
+
+       The panel is still unfolding when the first crests are released, so the
+       divider has not reached its final place yet. Add what is still to come,
+       otherwise this batch would judge the divider "close" and land on it, while
+       the crest thrown a second later judged it "far" and landed on the screen
+       edge - the two halves of the same spill using different floors. */
+    const clipEl = document.querySelector('#lvl-' + key + ' .level-clip');
+    const pendingUnfold = clipEl
+      ? Math.max(0, clipEl.scrollHeight - clipEl.getBoundingClientRect().height) : 0;
     const screenGround =
-      ((divider.getBoundingClientRect().top - sRect().top) - startY) > window.innerHeight * .7;
+      ((divider.getBoundingClientRect().top - sRect().top) + pendingUnfold - startY)
+        > window.innerHeight * .7;
     const HOLD = screenGround ? 70 : 150;
     let f = 0, alive = chips.length, settledFired = false;
     const finish = function (c) {
