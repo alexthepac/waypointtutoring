@@ -272,7 +272,7 @@
     border-color: var(--ink);
     box-shadow: 0 28px 60px -26px rgba(22,20,28,.35);
   }
-  .level-chev { transition: transform .32s cubic-bezier(.22,.61,.36,1); }
+  .level-chev { transition: transform .21s cubic-bezier(.22,.61,.36,1); }
   .level-card.open .level-chev { transform: rotate(180deg); }
   .level-card .lbl-open { display: none; }
   .level-card.open .lbl-open { display: inline; }
@@ -280,22 +280,22 @@
 
   .level-panel {
     display: grid; grid-template-rows: 0fr;
-    transition: grid-template-rows .38s cubic-bezier(.22,.61,.36,1);
+    transition: grid-template-rows .25s cubic-bezier(.22,.61,.36,1);
   }
   .level-panel > .level-clip { overflow: hidden; }
   /* Clipping is only needed while the height animates. Once open we stop, so
      the panel paints exactly like any other part of the page - no clipped
      shadows, no edge, the same flat background everywhere. */
-  .level-panel.unclipped > .level-clip { overflow: visible; }
+  .level-panel.open.unclipped > .level-clip { overflow: visible; }
   .level-panel.open { grid-template-rows: 1fr; }
 
   /* The three plans rise in with a stagger once their panel is open. The wrapper
      animates, never the card, so the featured card keeps its own scale + hover. */
   .pkg-col { opacity: 0; transform: translateX(-30px) scale(.94); }
   /* Held back until the crests have stopped bouncing (see dropSchools' onSettled). */
-  .level-panel.cards-in .pkg-col { animation: pkgIn .55s cubic-bezier(.21,.9,.3,1.04) forwards; }
-  .level-panel.cards-in .pkg-col:nth-child(2) { animation-delay: .11s; }
-  .level-panel.cards-in .pkg-col:nth-child(3) { animation-delay: .22s; }
+  .level-panel.cards-in .pkg-col { animation: pkgIn .37s cubic-bezier(.21,.9,.3,1.04) forwards; }
+  .level-panel.cards-in .pkg-col:nth-child(2) { animation-delay: .07s; }
+  .level-panel.cards-in .pkg-col:nth-child(3) { animation-delay: .15s; }
   @keyframes pkgIn { to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) {
     .level-panel, .level-chev, .level-card { transition: none; }
@@ -320,22 +320,22 @@
     width: min(62%, 190px); height: auto;
     opacity: 0; pointer-events: none;
   }
-  .level-card > span { transition: opacity .16s ease; }
+  .level-card > span { transition: opacity .11s ease; }
   /* One flag for the whole performance: sneezing ends 240ms before the scowl
      begins, and without this the text would flash back in during the gap. */
   .level-card.sneezing > span,
   .level-card.busy > span { opacity: 0; }
   .level-card.sneezing {
-    animation: boxSneeze 1.5s linear both;
+    animation: boxSneeze 1s linear both;
     transition: none;                       /* don't let the hover transition fight it */
     will-change: transform;
     backface-visibility: hidden;
     z-index: 41;
   }
-  .level-card.sneezing .lvl-face  { animation: faceShow 1.5s linear both; }
-  .level-card.sneezing .face-eye-open { animation: eyeOpen 1.5s linear both; }
-  .level-card.sneezing .face-eye-shut { animation: eyeShut 1.5s linear both; }
-  .level-card.sneezing .face-mouth    { animation: mouthSneeze 1.5s linear both; }
+  .level-card.sneezing .lvl-face  { animation: faceShow 1s linear both; }
+  .level-card.sneezing .face-eye-open { animation: eyeOpen 1s linear both; }
+  .level-card.sneezing .face-eye-shut { animation: eyeShut 1s linear both; }
+  .level-card.sneezing .face-mouth    { animation: mouthSneeze 1s linear both; }
   .face-mouth { transform-box: fill-box; transform-origin: center; }
 
   @keyframes boxSneeze {
@@ -418,10 +418,10 @@
   .face-eye-shut { opacity: 0; }             /* only shown mid-sneeze */
   .face-cheer    { opacity: 0; }
   .level-card.lastheave {
-    animation: boxLastHeave .75s linear both;
+    animation: boxLastHeave .5s linear both;
     transition: none; will-change: transform; backface-visibility: hidden; z-index: 41;
   }
-  .level-card.lastheave .lvl-face { animation: faceStay .75s linear both; }
+  .level-card.lastheave .lvl-face { animation: faceStay .5s linear both; }
   .level-card.lastheave .face-cheer { opacity: 1; }
   .level-card.lastheave .face-eye-open { opacity: 0; }  /* the happy squint takes over */
   .level-card.lastheave .face-mouth { opacity: 0; }    /* ...and brings its own grin */
@@ -1711,20 +1711,20 @@
       for (let i = active.length - 1; i >= 0; i--) {
         const o = active[i];
         if (o.popping) {
-          /* Swell for 5 frames, then shrink away while a ring of cartoon lines
-             fires outward from the centre. ~14 frames end to end (~230ms). */
+          /* Swell for 3 frames, then shrink away while a ring of cartoon lines
+             fires outward from the centre. ~9 frames end to end (~150ms). */
           o.popT++;
-          o.scale = o.popT <= 5 ? 1 + o.popT * .11 : Math.max(0, 1.55 - (o.popT - 5) * .31);
+          o.scale = o.popT <= 3 ? 1 + o.popT * .183 : Math.max(0, 1.55 - (o.popT - 3) * .465);
           o.glint = 0;                          // the old 3-spark flash stays out of this
-          if (o.popT === 5 && !o.burst) makeBurst(o);
+          if (o.popT === 3 && !o.burst) makeBurst(o);
           if (o.burst) {
-            const t = Math.min(1, Math.max(0, (o.popT - 5) / 9));
-            o.burst.style.opacity = o.popT < 5 ? '0' : (1 - t).toFixed(3);
+            const t = Math.min(1, Math.max(0, (o.popT - 3) / 6));
+            o.burst.style.opacity = o.popT < 3 ? '0' : (1 - t).toFixed(3);
             o.burstG.setAttribute('transform',
               'translate(50,50) scale(' + (1 + t * .55).toFixed(3) + ') translate(-50,-50)');
           }
           draw(o);
-          if (o.popT >= 14) {
+          if (o.popT >= 9) {
             o.popping = false; o.spark = false;
             if (o.burst) o.burst.style.opacity = '0';
             respawn(o); active.splice(i, 1);
@@ -1869,15 +1869,15 @@
            "</svg>";
   }
 
-  /* The box sneezes the crests out: it winds up for 840ms, then lets go. The drop
+  /* The box sneezes the crests out: it winds up for 700ms, then lets go. The drop
      is fired at that beat rather than on the click, which also means the packages
      have finished unfolding and the floor has stopped moving before anything lands. */
-  const SNEEZE_MS = 1500, ACHOO_AT = 1050;              // the snap sits at 70% of the clock
-  const HEAVE_AT = 1780, HEAVE_MS = 750;
+  const SNEEZE_MS = 1000, ACHOO_AT = 700;              // the snap sits at 70% of the clock
+  const HEAVE_AT = 1187, HEAVE_MS = 500;
   /* boxLastHeave's rattle peaks clockwise ~115ms in and counter-clockwise ~186ms in.
      The right-hand box lets go on the clockwise swing so its crest is thrown
      right; the left-hand box waits for the counter-clockwise one. */
-  const FLING_AT = { cegep: 115, hs: 186 };
+  const FLING_AT = { cegep: 77, hs: 124 };
   const sneezed = { hs: false, cegep: false };
 
   const shuffled = function (arr) {
@@ -1904,8 +1904,8 @@
        the prices rather than in front of them. */
     const reveal = function () {
       panel.classList.add('open', 'cards-in');
-      setTimeout(function () { panel.classList.add('unclipped'); }, 420);
-      setTimeout(function () { panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 200);
+      setTimeout(function () { if (panel.classList.contains('open')) panel.classList.add('unclipped'); }, 280);
+      setTimeout(function () { panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 133);
       schoolShown[key] = true;
     };
     reveal();                                            // prices first, always
@@ -1978,7 +1978,7 @@
       } catch (e) { /* keep the fallbacks */ }
       return { ink: ink, hw: hw };
     };
-    const GRAV = .62, DRAG = .995;   // bounciness is per crest, see below
+    const GRAV = 1.395, DRAG = .9925;   // bounciness is per crest, see below
 
     /* Each crest starts half-way up inside the box - hidden behind it, since the
        card paints on top - and slides out from under its bottom edge as it falls.
@@ -1994,16 +1994,16 @@
         y: startY,
         /* A flung crest is hurled sideways and slightly upward, so it arcs out of
            the box the way the tilt is throwing it rather than just dropping. */
-        vy: fling ? -(1.8 + Math.random() * 1.8) : .4 + Math.random() * 2.4,
-        vx: fling ? fling * (wide ? 9 + Math.random() * 2 : 5 + Math.random() * 1.5) : (Math.random() - .5) * .16,
+        vy: fling ? -(2.7 + Math.random() * 2.7) : .6 + Math.random() * 3.6,
+        vx: fling ? fling * (wide ? 13.5 + Math.random() * 3 : 7.5 + Math.random() * 2.25) : (Math.random() - .5) * .24,
         rot: (Math.random() - .5) * 16,
-        vrot: fling ? fling * (.55 + Math.random() * .45) : (Math.random() - .5) * .8,
+        vrot: fling ? fling * (.825 + Math.random() * .675) : (Math.random() - .5) * 1.2,
         flung: !!fling,
         // The thrown one is springy and keeps going, so it bounces its way back
         // across to join the rest instead of parking against the wall.
         bounciness: fling ? .62 + Math.random() * .1 : .34 + Math.random() * .34,
         maxBounce: fling ? 5 + Math.floor(Math.random() * 3) : 2 + Math.floor(Math.random() * 4),
-        sx: 1, sy: 1, bounces: 0, delay: i * 6, settleFix: 0,
+        sx: 1, sy: 1, bounces: 0, delay: i * 4, settleFix: 0,
         done: false, rest: false, settleAt: 0
       };
     });
@@ -2034,14 +2034,14 @@
     const screenGround =
       ((divider.getBoundingClientRect().top - sRect().top) + pendingUnfold - startY)
         > window.innerHeight * .7;
-    const HOLD = screenGround ? 70 : 150;
+    const HOLD = screenGround ? 47 : 100;
     let f = 0, alive = chips.length, settledFired = false;
     const finish = function (c) {
       c.done = true;
       if (--alive === 0) setTimeout(function () {
         if (window.mntrRain) window.mntrRain.resume();
         otherBoxes.forEach(function (el) { el.classList.remove('behind'); });
-      }, 620);
+      }, 413);
     };
 
     const step = () => {
@@ -2082,7 +2082,7 @@
         if (c.rest && c.y < seat - 40) { c.rest = false; c.vy = 0; c.settleFix = 0; }
 
         if (!c.rest) {
-          c.vy += GRAV; c.y += c.vy; c.x += c.vx; c.vx *= DRAG; c.rot += c.vrot; c.vrot *= c.flung ? .9 : .99;
+          c.vy += GRAV; c.y += c.vy; c.x += c.vx; c.vx *= DRAG; c.rot += c.vrot; c.vrot *= c.flung ? .854 : .985;
           // Side walls: a crest thrown hard enough smacks into the edge and rebounds.
           const wallR = sRect().width - c.w - 4;
           const wallK = c.flung ? .58 : .42;
@@ -2090,7 +2090,7 @@
           else if (c.x > wallR) { c.x = wallR; c.vx = -c.vx * wallK; c.vrot *= -.5; c.sx = .74; c.sy = 1.24; }
           if (c.y >= seat) {
             c.y = seat;
-            if (c.bounces >= c.maxBounce || Math.abs(c.vy) < (c.flung ? .9 : 1.8)) {
+            if (c.bounces >= c.maxBounce || Math.abs(c.vy) < (c.flung ? 1.35 : 2.7)) {
               c.rest = true; c.vy = c.vx = c.vrot = 0; c.settleAt = f;   // keep the angle it landed at
               c.sx = c.sy = 1;                                     // and flat, ready to be measured
             } else {
@@ -2103,16 +2103,16 @@
             }
           }
         } else if (f - c.settleAt > HOLD) {
-          c.el.style.transition = 'opacity .5s ease, transform .5s ease';
+          c.el.style.transition = 'opacity .33s ease, transform .33s ease';
           c.el.style.opacity = '0';
-          setTimeout(function () { if (c.el.parentNode) c.el.remove(); }, 560);
+          setTimeout(function () { if (c.el.parentNode) c.el.remove(); }, 373);
           finish(c);
         }
         /* Squash and stretch: drawn out along a fast fall, splatted flat on impact,
            springing back to round in between. */
         const tsx = c.rest ? 1 : 1 - Math.min(.10, Math.abs(c.vy) * .009);
         const tsy = c.rest ? 1 : 1 + Math.min(.17, Math.abs(c.vy) * .014);
-        c.sx += (tsx - c.sx) * .16; c.sy += (tsy - c.sy) * .16;
+        c.sx += (tsx - c.sx) * .23; c.sy += (tsy - c.sy) * .23;
         c.el.style.transform = 'translate3d(' + c.x.toFixed(1) + 'px,' + c.y.toFixed(1) + 'px,0) rotate(' +
                                c.rot.toFixed(1) + 'deg) scale(' + c.sx.toFixed(3) + ',' + c.sy.toFixed(3) + ')';
       });
@@ -2149,10 +2149,10 @@
       return;
     }
     panel.classList.add('open', 'cards-in');
-    setTimeout(function () { panel.classList.add('unclipped'); }, 420);
+    setTimeout(function () { if (panel.classList.contains('open')) panel.classList.add('unclipped'); }, 280);
     // On phones the panel sits below BOTH boxes - nudge it into view once it has
     // opened. 'nearest' means an already-visible panel is left alone.
-    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 190);
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 127);
   }
 
   /* ---------- Service cards -> branded checkout page (paid) or booking (free) ---------- */
