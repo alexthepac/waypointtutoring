@@ -255,6 +255,10 @@
     transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
   }
   .level-card:hover { border-color: rgba(22,20,28,.22); transform: translateY(-4px); }
+  /* While crests are in the air, any OTHER level box drops behind the crest layer.
+     On a phone the boxes stack, so the one underneath would otherwise swallow
+     everything falling out of the box above it. */
+  .level-card.behind { z-index: 20; }
   .level-card.open {
     border-color: var(--ink);
     box-shadow: 0 28px 60px -26px rgba(22,20,28,.35);
@@ -1900,7 +1904,7 @@
       };
       schoolShown[key] = true;
       dropSchools(key, showCards, firstOut);
-      setTimeout(showCards, 4000);                       // safety net if nothing ever settles
+      setTimeout(showCards, 9000);                       // safety net if nothing ever settles
     };
     if (!btn || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       sneezed[key] = true; reveal(); return;
@@ -1935,6 +1939,9 @@
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { settled(); return; }
 
     if (window.mntrRain) window.mntrRain.pop();         // clear the STEM rain first
+    const otherBoxes = [].slice.call(document.querySelectorAll('.level-card'))
+      .filter(function (el) { return el !== btn; });
+    otherBoxes.forEach(function (el) { el.classList.add('behind'); });
 
     const wide = window.matchMedia('(min-width: 768px)').matches;
     const list = subset || (wide ? SCHOOLS[key] : SCHOOLS[key].slice(0, 3));
@@ -1957,18 +1964,20 @@
       return el;
     });
     const w = els[0].offsetWidth, h = els[0].offsetHeight;
-    /* Seat a crest on its WRITING, not on its box. The lower arc of text is the
-       lowest ink in the seal, so measure where it actually ends and use that as
-       the contact edge - and as the squash pivot, so it never sinks into the
-       line. Measured rather than hard-coded, so it stays right if the arcs move. */
-    let INK = .826;
-    try {
-      const probe = els[0].querySelectorAll('text')[1];
-      const bb = probe.getBBox();
-      if (bb.height) INK = (bb.y + bb.height) / 132;      // 132 = the seal's viewBox
-    } catch (e) { /* keep the fallback */ }
-    els.forEach(function (el) { el.style.transformOrigin = '50% ' + (INK * 100).toFixed(2) + '%'; });
-    const GRAV = .62, DRAG = .995, HOLD = 150;   // bounciness is per crest, see below
+    /* Seat a crest on its WRITING, not on its box. Measured PER CREST: the lower
+       arc holds the lowest ink, and how far it reaches depends on the name, so a
+       short one like "College" and a long one like "Bois-de-Boulogne" need
+       different contact points. Also used as the squash pivot. */
+    const inkOf = function (el) {
+      let ink = .826, hw = .27;                            // 132 = the seal's viewBox
+      try {
+        const bb = el.querySelectorAll('text')[1].getBBox();
+        if (bb.height) ink = (bb.y + bb.height) / 132;
+        if (bb.width) hw = (bb.width / 2) / 132;
+      } catch (e) { /* keep the fallbacks */ }
+      return { ink: ink, hw: hw };
+    };
+    const GRAV = .62, DRAG = .995;   // bounciness is per crest, see below
 
     /* Each crest starts half-way up inside the box - hidden behind it, since the
        card paints on top - and slides out from under its bottom edge as it falls.
@@ -1976,8 +1985,10 @@
     const startY = b.y + b.h * .5;
     const chips = els.map(function (el, i) {
       const t = list.length === 1 ? .5 : i / (list.length - 1);
+      const g = inkOf(el);
+      el.style.transformOrigin = '50% ' + (g.ink * 100).toFixed(2) + '%';
       return {
-        el: el, h: h, w: w,
+        el: el, h: h, w: w, ink: g.ink, inkHW: g.hw, txt: el.querySelectorAll('text')[1],
         x: b.x + 8 + Math.max(0, b.w - w - 16) * t + (Math.random() - .5) * 8,
         y: startY,
         /* A flung crest is hurled sideways and slightly upward, so it arcs out of
@@ -1985,13 +1996,13 @@
         vy: fling ? -(1.8 + Math.random() * 1.8) : .4 + Math.random() * 2.4,
         vx: fling ? fling * (wide ? 9 + Math.random() * 2 : 5 + Math.random() * 1.5) : (Math.random() - .5) * .16,
         rot: (Math.random() - .5) * 16,
-        vrot: fling ? fling * (2.4 + Math.random() * 1.8) : (Math.random() - .5) * .8,
+        vrot: fling ? fling * (.55 + Math.random() * .45) : (Math.random() - .5) * .8,
         flung: !!fling,
         // The thrown one is springy and keeps going, so it bounces its way back
         // across to join the rest instead of parking against the wall.
         bounciness: fling ? .62 + Math.random() * .1 : .34 + Math.random() * .34,
         maxBounce: fling ? 5 + Math.floor(Math.random() * 3) : 2 + Math.floor(Math.random() * 4),
-        sx: 1, sy: 1, bounces: 0, delay: i * 6,
+        sx: 1, sy: 1, bounces: 0, delay: i * 6, settleFix: 0,
         done: false, rest: false, settleAt: 0
       };
     });
@@ -2000,11 +2011,27 @@
        the box - the crests would drop straight past the fold and bounce out of
        sight. Cap where they land so the whole spill happens in one screenful. The
        divider still governs the mask, so they are covered by the floor as before. */
-    const LAND_CAP = wide ? 0 : startY + Math.round(window.innerHeight * .5);
+    /* On a phone the ground is simply the bottom of the screen, so wherever the
+       reader has scrolled to, the crests land in view. Recomputed every frame, so
+       it follows them if they keep scrolling mid-fall. */
+    const groundY = function () {
+      const r = sRect();
+      return Math.max(startY + 60, Math.min(r.height - 6, window.innerHeight - r.top - 10));
+    };
+    /* Land on the screen edge whenever the divider is too far below to be seen.
+       Keyed on the actual drop against the actual viewport rather than on width,
+       so a phone held sideways or a short window is covered too, not just a
+       narrow one. */
+    const screenGround =
+      ((divider.getBoundingClientRect().top - sRect().top) - startY) > window.innerHeight * .7;
+    const HOLD = screenGround ? 70 : 150;
     let f = 0, alive = chips.length, settledFired = false;
     const finish = function (c) {
       c.done = true;
-      if (--alive === 0) setTimeout(function () { if (window.mntrRain) window.mntrRain.resume(); }, 620);
+      if (--alive === 0) setTimeout(function () {
+        if (window.mntrRain) window.mntrRain.resume();
+        otherBoxes.forEach(function (el) { el.classList.remove('behind'); });
+      }, 620);
     };
 
     const step = () => {
@@ -2014,8 +2041,9 @@
          packages away slides that line up the page and the crests are simply covered
          by it - no separate wipe animation that could lag behind the panel. */
       const lh = layer.getBoundingClientRect().height;
-      layer.style.clipPath = 'inset(0 0 ' + Math.max(0, lh - floorY).toFixed(1) + 'px 0)';
-      const landY = LAND_CAP ? Math.min(floorY, LAND_CAP) : floorY;
+      // The divider only acts as a lid on desktop; on a phone the screen edge is the floor.
+      layer.style.clipPath = screenGround ? '' : 'inset(0 0 ' + Math.max(0, lh - floorY).toFixed(1) + 'px 0)';
+      const landY = screenGround ? groundY() : floorY;
 
       chips.forEach(function (c) {
         if (c.done || f < c.delay) return;
@@ -2025,26 +2053,42 @@
         if (floorY <= c.y) { if (c.el.parentNode) c.el.remove(); finish(c); return; }
 
         // Floor dropped away beneath a settled crest (panel opened again): fall on.
-        if (c.rest && c.y + c.h * INK < landY - 6) { c.rest = false; c.vy = 0; }
+        /* A tilted seal swings the end of its lower arc down by halfWidth*sin(angle);
+           seat it on that lowest point so every crest meets the line, whatever
+           angle it happens to land at. */
+        const seat = landY - c.h * c.ink - c.h * c.inkHW * Math.abs(Math.sin(c.rot * Math.PI / 180));
+        /* The arc maths above only approximates where a tilted seal touches down -
+           the lower text is a curve, so its widest glyphs ride up instead of
+           sitting level. Once at rest, measure what it really renders as and close
+           the remaining gap, so every crest meets the line at the same height. */
+        if (c.rest && c.settleFix < 24 && c.txt) {
+          try {
+            const drift = (c.txt.getBoundingClientRect().bottom - sRect().top) - landY;
+            if (!isFinite(drift)) c.settleFix = 99;
+            else if (Math.abs(drift) > .3) { c.y -= drift; c.settleFix++; }
+            else c.settleFix = 99;                         // close enough, stop nudging
+          } catch (e) { c.settleFix = 99; }
+        }
+        if (c.rest && c.y < seat - 40) { c.rest = false; c.vy = 0; c.settleFix = 0; }
 
         if (!c.rest) {
-          c.vy += GRAV; c.y += c.vy; c.x += c.vx; c.vx *= DRAG; c.rot += c.vrot; c.vrot *= .99;
+          c.vy += GRAV; c.y += c.vy; c.x += c.vx; c.vx *= DRAG; c.rot += c.vrot; c.vrot *= c.flung ? .9 : .99;
           // Side walls: a crest thrown hard enough smacks into the edge and rebounds.
           const wallR = sRect().width - c.w - 4;
           const wallK = c.flung ? .58 : .42;
           if (c.x < 4)          { c.x = 4;     c.vx = -c.vx * wallK; c.vrot *= -.5; c.sx = .74; c.sy = 1.24; }
           else if (c.x > wallR) { c.x = wallR; c.vx = -c.vx * wallK; c.vrot *= -.5; c.sx = .74; c.sy = 1.24; }
-          const floor = landY - c.h * INK;       // seat the seal's ink on the line
-          if (c.y >= floor) {
-            c.y = floor;
+          if (c.y >= seat) {
+            c.y = seat;
             if (c.bounces >= c.maxBounce || Math.abs(c.vy) < (c.flung ? .9 : 1.8)) {
               c.rest = true; c.vy = c.vx = c.vrot = 0; c.settleAt = f;   // keep the angle it landed at
+              c.sx = c.sy = 1;                                     // and flat, ready to be measured
             } else {
               // A normal crest dumps its sideways speed on landing so it stays in its
               // lane; the flung one keeps almost all of it and travels as it bounces.
               c.vy = -c.vy * c.bounciness;
               c.vx *= c.flung ? .88 : (c.bounces === 0 ? .1 : .6);
-              c.vrot *= .55; c.bounces++;
+              c.vrot *= c.flung ? .34 : .55; c.bounces++;   // the thrown one settles level too
               c.sx = 1.42; c.sy = .58;                 // proper splat on impact
             }
           }
@@ -2063,8 +2107,13 @@
                                c.rot.toFixed(1) + 'deg) scale(' + c.sx.toFixed(3) + ',' + c.sy.toFixed(3) + ')';
       });
       // Everything has stopped bouncing - now the packages may come in.
-      if (!settledFired && chips.every(function (c) { return c.rest || c.done; })) {
-        settledFired = true; settled();
+      /* Desktop shows the plans as soon as everything has stopped bouncing. A phone
+         waits for the crests to clear the screen entirely first, so the two lots of
+         animation never run at once. */
+      const ready = screenGround ? alive === 0 : chips.every(function (c) { return c.rest || c.done; });
+      if (!settledFired && ready) {
+        settledFired = true;
+        setTimeout(settled, screenGround ? 620 : 0);
       }
       if (chips.some(function (c) { return !c.done; })) requestAnimationFrame(step);
       else layer.style.clipPath = '';
