@@ -161,7 +161,11 @@
     position: absolute; inset: 0;
     overflow: hidden;          /* clips the objects behind the hero's bottom edge */
     pointer-events: none;      /* only the objects themselves are clickable */
-    z-index: 20;               /* above the cards, as alloprof's stickers are */
+    /* In FRONT of the level boxes (40/41), so the science icons rain over them.
+       The school crests keep their own layer at 30, BELOW the boxes, so they can
+       still be hidden inside a box and slide out from under it. Kept under the
+       header's z-50 so nothing ever paints over the sticky nav. */
+    z-index: 45;
     --laneW: 3.9rem;
   }
   @media (min-width: 768px) { .fall-layer { --laneW: 5.9rem; } }
@@ -184,6 +188,10 @@
     transition: opacity .35s ease;
   }
   .fall-item.is-held { opacity: 1; }        /* picked up: comes fully forward */
+  /* The icons now paint over the level boxes, so on touch screens they must not
+     swallow a tap meant for a box. Hovering to slow one down is a pointer-only
+     trick regardless, so there they are purely decorative. */
+  @media (hover: none) { .fall-item { pointer-events: none; } }
   .fall-art { display: block; width: 100%; height: 100%; overflow: visible; will-change: transform; }
 
   /* Impact glints: three spark lines that streak outward when an object is
@@ -1471,7 +1479,7 @@
               +1&nbsp;514-652-0018
             </a>
           </li>
-          <li class='text-neutral-500 text-xs leading-relaxed'>Horaire d&rsquo;été&nbsp;: texto ou appel<br />du lundi au vendredi, de 9&nbsp;h à 16&nbsp;h</li>
+          <li class='text-neutral-500 text-xs leading-relaxed'>Horaire d&rsquo;été&nbsp;: texto ou appel<br />tous les jours, de 9&nbsp;h à 16&nbsp;h</li>
         </ul>
       </div>
     </div>
