@@ -125,7 +125,7 @@
       <div class="pkg-featured relative rounded-3xl p-7 md:sticky md:top-28">
         <div class="flex items-baseline justify-between gap-3">
           <span class="text-neutral-500 text-sm">Prix</span>
-          <span id="svc-price" class="text-3xl font-semibold text-ink">$0</span>
+          <span id="svc-price" class="text-3xl font-semibold text-ink">0&nbsp;$</span>
         </div>
         <p id="svc-unit" class="text-neutral-500 text-sm text-right mb-2"></p>
 
@@ -193,7 +193,7 @@
      Until a real https:// link is in, the button routes to the contact page.
 
      PAYMENT ARCHITECTURE:
-     - Per-session services (tutoring $35, casper-hourly $35) use 'cal':
+     - Per-session services (tutoring 35 $, casper-hourly 35 $) use 'cal':
        the button goes straight to the Cal.com event, which has the price
        set via the Cal.com Stripe app. Payment is enforced at booking.
        Keep these events PUBLIC with their price ON.
@@ -208,32 +208,32 @@
   ===================================================================== */
   var SERVICES = {
     tutoring: {
-      name: 'Tutorat STEM individuel',
-      price: '$35', unit: 'par session de 60 minutes',
+      name: 'Tutorat scolaire individuel',
+      price: '35 $', unit: 'par session de 60 minutes',
       desc: 'Tutorat individuel avec des étudiants en médecine, préparé à l\'avance autour de vos cours précis.',
-      includes: ['Une session en ligne complète de 60 minutes', 'Préparé autour de votre programme d\'études et de vos objectifs', 'Matières STEM du secondaire à l\'université', 'Coaching sur les méthodes d\'étude intégré à chaque session'],
+      includes: ['Une session en ligne complète de 60 minutes', 'Préparé autour de votre programme d\'études et de vos objectifs', 'Toutes les matières, du secondaire à l\'université', 'Coaching sur les méthodes d\'étude intégré à chaque session'],
       note: 'Nous communiquerons avec vous par courriel afin de tout confirmer, et vous pourrez choisir votre personne tutrice à l’étape de réservation.',
       cal: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring'
     },
     pack5: {
       name: 'Forfait de tutorat 5 sessions',
-      price: '$162.50', unit: '$32.50 / session · économisez $12.50',
+      price: '162,50 $', unit: '32,50 $ / session · économisez 12,50 $',
       desc: 'Cinq sessions de tutorat individuel à un taux réduit par session, pour les étudiants qui veulent un soutien régulier.',
       note: 'Vous pourrez choisir votre personne tutrice à l’étape de réservation. Après votre paiement, nous communiquerons avec vous par courriel afin de connaître vos préférences à ce sujet et de confirmer l’horaire de vos sessions.',
-      includes: ['Cinq sessions en ligne de 60 minutes', '$32.50 par session (économisez $12.50 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
+      includes: ['Cinq sessions en ligne de 60 minutes', '32,50 $ par session (économisez 12,50 $ au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
       stripe: 'https://buy.stripe.com/7sY5kF7SO0NWbFA9RndUY0f'
     },
     pack10: {
       name: 'Forfait de tutorat 10 sessions',
-      price: '$300', unit: '$30 / session · économisez $50',
+      price: '300 $', unit: '30 $ / session · économisez 50 $',
       desc: 'Dix sessions de tutorat individuel à notre meilleur taux par session, idéal pour un trimestre complet de soutien constant.',
       note: 'Vous pourrez choisir votre personne tutrice à l’étape de réservation. Après votre paiement, nous communiquerons avec vous par courriel afin de connaître vos préférences à ce sujet et de confirmer l’horaire de vos sessions.',
-      includes: ['Dix sessions en ligne de 60 minutes', '$30 par session (économisez $50 au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
+      includes: ['Dix sessions en ligne de 60 minutes', '30 $ par session (économisez 50 $ au total)', 'Même tutorat préparé basé sur le programme', 'Jumelage constant avec votre personne tutrice'],
       stripe: 'https://buy.stripe.com/aFa00l2yufIQ7pk3sZdUY0d'
     },
     'casper-pack5': {
       name: 'Forfait 5 sessions Casper & MEM',
-      price: '$162.50', unit: '32,50 $ / session · économisez 12,50 $',
+      price: '162,50 $', unit: '32,50 $ / session · économisez 12,50 $',
       desc: 'Cinq sessions individuelles avec des étudiants en médecine qui ont passé ces mêmes entrevues et qui ont été admis. Assez de temps pour couvrir l\u2019ensemble des scénarios Casper et des types de stations MEM, bâtir un cadre de réponse reproductible et vous exercer sous une vraie pression de temps jusqu\u2019à ce que ça devienne automatique.',
       note: 'Vous pourrez choisir votre mentor à l\u2019étape de réservation. Après votre paiement, nous communiquerons avec vous par courriel afin de connaître vos préférences à ce sujet et de confirmer l\u2019horaire de vos sessions.',
       includes: ['Cinq sessions en ligne de 60 minutes', '32,50 $ par session (économisez 12,50 $ au total)', 'Simulations Casper chronométrées et stations MEM simulées', 'Rétroaction individuelle détaillée après chaque session', 'Cadres de réponse éprouvés & grille d\u2019évaluation', 'Jumelage constant avec votre mentor'],
@@ -241,7 +241,7 @@
     },
     'casper-pack10': {
       name: 'Forfait 10 sessions Casper & MEM',
-      price: '$300', unit: '30 $ / session · économisez 50 $',
+      price: '300 $', unit: '30 $ / session · économisez 50 $',
       desc: 'Notre préparation la plus complète aux entrevues : dix sessions individuelles avec des étudiants admis en médecine au Québec. Conçu pour les candidats qui veulent passer du premier essai à la maîtrise complète \u2014 dilemmes éthiques, scénarios de collaboration et de communication, et circuits MEM complets, avec vos réponses affinées session après session.',
       note: 'Vous pourrez choisir votre mentor à l\u2019étape de réservation. Après votre paiement, nous communiquerons avec vous par courriel afin de connaître vos préférences à ce sujet et de confirmer l\u2019horaire de vos sessions.',
       includes: ['Dix sessions en ligne de 60 minutes', '30 $ par session (économisez 50 $ au total)', 'Simulations Casper complètes et circuits MEM simulés', 'Rétroaction individuelle détaillée après chaque session', 'Cadres de réponse éprouvés & grille d\u2019évaluation', 'Jumelage constant avec votre mentor'],
@@ -249,7 +249,7 @@
     },
     'casper-hourly': {
       name: 'Préparation Casper & MEM',
-      price: '$35', unit: 'par session de 60 minutes',
+      price: '35 $', unit: 'par session de 60 minutes',
       desc: 'Préparation individuelle Casper et MEM : simulations chronométrées réalistes ou stations simulées avec rétroaction d\'expert, de mentors admis aux quatre écoles de médecine du Québec.',
       includes: ['Une session en ligne complète de 60 minutes', 'Simulations Casper chronométrées ou stations MEM simulées', 'Rétroaction d\'expert 1-sur-1 après chaque session', 'Cadres de réponse éprouvés & grille d\'évaluation'],
       note: 'Nous communiquerons avec vous par courriel afin de tout confirmer, et vous pourrez choisir votre mentor à l’étape de réservation.',

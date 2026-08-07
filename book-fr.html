@@ -107,7 +107,7 @@
     <p class="text-neutral-600 text-lg max-w-xl mx-auto">Un appel gratuit de 30 minutes pour définir vos objectifs et vous jumeler avec la bonne personne tutrice. Complétez l'une des options ci-dessous d'abord, puis vous pourrez choisir un horaire.</p>
   </div>
 
-  <!-- Reserve options: newsletter (free) OR $5 hold -->
+  <!-- Reserve options: newsletter (free) OR 5&nbsp;$ hold -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-16">
 
     <!-- Option A: newsletter -->
@@ -132,15 +132,15 @@
       </div>
     </div>
 
-    <!-- Option B: $5 hold -->
+    <!-- Option B: 5&nbsp;$ hold -->
     <div class="card-light rounded-3xl p-7 flex flex-col">
       <div class="flex items-center gap-2 mb-3">
         <span class="text-[11px] font-semibold tracking-[0.2em] text-neutral-500">PAS DE COURRIELS</span>
       </div>
-      <h2 class="font-serif text-2xl mb-2 text-ink">Réservez avec $5</h2>
-      <p class="text-neutral-500 text-sm mb-6">Préférez éviter l'infolettre ? Placez une réservation de $5 pour sécuriser votre place.</p>
+      <h2 class="font-serif text-2xl mb-2 text-ink">Réservez avec 5&nbsp;$</h2>
+      <p class="text-neutral-500 text-sm mb-6">Préférez éviter l'infolettre ? Placez une réservation de 5&nbsp;$ pour sécuriser votre place.</p>
       <div class="mt-auto">
-        <a id="hold-btn" href="#" class="block text-center w-full bg-ink text-white font-semibold text-sm py-3.5 rounded-xl hover:bg-black transition-colors">Réserver avec $5</a>
+        <a id="hold-btn" href="#" class="block text-center w-full bg-ink text-white font-semibold text-sm py-3.5 rounded-xl hover:bg-black transition-colors">Réserver avec 5&nbsp;$</a>
         <div class="flex items-center justify-center gap-2 mt-3 text-neutral-500 text-xs">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           Paiement sécurisé propulsé par Stripe
@@ -154,13 +154,13 @@
 
   </div>
 
-  <!-- Locked placeholder (shown until newsletter or $5 hold is completed) -->
+  <!-- Locked placeholder (shown until newsletter or 5&nbsp;$ hold is completed) -->
   <div id="booking-locked" class="rounded-2xl border border-dashed border-ink/15 bg-white px-6 py-16 text-center">
     <div class="w-12 h-12 mx-auto mb-5 rounded-full bg-ink/5 flex items-center justify-center">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-500"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
     </div>
     <h2 class="font-serif text-2xl md:text-3xl mb-2 text-ink">Choisissez votre heure</h2>
-    <p class="text-neutral-500 text-sm max-w-md mx-auto">La réservation est verrouillée jusqu'à ce que vous rejoigniez notre infolettre ou complétiez la réservation de $5 ci-dessus.</p>
+    <p class="text-neutral-500 text-sm max-w-md mx-auto">La réservation est verrouillée jusqu'à ce que vous rejoigniez notre infolettre ou complétiez la réservation de 5&nbsp;$ ci-dessus.</p>
   </div>
 
   <!-- Calendar (hidden until unlocked) -->
@@ -271,14 +271,14 @@
     } catch (e) {}
   })();
 
-  /* $5 hold -> Stripe. Set Stripe success URL to: book-fr.html?hold=complete */
+  /* 5 $ hold -> Stripe. Set Stripe success URL to: book-fr.html?hold=complete */
   (function () {
     var btn = document.getElementById('hold-btn');
     if (!btn) return;
     if (HOLD_STRIPE_LINK.indexOf('http') !== 0) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
-        alert('Le lien de réservation de $5 n\'est pas encore configuré. Pour l\'instant, rejoignez l\'infolettre pour débloquer la réservation.');
+        alert('Le lien de réservation de 5 $ n\'est pas encore configuré. Pour l\'instant, rejoignez l\'infolettre pour débloquer la réservation.');
       });
       return;
     }
