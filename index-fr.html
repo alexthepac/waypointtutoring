@@ -267,6 +267,20 @@
      On a phone the boxes stack, so the one underneath would otherwise swallow
      everything falling out of the box above it. */
   .level-card.behind { z-index: 20; }
+
+  /* ---------- Phone: each ladder sits under its OWN box ----------
+     Side by side on desktop, both panels belong below the pair. Stacked on a
+     phone, that put the high-school ladder under the CEGEP box. Dropping the
+     boxes' grid box out of the layout (display:contents) lifts the two buttons
+     into this column so the four can be interleaved with `order`. */
+  @media (max-width: 767px) {
+    .lvl-wrap  { display: flex; flex-direction: column; }
+    .lvl-wrap > .lvl-boxes { display: contents; }   /* outrank Tailwind's .grid */
+    #lvlbtn-hs    { order: 1; }
+    #lvl-hs       { order: 2; }
+    #lvlbtn-cegep { order: 3; margin-top: 1.5rem; }   /* replaces the grid gap */
+    #lvl-cegep    { order: 4; }
+  }
   .level-card.open {
     border-color: var(--ink);
     box-shadow: 0 28px 60px -26px rgba(22,20,28,.35);
@@ -1009,14 +1023,14 @@
     </div>
 
     <!-- Groupe B : tutorat individuel · deux boîtes de niveau qui se déplient sur leurs forfaits -->
-    <div class="mt-16 md:mt-24">
+    <div class="lvl-wrap mt-16 md:mt-24">
       <div class="reveal text-center mb-10 md:mb-14">
         <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">VERROUILLEZ VOTRE TARIF</p>
         <h3 class="font-serif text-3xl md:text-5xl text-ink">Tutorat scolaire individuel &mdash; Choisissez votre niveau</h3>
         <p class="text-neutral-500 text-sm mt-4 max-w-lg mx-auto">Ouvrez votre niveau pour voir les forfaits. Plus vous réservez de sessions, plus votre tarif baisse &mdash; automatiquement.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
+      <div class="lvl-boxes grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
 
         <button type="button" id="lvlbtn-hs" onclick="toggleLevel('hs')"
                 aria-expanded="false" aria-controls="lvl-hs"
@@ -1906,7 +1920,9 @@
     const reveal = function () {
       panel.classList.add('open', 'cards-in');
       setTimeout(function () { if (panel.classList.contains('open')) panel.classList.add('unclipped'); }, 280);
-      setTimeout(function () { panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 133);
+      if (window.matchMedia('(min-width: 768px)').matches) {   // never grab the page on a phone
+        setTimeout(function () { panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 133);
+      }
       schoolShown[key] = true;
     };
     reveal();                                            // prices first, always
@@ -2002,8 +2018,8 @@
         flung: !!fling,
         // The thrown one is springy and keeps going, so it bounces its way back
         // across to join the rest instead of parking against the wall.
-        bounciness: fling ? .62 + Math.random() * .1 : .34 + Math.random() * .34,
-        maxBounce: fling ? 5 + Math.floor(Math.random() * 3) : 2 + Math.floor(Math.random() * 4),
+        bounciness: fling ? .62 + Math.random() * .1 : .42 + Math.random() * .32,
+        maxBounce: fling ? 5 + Math.floor(Math.random() * 3) : 5 + Math.floor(Math.random() * 4),
         sx: 1, sy: 1, bounces: 0, delay: i * 4, settleFix: 0,
         done: false, rest: false, settleAt: 0
       };
@@ -2035,7 +2051,7 @@
     const screenGround =
       ((divider.getBoundingClientRect().top - sRect().top) + pendingUnfold - startY)
         > window.innerHeight * .7;
-    const HOLD = screenGround ? 47 : 100;
+    const HOLD = screenGround ? 5 : 55;
     let f = 0, alive = chips.length, settledFired = false;
     const finish = function (c) {
       c.done = true;
@@ -2091,7 +2107,7 @@
           else if (c.x > wallR) { c.x = wallR; c.vx = -c.vx * wallK; c.vrot *= -.5; c.sx = .74; c.sy = 1.24; }
           if (c.y >= seat) {
             c.y = seat;
-            if (c.bounces >= c.maxBounce || Math.abs(c.vy) < (c.flung ? 1.35 : 2.7)) {
+            if (c.bounces >= c.maxBounce || Math.abs(c.vy) < (c.flung ? .9 : 1.1)) {
               c.rest = true; c.vy = c.vx = c.vrot = 0; c.settleAt = f;   // keep the angle it landed at
               c.sx = c.sy = 1;                                     // and flat, ready to be measured
             } else {
@@ -2153,7 +2169,9 @@
     setTimeout(function () { if (panel.classList.contains('open')) panel.classList.add('unclipped'); }, 280);
     // On phones the panel sits below BOTH boxes - nudge it into view once it has
     // opened. 'nearest' means an already-visible panel is left alone.
-    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 127);
+    if (window.matchMedia('(min-width: 768px)').matches) {     // never grab the page on a phone
+      setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 127);
+    }
   }
 
   /* ---------- Service cards -> branded checkout page (paid) or booking (free) ---------- */
