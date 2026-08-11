@@ -245,7 +245,7 @@
       <h2 class="font-serif text-3xl md:text-5xl leading-tight mb-5 text-ink">Session by session</h2>
       <p class="text-neutral-500 leading-relaxed">
           Nothing is improvised. One session a week, each with its objective, its exercises
-          and its homework in between, and the next one opens by checking it.
+          and its homework to complete beforehand, and every session opens by checking it.
           Budget about six weeks. Here is the order.
       </p>
     </div>
@@ -256,13 +256,28 @@
       <button type="button" class="tl-tab" data-track="mem">Interviews · 7 sessions</button>
     </div>
 
+
+    <div class="reveal max-w-3xl mx-auto mb-10 md:mb-12 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
+      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-3">THE GUIDES WE PROVIDE</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+        <div>
+          <p class="text-[13px] font-semibold text-ink mb-1.5">Casper</p>
+          <p class="text-[13px] leading-relaxed text-neutral-600">The question types, the right format for each one, and everything you need to get familiar with how a practice Casper actually runs.</p>
+        </div>
+        <div>
+          <p class="text-[13px] font-semibold text-ink mb-1.5">Mini-interviews</p>
+          <p class="text-[13px] leading-relaxed text-neutral-600">The kinds of reactions you will face and how to respond to them, the phrasing worth knowing by heart, how to build a personal answer that lands with the interviewer, and the format of a practice interview.</p>
+        </div>
+      </div>
+    </div>
+
     <div id="tlGrid" class="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"><!-- filled by JS --></div>
 
     <div id="tlRails" class="reveal max-w-3xl mx-auto mt-12 space-y-6"><!-- filled by JS --></div>
 
     <div class="reveal max-w-3xl mx-auto mt-6 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
       <p class="text-[13.5px] leading-relaxed text-neutral-700 mb-2">
-        <span class="font-semibold text-ink">The homework between sessions is not optional.</span>
+        <span class="font-semibold text-ink">The homework set before each session is not optional.</span>
         Every session opens by checking it, and we expect it done, that is where half
         the progress happens.
       </p>
@@ -426,37 +441,6 @@
 </section>
 
 <!-- ============================================================
-     CE QUI TRAVERSE TOUT
-============================================================ -->
-<section class="py-14 md:py-20">
-  <div class="wave-wrap" aria-hidden="true">
-    <svg style="top:-120px; right:-18%; width:60%; min-width:460px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path fill="var(--wave-1)" d="M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z"/>
-    </svg>
-  </div>
-  <div class="relative max-w-5xl mx-auto px-6">
-    <div class="reveal text-center mb-10 md:mb-14">
-      <h2 class="font-serif text-3xl md:text-4xl leading-tight">What runs through the whole path</h2>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-      <div class="reveal card-light rounded-3xl p-7">
-        <h3 class="font-serif text-xl mb-2.5">Never the same person twice</h3>
-        <p class="text-neutral-500 text-sm leading-relaxed">A different friend for every practice run at home, a different role-player for every scenario. Someone who rehearsed ten times with the same person freezes in front of a stranger.</p>
-      </div>
-      <div class="reveal card-light rounded-3xl p-7" style="--rd:.1s">
-        <h3 class="font-serif text-xl mb-2.5">Our simulation videos</h3>
-        <p class="text-neutral-500 text-sm leading-relaxed">Filmed by the founders and the team to reproduce the official format. They follow you through the whole path and you can replay them as often as you want.</p>
-      </div>
-      <div class="reveal card-light rounded-3xl p-7" style="--rd:.2s">
-        <h3 class="font-serif text-xl mb-2.5">Practice AI, free</h3>
-        <p class="text-neutral-500 text-sm leading-relaxed">A practice partner available at 2&nbsp;a.m. the night before the test. Unlimited, included at no cost in all three methods.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
      FAQ COURTE
 ============================================================ -->
 <section class="py-14 md:py-20 border-t border-ink/10">
@@ -602,37 +586,37 @@
      marking grids are the product, and they stay behind the sale.
   ============================================================ */
   var STEPS = {
-    /* --- Casper · 7 sessions of 60 min · one a week ----------------- */
+    /* --- Casper · 7 sessions of 60 min · you set the pace -------------- */
     c1: { tag: 'ASSESSMENT', title: 'We measure before we teach',
-      body: 'Your homework is waiting before the first session even starts. We then measure your starting point, typing speed, clarity of communication, command of language, comfort on camera, and put your experiences and stories in order.' },
+      body: 'Your homework is waiting before the first session even begins. We then measure your starting point: typing speed, clarity of communication, command of language and comfort on camera. We close by reviewing your personal experiences.' },
     c2: { tag: 'FOUNDATIONS', title: 'Your stories become answers',
-      body: 'A review of your CV, practice on personal questions, including the ones it does not cover, then into Casper scenarios out loud: how you build an answer that holds.' },
+      body: 'A review of your CV and practice on personal questions, then your first Casper scenarios out loud: how to build an answer that holds together.' },
     c3: { tag: 'THE REAL FORMAT', title: 'A full session inside the test',
-      body: 'You arrive already knowing every question type, that is the week’s homework. The entire session goes into scenarios: out loud first, then in writing.' },
+      body: 'You arrive already knowing every question type, since that is the week\u2019s homework. The whole session goes into scenarios: spoken first, then written.' },
     c4: { tag: 'TAILORED', title: 'The session adapts to you',
-      body: 'A mix of personal questions and Casper scenarios, weighted to what you need, then a short timed test to settle your rhythm.' },
+      body: 'A mix of personal questions and Casper scenarios, weighted towards whatever you need most, followed by a short timed test to settle your rhythm.' },
     c5: { tag: 'PRACTICE TEST', title: 'The full test, under real conditions',
-      body: 'A complete practice test, timed, with no intervention from us. Then a review of your answers while they are still fresh.' },
+      body: 'A complete timed practice test, taken at home with no input from us. We then review your answers together while they are still fresh.' },
     c6: { tag: 'TARGETED', title: 'Your weak spots, nothing else',
-      body: 'Session of your choosing: CV discussion, targeted practice, whatever you need. You arrive knowing where it breaks down, we fix it.' },
+      body: 'The session is yours to shape: a CV discussion, targeted practice, whatever you need. You arrive knowing where it breaks down, and we fix it.' },
     c7: { tag: 'REVIEW', title: 'Your second test, corrected',
-      body: 'You sit a second full test between sessions; we go through it together, answer by answer, and compare with your starting measurements.' },
+      body: 'You sit a second full test before this session. We work through it together, answer by answer, and compare the result with your starting measurements.' },
 
-    /* --- Interviews (MMI) · 7 sessions ------------------------------ */
+    /* --- Interviews (MMI) · 7 sessions · you set the pace -------------- */
     m1: { tag: 'ASSESSMENT', title: 'We measure, then lay the foundations',
-      body: 'Your starting point, measured. Then a review of the CV you built as prep work, and the principle that guides everything: you do not memorise questions, you learn what to say when the person in front of you is feeling something.' },
+      body: 'Your starting point, measured. We then review your personal experiences with a clear focus, and go through the principles an MMI is built on.' },
     m2: { tag: 'PERSONAL QUESTIONS', title: 'Answering without reciting',
-      body: 'Your experiences taken one by one, then practice on the questions nobody can predict, including the hard ones. And already, your first role-played scenario.' },
+      body: 'Come with your homework done. We take your experiences one by one, make them easy to follow, and push into the harder personal questions.' },
     m3: { tag: 'ROLE-PLAY', title: 'Someone plays the part. You handle it.',
-      body: 'Role-played scenarios, team questions and situations built to unsettle you, with expert feedback after every run.' },
+      body: 'Read the guides we provide first. Then come role-played scenarios, team questions and situations designed to unsettle you, with expert feedback after every run.' },
     m4: { tag: 'REASONING', title: 'The stations you cannot prepare for',
-      body: 'Estimation and mental-maths questions, with the reference figures given in advance, then targeted feedback, at whatever intensity you choose.' },
+      body: 'Estimation and mental-maths questions, with the reference figures given to you in advance, followed by targeted feedback at whatever intensity you choose.' },
     m5: { tag: 'PRACTICE INTERVIEW', title: 'A full MMI',
-      body: 'A complete practice interview, under real conditions, followed by a review of your answers.' },
+      body: 'A complete practice interview under real conditions, followed by a review of your answers.' },
     m6: { tag: 'TARGETED', title: 'Your weak spots, nothing else',
-      body: 'Session of your choosing: you arrive knowing what is holding you back, we fix it. Between these last sessions, the practice does not stop.' },
+      body: 'The session is yours to shape: you arrive knowing what is holding you back, and we fix it. Between these final sessions, the practice never stops.' },
     m7: { tag: 'FINAL CIRCUIT', title: 'Your second full MMI',
-      body: 'One last complete practice interview, then the debrief: where you were at session one, where you are now, and the plan for your dates.' }
+      body: 'One last complete practice interview, then the debrief: where you stood at session one, where you stand now, and the plan for your interview dates.' }
   };
 
   var TRACKS = {
@@ -689,7 +673,7 @@
         '<span class="sess-tag">SESSION ' + n + ' · ' + s.tag + '</span></div>' +
         '<h3>' + s.title + '</h3>' +
         '<p>' + s.body + '</p>' +
-        '<div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>60 min · homework in between</span></div>' +
+        '<div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>60 min · homework before the session</span></div>' +
       '</div>';
     }
 

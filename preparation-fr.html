@@ -255,13 +255,28 @@
       <button type="button" class="tl-tab" data-track="mem">Entrevues · 7 séances</button>
     </div>
 
+
+    <div class="reveal max-w-3xl mx-auto mb-10 md:mb-12 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
+      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-3">NOS DOCUMENTS GUIDES, FOURNIS</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+        <div>
+          <p class="text-[13px] font-semibold text-ink mb-1.5">Casper</p>
+          <p class="text-[13px] leading-relaxed text-neutral-600">Les types de questions, le format approprié pour chacun d’entre eux, et de quoi vous familiariser avec le déroulement d’un Casper pratique.</p>
+        </div>
+        <div>
+          <p class="text-[13px] font-semibold text-ink mb-1.5">Mini-entrevues</p>
+          <p class="text-[13px] leading-relaxed text-neutral-600">Les types de réactions et comment y réagir, les bonnes phrases à connaître, comment bâtir une réponse personnelle qui résonne chez l’intervieweur, et le format d’une entrevue pratique.</p>
+        </div>
+      </div>
+    </div>
+
     <div id="tlGrid" class="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"><!-- filled by JS --></div>
 
     <div id="tlRails" class="reveal max-w-3xl mx-auto mt-12 space-y-6"><!-- filled by JS --></div>
 
     <div class="reveal max-w-3xl mx-auto mt-6 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
       <p class="text-[13.5px] leading-relaxed text-neutral-700 mb-2">
-        <span class="font-semibold text-ink">Les devoirs donnés entre les séances ne sont pas optionnels.</span>
+        <span class="font-semibold text-ink">Les devoirs donnés avant chaque séance ne sont pas optionnels.</span>
         Chaque séance s’ouvre sur leur vérification, et on s’attend à ce qu’ils soient complétés, 
         c’est là que la moitié du progrès se fait.
       </p>
@@ -656,7 +671,7 @@
         '<span class="sess-tag">SÉANCE ' + n + ' · ' + s.tag + '</span></div>' +
         '<h3>' + s.title + '</h3>' +
         '<p>' + s.body + '</p>' +
-        '<div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>60 min · devoirs entre les séances</span></div>' +
+        '<div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>60 min · devoirs avant la séance</span></div>' +
       '</div>';
     }
 
