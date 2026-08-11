@@ -982,42 +982,38 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
 
-        <!-- Session unique (prix de référence) -->
-        <div onclick="pickService('Casper &amp; MEM Prep')" class="card-light group cursor-pointer reveal rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
-          <h4 class="font-serif text-2xl mb-1">Session unique</h4>
-          <p class="text-neutral-400 text-sm mb-8">Essayez &mdash; sans engagement</p>
+
+        <!-- Préparation Casper seulement -->
+        <div onclick="pickService('Préparation Casper')" class="card-light group cursor-pointer reveal rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
+          <h4 class="font-serif text-2xl mb-1">Préparation Casper</h4>
+          <p class="text-neutral-400 text-sm mb-8">Programme complet Casper seulement</p>
           <div class="mt-auto">
-            <div class="text-4xl font-semibold mb-2">35&nbsp;$<span class="text-neutral-500 text-base font-normal"> / session</span></div>
-            <div class="text-neutral-400 text-sm">35&nbsp;$ au total</div>
+            <div class="text-4xl font-semibold mb-2">600&nbsp;$</div>
+            <div class="text-neutral-400 text-sm">Tarif fixe, programme complet</div>
           </div>
         </div>
 
-        <!-- Forfait Casper 5 sessions -->
-        <div onclick="pickService('Casper 5-Session Package')" class="card-light group cursor-pointer reveal rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300" style="--rd:.12s">
-          <h4 class="font-serif text-2xl mb-1">Forfait 5 sessions</h4>
-          <p class="text-[#d0679f] text-sm font-semibold mb-8">Économisez 12,50 $</p>
+        <!-- Préparation MEM seulement -->
+        <div onclick="pickService('Préparation MEM')" class="card-light group cursor-pointer reveal rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300" style="--rd:.12s">
+          <h4 class="font-serif text-2xl mb-1">Préparation MEM</h4>
+          <p class="text-neutral-400 text-sm mb-8">Programme complet MEM seulement</p>
           <div class="mt-auto">
-            <div class="flex items-baseline gap-2 mb-2">
-              <span class="text-neutral-400 text-lg line-through">35&nbsp;$</span>
-              <span class="text-4xl font-semibold">32,50&nbsp;$<span class="text-neutral-500 text-base font-normal"> / session</span></span>
-            </div>
-            <div class="text-neutral-400 text-sm">162,50&nbsp;$ au total</div>
+            <div class="text-4xl font-semibold mb-2">600&nbsp;$</div>
+            <div class="text-neutral-400 text-sm">Tarif fixe, programme complet</div>
           </div>
         </div>
 
-        <!-- Forfait Casper 10 sessions · EN VEDETTE -->
-        <div onclick="pickService('Casper 10-Session Package')" class="pkg-featured group cursor-pointer reveal relative rounded-3xl p-9 pt-12 flex flex-col text-ink hover:-translate-y-2 transition-all duration-300 md:scale-[1.08] z-10" style="--rd:.24s">
+        <!-- Forfait combiné · EN VEDETTE -->
+        <div onclick="pickService('Combo Casper &amp; MEM')" class="pkg-featured group cursor-pointer reveal relative rounded-3xl p-9 pt-12 flex flex-col text-ink hover:-translate-y-2 transition-all duration-300 md:scale-[1.08] z-10" style="--rd:.24s">
           <span class="pkg-badge">MEILLEURE VALEUR</span>
-          <h4 class="font-serif text-2xl mb-1">Forfait 10 sessions</h4>
-          <p class="text-sm font-bold mb-8 eyebrow-grad">Économisez 50 $</p>
+          <h4 class="font-serif text-2xl mb-1">Combo Casper &amp; MEM</h4>
+          <p class="text-sm font-bold mb-8 eyebrow-grad">Économisez 200 $</p>
           <div class="mt-auto">
-            <div class="flex items-baseline gap-2 mb-2">
-              <span class="text-neutral-400 text-lg line-through">35&nbsp;$</span>
-              <span class="text-4xl font-semibold">30&nbsp;$<span class="text-neutral-500 text-base font-normal"> / session</span></span>
-            </div>
-            <div class="text-neutral-500 text-sm">300&nbsp;$ au total</div>
+            <div class="text-4xl font-semibold mb-2">1&nbsp;000&nbsp;$</div>
+            <div class="text-neutral-500 text-sm">Tarif fixe, les deux programmes complets</div>
           </div>
         </div>
+
 
       </div>
     </div>
@@ -2181,9 +2177,9 @@
       '1-on-1 Subject Tutoring':       'checkout-fr.html?service=tutoring',
       '5-Session Package':             'checkout-fr.html?service=pack5',
       '10-Session Package':            'checkout-fr.html?service=pack10',
-      'Casper & MEM Prep':             'checkout-fr.html?service=casper-hourly',
-      'Casper 5-Session Package':      'checkout-fr.html?service=casper-pack5',
-      'Casper 10-Session Package':     'checkout-fr.html?service=casper-pack10',
+      'Préparation Casper':            'checkout-fr.html?service=casper-only',
+      'Préparation MEM':               'checkout-fr.html?service=mmi-only',
+      'Combo Casper & MEM':            'checkout-fr.html?service=casper-mmi-combo',
     };
     if (routes[value]) { window.location.href = routes[value]; return; }
     // Free consultation (and anything else) -> scroll to the booking section

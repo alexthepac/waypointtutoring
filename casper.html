@@ -66,6 +66,27 @@
     border: 2px solid var(--ink);
     box-shadow: 0 28px 60px -26px rgba(22,20,28,.35);
   }
+  .pkg-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    padding: 6px 16px;
+    border-radius: 999px;
+    color: #fff;
+    background: var(--ink);
+    white-space: nowrap;
+    box-shadow: 0 6px 16px -6px rgba(22,20,28,.5);
+  }
+  .card-light {
+    background: #fff;
+    border: 1px solid rgba(22,20,28,.08);
+    box-shadow: 0 18px 50px -28px rgba(22,20,28,.22);
+  }
+  .card-light:hover { border-color: rgba(22,20,28,.2); }
 </style>
 </head>
 
@@ -198,20 +219,62 @@
 
     <div class="reveal text-center mb-14 md:mb-16">
       <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">SIMPLE PRICING</p>
-      <h2 class="font-serif text-4xl md:text-5xl text-ink">One-on-one prep, by the hour</h2>
-      <p class="text-neutral-500 mt-4 max-w-xl mx-auto">Every session starts with a free strategy call so we can recommend the right focus before you book anything.</p>
+      <h2 class="font-serif text-4xl md:text-5xl text-ink">Choose your program</h2>
+      <p class="text-neutral-500 mt-4 max-w-xl mx-auto">Every program starts with a free strategy call so we can recommend the right focus before you book anything.</p>
     </div>
 
-    <div class="max-w-md mx-auto">
-      <div onclick="location.href='checkout.html?service=casper-hourly'" class="pkg-featured relative cursor-pointer reveal text-ink rounded-3xl p-8 flex flex-col">
-        <p class="text-[11px] tracking-[0.25em] text-neutral-500 mb-5">CASPER &amp; MMI PREP</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+
+      <!-- CASPer-only prep -->
+      <div onclick="location.href='checkout.html?service=casper-only'" class="card-light relative cursor-pointer reveal text-ink rounded-3xl p-8 flex flex-col">
+        <p class="text-[11px] tracking-[0.25em] text-neutral-500 mb-5">CASPER PREP</p>
         <div class="flex items-baseline gap-1.5 mb-1">
-          <span class="text-4xl font-semibold">$35</span>
-          <span class="text-neutral-500 text-sm">/ session</span>
+          <span class="text-4xl font-semibold">$600</span>
         </div>
-        <p class="text-neutral-500 text-sm mb-6">1 hour · One-on-one · Online</p>
+        <p class="text-neutral-500 text-sm mb-6">Flat rate · Complete program · Online</p>
         <ul class="space-y-3 text-sm text-neutral-600 flex-1">
-          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Timed Casper simulations or MMI mock stations</li>
+          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Timed Casper simulations, full range of scenario types</li>
+          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>1-on-1 expert feedback after every simulation</li>
+          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Proven answer frameworks &amp; scoring rubric</li>
+          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Mentors admitted to all four Québec medical schools</li>
+        </ul>
+        <div class="mt-8 pt-6 border-t border-ink/10">
+          <span class="inline-flex items-center gap-1.5 text-ink font-semibold text-sm">Get started
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- MMI-only prep -->
+      <div onclick="location.href='checkout.html?service=mmi-only'" class="card-light relative cursor-pointer reveal text-ink rounded-3xl p-8 flex flex-col" style="--rd:.12s">
+        <p class="text-[11px] tracking-[0.25em] text-neutral-500 mb-5">MMI PREP</p>
+        <div class="flex items-baseline gap-1.5 mb-1">
+          <span class="text-4xl font-semibold">$600</span>
+        </div>
+        <p class="text-neutral-500 text-sm mb-6">Flat rate · Complete program · Online</p>
+        <ul class="space-y-3 text-sm text-neutral-600 flex-1">
+          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Full mock MMI circuits across scenario types</li>
+          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>1-on-1 expert feedback after every mock station</li>
+          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Proven answer frameworks &amp; scoring rubric</li>
+          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Mentors admitted to all four Québec medical schools</li>
+        </ul>
+        <div class="mt-8 pt-6 border-t border-ink/10">
+          <span class="inline-flex items-center gap-1.5 text-ink font-semibold text-sm">Get started
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- Combo package · FEATURED -->
+      <div onclick="location.href='checkout.html?service=casper-mmi-combo'" class="pkg-featured relative cursor-pointer reveal text-ink rounded-3xl p-8 pt-12 flex flex-col md:scale-[1.06] z-10" style="--rd:.24s">
+        <span class="pkg-badge">BEST VALUE</span>
+        <p class="text-[11px] tracking-[0.25em] text-neutral-500 mb-5">CASPER &amp; MMI COMBO</p>
+        <div class="flex items-baseline gap-1.5 mb-1">
+          <span class="text-4xl font-semibold">$1,000</span>
+        </div>
+        <p class="text-sm font-bold mb-6 eyebrow-grad">Save $200</p>
+        <ul class="space-y-3 text-sm text-neutral-600 flex-1">
+          <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Everything in Casper Prep and MMI Prep, combined</li>
           <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>1-on-1 expert feedback after every session</li>
           <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Proven answer frameworks &amp; scoring rubric</li>
           <li class="flex gap-2.5"><span class="text-[#9a86e6] font-bold">✓</span>Mentors admitted to all four Québec medical schools</li>
@@ -222,6 +285,7 @@
           </span>
         </div>
       </div>
+
     </div>
 
   </div>
