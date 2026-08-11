@@ -119,8 +119,12 @@
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
       </div>
       <p class="text-[11px] font-bold tracking-[0.3em] mb-4 eyebrow-grad">PAIEMENT CONFIRMÉ</p>
-      <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-5 text-ink">Merci — tout est en ordre.</h1>
+      <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-5 text-ink">Merci, tout est en ordre.</h1>
       <p class="text-neutral-600 text-lg leading-relaxed mb-4">Votre paiement a été traité et un reçu est en route vers votre boîte courriel.</p>
+      <p id="progression-note" class="hidden text-neutral-600 text-[15px] leading-relaxed mb-4 rounded-2xl border border-ink/10 bg-white/70 px-5 py-4 text-left">
+        <span class="font-semibold text-ink">Votre progression attendue complète suit dans le même courriel&nbsp;:</span>
+        le détail de chaque séance, minute par minute, et le travail à faire avant chacune. Lisez-la avant notre première rencontre, la séance&nbsp;1 commence par sa vérification.
+      </p>
       <p id="next-step" class="text-neutral-600 text-lg leading-relaxed mb-10">Dernière étape : choisissez les horaires de vos sessions.</p>
 
       <a id="book-btn" href="index-fr.html#contact" class="inline-block bg-ink text-white font-semibold text-sm px-8 py-3.5 rounded-lg hover:bg-black transition-colors">
@@ -168,13 +172,25 @@
   var NEXT_STEPS = {
     pack5:  { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'Dernière étape : choisissez les horaires de vos sessions.', btn: 'Planifier vos sessions' },
     pack10: { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'Dernière étape : choisissez les horaires de vos sessions.', btn: 'Planifier vos sessions' },
-    intro:  { link: 'book-fr.html?hold=complete', note: 'Votre place est réservée — dernière étape : choisissez l\'heure de votre appel d\'introduction gratuit.', btn: 'Réserver votre appel d\'introduction' },
+    intro:  { link: 'book-fr.html?hold=complete', note: 'Votre place est réservée, dernière étape : choisissez l\'heure de votre appel d\'introduction gratuit.', btn: 'Réserver votre appel d\'introduction' },
     /* Forfaits Casper -> l'événement Casper GRATUIT caché (déjà payé). */
     'casper-pack5':  { link: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep-copy-copy', note: 'Dernière étape : choisissez les horaires de vos sessions Casper & MEM.', btn: 'Planifier vos sessions' },
-    'casper-pack10': { link: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep-copy-copy', note: 'Dernière étape : choisissez les horaires de vos sessions Casper & MEM.', btn: 'Planifier vos sessions' }
+    'casper-pack10': { link: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep-copy-copy', note: 'Dernière étape : choisissez les horaires de vos sessions Casper & MEM.', btn: 'Planifier vos sessions' },
+
+    /* Les trois parcours de préparation : la progression complète part par
+       courriel, puis on fixe l'horaire ensemble. */
+    'methode-casper':    { link: 'contact-fr.html', note: 'Dernière étape : on fixe ensemble l\u2019horaire de vos séances.', btn: 'Fixer vos séances' },
+    'methode-mem':       { link: 'contact-fr.html', note: 'Dernière étape : on fixe ensemble l\u2019horaire de vos séances.', btn: 'Fixer vos séances' },
+    'methode-integrale': { link: 'contact-fr.html', note: 'Dernière étape : on fixe ensemble l\u2019horaire de vos séances.', btn: 'Fixer vos séances' }
   };
 
   var service = new URLSearchParams(window.location.search).get('service');
+  /* Les trois parcours de préparation sont les seuls qui viennent avec une
+     progression écrite, l'encadré ne s'affiche que pour eux. */
+  if (/^methode-/.test(service || '')) {
+    var pn = document.getElementById('progression-note');
+    if (pn) pn.classList.remove('hidden');
+  }
   var step = NEXT_STEPS[service];
   if (step) {
     document.getElementById('book-btn').href = step.link;
