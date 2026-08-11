@@ -273,8 +273,6 @@
   ===================================================================== */
 
   function getParam(name) { return new URLSearchParams(window.location.search).get(name); }
-  function parsePrice(str) { return parseFloat(String(str).replace(/[^0-9.]/g, '')) || 0; }
-  function formatPrice(n) { return '$' + (Number.isInteger(n) ? n : n.toFixed(2)); }
 
   var key = getParam('service');
   var svc = SERVICES[key];
@@ -287,6 +285,7 @@
 
     document.getElementById('svc-name').textContent = svc.name;
     document.getElementById('svc-desc').textContent = svc.desc;
+    document.getElementById('svc-price').textContent = svc.price;
     document.getElementById('svc-unit').textContent = svc.unit;
     document.title = svc.name + ' · Checkout · MNTR Tutoring';
 
