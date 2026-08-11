@@ -104,67 +104,11 @@
   <div class="text-center mb-14">
     <p class="text-[11px] font-bold tracking-[0.3em] mb-4 eyebrow-grad">FREE CONSULTATION</p>
     <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-5 text-ink">Book your free intro call</h1>
-    <p class="text-neutral-600 text-lg max-w-xl mx-auto">A free 30-minute call to map your goals and match you with the right tutor. Complete one of the options below first — then you can pick a time.</p>
+    <p class="text-neutral-600 text-lg max-w-xl mx-auto">A free 30-minute call to map your goals and match you with the right tutor. Pick a time below.</p>
   </div>
 
-  <!-- Reserve options: newsletter (free) OR $5 hold -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-16">
-
-    <!-- Option A: newsletter -->
-    <div class="pkg-featured relative rounded-3xl p-7 flex flex-col">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="text-[11px] font-bold tracking-[0.2em] eyebrow-grad">FREE</span>
-        <span class="text-neutral-500 text-xs">most popular</span>
-      </div>
-      <h2 class="font-serif text-2xl mb-2 text-ink">Join our newsletter</h2>
-      <p class="text-neutral-500 text-sm mb-6">Get study tips, deadlines and offers in your inbox. That's all we ask to hold your free spot.</p>
-
-      <form id="newsletterForm" class="space-y-3 mt-auto">
-        <!-- Honeypot spam filter (hidden from humans) -->
-        <input type="text" name="website" id="nl-website" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <input id="nl-email" name="email" type="email" required maxlength="254" placeholder="you@email.com"
-               class="w-full bg-ink/5 border border-ink/15 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-neutral-400 focus:outline-none focus:border-ink transition-colors" />
-        <button type="submit" class="w-full bg-ink text-white font-semibold text-sm py-3.5 rounded-xl hover:bg-black transition-colors">Sign up &amp; unlock booking</button>
-      </form>
-
-      <div id="nl-success" class="hidden mt-4 rounded-xl bg-ink/5 px-4 py-3 text-sm text-neutral-700 text-center toast-enter">
-        You're on the list! Pick your time below.
-      </div>
-    </div>
-
-    <!-- Option B: $5 hold -->
-    <div class="card-light rounded-3xl p-7 flex flex-col">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="text-[11px] font-semibold tracking-[0.2em] text-neutral-500">NO EMAILS</span>
-      </div>
-      <h2 class="font-serif text-2xl mb-2 text-ink">Reserve with $5</h2>
-      <p class="text-neutral-500 text-sm mb-6">Prefer to skip the newsletter? Place a small $5 hold to lock your spot. It's applied toward your first paid session.</p>
-      <div class="mt-auto">
-        <a id="hold-btn" href="#" class="block text-center w-full bg-ink text-white font-semibold text-sm py-3.5 rounded-xl hover:bg-black transition-colors">Reserve with $5</a>
-        <div class="flex items-center justify-center gap-2 mt-3 text-neutral-500 text-xs">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Secure payment powered by Stripe
-        </div>
-        <p class="text-neutral-400 text-xs text-center mt-3">After payment, you'll return here to pick your time.</p>
-      </div>
-      <div id="hold-success" class="hidden mt-4 rounded-xl bg-ink/5 px-4 py-3 text-sm text-neutral-700 text-center toast-enter">
-        Payment received — pick your time below.
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Locked placeholder (shown until newsletter or $5 hold is completed) -->
-  <div id="booking-locked" class="rounded-2xl border border-dashed border-ink/15 bg-white px-6 py-16 text-center">
-    <div class="w-12 h-12 mx-auto mb-5 rounded-full bg-ink/5 flex items-center justify-center">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-500"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-    </div>
-    <h2 class="font-serif text-2xl md:text-3xl mb-2 text-ink">Pick your time</h2>
-    <p class="text-neutral-500 text-sm max-w-md mx-auto">Scheduling is locked until you join our newsletter or complete the $5 hold above.</p>
-  </div>
-
-  <!-- Calendar (hidden until unlocked) -->
-  <div id="booking-section" class="hidden">
+  <!-- Calendar -->
+  <div id="booking-section">
     <div id="calendar" class="text-center mb-8">
       <h2 class="font-serif text-2xl md:text-3xl mb-2 text-ink">Pick your time</h2>
       <p class="text-neutral-500 text-sm">All times are shown in your local timezone.</p>
@@ -203,182 +147,15 @@
     }
   });
 
-  /* ---------- Security: protected backend ----------
-     Once the Cloudflare Worker in /backend is deployed (see backend/README.md),
-     paste its URL here (e.g. 'https://mntr-forms.you.workers.dev'). Signups then
-     go through the backend — which hides the email + Sheet URL below, validates
-     input, rate-limits by IP and drops bots — instead of calling them directly
-     from the browser (where anyone reading the page source can abuse them). */
-  var BACKEND_URL = 'https://mntr-forms.alexthepac.workers.dev';
-  var pageLoadedAt = Date.now();
-
-  var NEWSLETTER_TO = 'mntrtutoring.info@gmail.com';
-  /* Paste the Google Apps Script Web App URL here (see setup instructions) so
-     newsletter signups get logged as a row in the Google Sheet.
-     NOTE: this URL is public in the page source. After deploying the backend,
-     move it there (SHEET_WEBAPP_URL secret) and create a NEW Apps Script
-     deployment so this exposed one stops working — see backend/README.md. */
-  var SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzXgIbhOJDcZq_OtjFE5SmI1g3shmgiEr8c28KlrvHcJc784dk2bDwXV7BJ4mKqhakp/exec';
-  var HOLD_STRIPE_LINK = 'https://buy.stripe.com/7sYfZjdd868g8to3sZdUY01';
-  var UNLOCK_KEY = 'mntr_book_unlocked';
-  var calLoaded = false;
-
-  function unlockBooking(source) {
-    try { sessionStorage.setItem(UNLOCK_KEY, source); } catch (e) {}
-    var locked = document.getElementById('booking-locked');
-    var section = document.getElementById('booking-section');
-    if (locked) locked.classList.add('hidden');
-    if (section) section.classList.remove('hidden');
-    loadCalendar();
-    if (source === 'newsletter') {
-      var ok = document.getElementById('nl-success');
-      if (ok) ok.classList.remove('hidden');
-    }
-    if (source === 'hold') {
-      var holdOk = document.getElementById('hold-success');
-      if (holdOk) holdOk.classList.remove('hidden');
-    }
-    var cal = document.getElementById('calendar');
-    if (cal) cal.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  function loadCalendar() {
-    if (calLoaded) return;
-    calLoaded = true;
-    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement('script')).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === 'string') { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ['initNamespace', namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, 'https://app.cal.com/embed/embed.js', 'init');
-    Cal('init', 'free-consultation', { origin: 'https://cal.com' });
-    Cal.ns['free-consultation']('inline', {
-      elementOrSelector: '#my-cal-inline',
-      config: { layout: 'month_view', language: 'en', duration: 30 },
-      calLink: 'mntr-iif8ix/30min',
-    });
-    Cal.ns['free-consultation']('ui', { hideEventTypeDetails: false, layout: 'month_view' });
-  }
-
-  /* Check if user already unlocked (newsletter signup or returned from Stripe) */
-  (function () {
-    var params = new URLSearchParams(window.location.search);
-    if (params.get('hold') === 'complete' || params.get('paid') === '1') {
-      unlockBooking('hold');
-      if (window.history.replaceState) {
-        window.history.replaceState({}, '', window.location.pathname);
-      }
-      return;
-    }
-    try {
-      var saved = sessionStorage.getItem(UNLOCK_KEY);
-      if (saved === 'newsletter' || saved === 'hold') unlockBooking(saved);
-    } catch (e) {}
-  })();
-
-  /* $5 hold -> Stripe. Set Stripe success URL to: book.html?hold=complete */
-  (function () {
-    var btn = document.getElementById('hold-btn');
-    if (!btn) return;
-    if (HOLD_STRIPE_LINK.indexOf('http') !== 0) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        alert('The $5 reservation link is not set up yet. For now, please join the newsletter to unlock booking.');
-      });
-      return;
-    }
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      window.location.href = HOLD_STRIPE_LINK;
-    });
-  })();
-
-  /* Newsletter signup -> logs a row in the Google Sheet + notifies mntrtutoring.info@gmail.com */
-  (function () {
-    var form = document.getElementById('newsletterForm');
-    if (!form) return;
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-      var emailInput = document.getElementById('nl-email');
-      var email = emailInput ? emailInput.value.trim() : '';
-      if (!email) return;
-
-      /* Bot check: hidden honeypot field filled in, or the form submitted less
-         than 3 seconds after the page loaded. Bots get the normal success UI
-         but nothing is sent, so they can't tell they were filtered. */
-      var honey = document.getElementById('nl-website');
-      if ((honey && honey.value.trim() !== '') || Date.now() - pageLoadedAt < 3000) {
-        form.classList.add('hidden');
-        unlockBooking('newsletter');
-        return;
-      }
-
-      var btn = form.querySelector('button[type=submit]');
-      var label = btn ? btn.textContent : '';
-      if (btn) { btn.textContent = 'Signing up...'; btn.disabled = true; }
-
-      /* Protected path: one call to the backend, which validates the email,
-         rate-limits, logs the Sheet row and sends the notification email.
-         As with the direct path below, booking unlocks even if the network
-         call fails — a logging hiccup shouldn't block a real student. */
-      if (BACKEND_URL) {
-        form.classList.add('hidden');
-        unlockBooking('newsletter');
-        try {
-          await fetch(BACKEND_URL.replace(/\/+$/, '') + '/api/newsletter', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({
-              email: email,
-              page: location.href,
-              website: honey ? honey.value : '',
-              t: Date.now() - pageLoadedAt,
-            }),
-          });
-        } catch (err) {
-          console.warn('Newsletter backend call failed, but booking still unlocked.', err);
-        } finally {
-          if (btn) { btn.textContent = label; btn.disabled = false; }
-        }
-        return;
-      }
-
-      /* 1) Log the signup as a row in the Google Sheet (fire-and-forget: Apps
-            Script Web Apps don't return readable CORS responses to the browser,
-            so we use no-cors and just assume it went through). */
-      if (SHEET_WEBAPP_URL.indexOf('http') === 0) {
-        try {
-          await fetch(SHEET_WEBAPP_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: 'email=' + encodeURIComponent(email) + '&source=newsletter&page=' + encodeURIComponent(location.href),
-          });
-        } catch (err) { /* ignore - don't block booking on this */ }
-      }
-
-      /* 2) Email notification via FormSubmit. The signup itself (Sheet row)
-            already happened above, so we unlock the calendar either way -
-            a failed notification email shouldn't block someone from booking. */
-      form.classList.add('hidden');
-      unlockBooking('newsletter');
-      try {
-        var res = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(NEWSLETTER_TO), {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            email: email,
-            _subject: 'MNTR Newsletter signup',
-            _captcha: 'false',
-            _template: 'box',
-          }),
-        });
-        var data = await res.json();
-        if (!(res.ok && data.success === 'true')) {
-          console.warn('Newsletter notification email may not have sent, but signup + booking still succeeded.');
-        }
-      } catch (err) {
-        console.warn('Newsletter notification email failed, but signup + booking still succeeded.', err);
-      } finally {
-        if (btn) { btn.textContent = label; btn.disabled = false; }
-      }
-    });
-  })();
+  /* Cal.com inline embed — loads directly, no signup/payment gate */
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement('script')).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === 'string') { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ['initNamespace', namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, 'https://app.cal.com/embed/embed.js', 'init');
+  Cal('init', 'free-consultation', { origin: 'https://cal.com' });
+  Cal.ns['free-consultation']('inline', {
+    elementOrSelector: '#my-cal-inline',
+    config: { layout: 'month_view', language: 'en', duration: 30 },
+    calLink: 'mntr-iif8ix/30min',
+  });
+  Cal.ns['free-consultation']('ui', { hideEventTypeDetails: false, layout: 'month_view' });
 </script>
 </body>
 </html>
