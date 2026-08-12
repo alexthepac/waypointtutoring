@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18318813201"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18318813201');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Casper &amp; MMI Preparation · MNTR Tutoring</title>
+<meta name="description" content="A Casper and multiple mini-interview (MMI) preparation method, written session by session by students admitted to medical school. Role-players, full practice runs, detailed reviews, practice AI included." />
+<link rel='icon' type='image/png' href='favicon.png?v=2' />
+<link rel='shortcut icon' href='favicon.ico' />
+<link rel='apple-touch-icon' href='apple-touch-icon.png' />
+<meta property='og:type' content='website' />
+<meta property='og:title' content='Casper &amp; MMI Preparation · MNTR Tutoring' />
+<meta property='og:description' content='A method written session by session, by students who got in. Casper, MMI, or both.' />
+<meta property='og:image' content='hero.jpg' />
+<meta name='twitter:card' content='summary_large_image' />
+
+<!-- ===================== FONTS ===================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<!-- ===================== TAILWIND (CDN) ===================== -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      fontFamily: {
+        sans:  ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Fraunces', 'Georgia', 'serif'],
+      },
+      colors: { ink: '#16141c', paper: '#f7f5f1' },
+    } },
+  };
+</script>
+
+<style>
+  :root {
+    --ink: #16141c;
+    --paper: #f7f5f1;
+    --accent-pink: #e488b4;
+    --accent-violet: #9a86e6;
+    --accent-blue: #7aa7f5;
+    --grad-eyebrow: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5);
+    --wave-1: #efeafa;
+    --wave-2: #fdeef5;
+  }
+  .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+  a, button, [onclick] { -webkit-tap-highlight-color: transparent; }
+  body { touch-action: manipulation; }
+  @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
+
+  section { position: relative; overflow: hidden; }
+  .wave-wrap { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .wave-wrap svg { position: absolute; }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(28px) scale(.98); transition: opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1); transition-delay: var(--rd, 0s); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  /* ---------- Cards ---------- */
+  .card-light { background: #fff; border: 1px solid rgba(22,20,28,.08); box-shadow: 0 18px 50px -28px rgba(22,20,28,.22); }
+  .card-light:hover { border-color: rgba(22,20,28,.2); }
+  .pkg-featured { background: #fff; border: 2px solid var(--ink); box-shadow: 0 28px 60px -26px rgba(22,20,28,.35); }
+  .pkg-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    font-size: 10.5px; font-weight: 800; letter-spacing: .1em;
+    padding: 6px 16px; border-radius: 999px; color: #fff; background: var(--ink);
+    white-space: nowrap; box-shadow: 0 6px 16px -6px rgba(22,20,28,.5);
+  }
+
+  /* ============================================================
+     LE CHEMINEMENT, light session grid + progression rails
+     The old dark band is gone: the whole page keeps one paper theme.
+     One card per session (numbered, like a program tile), then one
+     horizontal rail per individual package with the session markers
+     and the practice expectations.
+  ============================================================ */
+  .tl-tab { border: 1px solid rgba(22,20,28,.18); background: #fff; color: rgba(22,20,28,.62); border-radius: 999px; padding: .62rem 1.2rem; font-size: 13px; font-weight: 600; transition: all .22s ease; white-space: nowrap; }
+  .tl-tab:hover { border-color: rgba(22,20,28,.45); color: var(--ink); }
+  .tl-tab.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+  .tl-fade { animation: tlFade .34s cubic-bezier(.22,.61,.36,1) both; }
+  @keyframes tlFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .tl-fade { animation: none; } }
+
+  /* ---- one card per session ---- */
+  .sess { position: relative; background: #fff; border: 1px solid rgba(22,20,28,.08); border-radius: 1.4rem; padding: 1.5rem 1.5rem 1.35rem; box-shadow: 0 14px 40px -26px rgba(22,20,28,.2); }
+  .sess-top { display: flex; align-items: center; gap: .7rem; margin-bottom: .9rem; }
+  .sess-num { width: 2rem; height: 2rem; border-radius: 999px; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12.5px; font-weight: 700; flex: none; }
+  .sess-tag { font-size: 10px; font-weight: 800; letter-spacing: .2em; color: var(--accent-violet); }
+  .sess h3 { font-family: Fraunces, Georgia, serif; font-size: 1.22rem; line-height: 1.25; margin-bottom: .55rem; color: var(--ink); }
+  .sess p { font-size: 13.5px; line-height: 1.6; color: rgba(22,20,28,.62); }
+  .sess-meta { display: flex; align-items: center; gap: .45rem; margin-top: .95rem; font-size: 11.5px; color: rgba(22,20,28,.45); }
+  /* the bonus session carries the brand gradient as a border */
+  .sess.is-star { border: 2px solid transparent; background: linear-gradient(#fff,#fff) padding-box, var(--grad-eyebrow) border-box; }
+  .sess.is-star .sess-num { background: var(--grad-eyebrow); }
+  /* full-width phase separator inside the combined grid */
+  .ph-sep { grid-column: 1 / -1; display: flex; align-items: center; gap: .9rem; margin: .4rem 0 .1rem; }
+  .ph-sep::before.ph-sep::after { content: ""; height: 1px; flex: 1; background: rgba(22,20,28,.12); }
+  .ph-sep span { font-size: 10px; font-weight: 800; letter-spacing: .22em; color: rgba(22,20,28,.45); white-space: nowrap; }
+
+  /* ---- progression rails ---- */
+  .rail-card { background: #fff; border: 1px solid rgba(22,20,28,.08); border-radius: 1.4rem; padding: 1.5rem 1.6rem 1.35rem; box-shadow: 0 14px 40px -26px rgba(22,20,28,.2); }
+  .rail-hd { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .35rem 1rem; margin-bottom: 1.15rem; }
+  .rail-hd b { font-family: Fraunces, Georgia, serif; font-size: 1.08rem; font-weight: 600; color: var(--ink); }
+  .rail-hd span { font-size: 11px; color: rgba(22,20,28,.42); }
+  .rail-scroll { overflow-x: auto; padding-bottom: .35rem; }
+  .rail { position: relative; display: flex; min-width: 580px; }
+  .rail::before { content: ""; position: absolute; left: 1.1rem; right: 1.1rem; top: .72rem; height: 2px; background: rgba(22,20,28,.12); }
+  .stop { flex: 1; position: relative; text-align: center; padding: 0 .3rem; }
+  .stop i { position: relative; z-index: 1; display: inline-flex; width: 1.5rem; height: 1.5rem; border-radius: 999px; background: #fff; border: 2px solid rgba(22,20,28,.3); color: rgba(22,20,28,.6); font-style: normal; font-size: 10px; font-weight: 700; align-items: center; justify-content: center; }
+  .stop.hot i { background: var(--grad-eyebrow); border-color: transparent; color: #fff; }
+  .stop small { display: block; margin-top: .5rem; font-size: 10.5px; line-height: 1.35; color: rgba(22,20,28,.55); }
+  .rail-note { margin-top: 1rem; padding-top: .85rem; border-top: 1px dashed rgba(22,20,28,.14); font-size: 12px; color: rgba(22,20,28,.55); }
+
+  /* ---- bundle cards (forfaits) ---- */
+  .bnd { position: relative; display: flex; flex-direction: column; background: #fff; border: 1px solid rgba(22,20,28,.08); border-radius: 1.75rem; overflow: hidden; box-shadow: 0 18px 50px -28px rgba(22,20,28,.22); }
+  .bnd.is-featured { border: 2px solid var(--ink); box-shadow: 0 28px 60px -26px rgba(22,20,28,.35); }
+  .bnd-art { position: relative; height: 6.5rem; overflow: hidden; }
+  .bnd-art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .bnd-badge { position: absolute; top: .9rem; right: .9rem; font-size: 10px; font-weight: 800; letter-spacing: .12em; padding: .42rem .85rem; border-radius: 999px; background: var(--ink); color: #fff; white-space: normal; text-align: center; line-height: 1.4; max-width: calc(100% - 1.8rem); box-shadow: 0 6px 16px -6px rgba(22,20,28,.5); }
+  .bnd-body { display: flex; flex-direction: column; flex: 1; padding: 1.6rem 1.7rem 1.7rem; }
+  .bnd-incl { background: #f7f4ec; border-radius: 1rem; padding: 1.05rem 1.2rem; margin: 1.15rem 0 1.35rem; }
+  .bnd-incl p { font-size: 10.5px; font-weight: 800; letter-spacing: .18em; color: rgba(22,20,28,.4); margin-bottom: .6rem; }
+  .bnd-incl li { display: flex; gap: .55rem; align-items: flex-start; font-size: 13.5px; color: rgba(22,20,28,.75); padding: .22rem 0; }
+  .bnd-incl li svg { flex: none; margin-top: .22rem; color: var(--accent-violet); }
+  .bnd-foot { margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; padding-top: 1rem; border-top: 1px solid rgba(22,20,28,.08); }
+  .bnd-was { font-size: .95rem; color: rgba(22,20,28,.35); text-decoration: line-through; }
+  .bnd-price { font-size: 2rem; font-weight: 700; line-height: 1.05; color: var(--ink); }
+  .bnd-btns { display: flex; flex-direction: column; gap: .55rem; flex: none; }
+  .btn-ghost { display: inline-flex; justify-content: center; border: 1.5px solid rgba(22,20,28,.25); border-radius: 999px; padding: .6rem 1.35rem; font-size: 13px; font-weight: 700; color: var(--ink); transition: border-color .2s; }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .btn-solid { display: inline-flex; justify-content: center; background: var(--ink); color: #fff; border-radius: 999px; padding: .66rem 1.35rem; font-size: 13px; font-weight: 700; transition: background .2s; }
+  .btn-solid:hover { background: #000; }
+
+  /* ---------- Hamburger → X ---------- */
+  .burger span { transition: transform .4s, opacity .3s; transform-origin: center; }
+  .burger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .burger.active span:nth-child(2) { opacity: 0; }
+  .burger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+  #menuOverlay { transform: translateY(-100%); transition: transform .55s cubic-bezier(.22,.61,.36,1); }
+  #menuOverlay.open { transform: translateY(0); }
+</style>
+</head>
+
+<body class="bg-paper text-ink antialiased">
+
+<!-- ============================================================
+     MENU OVERLAY
+============================================================ -->
+<div id="menuOverlay" class="fixed inset-0 z-[60] bg-paper text-ink flex flex-col items-center justify-center gap-6 px-6 overflow-x-hidden text-center">
+  <button onclick="toggleMenu()" aria-label="Fermer le menu" class="absolute top-7 right-6 md:right-12 w-12 h-12 flex items-center justify-center text-ink/50 hover:text-ink transition-colors">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <a href="index.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">HOME</a>
+  <a href="tutoring.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">ACADEMIC TUTORING</a>
+  <a href="#cheminement" onclick="toggleMenu()" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">THE PATH</a>
+  <a href="#forfaits" onclick="toggleMenu()" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">THE THREE METHODS</a>
+  <a href="team.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">OUR TEAM</a>
+  <a href="faq.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">FAQ</a>
+  <a href="index.html#contact" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">CONTACT US</a>
+</div>
+
+<!-- ============================================================
+     TOP BAR
+============================================================ -->
+<header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
+    <a href="index.html" class="font-serif text-xl sm:text-2xl font-semibold tracking-tight inline-flex items-center gap-2 whitespace-nowrap shrink-0"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-6 sm:h-7 w-auto" />MNTR Tutoring<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-3 sm:gap-6 text-sm font-medium text-neutral-600">
+      <div class="relative">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-ink transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          FR
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-xl overflow-hidden z-50">
+          <a href="preparation.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">English</a>
+          <a href="preparation-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
+        </div>
+      </div>
+      <a href="#cheminement" class="hover:text-ink transition-colors hidden md:inline">The path</a>
+      <a href="#forfaits" class="bg-ink text-white text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-full hover:bg-black transition-colors whitespace-nowrap">Pricing</a>
+      <button onclick="toggleMenu()" id="burger" class="burger relative z-[70] flex flex-col gap-[5px] p-1.5 md:hidden" aria-label="Ouvrir le menu">
+        <span class="block w-6 h-[2px] bg-ink"></span><span class="block w-6 h-[2px] bg-ink"></span><span class="block w-6 h-[2px] bg-ink"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="pt-20 md:pt-28 pb-14 md:pb-20">
+  <div class="wave-wrap" aria-hidden="true">
+    <svg style="top:-140px; right:-14%; width:64%; min-width:520px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-1)" d="M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z"/>
+    </svg>
+  </div>
+
+  <div class="relative max-w-4xl mx-auto px-6 text-center">
+    <p class="reveal text-xs font-bold tracking-[0.3em] mb-5 eyebrow-grad">CASPER &amp; MMI PREPARATION</p>
+    <h1 class="reveal font-serif text-4xl sm:text-5xl md:text-6xl leading-[1.08] mb-6" style="--rd:.06s">
+      A method.<br class="hidden sm:block" /> Not tutoring by the hour.
+    </h1>
+    <p class="reveal text-neutral-600 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto" style="--rd:.12s">
+      We sat these interviews. We got in. And we wrote the method that got us in.
+    </p>
+    <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-3 mt-10" style="--rd:.18s">
+      <a href="book.html" class="inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-black transition-colors">
+        Book your free consultation
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#forfaits" class="inline-flex items-center gap-2 text-sm font-semibold px-7 py-3.5 rounded-full border border-ink/20 hover:border-ink transition-colors">
+        The three methods and their rates
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE PATH · session grid + progression rails
+============================================================ -->
+<section id="cheminement" class="py-10 md:py-16">
+  <div class="wave-wrap" aria-hidden="true">
+    <svg style="top:-80px; left:-14%; width:56%; min-width:460px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-1)" d="M105 92C258-32 522-18 700 60c178 78 232 224 148 330-84 106-306 146-492 96C170 436 22 342 24 250 26 158 48 138 105 92Z"/>
+    </svg>
+  </div>
+
+  <div class="relative max-w-6xl mx-auto px-6">
+    <div class="reveal text-center mb-10 md:mb-12 max-w-2xl mx-auto">
+      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">THE PATH</p>
+      <h2 class="font-serif text-3xl md:text-5xl leading-tight mb-5 text-ink">Session by session</h2>
+      <p class="text-neutral-500 leading-relaxed">
+          Each session has its objective, its exercises and its homework to complete beforehand.
+          Count on about a month and a half of focused preparation for each test.
+      </p>
+    </div>
+
+    <div class="reveal flex flex-wrap items-center justify-center gap-2.5 mb-10 md:mb-12">
+      <button type="button" class="tl-tab on" data-track="casper">Casper · 7 sessions</button>
+      <button type="button" class="tl-tab" data-track="integrale">Combined · 14 sessions<span class="block text-[10px] font-semibold opacity-70">+ an extra practice test</span></button>
+      <button type="button" class="tl-tab" data-track="mem">MMI · 7 sessions</button>
+    </div>
+
+
+    <div class="reveal max-w-3xl mx-auto mb-10 md:mb-12 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
+      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-3">The documentation provided, yours to study for success with the method</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+        <div>
+          <p class="text-[13px] font-semibold text-ink mb-1.5">A few of the documents tied to the Casper test</p>
+          <p class="text-[13px] leading-relaxed text-neutral-600">Question types, the right format for answers, and getting familiar with the test format.</p>
+        </div>
+        <div>
+          <p class="text-[13px] font-semibold text-ink mb-1.5">A few of the documents tied to the MMIs</p>
+          <p class="text-[13px] leading-relaxed text-neutral-600">Reaction types and how to respond to them, key words and phrases, building a personal answer that lands with the interviewer, and getting familiar with the MMI format.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="tlGrid" class="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"><!-- filled by JS --></div>
+
+    <div id="tlRails" class="reveal max-w-3xl mx-auto mt-12 space-y-6"><!-- filled by JS --></div>
+
+    <div class="reveal max-w-3xl mx-auto mt-6 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
+      <p class="text-[13.5px] leading-relaxed text-neutral-700 mb-2">
+        <span class="font-semibold text-ink">The homework set before each session is not optional.</span>
+        Every session opens by checking it, and we expect it done. Practising at home is essential.
+      </p>
+      <p class="text-[13px] leading-relaxed text-neutral-500">
+        And at the end of every session, Casper and interviews alike, we circle back over the concepts from the previous sessions.
+      </p>
+    </div>
+
+    <div class="reveal max-w-2xl mx-auto mt-12 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
+      <p class="text-[14px] leading-relaxed text-neutral-700 mb-2">
+        <span class="font-semibold text-ink">The moment you buy, you receive the complete method for succeeding at the MMI or Casper:</span>
+        every session broken down minute by minute, and the work to do before each one.
+        You know exactly where you are headed before we even meet.
+      </p>
+      <p class="text-[12px] leading-relaxed text-neutral-400">
+        The material that fills this path: the exercises to complete, the reference documents and more, is handed to enrolled students. A question along the way? Email us, we answer quickly.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LES TROIS MÉTHODES
+============================================================ -->
+<section id="forfaits" class="py-12 md:py-16">
+  <div class="wave-wrap" aria-hidden="true">
+    <svg style="bottom:-200px; left:-16%; width:60%; min-width:480px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-2)" d="M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z"/>
+    </svg>
+  </div>
+
+  <div class="relative max-w-6xl mx-auto px-6">
+    <div class="reveal text-center mb-10 md:mb-14">
+      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">THIS PATH, IN THREE FORMATS</p>
+      <h2 class="font-serif text-3xl md:text-5xl leading-tight">Choose your method</h2>
+      <p class="text-neutral-500 text-sm mt-4 max-w-md mx-auto">One-on-one sessions of 60 to 90 minutes, online, at the pace you choose, with a mentor admitted to medical school. Unlimited practice AI included.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+
+      <div class="bnd reveal">
+        <div class="bnd-art">
+          <svg viewBox="0 0 400 104" preserveAspectRatio="none" aria-hidden="true">
+            <rect width="400" height="104" fill="var(--wave-1)"/>
+            <path d="M-30 112 C 70 18, 150 116, 250 56 S 400 78, 440 30" fill="none" stroke="url(#bgA)" stroke-width="28" stroke-linecap="round" opacity=".9"/>
+            <defs><linearGradient id="bgA" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#e488b4"/><stop offset=".55" stop-color="#9a86e6"/><stop offset="1" stop-color="#7aa7f5"/></linearGradient></defs>
+          </svg>
+          <span class="bnd-badge">UNLIMITED AI INCLUDED</span>
+        </div>
+        <div class="bnd-body">
+          <p class="text-[10.5px] font-extrabold tracking-[0.25em] eyebrow-grad mb-2.5">CASPER TEST</p>
+          <h3 class="font-serif text-2xl mb-2.5">Casper Preparation</h3>
+          <p class="text-neutral-500 text-[14px] leading-relaxed">Casper does not test what you know. It tests how you think, under pressure.</p>
+          <div class="bnd-incl">
+            <p>INCLUDES:</p>
+            <ul>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>7 one-on-one sessions of 60 to 90 min</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Ongoing email support</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Two full practice tests, reviewed live on a call</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Unlimited practice AI</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Access to the entire method</span></li>
+            </ul>
+          </div>
+          <div class="bnd-foot">
+            <div>
+              <div class="bnd-price">$500</div>
+            </div>
+            <div class="bnd-btns">
+              <button type="button" class="btn-ghost" onclick="viewTrack('casper')">View the path</button>
+              <button type="button" class="btn-solid" onclick="pickService('methode-casper')">Buy now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bnd reveal is-featured md:scale-[1.05] z-10" style="--rd:.12s">
+        <div class="bnd-art">
+          <svg viewBox="0 0 400 104" preserveAspectRatio="none" aria-hidden="true">
+            <rect width="400" height="104" fill="#f3edfa"/>
+            <path d="M-30 84 C 90 10, 190 120, 300 40 S 420 90, 450 50" fill="none" stroke="url(#bgB)" stroke-width="16" stroke-linecap="round" opacity=".35"/>
+            <path d="M-30 30 C 60 110, 170 6, 260 84 S 400 40, 440 88" fill="none" stroke="url(#bgB)" stroke-width="28" stroke-linecap="round" opacity=".9"/>
+            <defs><linearGradient id="bgB" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#e488b4"/><stop offset=".55" stop-color="#9a86e6"/><stop offset="1" stop-color="#7aa7f5"/></linearGradient></defs>
+          </svg>
+          <span class="bnd-badge">SAVE $100 + A FREE CASPER TEST</span>
+        </div>
+        <div class="bnd-body">
+          <p class="text-[10.5px] font-extrabold tracking-[0.25em] eyebrow-grad mb-2.5">CASPER + INTERVIEWS</p>
+          <h3 class="font-serif text-2xl mb-2.5">Combined Preparation</h3>
+          <p class="text-neutral-500 text-[14px] leading-relaxed">Save, and receive one extra practice Casper test, on us.</p>
+          <div class="bnd-incl">
+            <p>INCLUDES:</p>
+            <ul>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>All 7 Casper sessions</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>All 7 interview sessions</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>One extra Casper test, free, corrected in writing</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Ongoing email support</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Unlimited practice AI</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Access to the entire method</span></li>
+            </ul>
+          </div>
+          <div class="bnd-foot">
+            <div>
+              <div class="bnd-was">$1,000</div>
+              <div class="bnd-price">$900</div>
+            </div>
+            <div class="bnd-btns">
+              <button type="button" class="btn-ghost" onclick="viewTrack('integrale')">View the path</button>
+              <button type="button" class="btn-solid" onclick="pickService('methode-integrale')">Buy now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bnd reveal" style="--rd:.24s">
+        <div class="bnd-art">
+          <svg viewBox="0 0 400 104" preserveAspectRatio="none" aria-hidden="true">
+            <rect width="400" height="104" fill="var(--wave-2)"/>
+            <path d="M-30 46 C 80 120, 180 12, 280 90 S 410 44, 440 92" fill="none" stroke="url(#bgC)" stroke-width="28" stroke-linecap="round" opacity=".9"/>
+            <defs><linearGradient id="bgC" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#e488b4"/><stop offset=".55" stop-color="#9a86e6"/><stop offset="1" stop-color="#7aa7f5"/></linearGradient></defs>
+          </svg>
+          <span class="bnd-badge">UNLIMITED AI INCLUDED</span>
+        </div>
+        <div class="bnd-body">
+          <p class="text-[10.5px] font-extrabold tracking-[0.25em] eyebrow-grad mb-2.5">MULTIPLE MINI-INTERVIEWS</p>
+          <h3 class="font-serif text-2xl mb-2.5">Interview Preparation</h3>
+          <p class="text-neutral-500 text-[14px] leading-relaxed">Nobody fails an MMI for lack of intelligence. People fail for lack of practice.</p>
+          <div class="bnd-incl">
+            <p>INCLUDES:</p>
+            <ul>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>7 one-on-one sessions of 60 to 90 min</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Ongoing email support</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Two full practice MMIs</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Unlimited practice AI</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Access to the entire method</span></li>
+            </ul>
+          </div>
+          <div class="bnd-foot">
+            <div>
+              <div class="bnd-price">$500</div>
+            </div>
+            <div class="bnd-btns">
+              <button type="button" class="btn-ghost" onclick="viewTrack('mem')">View the path</button>
+              <button type="button" class="btn-solid" onclick="pickService('methode-mem')">Buy now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="reveal text-center text-neutral-600 text-sm mt-10 max-w-xl mx-auto">
+      Whichever you choose, <span class="font-semibold text-ink">you get access to the complete method the moment you buy</span>, 
+      every session laid out, minute by minute, with the work to do between sessions, as well as a record of the most important feedback from each one.
+    </p>
+    <p class="reveal text-center text-neutral-400 text-xs mt-4">Not sure which one? <a href="book.html" class="text-ink underline underline-offset-4 hover:no-underline">Thirty free minutes</a> to talk it through, no strings attached.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ COURTE
+============================================================ -->
+<section class="py-14 md:py-20 border-t border-ink/10">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="reveal text-center mb-10 md:mb-14">
+      <h2 class="font-serif text-3xl md:text-4xl">The questions we get asked</h2>
+    </div>
+
+    <div class="reveal divide-y divide-ink/10 border-y border-ink/10">
+      <details class="group py-6">
+        <summary class="flex items-center justify-between gap-6 cursor-pointer">
+          <h3 class="font-serif text-lg md:text-xl">Who runs the sessions?</h3>
+          <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Medical students who sat these same interviews and got in. They all follow the same written method: the path does not depend on who you get.</p>
+      </details>
+      <details class="group py-6">
+        <summary class="flex items-center justify-between gap-6 cursor-pointer">
+          <h3 class="font-serif text-lg md:text-xl">I take Casper this fall and my MMIs in the spring. Does the combined path still work?</h3>
+          <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Yes, it is built for that. We run the Casper half before your fall date, then the interview half picks up as your invitations approach, with your stories and your CV already in place.</p>
+      </details>
+      <details class="group py-6">
+        <summary class="flex items-center justify-between gap-6 cursor-pointer">
+          <h3 class="font-serif text-lg md:text-xl">I already have a CV and I have done interviews before. Do I waste a session?</h3>
+          <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">No. If the CV and the inventory of experiences are already done, we do not redo them: we go straight to practice and you gain time across the rest of the path.</p>
+      </details>
+      <details class="group py-6">
+        <summary class="flex items-center justify-between gap-6 cursor-pointer">
+          <h3 class="font-serif text-lg md:text-xl">What if I do not know which one fits yet?</h3>
+          <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Book the free 30-minute consultation. We look at your timeline and your goals, and we tell you straight which of the three makes sense, including if the answer is none of them.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA FINAL
+============================================================ -->
+<section class="py-14 md:py-20">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <div class="reveal pkg-featured rounded-3xl p-9 md:p-12">
+      <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-4">START HERE</p>
+      <h2 class="font-serif text-3xl md:text-4xl leading-tight mb-4">Thirty minutes, free, no commitment.</h2>
+      <p class="text-neutral-600 leading-relaxed max-w-lg mx-auto mb-8">We look at where you stand, when you sit the test, and we tell you which method actually holds up in your timeline.</p>
+      <a href="book.html" class="inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-8 py-4 rounded-full hover:bg-black transition-colors">
+        Book your free consultation
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <p class="text-neutral-400 text-[11.5px] leading-relaxed mt-8 max-w-xl mx-auto">
+      MNTR Tutoring is not affiliated with, sponsored by, or endorsed by Acuity&nbsp;Insights, Casper, or any faculty of medicine.
+      &ldquo;Casper&rdquo; is a trademark of its respective owner. No admission is guaranteed.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class='bg-ink text-white pt-16 pb-10 px-6 md:px-12 rounded-t-[22px] md:rounded-t-[28px]'>
+  <div class='max-w-6xl mx-auto'>
+    <div class='grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8 mb-14'>
+      <div class='col-span-2 md:col-span-1'>
+        <span class='font-serif text-xl inline-flex items-center gap-2'><img src='logo-mark-white.png' alt='' aria-hidden='true' class='h-5 w-auto' />MNTR Tutoring<span class='text-neutral-500'>.</span></span>
+        <p class='text-neutral-400 text-sm mt-3 leading-relaxed max-w-xs'>Academic tutoring and interview preparation, taught by medical and university students.</p>
+      </div>
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>EXPLORE</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li><a href='tutoring.html' class='hover:text-white transition-colors'>High school &amp; CEGEP tutoring</a></li>
+          <li><a href='preparation.html' class='hover:text-white transition-colors'>Casper &amp; MMI preparation</a></li>
+          <li><a href='index.html#staff' class='hover:text-white transition-colors'>Our tutors</a></li>
+          <li><a href='faq.html' class='hover:text-white transition-colors'>FAQ</a></li>
+          <li><a href='privacy.html' class='hover:text-white transition-colors'>Privacy Policy</a></li>
+          <li><a href='user-agreement.html' class='hover:text-white transition-colors'>User Agreement</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>LANGUAGE</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li><a href='preparation.html' class='hover:text-white transition-colors bg-white/10 px-3 py-1 rounded-full'>English</a></li>
+          <li><a href='preparation-fr.html' class='hover:text-white transition-colors'>Français</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>GET STARTED</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li><a href='book.html' class='hover:text-white transition-colors'>Book a free call</a></li>
+          <li><a href='index.html#contact' class='hover:text-white transition-colors'>Contact us</a></li>
+          <li><a href='mailto:mntrtutoring.info@gmail.com' class='hover:text-white transition-colors break-all'>mntrtutoring.info@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class='border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-3'>
+      <p class='text-neutral-500 text-sm'>&copy; 2026 MNTR Tutoring</p>
+      <a href='book.html' class='inline-flex items-center gap-1.5 text-sm text-neutral-300 hover:text-white transition-colors'>Book your free call
+        <svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ---------- Chrome ---------- */
+  const overlay = document.getElementById('menuOverlay');
+  const burger  = document.getElementById('burger');
+  function toggleMenu() {
+    overlay.classList.toggle('open');
+    burger.classList.toggle('active');
+    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  }
+  function toggleLangMenu() {
+    var m = document.getElementById('langMenu');
+    if (m) m.classList.toggle('hidden');
+  }
+  document.addEventListener('click', function (e) {
+    var m = document.getElementById('langMenu');
+    if (!m) return;
+    var b = e.target.closest('button');
+    var isToggle = b && b.onclick && b.onclick.toString().indexOf('toggleLangMenu') !== -1;
+    if (!m.contains(e.target) && !isToggle) m.classList.add('hidden');
+  });
+
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+  function pickService(key) { window.location.href = 'checkout.html?service=' + key; }
+
+  /* ============================================================
+     TIMELINE DATA
+
+     Line to hold: this says WHAT happens in a session and what the
+     student goes home with. It never ships the contents, the
+     question lists, the answer formulas, the scenario banks and the
+     marking grids are the product, and they stay behind the sale.
+  ============================================================ */
+  var STEPS = {
+    /* --- Casper · 7 sessions · pace of your choice ------------------ */
+    c1: { title: 'Measure',
+      body: 'Your homework is waiting before the first session even begins. We then measure your starting point: typing speed, clarity of communication, command of language, comfort on camera, and review your personal experiences.' },
+    c2: { title: 'Personalize and simplify',
+      body: 'A review of your CV and practice on personal questions. Your first Casper scenarios out loud, and how to build an answer that holds together.' },
+    c3: { title: 'Scenarios',
+      body: 'You arrive already knowing every question type, since that is the week\u2019s homework. The session is spent on Casper scenarios, written and out loud.' },
+    c4: { title: 'Transition',
+      body: 'A mix of personal questions and unexpected scenarios that cannot be memorised, weighted to your needs, then a timed mini practice test to set the rhythm.', dur: '90 min' },
+    c5: { title: 'Simulation',
+      body: 'A full timed practice test, taken at home with no input from us. Then a live review of your answers on a call, while they are still fresh in your memory.' },
+    c6: { title: 'Your choice',
+      body: 'The session is yours to shape: a final CV discussion, targeted practice, whatever you need. You arrive knowing where it breaks down, and we fix it together.' },
+    c7: { title: 'Final step',
+      body: 'You sit a second full test between sessions; we go through it together on a call, answer by answer, and compare it with your starting performance.' },
+
+    /* --- Interviews (MMI) · 7 sessions · pace of your choice --------- */
+    m1: { title: 'Measure',
+      body: 'Your starting point, measured. Then a focused review of your personal experiences, and the core principles an MMI is built on.' },
+    m2: { title: 'Personalize and simplify',
+      body: 'Come with your homework done. Your experiences taken one by one, made easy to follow, and the harder personal questions pushed further.' },
+    m3: { title: 'Unsettling scenarios',
+      body: 'Read the documents provided in advance. Role-played scenarios, team questions and situations designed to unsettle you, with expert feedback after every run.' },
+    m4: { title: 'Every question type',
+      body: 'Estimation and mental-maths questions, with the reference figures provided in advance, then targeted feedback at the intensity you choose.' },
+    m5: { title: 'A full MMI simulation',
+      body: 'A complete practice interview under real conditions, followed by a review of your answers.', dur: '90 min' },
+    m6: { title: 'Your choice',
+      body: 'The session is yours to shape: you arrive knowing what is holding you back, and we fix it. Between these final sessions, the practice never stops.' },
+    m7: { title: 'A second full MMI simulation',
+      body: 'One last complete practice interview, then the debrief: where you stood at session one, where you stand now, and the plan for your interview dates.', dur: '90 min' }
+  };
+
+  var TRACKS = {
+    casper:    { steps: ['c1','c2','c3','c4','c5','c6','c7'], rails: ['casper'] },
+    mem:       { steps: ['m1','m2','m3','m4','m5','m6','m7'], rails: ['mem'] },
+    integrale: {
+      steps: ['c1','c2','c3','c4','c5','c6','c7','m1','m2','m3','m4','m5','m6','m7'],
+      phases: { 0: 'CASPER HALF', 7: 'INTERVIEW HALF' },
+      rails: ['casper','mem'],
+      bonus: {
+        tag: 'FREE WITH THE COMBINED PATH',
+        title: 'One extra practice Casper test',
+        body: 'One more full practice Casper test, with a written correction of every answer.'
+      }
+    }
+  };
+
+  var RAILS = {
+    casper: {
+      label: 'Casper Preparation',
+      pre: 'Before session 1 · your homework is already waiting',
+      dur: '7 sessions · at the pace you choose',
+      note: 'About an hour of practice a day, between every session, the AI is there for exactly that.',
+      stops: [
+        { t: 'Assessment + basics' }, { t: 'Foundations' }, { t: 'Scenarios, spoken and written' },
+        { t: 'Tailored + mini test' }, { t: 'Full practice test', hot: true },
+        { t: 'Targeted session' }, { t: 'Review of test #2', hot: true }
+      ]
+    },
+    mem: {
+      label: 'Interview Preparation',
+      pre: 'Before session 1 · CV and experiences to prepare',
+      dur: '7 sessions · at the pace you choose',
+      note: 'Two hours of practice a day, whether with friends, with the AI or reviewing the documents.',
+      stops: [
+        { t: 'Assessment + basics' }, { t: 'Personal questions' }, { t: 'Role-play and team' },
+        { t: 'Reasoning' }, { t: 'Full practice MMI', hot: true },
+        { t: 'Targeted session' }, { t: '2nd practice MMI', hot: true }
+      ]
+    }
+  };
+
+  (function () {
+    var grid = document.getElementById('tlGrid');
+    var rails = document.getElementById('tlRails');
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tl-tab'));
+    if (!grid) return;
+
+    function sessCard(s, n) {
+      return '<div class="sess' + (s.star ? ' is-star' : '') + '">' +
+        '<div class="sess-top"><span class="sess-num">' + n + '</span>' +
+        '<span class="sess-tag">SESSION ' + n + (s.tag ? ' · ' + s.tag : '') + '</span></div>' +
+        '<h3>' + s.title + '</h3>' +
+        '<p>' + s.body + '</p>' +
+        '<div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>' + (s.dur || '60 min') + ' · homework before the session</span></div>' +
+      '</div>';
+    }
+
+    function railCard(r) {
+      var stops = r.stops.map(function (st, i) {
+        return '<div class="stop' + (st.hot ? ' hot' : '') + '"><i>' + (i + 1) + '</i><small>' + st.t + '</small></div>';
+      }).join('');
+      return '<div class="rail-card">' +
+        '<div class="rail-hd"><b>' + r.label + '</b><span>' + r.dur + '</span></div>' +
+        '<div class="flex flex-wrap justify-between gap-x-4 text-[11px] text-neutral-400 mb-3"><span>' + r.pre + '</span></div>' +
+        '<div class="rail-scroll"><div class="rail">' + stops + '</div></div>' +
+        '<p class="rail-note">' + r.note + '</p>' +
+      '</div>';
+    }
+
+    function render(key) {
+      var track = TRACKS[key];
+      var html = '';
+      track.steps.forEach(function (id, i) {
+        if (track.phases && track.phases[i] !== undefined) {
+          html += '<div class="ph-sep"><span>' + track.phases[i] + '</span></div>';
+        }
+        html += sessCard(STEPS[id], i + 1);
+      });
+      if (track.bonus) {
+        html += '<div class="ph-sep"><span>' + track.bonus.tag + '</span></div>';
+        html += '<div class="sess is-star"><div class="sess-top"><span class="sess-num">★</span>' +
+          '<span class="sess-tag">' + track.bonus.tag + '</span></div>' +
+          '<h3>' + track.bonus.title + '</h3><p>' + track.bonus.body + '</p></div>';
+      }
+      grid.innerHTML = html;
+      grid.classList.remove('tl-fade'); void grid.offsetWidth; grid.classList.add('tl-fade');
+
+      var rhtml = track.rails.map(function (id) { return railCard(RAILS[id]); }).join('');
+      rails.innerHTML = rhtml;
+      rails.classList.remove('tl-fade'); void rails.offsetWidth; rails.classList.add('tl-fade');
+
+      tabs.forEach(function (t) { t.classList.toggle('on', t.dataset.track === key); });
+    }
+
+    tabs.forEach(function (t) { t.onclick = function () { render(t.dataset.track); }; });
+
+    /* Called by the bundle cards: open that track and bring the path into view. */
+    window.viewTrack = function (key) {
+      render(key);
+      var s = document.getElementById('cheminement');
+      if (s) s.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    render('casper');
+  })();
+</script>
+</body>
+</html>

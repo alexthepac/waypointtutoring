@@ -145,7 +145,7 @@
           </a>
           <p id="promo-cal-note" class="hidden text-xs text-center mt-3 text-neutral-500 leading-relaxed"></p>
           <p id="svc-note" class="hidden text-[13px] text-center mt-4 text-ink leading-relaxed bg-ink/5 rounded-xl px-4 py-3">&#9993;&#65039; <span id="svc-note-text"></span></p>
-          <p class="text-neutral-500 text-xs text-center mt-3 leading-relaxed">Any questions? Email us at <a href="mailto:mntrtutoring.info@gmail.com" class="text-ink font-medium underline underline-offset-2 hover:text-black transition-colors break-all">mntrtutoring.info@gmail.com</a>. You can also text or call us at <a href="tel:+15146520018" class="text-ink font-medium underline underline-offset-2 hover:text-black transition-colors whitespace-nowrap">+1&nbsp;514-652-0018</a> &mdash; summer hours: any day, 9&nbsp;a.m. to 4&nbsp;p.m.</p>
+          <p class="text-neutral-500 text-xs text-center mt-3 leading-relaxed">Any questions? Email us at <a href="mailto:mntrtutoring.info@gmail.com" class="text-ink font-medium underline underline-offset-2 hover:text-black transition-colors break-all">mntrtutoring.info@gmail.com</a>. You can also text or call us at <a href="tel:+15146520018" class="text-ink font-medium underline underline-offset-2 hover:text-black transition-colors whitespace-nowrap">+1&nbsp;514-652-0018</a>, summer hours: any day, 9&nbsp;a.m. to 4&nbsp;p.m.</p>
 
           <div class="flex items-center justify-center gap-2 mt-4 text-neutral-500 text-xs">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -231,29 +231,115 @@
       includes: ['Ten 60-minute live online sessions', '$30 per session (save $50 overall)', 'Same prepared, syllabus-based tutoring', 'Consistent pairing with your tutor'],
       stripe: 'https://buy.stripe.com/aFa00l2yufIQ7pk3sZdUY0d'
     },
-    'casper-only': {
-      name: 'CASPer Prep',
-      price: '$600', unit: 'Complete CASPer-only prep program',
-      desc: 'A complete CASPer prep program with medical students who sat the exam and were admitted — built to take you from first attempt to exam-day ready.',
-      note: 'You’ll be able to choose your mentor when you continue to the reservation step. After payment, we’ll contact you by email to go over your mentor preferences and confirm your session schedule.',
-      includes: ['Timed, realistic Casper simulations covering the full range of scenario types', 'Detailed 1-on-1 feedback after every simulation', 'Proven answer frameworks & scoring rubric', 'Consistent pairing with your mentor throughout'],
-      stripe: 'https://buy.stripe.com/00weVf4GC2W4cJEfbHdUY0i'
+    'casper-pack5': {
+      name: '5-Session Casper & MMI Package',
+      price: '$162.50', unit: '$32.50 / session · save $12.50',
+      desc: 'Five one-on-one sessions with medical students who sat these exact interviews and were admitted. Enough time to work through the full range of Casper scenarios and MMI station types, build a repeatable answer framework, and rehearse under real time pressure until it feels automatic.',
+      note: 'You\u2019ll be able to choose your mentor when you continue to the reservation step. After payment, we\u2019ll contact you by email to go over your mentor preferences and confirm your session times.',
+      includes: ['Five 60-minute live online sessions', '$32.50 per session (save $12.50 overall)', 'Timed Casper simulations and MMI mock stations', 'Detailed 1-on-1 feedback after every session', 'Proven answer frameworks & scoring rubric', 'Consistent pairing with your mentor'],
+      stripe: 'https://buy.stripe.com/6oUeVf4GC0NW5hc1kRdUY0g'
     },
-    'mmi-only': {
-      name: 'MMI Prep',
-      price: '$600', unit: 'Complete MMI-only prep program',
-      desc: 'A complete MMI prep program with medical students who sat the exact interview format and were admitted — built to take you from first attempt to interview-day ready.',
-      note: 'You’ll be able to choose your mentor when you continue to the reservation step. After payment, we’ll contact you by email to go over your mentor preferences and confirm your session schedule.',
-      includes: ['Full mock MMI circuits across scenario types (ethical, collaboration, communication and more)', 'Detailed 1-on-1 feedback after every mock station', 'Proven answer frameworks & scoring rubric', 'Consistent pairing with your mentor throughout'],
-      stripe: 'https://buy.stripe.com/9B600l1uq2W4dNIaVrdUY0j'
+    'casper-pack10': {
+      name: '10-Session Casper & MMI Package',
+      price: '$300', unit: '$30 / session · save $50',
+      desc: 'Our most complete interview preparation: ten one-on-one sessions with medical students admitted to Quebec medical schools. Built for applicants who want to go from first attempt to interview-ready \u2014 covering ethical dilemmas, collaboration and communication scenarios, and full mock circuits, with your answers refined session over session.',
+      note: 'You\u2019ll be able to choose your mentor when you continue to the reservation step. After payment, we\u2019ll contact you by email to go over your mentor preferences and confirm your session times.',
+      includes: ['Ten 60-minute live online sessions', '$30 per session (save $50 overall)', 'Full Casper simulations and complete MMI mock circuits', 'Detailed 1-on-1 feedback after every session', 'Proven answer frameworks & scoring rubric', 'Consistent pairing with your mentor'],
+      stripe: 'https://buy.stripe.com/3cI5kF6OK7ck10W2oVdUY0h'
     },
-    'casper-mmi-combo': {
-      name: 'Casper & MMI Combo',
-      price: '$1,000', unit: 'Complete Casper + MMI program · save $200',
-      desc: 'Our most complete interview preparation: full Casper and MMI prep together, at a bundled rate, with medical students admitted to Quebec medical schools. Built for applicants who want to cover every format before exam day.',
-      note: 'You’ll be able to choose your mentor when you continue to the reservation step. After payment, we’ll contact you by email to go over your mentor preferences and confirm your session schedule.',
-      includes: ['Everything in CASPer Prep and MMI Prep, combined', 'Timed Casper simulations and full MMI mock circuits', 'Detailed 1-on-1 feedback after every session', 'Proven answer frameworks & scoring rubric', 'Consistent pairing with your mentor throughout', 'Save $200 versus booking both separately'],
-      stripe: 'https://buy.stripe.com/6oU14pdd80NW6lg6FbdUY0k'
+    'casper-hourly': {
+      name: 'Casper & MMI Prep',
+      price: '$35', unit: 'per 60-minute session',
+      desc: 'One-on-one Casper and MMI prep: realistic timed simulations or mock stations with expert feedback, from mentors admitted to all four Quebec medical schools.',
+      note: 'We’ll contact you by email to confirm everything, and you’ll be able to choose your mentor when you continue to the reservation step.',
+      includes: ['A full 60-minute live online session', 'Timed Casper simulations or MMI mock stations', '1-on-1 expert feedback after every session', 'Proven answer frameworks & scoring rubric'],
+      cal: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep-copy'
+    },
+
+    /* ---------------------------------------------------------------
+       THE THREE PREPARATION PATHS (preparation.html)
+       These replace the hourly grid above for interview prep: we no
+       longer sell hours, we sell a complete progression.
+       All three carry their Stripe Payment Link below. Until a link is
+       a real https:// URL the button falls back to the contact page.
+       "After payment" redirects to configure in Stripe:
+         methode-casper    -> thank-you.html?service=methode-casper
+         methode-mem       -> thank-you.html?service=methode-mem
+         methode-integrale -> thank-you.html?service=methode-integrale
+    --------------------------------------------------------------- */
+    /* ---------------------------------------------------------------
+       TUTORING, current grid ($45 / $40 in a five-session package).
+       New keys rather than editing 'tutoring' / 'pack5' / 'pack10':
+       those still carry live Stripe links at the old amounts and must
+       not be reused at the new prices.
+       Paste the new Payment Links below when they exist.
+    --------------------------------------------------------------- */
+    'tutorat-1': {
+      name: 'Academic tutoring, single session',
+      price: '$45', unit: 'per 60-minute session',
+      desc: 'One hour of one-on-one tutoring with a medical or university student, prepared in advance around your exact courses.',
+      includes: ['One 60-minute session, online','Built around your program and your goals','Every subject, from high school to CEGEP','Study-method coaching built in'],
+      note: 'We will email you to confirm everything, and you will be able to choose your tutor at the booking step.',
+      stripe: ''
+    },
+    'tutorat-5': {
+      name: 'Academic tutoring, 5-session package',
+      price: '$200', unit: '$40 an hour, save $25',
+      desc: 'Five one-on-one tutoring sessions at the reduced rate, with the same tutor from start to finish.',
+      includes: ['Five 60-minute sessions, online','$40 an hour instead of $45','A consistent match with your tutor','Preparation built around your program'],
+      note: 'After your payment we will email you to confirm your preferences and set your session schedule.',
+      stripe: ''
+    },
+
+    'methode-casper': {
+      name: 'Casper Preparation',
+      price: '$500', unit: '7 one-on-one sessions of 60 to 90 minutes',
+      desc: 'The complete Casper preparation path, in seven one-on-one sessions with a mentor admitted to medical school: a measured skills assessment, work on your stories and your CV, every question type, two full practice tests with detailed review, in about six weeks.',
+      includes: [
+        'Seven one-on-one sessions of 60 to 90 minutes, online',
+        'A measured skills assessment at the start, compared at the end',
+        'Typing speed, communication, comfort on camera: all of it measured',
+        'The question types and answer structures',
+        'Two full practice tests, reviewed live on a call',
+        'Guided homework between every session',
+        'Your complete expected progression, sent the moment you buy',
+        'A subscription to our practice AI, included'
+      ],
+      note: 'The moment you pay, you receive your complete expected progression: every session broken down, and the work to do before each one. The expected progression is adjusted to your experience. Take your sessions whenever you want, and count on about an hour of practice a day in between. After your payment we will email you to match you with a mentor and set your schedule.',
+      stripe: 'https://buy.stripe.com/00w9AV0qm54c5hc1kRdUY0m'
+    },
+    'methode-mem': {
+      name: 'Interview Preparation',
+      price: '$500', unit: '7 one-on-one sessions of 60 to 90 minutes',
+      desc: 'The complete multiple mini-interview preparation path, in seven one-on-one sessions: a skills assessment, your personal stories worked through, role-played scenarios, team questions and unsettling situations, estimation questions, then two full practice interviews.',
+      includes: [
+        'Seven one-on-one sessions of 60 to 90 minutes, online',
+        'A measured skills assessment at the start',
+        'Role-played scenarios, with expert feedback',
+        'Team questions and unsettling situations',
+        'Estimation questions, with the reference figures you need',
+        'Two full practice MMIs',
+        'Your complete expected progression, sent the moment you buy',
+        'A subscription to our practice AI, included'
+      ],
+      note: 'The moment you pay, you receive your complete expected progression: every session broken down, and the work to do before each one. The expected progression is adjusted to your experience. Take your sessions whenever you want, and count on two hours of practice a day, whether with friends, with the AI or reviewing the documents. After your payment we will email you to match you with a mentor and set your schedule.',
+      stripe: 'https://buy.stripe.com/5kQ7sN6OK0NWfVQ4x3dUY0n'
+    },
+    'methode-integrale': {
+      name: 'Combined Preparation · Casper + interviews',
+      price: '$900', unit: '14 one-on-one sessions of 60 to 90 minutes · instead of $1,000',
+      desc: 'Casper and interviews are not two preparations: it is the same skill assessed twice. The combined path covers both in full, and one extra practice Casper test is offered on top.',
+      includes: [
+        'Fourteen one-on-one sessions of 60 to 90 minutes, online',
+        'Everything in Casper Preparation',
+        'Everything in Interview Preparation',
+        'One extra Casper test, free, corrected in writing',
+        'Save $100 against the two packages bought separately',
+        'Your complete expected progression, sent the moment you buy',
+        'A subscription to our practice AI, included'
+      ],
+      note: 'The moment you pay, you receive your complete expected progression: every session broken down, and the work to do before each one. The expected progression is adjusted to your experience, and you take your sessions whenever you want. After your payment we will email you to match you with a mentor and set your schedule.',
+      stripe: 'https://buy.stripe.com/cNi8wRa0W2W4aBwaVrdUY0l'
     }
   };
 
@@ -262,7 +348,7 @@
      Stripe is the source of truth. Whatever the client types is forwarded
      to the Stripe Payment Link as ?prefilled_promo_code=CODE, and Stripe
      decides whether it's valid and what it's worth. That means a code
-     works the moment you create it in Stripe — nothing here needs editing.
+     works the moment you create it in Stripe, nothing here needs editing.
 
      For it to actually discount, each Payment Link needs "Allow promotion
      codes" turned ON: Stripe Dashboard -> Payment Links -> Edit.
@@ -323,11 +409,11 @@
         // Booking happens in the on-site Cal.com embed so the Google Ads
         // conversion fires when the booking completes.
         btn.href = 'book-session.html?service=' + encodeURIComponent(key);
-        btn.textContent = 'Book & pay — pick your time';
+        btn.textContent = 'Book & pay, pick your time';
       } else {
         // No real payment link yet -> fall back to the contact page
         btn.href = 'index.html#contact';
-        btn.textContent = (svc.price === 'Custom') ? 'Contact us to enroll' : 'Payment link coming soon — contact us';
+        btn.textContent = (svc.price === 'Custom') ? 'Contact us to enroll' : 'Payment link coming soon, contact us';
       }
     }
     updatePayButton();
@@ -340,8 +426,8 @@
       msg.classList.remove('hidden');
     }
 
-    /* We can't price the discount here — only Stripe knows what a code is
-       worth — so we confirm it's attached and let Stripe show the new total. */
+    /* We can't price the discount here, only Stripe knows what a code is
+       worth, so we confirm it's attached and let Stripe show the new total. */
     function renderPromo() {
       var calNoteEl = document.getElementById('promo-cal-note');
       if (appliedPromo && isCal) {
@@ -365,8 +451,8 @@
       appliedPromo = code;
       renderPromo();
       showPromoMsg(isCal
-        ? 'Code ' + code + ' saved — mention it when you book.'
-        : 'Code ' + code + ' added — your discount is applied at payment.', true);
+        ? 'Code ' + code + ' saved, mention it when you book.'
+        : 'Code ' + code + ' added, your discount is applied at payment.', true);
     }
 
     document.getElementById('promo-apply').addEventListener('click', applyPromo);

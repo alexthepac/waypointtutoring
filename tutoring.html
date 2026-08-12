@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18318813201"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18318813201');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Academic Tutoring · High School and CEGEP · MNTR Tutoring</title>
+<meta name="description" content="One-on-one tutoring for high school and CEGEP, taught by medical and university students. Math, sciences, languages. $45 an hour, $40 in a five-session package." />
+<link rel='icon' type='image/png' href='favicon.png?v=2' />
+<link rel='shortcut icon' href='favicon.ico' />
+<link rel='apple-touch-icon' href='apple-touch-icon.png' />
+<meta property='og:type' content='website' />
+<meta property='og:title' content='Academic Tutoring · High School and CEGEP · MNTR Tutoring' />
+<meta property='og:description' content='One-on-one tutoring taught by medical and university students.' />
+<meta property='og:image' content='hero.jpg' />
+<meta name='twitter:card' content='summary_large_image' />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'], serif: ['Fraunces','Georgia','serif'] },
+      colors: { ink: '#16141c', paper: '#f7f5f1' },
+    } },
+  };
+</script>
+
+<style>
+  :root {
+    --ink: #16141c; --paper: #f7f5f1;
+    --grad-eyebrow: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5);
+    --wave-1: #efeafa; --wave-2: #fdeef5;
+  }
+  .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+  a, button, [onclick] { -webkit-tap-highlight-color: transparent; }
+  body { touch-action: manipulation; }
+  @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
+  section { position: relative; overflow: hidden; }
+  .wave-wrap { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .wave-wrap svg { position: absolute; }
+
+  .reveal { opacity: 0; transform: translateY(28px) scale(.98); transition: opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1); transition-delay: var(--rd, 0s); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  .card-light { background: #fff; border: 1px solid rgba(22,20,28,.08); box-shadow: 0 18px 50px -28px rgba(22,20,28,.22); }
+  .card-light:hover { border-color: rgba(22,20,28,.2); }
+  .pkg-featured { background: #fff; border: 2px solid var(--ink); box-shadow: 0 28px 60px -26px rgba(22,20,28,.35); }
+  .pkg-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 10.5px; font-weight: 800; letter-spacing: .1em; padding: 6px 16px; border-radius: 999px; color: #fff; background: var(--ink); white-space: nowrap; box-shadow: 0 6px 16px -6px rgba(22,20,28,.5); }
+
+  /* Level switch */
+  .lvl-tab { border: 1px solid rgba(22,20,28,.12); background: #fff; color: #6d675f; border-radius: 999px; padding: .65rem 1.4rem; font-size: 13.5px; font-weight: 600; transition: all .22s ease; }
+  .lvl-tab:hover { border-color: rgba(22,20,28,.3); color: var(--ink); }
+  .lvl-tab.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+  .burger span { transition: transform .4s, opacity .3s; transform-origin: center; }
+  .burger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .burger.active span:nth-child(2) { opacity: 0; }
+  .burger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+  #menuOverlay { transform: translateY(-100%); transition: transform .55s cubic-bezier(.22,.61,.36,1); }
+  #menuOverlay.open { transform: translateY(0); }
+</style>
+</head>
+
+<body class="bg-paper text-ink antialiased">
+
+<div id="menuOverlay" class="fixed inset-0 z-[60] bg-paper text-ink flex flex-col items-center justify-center gap-6 px-6 overflow-x-hidden text-center">
+  <button onclick="toggleMenu()" aria-label="Fermer le menu" class="absolute top-7 right-6 md:right-12 w-12 h-12 flex items-center justify-center text-ink/50 hover:text-ink transition-colors">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <a href="index.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">HOME</a>
+  <a href="#forfaits" onclick="toggleMenu()" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">PACKAGES</a>
+  <a href="preparation.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">CASPER &amp; MMI</a>
+  <a href="team.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">OUR TEAM</a>
+  <a href="faq.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">FAQ</a>
+  <a href="index.html#contact" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">CONTACT US</a>
+</div>
+
+<header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
+    <a href="index.html" class="font-serif text-xl sm:text-2xl font-semibold tracking-tight inline-flex items-center gap-2 whitespace-nowrap shrink-0"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-6 sm:h-7 w-auto" />MNTR Tutoring<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-3 sm:gap-6 text-sm font-medium text-neutral-600">
+      <div class="relative">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-ink transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          FR
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-xl overflow-hidden z-50">
+          <a href="tutoring.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">English</a>
+          <a href="tutorat-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
+        </div>
+      </div>
+      <a href="preparation.html" class="hover:text-ink transition-colors hidden md:inline">Casper &amp; MMI</a>
+      <a href="#forfaits" class="bg-ink text-white text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-full hover:bg-black transition-colors whitespace-nowrap">See the rates</a>
+      <button onclick="toggleMenu()" id="burger" class="burger relative z-[70] flex flex-col gap-[5px] p-1.5 md:hidden" aria-label="Ouvrir le menu">
+        <span class="block w-6 h-[2px] bg-ink"></span><span class="block w-6 h-[2px] bg-ink"></span><span class="block w-6 h-[2px] bg-ink"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="pt-20 md:pt-28 pb-14 md:pb-16">
+  <div class="wave-wrap" aria-hidden="true">
+    <svg style="top:-150px; left:-16%; width:64%; min-width:500px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-2)" d="M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z"/>
+    </svg>
+  </div>
+  <div class="relative max-w-4xl mx-auto px-6 text-center">
+    <p class="reveal text-xs font-bold tracking-[0.3em] mb-5 eyebrow-grad">HIGH SCHOOL AND CEGEP</p>
+    <h1 class="reveal font-serif text-4xl sm:text-5xl md:text-6xl leading-[1.08] mb-6" style="--rd:.06s">One-on-one academic tutoring</h1>
+    <p class="reveal text-neutral-600 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto" style="--rd:.12s">
+      Math, sciences, languages, taught by medical and university students
+      who walked exactly the same path, not that long ago.
+    </p>
+    <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-3 mt-10" style="--rd:.18s">
+      <a href="#forfaits" class="inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-black transition-colors">
+        See the rates
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="book.html" class="inline-flex items-center gap-2 text-sm font-semibold px-7 py-3.5 rounded-full border border-ink/20 hover:border-ink transition-colors">Free consultation</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CE QUI EST INCLUS
+============================================================ -->
+<section class="pb-6 md:pb-10">
+  <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+    <div class="reveal card-light rounded-2xl p-6">
+      <p class="font-serif text-lg mb-1.5">Prepared in advance</p>
+      <p class="text-neutral-500 text-[13.5px] leading-relaxed">Your tutor builds the session around your exact courses, your grades and your next exam.</p>
+    </div>
+    <div class="reveal card-light rounded-2xl p-6" style="--rd:.1s">
+      <p class="font-serif text-lg mb-1.5">Always the same person</p>
+      <p class="text-neutral-500 text-[13.5px] leading-relaxed">A consistent match. Nobody starts over explaining where you stand at every session.</p>
+    </div>
+    <div class="reveal card-light rounded-2xl p-6" style="--rd:.2s">
+      <p class="font-serif text-lg mb-1.5">Study methods, not just the material</p>
+      <p class="text-neutral-500 text-[13.5px] leading-relaxed">How to study, how to handle an exam, how to get organised, built into every session.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FORFAITS
+============================================================ -->
+<section id="forfaits" class="py-14 md:py-20">
+  <div class="wave-wrap" aria-hidden="true">
+    <svg style="bottom:-200px; right:-16%; width:60%; min-width:460px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-1)" d="M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z"/>
+    </svg>
+  </div>
+  <div class="relative max-w-6xl mx-auto px-6">
+    <div class="reveal text-center mb-9 md:mb-12">
+      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">LOCK IN YOUR RATE</p>
+      <h2 class="font-serif text-3xl md:text-5xl leading-tight">Choose your level</h2>
+      <p class="text-neutral-500 text-sm mt-4 max-w-lg mx-auto">By the session, or in a five-session package that brings the hourly rate down.</p>
+    </div>
+
+    <div class="reveal flex items-center justify-center gap-3 mb-10 md:mb-14">
+      <button type="button" id="tab-hs" class="lvl-tab on" onclick="setLevel('hs')">Secondary 1 to 5</button>
+      <button type="button" id="tab-cegep" class="lvl-tab" onclick="setLevel('cegep')">CEGEP</button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-3xl mx-auto">
+
+      <div onclick="pickService('tutorat-1')" class="card-light group cursor-pointer reveal rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
+        <p class="lvl-kicker text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">HIGH SCHOOL</p>
+        <h3 class="font-serif text-2xl mb-1">Single session</h3>
+        <p class="text-neutral-400 text-sm mb-8">Try it, no commitment</p>
+        <div class="mt-auto">
+          <div class="text-4xl font-semibold mb-2">$45<span class="text-neutral-500 text-base font-normal"> / hour</span></div>
+          <div class="text-neutral-400 text-sm">$45 total</div>
+        </div>
+      </div>
+
+      <div onclick="pickService('tutorat-5')" class="pkg-featured group cursor-pointer reveal relative rounded-3xl p-9 pt-12 flex flex-col text-ink hover:-translate-y-2 transition-all duration-300 md:scale-[1.06] z-10" style="--rd:.12s">
+        <span class="pkg-badge">BEST RATE</span>
+        <p class="lvl-kicker text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">HIGH SCHOOL</p>
+        <h3 class="font-serif text-2xl mb-1">5-session package</h3>
+        <p class="text-sm font-bold mb-8 eyebrow-grad">Save $25</p>
+        <div class="mt-auto">
+          <div class="flex items-baseline gap-2 mb-2">
+            <span class="text-neutral-400 text-lg line-through">$45</span>
+            <span class="text-4xl font-semibold">$40<span class="text-neutral-500 text-base font-normal"> / hour</span></span>
+          </div>
+          <div class="text-neutral-500 text-sm">$200 total</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="reveal text-center text-neutral-400 text-xs mt-10">60-minute sessions, online. The package does not expire during the current school year.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     MATIÈRES
+============================================================ -->
+<section class="py-14 md:py-20 border-t border-ink/10">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="reveal text-center mb-10 md:mb-12">
+      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">WHAT WE COVER</p>
+      <h2 class="font-serif text-3xl md:text-4xl">Every subject on your schedule</h2>
+    </div>
+    <div class="reveal flex flex-wrap justify-center gap-2.5 max-w-3xl mx-auto">
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Mathematics</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Calculus</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Physics</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Chemistry</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Biology</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">French</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">English</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Natural sciences</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Study methods</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Exam preparation</span>
+    </div>
+    <p class="reveal text-center text-neutral-500 text-sm mt-8">Your course is not on the list? <a href="index.html#contact" class="text-ink underline underline-offset-4 hover:no-underline">Write to us</a>, we probably have someone.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     PONT VERS CASPER / MEM
+============================================================ -->
+<section class="py-14 md:py-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="reveal pkg-featured rounded-3xl p-8 md:p-10">
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 md:gap-10 items-center">
+        <div>
+          <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">AIMING FOR MEDICINE?</p>
+          <h3 class="font-serif text-2xl md:text-3xl leading-tight mb-3">Tutoring gets you the grades. What comes next is a different game.</h3>
+          <p class="text-neutral-600 text-sm md:text-[15px] leading-relaxed">Casper and multiple mini-interviews: a complete method, session by session, written by students who got in.</p>
+        </div>
+        <a href="preparation.html" class="shrink-0 inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-black transition-colors whitespace-nowrap">
+          See the method
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA
+============================================================ -->
+<section class="py-14 md:py-20">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <div class="reveal card-light rounded-3xl p-9 md:p-12">
+      <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-4">START HERE</p>
+      <h2 class="font-serif text-3xl md:text-4xl leading-tight mb-4">A free 30-minute consultation.</h2>
+      <p class="text-neutral-600 leading-relaxed max-w-lg mx-auto mb-8">We look at the courses, the grades and the timeline, then we match you with the right person. No commitment.</p>
+      <a href="book.html" class="inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-8 py-4 rounded-full hover:bg-black transition-colors">
+        Book your free consultation
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class='bg-ink text-white pt-16 pb-10 px-6 md:px-12 rounded-t-[22px] md:rounded-t-[28px]'>
+  <div class='max-w-6xl mx-auto'>
+    <div class='grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8 mb-14'>
+      <div class='col-span-2 md:col-span-1'>
+        <span class='font-serif text-xl inline-flex items-center gap-2'><img src='logo-mark-white.png' alt='' aria-hidden='true' class='h-5 w-auto' />MNTR Tutoring<span class='text-neutral-500'>.</span></span>
+        <p class='text-neutral-400 text-sm mt-3 leading-relaxed max-w-xs'>Academic tutoring and interview preparation, taught by medical and university students.</p>
+      </div>
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>EXPLORE</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li><a href='tutoring.html' class='hover:text-white transition-colors'>High school &amp; CEGEP tutoring</a></li>
+          <li><a href='preparation.html' class='hover:text-white transition-colors'>Casper &amp; MMI preparation</a></li>
+          <li><a href='index.html#staff' class='hover:text-white transition-colors'>Our tutors</a></li>
+          <li><a href='faq.html' class='hover:text-white transition-colors'>FAQ</a></li>
+          <li><a href='privacy.html' class='hover:text-white transition-colors'>Privacy Policy</a></li>
+          <li><a href='user-agreement.html' class='hover:text-white transition-colors'>User Agreement</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>LANGUAGE</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li><a href='tutoring.html' class='hover:text-white transition-colors bg-white/10 px-3 py-1 rounded-full'>English</a></li>
+          <li><a href='tutorat-fr.html' class='hover:text-white transition-colors'>Français</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>GET STARTED</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li><a href='book.html' class='hover:text-white transition-colors'>Book a free call</a></li>
+          <li><a href='index.html#contact' class='hover:text-white transition-colors'>Contact us</a></li>
+          <li><a href='mailto:mntrtutoring.info@gmail.com' class='hover:text-white transition-colors break-all'>mntrtutoring.info@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class='border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-3'>
+      <p class='text-neutral-500 text-sm'>&copy; 2026 MNTR Tutoring</p>
+      <a href='book.html' class='inline-flex items-center gap-1.5 text-sm text-neutral-300 hover:text-white transition-colors'>Book your free call
+        <svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const overlay = document.getElementById('menuOverlay');
+  const burger  = document.getElementById('burger');
+  function toggleMenu() {
+    overlay.classList.toggle('open');
+    burger.classList.toggle('active');
+    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  }
+  function toggleLangMenu() { var m = document.getElementById('langMenu'); if (m) m.classList.toggle('hidden'); }
+  document.addEventListener('click', function (e) {
+    var m = document.getElementById('langMenu'); if (!m) return;
+    var b = e.target.closest('button');
+    if (!m.contains(e.target) && (!b || !b.onclick || b.onclick.toString().indexOf('toggleLangMenu') === -1)) m.classList.add('hidden');
+  });
+
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+  /* The two levels share one price ladder and differ only by the kicker,
+     so the switch relabels the cards instead of duplicating them. */
+  var LEVEL = 'hs';
+  function setLevel(k) {
+    LEVEL = k;
+    document.getElementById('tab-hs').classList.toggle('on', k === 'hs');
+    document.getElementById('tab-cegep').classList.toggle('on', k === 'cegep');
+    var txt = k === 'hs' ? 'SECONDAIRE' : 'CÉGEP';
+    document.querySelectorAll('.lvl-kicker').forEach(function (el) { el.textContent = txt; });
+  }
+
+  function pickService(key) { window.location.href = 'checkout.html?service=' + key; }
+</script>
+</body>
+</html>

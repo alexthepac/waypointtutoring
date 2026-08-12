@@ -119,8 +119,12 @@
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
       </div>
       <p class="text-[11px] font-bold tracking-[0.3em] mb-4 eyebrow-grad">PAYMENT CONFIRMED</p>
-      <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-5 text-ink">Thank you — you're all set.</h1>
+      <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-5 text-ink">Thank you, you're all set.</h1>
       <p class="text-neutral-600 text-lg leading-relaxed mb-4">Your payment went through and a receipt is on its way to your inbox.</p>
+      <p id="progression-note" class="hidden text-neutral-600 text-[15px] leading-relaxed mb-4 rounded-2xl border border-ink/10 bg-white/70 px-5 py-4 text-left">
+        <span class="font-semibold text-ink">Your complete expected progression follows in the same email:</span>
+        every session broken down minute by minute, and the work to do before each one. Read it before we first meet, session&nbsp;1 opens by checking it.
+      </p>
       <p id="next-step" class="text-neutral-600 text-lg leading-relaxed mb-10">One last step: pick the times for your sessions.</p>
 
       <a id="book-btn" href="index.html#contact" class="inline-block bg-ink text-white font-semibold text-sm px-8 py-3.5 rounded-lg hover:bg-black transition-colors">
@@ -168,13 +172,25 @@
   var NEXT_STEPS = {
     pack5:  { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'One last step: pick the times for your sessions.', btn: 'Schedule your sessions' },
     pack10: { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'One last step: pick the times for your sessions.', btn: 'Schedule your sessions' },
-    intro:  { link: 'book.html?hold=complete', note: 'Your spot is reserved — one last step: pick a time for your free intro call.', btn: 'Book your intro call' },
+    intro:  { link: 'book.html?hold=complete', note: 'Your spot is reserved, one last step: pick a time for your free intro call.', btn: 'Book your intro call' },
     /* Casper packages -> the hidden FREE Casper event (they already paid). */
     'casper-pack5':  { link: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep-copy-copy', note: 'One last step: pick the times for your Casper & MMI sessions.', btn: 'Schedule your sessions' },
-    'casper-pack10': { link: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep-copy-copy', note: 'One last step: pick the times for your Casper & MMI sessions.', btn: 'Schedule your sessions' }
+    'casper-pack10': { link: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep-copy-copy', note: 'One last step: pick the times for your Casper & MMI sessions.', btn: 'Schedule your sessions' },
+
+    /* The three preparation paths: the complete progression goes out by
+       email, then we set the schedule together. */
+    'methode-casper':    { link: 'contact.html', note: 'One last step: we set the times for your sessions together.', btn: 'Set your sessions' },
+    'methode-mem':       { link: 'contact.html', note: 'One last step: we set the times for your sessions together.', btn: 'Set your sessions' },
+    'methode-integrale': { link: 'contact.html', note: 'One last step: we set the times for your sessions together.', btn: 'Set your sessions' }
   };
 
   var service = new URLSearchParams(window.location.search).get('service');
+  /* The three preparation paths are the only ones that ship a written
+     progression, the callout only shows for them. */
+  if (/^methode-/.test(service || '')) {
+    var pn = document.getElementById('progression-note');
+    if (pn) pn.classList.remove('hidden');
+  }
   var step = NEXT_STEPS[service];
   if (step) {
     document.getElementById('book-btn').href = step.link;

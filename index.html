@@ -65,6 +65,52 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
 
+
+  /* ---------- Fixed top bar (brand = back to top) ----------
+     The bar starts transparent over the hero photo and gains an ink
+     backdrop as soon as the page scrolls, so the white text stays
+     readable over the paper sections below. */
+  #topbar { transition: background-color .35s ease, padding .35s ease, box-shadow .35s ease; }
+  #topbar.scrolled {
+    background: rgba(16,14,20,.92);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    padding-top: .8rem; padding-bottom: .8rem;
+    box-shadow: 0 12px 32px -20px rgba(0,0,0,.55);
+  }
+
+
+  /* ---------- Staff panel: MadFit-style rounded board ---------- */
+  .staff-panel {
+    background-color: #f2e4ee;
+    background-image: radial-gradient(rgba(255,255,255,.6) 1.3px, transparent 1.4px);
+    background-size: 26px 26px;
+  }
+
+  /* ---------- Reviews panel (MadFit-style rounded board) ---------- */
+  .rev-panel {
+    background-color: #e9e4f4;
+    background-image: radial-gradient(rgba(255,255,255,.6) 1.3px, transparent 1.4px);
+    background-size: 26px 26px;
+  }
+  .rev-card {
+    width: min(340px, 78vw); flex: none;
+    background: #fff; border-radius: 1.25rem; padding: 1.5rem 1.6rem;
+    margin: 0 .65rem; box-shadow: 0 16px 44px -30px rgba(22,20,28,.35);
+    display: flex; flex-direction: column; text-align: left;
+  }
+  .rev-stars { display: flex; gap: 3px; margin-bottom: .8rem; }
+  .rev-stars svg { width: 14px; height: 14px; fill: var(--accent-violet); }
+  .rev-card p { font-size: 14px; line-height: 1.6; color: rgba(22,20,28,.72); margin-bottom: 1.1rem; }
+  .rev-card footer { margin-top: auto; font-size: 12.5px; }
+  .rev-card footer b { display: block; font-weight: 700; color: var(--ink); }
+  .rev-card footer span { color: rgba(22,20,28,.45); }
+
+  /* the reviews band is draggable: grab cursor, vertical panning stays native */
+  .rev-panel .marquee { cursor: grab; touch-action: pan-y; }
+  .rev-panel .marquee.dragging { cursor: grabbing; }
+  .rev-panel .marquee.dragging .rev-card { user-select: none; -webkit-user-select: none; }
+
+
   /* ---------- Infinite university ticker marquee ---------- */
   .marquee { overflow: hidden; }
   .marquee-track { display: flex; width: max-content; animation: marquee 34s linear infinite; }
@@ -76,7 +122,7 @@
      released by JS adding .hero-animate on DOMContentLoaded + a double
      requestAnimationFrame. rAF callbacks only run once the browser is actually
      producing frames, so on a cold-cache first visit the animation clock can't
-     burn down before first paint — and unlike window 'load', DOMContentLoaded
+     burn down before first paint, and unlike window 'load', DOMContentLoaded
      doesn't wait on images/trackers, so a slow or stalled request can't keep
      the hero text hidden. */
   /* Critical hero layout, applied before the Tailwind runtime compiles, so the
@@ -103,7 +149,7 @@
   html.hero-animate .hero-fade { animation-play-state: running; }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-block, .hero-word, .hero-fade { animation: none; }
+    .hero-block.hero-word.hero-fade { animation: none; }
   }
 
   /* ---------- Hamburger → X animation ---------- */
@@ -150,74 +196,13 @@
   .wave-wrap { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
   .wave-wrap svg { position: absolute; }
 
-  /* ---------- Falling STEM / medical objects (pricing section) ----------
-     Motion reproduced from alloprof.qc.ca's home-splash "rain": the objects
-     fall at a CONSTANT speed (no gravity), untwisting from a big start angle
-     to 0 on the way down, recycling forever. Hovering or tapping one slows it
-     to a quarter speed and grows it to 1.75x; a tap also fires three glint
-     sparks. Their structure is mirrored too — a lane carries the vertical
-     position, the item centres itself on the lane, and only the artwork
-     rotates and scales, so the three transforms never fight each other. */
-  .fall-layer {
-    position: absolute; inset: 0;
-    overflow: hidden;          /* clips the objects behind the hero's bottom edge */
-    pointer-events: none;      /* only the objects themselves are clickable */
-    /* In FRONT of the level boxes (40/41), so the science icons rain over them.
-       The school crests keep their own layer at 30, BELOW the boxes, so they can
-       still be hidden inside a box and slide out from under it. Kept under the
-       header's z-50 so nothing ever paints over the sticky nav. */
-    z-index: 45;
-    --laneW: 3.9rem;
-  }
-  @media (min-width: 768px) { .fall-layer { --laneW: 5.9rem; } }
-
-  .fall-lane {
-    position: absolute; top: 0;
-    width: var(--laneW); height: 100%;
-    margin-left: calc(var(--laneW) / -2);   /* centre the lane on its left% */
-    display: none;                          /* JS shows a lane once it's falling */
-    will-change: transform;
-  }
-  .fall-item {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: var(--laneW);
-    color: var(--fall-c, var(--ink));
-    opacity: var(--fall-o, .4);
-    pointer-events: auto;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    transition: opacity .35s ease;
-  }
-  .fall-item.is-held { opacity: 1; }        /* picked up: comes fully forward */
-  /* The icons now paint over the level boxes, so on touch screens they must not
-     swallow a tap meant for a box. Hovering to slow one down is a pointer-only
-     trick regardless, so there they are purely decorative. */
-  @media (hover: none) { .fall-item { pointer-events: none; } }
-  .fall-art { display: block; width: 100%; height: 100%; overflow: visible; will-change: transform; }
-
-  /* Impact glints: three spark lines that streak outward when an object is
-     tapped. alloprof drives all three off one 0..1 value — opacity, and a
-     translate of -350% / -380% / -400% at -45deg / 0deg / 50deg. */
-  .fall-glint { position: absolute; top: 50%; left: 50%; width: .5rem; height: 1.7rem; opacity: 0; overflow: visible; }
-  .fall-glint line { stroke: currentColor; stroke-width: 3.5; stroke-linecap: round; }
-
-  /* Cartoon burst: short lines firing radially out of an icon as it pops. */
-  .pop-burst {
-    position: absolute; left: 50%; top: 50%;
-    width: 150%; height: 150%;
-    transform: translate(-50%, -50%);
-    opacity: 0; overflow: visible; pointer-events: none;
-  }
-  .pop-burst line { stroke: currentColor; stroke-width: 6.5; stroke-linecap: round; }
-
-
   /* ---------- Hero buddy: gradient blob whose eyes follow the cursor ---------- */
   .hero-buddy { position: relative; animation: buddyBob 5.4s ease-in-out infinite; filter: drop-shadow(0 14px 24px rgba(0,0,0,.28)); }
   @keyframes buddyBob { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-6px) rotate(2.5deg); } }
   .buddy-eyes { transform-origin: 62px 73px; animation: buddyBlink 4.6s infinite; }
   @keyframes buddyBlink { 0%, 93.5%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.06); } }
   .buddy-doodle { position: absolute; }
-  @media (prefers-reduced-motion: reduce) { .hero-buddy, .buddy-eyes { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .hero-buddy.buddy-eyes { animation: none; } }
 
   /* ---------- Pricing cards (light) ---------- */
   .card-light {
@@ -249,354 +234,48 @@
     box-shadow: 0 6px 16px -6px rgba(22,20,28,.5);
   }
 
-  /* ---------- Level picker: two boxes that unfold into their pricing ladder ----------
-     The unfold is a 0fr -> 1fr grid-row transition, so the panel animates to its
-     own natural height without JS measuring anything. The clip child carries the
-     overflow:hidden the animation needs; its padding keeps the featured card's
-     badge and drop shadow from being shaved off at the clip edge. */
-  .level-card {
-    position: relative; z-index: 40;   /* above .school-layer, so it hides crests still inside it */
-    width: 100%; text-align: left;
+  /* ---------- Home: the two offer rectangles ----------
+     The whole card is the link, so the hover state lives on the <a> and the
+     arrow/hairline react through :hover on the parent. Equal heights come from
+     the grid; the body copy is pushed apart with mt-auto so both footers line
+     up no matter how long the headings run. */
+  .offer-box {
+    position: relative; display: flex; flex-direction: column;
+    border-radius: 1.75rem; overflow: hidden;
+    padding: 2.25rem;
+    min-height: 30rem;
     background: #fff;
     border: 1px solid rgba(22,20,28,.08);
-    border-radius: 1.5rem;
     box-shadow: 0 18px 50px -28px rgba(22,20,28,.22);
-    transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+    transition: transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s ease, border-color .35s ease;
   }
-  .level-card:hover { border-color: rgba(22,20,28,.22); transform: translateY(-4px); }
-  /* While crests are in the air, any OTHER level box drops behind the crest layer.
-     On a phone the boxes stack, so the one underneath would otherwise swallow
-     everything falling out of the box above it. */
-  .level-card.behind { z-index: 20; }
+  @media (min-width: 768px) { .offer-box { padding: 2.75rem; min-height: 33rem; } }
+  .offer-box:hover { transform: translateY(-6px); border-color: rgba(22,20,28,.24); box-shadow: 0 36px 70px -32px rgba(22,20,28,.34); }
+  .offer-box.is-featured { border: 2px solid var(--ink); box-shadow: 0 28px 60px -26px rgba(22,20,28,.35); }
+  .offer-box.is-featured:hover { box-shadow: 0 40px 78px -30px rgba(22,20,28,.45); }
 
-  /* ---------- Phone: each ladder sits under its OWN box ----------
-     Side by side on desktop, both panels belong below the pair. Stacked on a
-     phone, that put the high-school ladder under the CEGEP box. Dropping the
-     boxes' grid box out of the layout (display:contents) lifts the two buttons
-     into this column so the four can be interleaved with `order`. */
-  @media (max-width: 767px) {
-    .lvl-wrap  { display: flex; flex-direction: column; }
-    .lvl-wrap > .lvl-boxes { display: contents; }   /* outrank Tailwind's .grid */
-    #lvlbtn-hs    { order: 1; }
-    #lvl-hs       { order: 2; }
-    #lvlbtn-cegep { order: 3; margin-top: 1.5rem; }   /* replaces the grid gap */
-    #lvl-cegep    { order: 4; }
-  }
-  .level-card.open {
-    border-color: var(--ink);
-    box-shadow: 0 28px 60px -26px rgba(22,20,28,.35);
-  }
-  .level-chev { transition: transform .21s cubic-bezier(.22,.61,.36,1); }
-  .level-card.open .level-chev { transform: rotate(180deg); }
-  .level-card .lbl-open { display: none; }
-  .level-card.open .lbl-open { display: inline; }
-  .level-card.open .lbl-shut { display: none; }
+  /* soft tint that wakes up on hover, so the two boxes read as distinct worlds */
+  .offer-tint { position: absolute; inset: 0; pointer-events: none; opacity: .55; transition: opacity .45s ease, transform .6s cubic-bezier(.22,.61,.36,1); }
+  .offer-box:hover .offer-tint { opacity: 1; transform: scale(1.06); }
 
-  .level-panel {
-    display: grid; grid-template-rows: 0fr;
-    transition: grid-template-rows .25s cubic-bezier(.22,.61,.36,1);
-  }
-  .level-panel > .level-clip { overflow: hidden; }
-  /* Clipping is only needed while the height animates. Once open we stop, so
-     the panel paints exactly like any other part of the page - no clipped
-     shadows, no edge, the same flat background everywhere. */
-  .level-panel.open.unclipped > .level-clip { overflow: visible; }
-  .level-panel.open { grid-template-rows: 1fr; }
+  .offer-arrow { transition: transform .3s cubic-bezier(.22,.61,.36,1); }
+  .offer-box:hover .offer-arrow { transform: translateX(5px); }
 
-  /* The three plans rise in with a stagger once their panel is open. The wrapper
-     animates, never the card, so the featured card keeps its own scale + hover. */
-  .pkg-col { opacity: 0; transform: translateX(-30px) scale(.94); }
-  /* Held back until the crests have stopped bouncing (see dropSchools' onSettled). */
-  .level-panel.cards-in .pkg-col { animation: pkgIn .37s cubic-bezier(.21,.9,.3,1.04) forwards; }
-  .level-panel.cards-in .pkg-col:nth-child(2) { animation-delay: .07s; }
-  .level-panel.cards-in .pkg-col:nth-child(3) { animation-delay: .15s; }
-  @keyframes pkgIn { to { opacity: 1; transform: none; } }
-  @media (prefers-reduced-motion: reduce) {
-    .level-panel, .level-chev, .level-card { transition: none; }
-    .pkg-col { opacity: 1; transform: none; }
-    .level-panel.cards-in .pkg-col { animation: none; }
-  }
-
-  /* ---------- School crests: cartoon badges that spill out of a level box ----------
-     Purely decorative, so the layer is aria-hidden and never takes pointer events.
-     transform-origin sits at the bottom edge so the squash-on-impact keeps each
-     badge planted on the divider line instead of sinking through it. */
-  /* ---------- Level box sneeze ----------
-     First press on a box: the text steps aside for a face drawn in the same plain
-     line-art as the faces on the background blobs. The card leans away, swells,
-     then lets go - snapping the other way and flopping side to side like a ragdoll.
-     Both animations run LINEAR over densely sampled keyframes; a single easing
-     curve across few keyframes gets re-applied between every pair and reads as a
-     stutter. The packages and crests are released on the snap, at 70% of 1.5s. */
-  .lvl-face {
-    position: absolute; left: 50%; top: 50%;
-    transform: translate(-50%, -50%);
-    width: min(62%, 190px); height: auto;
-    opacity: 0; pointer-events: none;
-  }
-  .level-card > span { transition: opacity .11s ease; }
-  /* One flag for the whole performance: sneezing ends 240ms before the scowl
-     begins, and without this the text would flash back in during the gap. */
-  .level-card.sneezing > span,
-  .level-card.busy > span { opacity: 0; }
-  .level-card.sneezing {
-    animation: boxSneeze 1s linear both;
-    transition: none;                       /* don't let the hover transition fight it */
-    will-change: transform;
-    backface-visibility: hidden;
-    z-index: 41;
-  }
-  .level-card.sneezing .lvl-face  { animation: faceShow 1s linear both; }
-  .level-card.sneezing .face-eye-open { animation: eyeOpen 1s linear both; }
-  .level-card.sneezing .face-eye-shut { animation: eyeShut 1s linear both; }
-  .level-card.sneezing .face-mouth    { animation: mouthSneeze 1s linear both; }
-  .face-mouth { transform-box: fill-box; transform-origin: center; }
-
-  @keyframes boxSneeze {
-    0% { transform: translateX(-0px) rotate(-0deg) scale(1); }
-    3% { transform: translateX(-0.023px) rotate(-0.023deg) scale(1); }
-    6% { transform: translateX(-0.084px) rotate(-0.086deg) scale(1.002); }
-    9% { transform: translateX(-0.182px) rotate(-0.186deg) scale(1.004); }
-    12% { transform: translateX(-0.314px) rotate(-0.321deg) scale(1.006); }
-    15% { transform: translateX(-0.479px) rotate(-0.491deg) scale(1.009); }
-    18% { transform: translateX(-0.678px) rotate(-0.695deg) scale(1.013); }
-    21% { transform: translateX(-0.908px) rotate(-0.931deg) scale(1.018); }
-    24% { transform: translateX(-1.17px) rotate(-1.2deg) scale(1.023); }
-    27% { transform: translateX(-1.464px) rotate(-1.501deg) scale(1.028); }
-    30% { transform: translateX(-1.788px) rotate(-1.833deg) scale(1.035); }
-    33% { transform: translateX(-2.144px) rotate(-2.197deg) scale(1.042); }
-    36% { transform: translateX(-2.529px) rotate(-2.592deg) scale(1.049); }
-    39% { transform: translateX(-2.944px) rotate(-3.018deg) scale(1.057); }
-    42% { transform: translateX(-3.389px) rotate(-3.474deg) scale(1.066); }
-    45% { transform: translateX(-3.864px) rotate(-3.961deg) scale(1.075); }
-    48% { transform: translateX(-4.368px) rotate(-4.478deg) scale(1.085); }
-    51% { transform: translateX(-4.902px) rotate(-5.024deg) scale(1.095); }
-    54% { transform: translateX(-5.464px) rotate(-5.601deg) scale(1.106); }
-    57% { transform: translateX(-6.055px) rotate(-6.206deg) scale(1.117); }
-    60% { transform: translateX(-6.675px) rotate(-6.842deg) scale(1.129); }
-    63% { transform: translateX(-7.323px) rotate(-7.506deg) scale(1.142); }
-    66% { transform: translateX(-8px) rotate(-8.2deg) scale(1.155); }
-    70% { transform: translateX(21px) rotate(7.2deg) scale(0.9); }
-    72% { transform: translateX(19.569px) rotate(7.201deg) scale(1.008); }
-    74% { transform: translateX(4.712px) rotate(-1.639deg) scale(0.954); }
-    76% { transform: translateX(-12.159px) rotate(-5.287deg) scale(0.983); }
-    78% { transform: translateX(-6.129px) rotate(-0.16deg) scale(1.027); }
-    80% { transform: translateX(6.784px) rotate(3.553deg) scale(1.018); }
-    82% { transform: translateX(5.797px) rotate(0.964deg) scale(0.986); }
-    84% { transform: translateX(-3.212px) rotate(-2.181deg) scale(0.985); }
-    86% { transform: translateX(-4.712px) rotate(-1.18deg) scale(1.006); }
-    88% { transform: translateX(1.048px) rotate(1.198deg) scale(1.012); }
-    90% { transform: translateX(3.453px) rotate(1.09deg) scale(0.999); }
-    92% { transform: translateX(0.12px) rotate(-0.551deg) scale(0.992); }
-    94% { transform: translateX(-2.317px) rotate(-0.873deg) scale(0.999); }
-    96% { transform: translateX(-0.639px) rotate(0.164deg) scale(1.005); }
-    98% { transform: translateX(1.42px) rotate(0.633deg) scale(1.002); }
-    100% { transform: translateX(0px) rotate(0deg) scale(1); }
-  }
-  @keyframes faceShow { 0% { opacity: 0; } 7%, 86% { opacity: 1; } 100% { opacity: 0; } }
-  @keyframes eyeOpen  { 0%, 64% { opacity: 1; } 66%, 100% { opacity: 0; } }
-  @keyframes eyeShut  { 0%, 64% { opacity: 0; } 66%, 100% { opacity: 1; } }
-  @keyframes mouthSneeze {
-    0% { transform: scale(0.45, 0.38); }
-    4% { transform: scale(0.456, 0.391); }
-    8% { transform: scale(0.469, 0.413); }
-    12% { transform: scale(0.486, 0.443); }
-    16% { transform: scale(0.507, 0.48); }
-    20% { transform: scale(0.531, 0.524); }
-    24% { transform: scale(0.559, 0.572); }
-    28% { transform: scale(0.589, 0.626); }
-    32% { transform: scale(0.623, 0.685); }
-    36% { transform: scale(0.659, 0.748); }
-    40% { transform: scale(0.697, 0.815); }
-    44% { transform: scale(0.737, 0.887); }
-    48% { transform: scale(0.78, 0.963); }
-    52% { transform: scale(0.826, 1.042); }
-    56% { transform: scale(0.873, 1.126); }
-    60% { transform: scale(0.922, 1.213); }
-    64% { transform: scale(0.974, 1.303); }
-    70% { transform: scale(1.75, 1.95); }
-    73% { transform: scale(1.413, 1.548); }
-    76% { transform: scale(1.163, 1.251); }
-    79% { transform: scale(0.979, 1.03); }
-    82% { transform: scale(0.842, 0.867); }
-    85% { transform: scale(0.74, 0.746); }
-    88% { transform: scale(0.665, 0.656); }
-    91% { transform: scale(0.609, 0.59); }
-    94% { transform: scale(0.568, 0.541); }
-    97% { transform: scale(0.537, 0.504); }
-    100% { transform: scale(0.515, 0.477); }
-  }
-  /* ---------- ...and then one last effort ----------
-     A beat after the sneeze the box screws up a cheerful, straining face and
-     rattles itself once more to shake loose the one school still stuck inside. */
-  .face-eye-shut { opacity: 0; }             /* only shown mid-sneeze */
-  .face-cheer    { opacity: 0; }
-  .level-card.lastheave {
-    animation: boxLastHeave .5s linear both;
-    transition: none; will-change: transform; backface-visibility: hidden; z-index: 41;
-  }
-  .level-card.lastheave .lvl-face { animation: faceStay .5s linear both; }
-  .level-card.lastheave .face-cheer { opacity: 1; }
-  .level-card.lastheave .face-eye-open { opacity: 0; }  /* the happy squint takes over */
-  .level-card.lastheave .face-mouth { opacity: 0; }    /* ...and brings its own grin */
-
-  @keyframes faceStay { 0% { opacity: 0; } 10%, 82% { opacity: 1; } 100% { opacity: 0; } }
-  @keyframes boxLastHeave {
-    0% { transform: translateX(0px) rotate(0deg) scale(1); }
-    3% { transform: translateX(-1.75px) rotate(-1.375deg) scale(1.015); }
-    6% { transform: translateX(-3.5px) rotate(-2.75deg) scale(1.03); }
-    9% { transform: translateX(-5.25px) rotate(-4.125deg) scale(1.045); }
-    12% { transform: translateX(-7px) rotate(-5.5deg) scale(1.06); }
-    15% { transform: translateX(15.359px) rotate(7.712deg) scale(1.025); }
-    18% { transform: translateX(15.642px) rotate(4.434deg) scale(0.983); }
-    21% { transform: translateX(2.888px) rotate(-2.032deg) scale(0.962); }
-    24% { transform: translateX(-10.339px) rotate(-5.834deg) scale(0.975); }
-    27% { transform: translateX(-12.981px) rotate(-4.216deg) scale(1.007); }
-    30% { transform: translateX(-4.441px) rotate(0.66deg) scale(1.029); }
-    33% { transform: translateX(6.499px) rotate(4.252deg) scale(1.023); }
-    36% { transform: translateX(10.389px) rotate(3.77deg) scale(0.999); }
-    39% { transform: translateX(5.062px) rotate(0.229deg) scale(0.98); }
-    42% { transform: translateX(-3.666px) rotate(-2.968deg) scale(0.98); }
-    45% { transform: translateX(-8.031px) rotate(-3.216deg) scale(0.997); }
-    48% { transform: translateX(-5.066px) rotate(-0.756deg) scale(1.014); }
-    51% { transform: translateX(1.66px) rotate(1.961deg) scale(1.017); }
-    54% { transform: translateX(5.992px) rotate(2.639deg) scale(1.005); }
-    57% { transform: translateX(4.693px) rotate(1.022deg) scale(0.991); }
-    60% { transform: translateX(-0.308px) rotate(-1.199deg) scale(0.987); }
-    63% { transform: translateX(-4.298px) rotate(-2.089deg) scale(0.994); }
-    66% { transform: translateX(-4.115px) rotate(-1.109deg) scale(1.005); }
-    69% { transform: translateX(-0.542px) rotate(0.644deg) scale(1.01); }
-    72% { transform: translateX(2.943px) rotate(1.598deg) scale(1.006); }
-    75% { transform: translateX(3.457px) rotate(1.08deg) scale(0.998); }
-    78% { transform: translateX(1.022px) rotate(-0.257deg) scale(0.992); }
-    81% { transform: translateX(-1.894px) rotate(-1.179deg) scale(0.994); }
-    84% { transform: translateX(-2.797px) rotate(-0.982deg) scale(1.001); }
-    87% { transform: translateX(-1.24px) rotate(0deg) scale(1.006); }
-    90% { transform: translateX(1.112px) rotate(0.834deg) scale(1.005); }
-    93% { transform: translateX(2.185px) rotate(0.85deg) scale(1.001); }
-    96% { transform: translateX(1.281px) rotate(0.157deg) scale(0.996); }
-    100% { transform: translateX(0px) rotate(0deg) scale(1); }
-  }
+  .offer-list li { display: flex; gap: .6rem; align-items: flex-start; }
+  .offer-list li::before { content: ""; flex: none; width: 5px; height: 5px; border-radius: 999px; background: var(--ink); opacity: .45; margin-top: .5rem; }
 
   @media (prefers-reduced-motion: reduce) {
-    .level-card.sneezing, .level-card.sneezing .lvl-face,
-    .level-card.sneezing .face-eye-open, .level-card.sneezing .face-eye-shut,
-    .level-card.sneezing .face-mouth, .level-card.lastheave, .level-card.lastheave .lvl-face { animation: none; }
-    .level-card.sneezing > span, .level-card.busy > span { opacity: 1; }
+    .offer-box.offer-tint.offer-arrow { transition: none; }
+    .offer-box:hover { transform: none; }
+    .offer-box:hover .offer-tint { transform: none; }
   }
-
-
-  /* ---------- Phones & small tablets ----------
-     A level box is nearly the full width of a phone, so the desktop sneeze swung
-     it clean off both edges. These are the same motions sampled at amplitudes
-     that stay on screen, plus smaller crests and a tighter burst. */
-  @keyframes boxSneezeSm {
-    0% { transform: translateX(-0px) rotate(-0deg) scale(1); }
-    3% { transform: translateX(-0.011px) rotate(-0.012deg) scale(1); }
-    6% { transform: translateX(-0.042px) rotate(-0.044deg) scale(1.001); }
-    9% { transform: translateX(-0.091px) rotate(-0.095deg) scale(1.001); }
-    12% { transform: translateX(-0.157px) rotate(-0.165deg) scale(1.002); }
-    15% { transform: translateX(-0.24px) rotate(-0.252deg) scale(1.004); }
-    18% { transform: translateX(-0.339px) rotate(-0.356deg) scale(1.005); }
-    21% { transform: translateX(-0.454px) rotate(-0.477deg) scale(1.007); }
-    24% { transform: translateX(-0.585px) rotate(-0.614deg) scale(1.009); }
-    27% { transform: translateX(-0.732px) rotate(-0.769deg) scale(1.011); }
-    30% { transform: translateX(-0.894px) rotate(-0.939deg) scale(1.013); }
-    33% { transform: translateX(-1.072px) rotate(-1.125deg) scale(1.016); }
-    36% { transform: translateX(-1.264px) rotate(-1.328deg) scale(1.019); }
-    39% { transform: translateX(-1.472px) rotate(-1.546deg) scale(1.022); }
-    42% { transform: translateX(-1.695px) rotate(-1.779deg) scale(1.025); }
-    45% { transform: translateX(-1.932px) rotate(-2.029deg) scale(1.029); }
-    48% { transform: translateX(-2.184px) rotate(-2.293deg) scale(1.033); }
-    51% { transform: translateX(-2.451px) rotate(-2.573deg) scale(1.037); }
-    54% { transform: translateX(-2.732px) rotate(-2.869deg) scale(1.041); }
-    57% { transform: translateX(-3.028px) rotate(-3.179deg) scale(1.045); }
-    60% { transform: translateX(-3.337px) rotate(-3.504deg) scale(1.05); }
-    63% { transform: translateX(-3.662px) rotate(-3.845deg) scale(1.055); }
-    66% { transform: translateX(-4px) rotate(-4.2deg) scale(1.06); }
-    70% { transform: translateX(7px) rotate(3deg) scale(0.955); }
-    72% { transform: translateX(6.523px) rotate(3.411deg) scale(1.004); }
-    74% { transform: translateX(1.571px) rotate(-0.776deg) scale(0.977); }
-    76% { transform: translateX(-4.053px) rotate(-2.504deg) scale(0.992); }
-    78% { transform: translateX(-2.043px) rotate(-0.076deg) scale(1.013); }
-    80% { transform: translateX(2.261px) rotate(1.683deg) scale(1.009); }
-    82% { transform: translateX(1.932px) rotate(0.457deg) scale(0.993); }
-    84% { transform: translateX(-1.071px) rotate(-1.033deg) scale(0.992); }
-    86% { transform: translateX(-1.571px) rotate(-0.559deg) scale(1.003); }
-    88% { transform: translateX(0.349px) rotate(0.567deg) scale(1.006); }
-    90% { transform: translateX(1.151px) rotate(0.516deg) scale(0.999); }
-    92% { transform: translateX(0.04px) rotate(-0.261deg) scale(0.996); }
-    94% { transform: translateX(-0.772px) rotate(-0.414deg) scale(0.999); }
-    96% { transform: translateX(-0.213px) rotate(0.078deg) scale(1.003); }
-    98% { transform: translateX(0.473px) rotate(0.3deg) scale(1.001); }
-    100% { transform: translateX(0px) rotate(0deg) scale(1); }
-  }
-  @keyframes boxLastHeaveSm {
-    0% { transform: translateX(0px) rotate(0deg) scale(1); }
-    3% { transform: translateX(-0.875px) rotate(-0.75deg) scale(1.008); }
-    6% { transform: translateX(-1.75px) rotate(-1.5deg) scale(1.015); }
-    9% { transform: translateX(-2.625px) rotate(-2.25deg) scale(1.022); }
-    12% { transform: translateX(-3.5px) rotate(-3deg) scale(1.03); }
-    15% { transform: translateX(6.144px) rotate(3.856deg) scale(1.015); }
-    18% { transform: translateX(6.257px) rotate(2.217deg) scale(0.99); }
-    21% { transform: translateX(1.155px) rotate(-1.016deg) scale(0.977); }
-    24% { transform: translateX(-4.136px) rotate(-2.917deg) scale(0.985); }
-    27% { transform: translateX(-5.193px) rotate(-2.108deg) scale(1.004); }
-    30% { transform: translateX(-1.777px) rotate(0.33deg) scale(1.017); }
-    33% { transform: translateX(2.6px) rotate(2.126deg) scale(1.014); }
-    36% { transform: translateX(4.156px) rotate(1.885deg) scale(1); }
-    39% { transform: translateX(2.025px) rotate(0.114deg) scale(0.988); }
-    42% { transform: translateX(-1.466px) rotate(-1.484deg) scale(0.988); }
-    45% { transform: translateX(-3.213px) rotate(-1.608deg) scale(0.998); }
-    48% { transform: translateX(-2.027px) rotate(-0.378deg) scale(1.008); }
-    51% { transform: translateX(0.664px) rotate(0.981deg) scale(1.01); }
-    54% { transform: translateX(2.397px) rotate(1.319deg) scale(1.003); }
-    57% { transform: translateX(1.877px) rotate(0.511deg) scale(0.995); }
-    60% { transform: translateX(-0.123px) rotate(-0.6deg) scale(0.992); }
-    63% { transform: translateX(-1.719px) rotate(-1.045deg) scale(0.996); }
-    66% { transform: translateX(-1.646px) rotate(-0.555deg) scale(1.003); }
-    69% { transform: translateX(-0.217px) rotate(0.322deg) scale(1.006); }
-    72% { transform: translateX(1.177px) rotate(0.799deg) scale(1.004); }
-    75% { transform: translateX(1.383px) rotate(0.54deg) scale(0.999); }
-    78% { transform: translateX(0.409px) rotate(-0.128deg) scale(0.995); }
-    81% { transform: translateX(-0.758px) rotate(-0.589deg) scale(0.996); }
-    84% { transform: translateX(-1.119px) rotate(-0.491deg) scale(1); }
-    87% { transform: translateX(-0.496px) rotate(0deg) scale(1.003); }
-    90% { transform: translateX(0.445px) rotate(0.417deg) scale(1.003); }
-    93% { transform: translateX(0.874px) rotate(0.425deg) scale(1); }
-    96% { transform: translateX(0.512px) rotate(0.078deg) scale(0.998); }
-    100% { transform: translateX(0px) rotate(0deg) scale(1); }
-  }
-
-  .school-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 30; }
-  .school-chip {
-    position: absolute; top: 0; left: 0;
-    width: 92px; height: 92px;
-    /* The seal's ink stops short of the box (the lower arc of text is the lowest
-       thing in it). dropSchools measures exactly where and overrides this inline,
-       so the crest rests on its writing instead of sinking past the line. */
-    transform-origin: 50% 82.6%;
-    will-change: transform, opacity;
-    filter: drop-shadow(0 7px 12px rgba(22,20,28,.18));
-  }
-  .school-chip svg { display: block; width: 100%; height: 100%; overflow: visible; }
-
-  @media (max-width: 767px) {
-    .level-card.sneezing  { animation-name: boxSneezeSm; }
-    .level-card.lastheave { animation-name: boxLastHeaveSm; }
-    .lvl-face { width: min(58%, 150px); }
-    .school-chip { width: 60px; height: 60px; }
-    .pop-burst { width: 128%; height: 128%; }
-    .pop-burst line { stroke-width: 7.5; }
-  }
-
 
   /* ---------- Contact success popup (slides up from the bottom) ---------- */
   @keyframes toastUp { from { opacity: 0; transform: translateY(48px); } to { opacity: 1; transform: none; } }
   .toast-enter { animation: toastUp .55s cubic-bezier(.22,.61,.36,1) both; }
 </style>
-<!-- If JS never runs, the paused hero animations would hold their hidden first frame forever — show everything statically instead. -->
-<noscript><style>.hero-block, .hero-word, .hero-fade { animation: none; }</style></noscript>
+<!-- If JS never runs, the paused hero animations would hold their hidden first frame forever, show everything statically instead. -->
+<noscript><style>.hero-block.hero-word.hero-fade { animation: none; }</style></noscript>
 </head>
 
 <body class="bg-paper text-ink antialiased">
@@ -611,9 +290,10 @@
     <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
   <a href="faq.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">FAQ</a>
-  <a href="#services" onclick="toggleMenu()" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">PRICING</a>
+  <a href="tutoring.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">ACADEMIC TUTORING</a>
+  <a href="preparation.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">CASPER &amp; MMI</a>
   <a href="#contact" onclick="toggleMenu()" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">CONTACT&nbsp;US</a>
-  <a href="#staff"   onclick="toggleMenu()" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">STAFF</a>
+  <a href="team.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">OUR TEAM</a>
   <a href="user-agreement.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">USER&nbsp;AGREEMENT</a>
   <a href="privacy.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">PRIVACY&nbsp;POLICY</a>
 </div>
@@ -622,19 +302,9 @@
      HERO  (inspo 2: inset rounded block on the white page, image
      full-bleed INSIDE the block, copy centered, marquee at the base)
 ============================================================ -->
-<header class="p-2.5 md:p-3">
-  <div class="hero-block relative rounded-[22px] md:rounded-[28px] overflow-hidden min-h-[calc(100svh-20px)] md:min-h-0 md:h-[calc(100vh-24px)] flex flex-col" style="background-image:url('hero.jpg');background-size:cover;background-position:center">
-
-    <!-- Background photo is set inline above so it renders correctly from the
-         first frame, before the Tailwind runtime finishes compiling. -->
-
-    <!-- Gradient scrims for text legibility (soft fade, NOT a solid box) -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30"></div>
-    <div class="absolute inset-0" style="background:radial-gradient(720px 420px at 50% 58%, rgba(0,0,0,.38), transparent 70%)"></div>
-
-    <!-- Top bar: logo (left) + language switcher + schedule button & hamburger (right), white to read over the dark image -->
-    <div class="relative z-50 flex items-center justify-between px-5 md:px-10 py-7">
-      <a href="#" class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-white inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-7 md:h-8 w-auto" />MNTR Tutoring<span class="text-white/50">.</span></a>
+<!-- Fixed top bar: brand scrolls back to the top; gains an ink backdrop once the page scrolls (see #topbar CSS) -->
+    <div id="topbar" class="fixed inset-x-0 top-0 z-[55] flex items-center justify-between px-5 md:px-10 py-6">
+      <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-white inline-flex items-center gap-2"><img src="logo-mark-white.png" alt="" aria-hidden="true" class="h-7 md:h-8 w-auto" />MNTR Tutoring<span class="text-white/50">.</span></a>
       <div class="flex items-center gap-3 md:gap-5">
         <!-- Language Switcher -->
         <div class="relative">
@@ -668,6 +338,17 @@
       </div>
     </div>
 
+<header class="p-2.5 md:p-3">
+  <div class="hero-block relative rounded-[22px] md:rounded-[28px] overflow-hidden min-h-[calc(100svh-20px)] md:min-h-[calc(100vh-24px)] flex flex-col" style="background-image:url('hero.jpg');background-size:cover;background-position:center">
+
+    <!-- Background photo is set inline above so it renders correctly from the
+         first frame, before the Tailwind runtime finishes compiling. -->
+
+    <!-- Gradient scrims for text legibility (soft fade, NOT a solid box) -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30"></div>
+    <div class="absolute inset-0" style="background:radial-gradient(720px 420px at 50% 58%, rgba(0,0,0,.38), transparent 70%)"></div>
+
+
     <!-- Hero copy: centered block inside the rounded frame (inspo 2 layout) -->
     <div class="relative z-40 flex-1 flex items-center justify-center text-center px-6">
       <div class="max-w-3xl mx-auto pb-10">
@@ -691,7 +372,6 @@
               </g>
               <path d="M53 89c4 4.5 14 4.5 18 0" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
             </svg>
-            <svg class="buddy-doodle" style="top:-10px; right:-16px" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="1.9" stroke-linecap="round"><path d="M10 2v5M10 13v5M2 10h5M13 10h5"/></svg>
             <svg class="buddy-doodle" style="bottom:-2px; left:-24px" width="24" height="14" viewBox="0 0 24 14" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.9" stroke-linecap="round"><path d="M2 9c3.5-6 5.5 3 9-3s5.5 3 9-3"/></svg>
           </div>
         </div>
@@ -707,11 +387,11 @@
           <span class="hero-word" style="animation-delay:.84s">system.</span>
         </h1>
         <p class="hero-fade text-white/85 text-base md:text-xl leading-relaxed max-w-2xl mx-auto mb-10" style="animation-delay:1.05s">
-          Personalized academic tutoring from mentors who earned top medical school admissions. We coach high school, and CEGEP students to achieve academic excellence and get into their dream programs.
+          Personalized academic tutoring from mentors who earned top medical school admissions. We coach high school and CEGEP students to achieve academic excellence and get into their dream programs.
         </p>
         <div class="hero-fade flex flex-wrap gap-4 justify-center" style="animation-delay:1.25s">
           <a href="book.html" class="bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-neutral-200 transition-colors">Book a free intro call</a>
-          <a href='#services' class='border border-white/40 text-white font-semibold px-8 py-4 rounded-full hover:bg-white/10 transition-colors'>Explore pricing</a>
+          <a href='#services' class='border border-white/40 text-white font-semibold px-8 py-4 rounded-full hover:bg-white/10 transition-colors'>Explore our offers</a>
         </div>
       </div>
     </div>
@@ -743,530 +423,104 @@
 </header>
 
 <!-- ============================================================
-     SERVICES  (white section with soft wavy shapes — inspo 1 —
-     and smooth staggered reveals — inspo 3)
+     SERVICES  (white section with soft wavy shapes, inspo 1, 
+     and smooth staggered reveals, inspo 3)
 ============================================================ -->
 <section id='services' class='relative overflow-hidden'>
   <!-- Wavy organic background shapes (inspo 1) -->
   <div class='wave-wrap' aria-hidden='true'>
     <svg style='top:-40px; right:-15%; width:75%; min-width:560px;' viewBox='0 0 900 520' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <path fill='var(--wave-1)' d='M105 92C258-32 522-18 700 60c178 78 232 224 148 330-84 106-306 146-492 96C170 436 22 342 24 250 26 158 48 138 105 92Z'/>
-      <!-- sleepy face doodle on the background blob -->
-      <g stroke='rgba(22,20,28,.13)' stroke-width='7' stroke-linecap='round' fill='none'>
-        <path d='M330 178q22 22 44 0'/>
-        <path d='M448 178q22 22 44 0'/>
-        <path d='M394 236q17 13 34 0'/>
-      </g>
-      <g fill='rgba(22,20,28,.13)' font-family='Fraunces,Georgia,serif' font-style='italic'>
-        <text x='534' y='174' font-size='46' transform='rotate(-12 534 174)'>z</text>
-        <text x='590' y='146' font-size='33' transform='rotate(10 590 146)'>z</text>
-        <text x='598' y='104' font-size='24' transform='rotate(-7 598 104)'>z</text>
-      </g>
     </svg>
   </div>
-
-  <!-- ============================================================
-       FALLING OBJECTS (alloprof-style rain). One .fall-lane per object; JS
-       assigns each a column, angle and speed and recycles it forever. Colour
-       and resting opacity are the two per-object knobs on .fall-item.
-  ============================================================ -->
-  <div class='fall-layer' aria-hidden='true'>
-    <!-- Calculator -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-o:.44">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
-          <rect x='4' y='2' width='16' height='20' rx='2.5'/><rect x='7' y='5' width='10' height='3.5' rx='1'/>
-          <path d='M8 12h.01M12 12h.01M16 12h.01M8 15.5h.01M12 15.5h.01M16 15.5h.01M8 19h.01M12 19h.01M16 19h.01'/>
-          <path id='cm1' d='M22.8 3.4 A13.2 13.2 0 0 1 22.8 20.6' fill='none' stroke='none'/>
-          <text font-family='Inter,system-ui,sans-serif' font-size='2.8' font-weight='800' letter-spacing='.25' fill='currentColor' stroke='none'><textPath href='#cm1' startOffset='50%' text-anchor='middle'>CLICK ME</textPath></text>
-      </svg>
-      </div>
-    </div>
-
-    <!-- Integral sign -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-c:var(--accent-violet);--fall-o:.7">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24'><text x='12' y='20' text-anchor='middle' font-family='Fraunces,Georgia,serif' font-size='25' fill='currentColor' stroke='none'>&#8747;</text></svg>
-      </div>
-    </div>
-
-    <!-- Pi -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-c:var(--accent-pink);--fall-o:.72">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24'><text x='12' y='19' text-anchor='middle' font-family='Fraunces,Georgia,serif' font-size='21' fill='currentColor' stroke='none'>&#960;</text></svg>
-      </div>
-    </div>
-
-    <!-- Stethoscope -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-o:.44">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
-          <path d='M5 3v5.5a5 5 0 0 0 10 0V3'/><circle cx='5' cy='2.6' r='1.1'/><circle cx='15' cy='2.6' r='1.1'/>
-          <path d='M10 13.5V16a4 4 0 0 0 8 0v-1.6'/><circle cx='18' cy='12.2' r='2.2'/>
-      </svg>
-      </div>
-    </div>
-
-    <!-- DNA helix -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-c:var(--accent-blue);--fall-o:.72">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
-          <path d='M7 2c0 5 10 5 10 10s-10 5-10 10'/><path d='M17 2c0 5-10 5-10 10s10 5 10 10'/>
-          <path d='M7.7 2.7h8.6M9.1 5.6h5.8M7.4 12h9.2M9.1 18.4h5.8M7.7 21.3h8.6'/>
-      </svg>
-      </div>
-    </div>
-
-    <!-- Bone -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-o:.42">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
-          <circle cx='5.6' cy='15.8' r='2.1'/><circle cx='7.8' cy='18' r='2.1'/>
-          <circle cx='16.2' cy='6' r='2.1'/><circle cx='18.4' cy='8.2' r='2.1'/>
-          <path d='M8.4 15.4 15.4 8.4'/>
-      </svg>
-      </div>
-    </div>
-
-    <!-- Erlenmeyer flask -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-c:var(--accent-violet);--fall-o:.68">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
-          <path d='M9.5 2v6.2L4.4 18.8A1.6 1.6 0 0 0 5.8 21.2h12.4a1.6 1.6 0 0 0 1.4-2.4L14.5 8.2V2'/>
-          <path d='M8.2 2h7.6M7 15.4h10'/>
-          <path id='cm5' d='M22.8 3.4 A13.2 13.2 0 0 1 22.8 20.6' fill='none' stroke='none'/>
-          <text font-family='Inter,system-ui,sans-serif' font-size='2.8' font-weight='800' letter-spacing='.25' fill='currentColor' stroke='none'><textPath href='#cm5' startOffset='50%' text-anchor='middle'>CLICK ME</textPath></text>
-      </svg>
-      </div>
-    </div>
-
-    <!-- Square root -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-o:.46">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24'><text x='12' y='19' text-anchor='middle' font-family='Fraunces,Georgia,serif' font-size='22' fill='currentColor' stroke='none'>&#8730;</text></svg>
-      </div>
-    </div>
-
-    <!-- Atom -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-c:var(--accent-pink);--fall-o:.65">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1'>
-          <circle cx='12' cy='12' r='1.9'/>
-          <ellipse cx='12' cy='12' rx='10' ry='4.1'/>
-          <ellipse cx='12' cy='12' rx='10' ry='4.1' transform='rotate(60 12 12)'/>
-          <ellipse cx='12' cy='12' rx='10' ry='4.1' transform='rotate(-60 12 12)'/>
-      </svg>
-      </div>
-    </div>
-
-    <!-- Neuron -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-o:.44">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
-          <circle cx='7.4' cy='12' r='2.7'/>
-          <!-- dendrites: three forked branches off the soma -->
-          <path d='M5.5 10.1 3.1 7.7M3.1 7.7 1.4 8.2M3.1 7.7 2.8 5.9'/>
-          <path d='M5.5 13.9 3.1 16.3M3.1 16.3 1.4 15.8M3.1 16.3 2.8 18.1'/>
-          <path d='M7.4 9.3V6.3M7.4 6.3 6 5.1M7.4 6.3 8.8 5.1'/>
-          <!-- axon out to a branched terminal -->
-          <path d='M10.1 12H19.3M19.3 12 21.9 9.9M19.3 12 21.9 14.1M19.3 12h2.9'/>
-      </svg>
-      </div>
-    </div>
-
-    <!-- Pencil -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-c:var(--accent-violet);--fall-o:.65">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
-          <path d='M4 20.2 5.2 15.6 16.4 4.4a1.9 1.9 0 0 1 2.7 0l1.5 1.5a1.9 1.9 0 0 1 0 2.7L9.4 19.8z'/>
-          <path d='M14.6 6.2 18.8 10.4M5.2 15.6l3.9 4'/>
-      </svg>
-      </div>
-    </div>
-
-    <!-- Sigma -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-c:var(--accent-blue);--fall-o:.7">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24'><text x='12' y='19' text-anchor='middle' font-family='Fraunces,Georgia,serif' font-size='22' fill='currentColor' stroke='none'>&#931;</text>
-          <path id='cm6' d='M22.8 3.4 A13.2 13.2 0 0 1 22.8 20.6' fill='none' stroke='none'/>
-          <text font-family='Inter,system-ui,sans-serif' font-size='2.8' font-weight='800' letter-spacing='.25' fill='currentColor' stroke='none'><textPath href='#cm6' startOffset='50%' text-anchor='middle'>CLICK ME</textPath></text>
-      </svg>
-      </div>
-    </div>
-
-    <!-- Book -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-o:.43">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
-          <path d='M4.5 4.2A2.2 2.2 0 0 1 6.7 2h12.8v16.4H6.7a2.2 2.2 0 0 0-2.2 2.2z'/>
-          <path d='M4.5 18.4V20.6A1.4 1.4 0 0 0 5.9 22h13.6'/><path d='M9 6.5h7'/>
-          <path id='cm2' d='M22.8 3.4 A13.2 13.2 0 0 1 22.8 20.6' fill='none' stroke='none'/>
-          <text font-family='Inter,system-ui,sans-serif' font-size='2.8' font-weight='800' letter-spacing='.25' fill='currentColor' stroke='none'><textPath href='#cm2' startOffset='50%' text-anchor='middle'>CLICK ME</textPath></text>
-      </svg>
-      </div>
-    </div>
-
-    <!-- Cell -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-c:var(--accent-pink);--fall-o:.65">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
-          <circle cx='12' cy='12' r='9.3'/><circle cx='10' cy='10.2' r='3.2'/><circle cx='10' cy='10.2' r='.9'/>
-          <ellipse cx='16' cy='15.4' rx='2.7' ry='1.4' transform='rotate(-34 16 15.4)'/>
-          <ellipse cx='6.6' cy='15.8' rx='2.1' ry='1.1' transform='rotate(22 6.6 15.8)'/>
-      </svg>
-      </div>
-    </div>
-
-    <!-- Heart + pulse trace -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-o:.44">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
-          <path d='M12 20.6S3.4 15.2 3.4 9.6A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 8.6 2.2c0 5.6-8.6 11-8.6 11z'/>
-          <path d='M4.6 12.4h3.1l1.6-2.9 2.3 5.6 1.7-2.7h5.9'/>
-          <path id='cm3' d='M22.8 3.4 A13.2 13.2 0 0 1 22.8 20.6' fill='none' stroke='none'/>
-          <text font-family='Inter,system-ui,sans-serif' font-size='2.8' font-weight='800' letter-spacing='.25' fill='currentColor' stroke='none'><textPath href='#cm3' startOffset='50%' text-anchor='middle'>CLICK ME</textPath></text>
-      </svg>
-      </div>
-    </div>
-
-    <!-- Graduation cap -->
-    <div class='fall-lane'>
-      <div class="fall-item" style="--fall-c:var(--accent-violet);--fall-o:.65">
-        <svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg><svg class='fall-glint' viewBox='0 0 9 29.81' aria-hidden='true'><line x1='4.5' y1='4.5' x2='4.5' y2='25.31'/></svg>
-        <svg class='fall-art' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'>
-          <path d='M12 3.2 22 7.6 12 12 2 7.6z'/>
-          <path d='M6 9.9v4.9c0 1.7 2.7 3.1 6 3.1s6-1.4 6-3.1V9.9'/>
-          <path d='M22 7.6v5.2'/>
-          <path id='cm4' d='M22.8 3.4 A13.2 13.2 0 0 1 22.8 20.6' fill='none' stroke='none'/>
-          <text font-family='Inter,system-ui,sans-serif' font-size='2.8' font-weight='800' letter-spacing='.25' fill='currentColor' stroke='none'><textPath href='#cm4' startOffset='50%' text-anchor='middle'>CLICK ME</textPath></text>
-      </svg>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Cartoon school crests, dropped by dropSchools() when a level box first opens -->
-  <div id='schoolLayer' class='school-layer' aria-hidden='true'></div>
 
   <div class='relative max-w-6xl mx-auto px-6 py-20 md:py-28'>
 
     <!-- Section heading -->
     <div class="reveal text-center mb-12 md:mb-16">
       <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">A DIFFERENT WAY TO LEARN</p>
-      <h2 class="font-serif text-4xl md:text-5xl text-ink">What We Offer</h2>
+      <h2 class="font-serif text-4xl md:text-5xl text-ink">Two ways to work with us</h2>
+      <p class="text-neutral-500 text-sm mt-4 max-w-md mx-auto">Pick your door. The full rates are waiting on the other side.</p>
     </div>
 
-    <!-- Group A: Casper & MMI prep pricing ladder · 3 big cards -->
-    <div id='casper'>
-      <div class="reveal text-center mb-10 md:mb-14">
-        <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">INTERVIEW SEASON</p>
-        <h3 class="font-serif text-3xl md:text-5xl text-ink">Casper &amp; MMI Prep &mdash; Choose Your Plan</h3>
-        <p class="text-neutral-500 text-sm mt-4 max-w-md mx-auto">1-on-1 with medical students who sat these exact interviews &mdash; and got in.</p>
-      </div>
+    <!-- ============================================================
+         THE TWO OFFERS
+         Everything the site sells now lives behind one of these two
+         rectangles: school tutoring on the left, admissions prep on the
+         right. Each card is one anchor, so the whole box is the target.
+    ============================================================ -->
+    <div id="offers" class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto relative z-[46]">
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
-
-
-        <!-- CASPer-only prep -->
-        <div onclick="pickService('Casper Prep')" class="card-light group cursor-pointer reveal rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
-          <h4 class="font-serif text-2xl mb-1">CASPer Prep</h4>
-          <p class="text-neutral-400 text-sm mb-8">Complete CASPer-only program</p>
-          <div class="mt-auto">
-            <div class="text-4xl font-semibold mb-2">$600</div>
-            <div class="text-neutral-400 text-sm">Flat rate, full program</div>
-          </div>
-        </div>
-
-        <!-- MMI-only prep -->
-        <div onclick="pickService('MMI Prep')" class="card-light group cursor-pointer reveal rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300" style="--rd:.12s">
-          <h4 class="font-serif text-2xl mb-1">MMI Prep</h4>
-          <p class="text-neutral-400 text-sm mb-8">Complete MMI-only program</p>
-          <div class="mt-auto">
-            <div class="text-4xl font-semibold mb-2">$600</div>
-            <div class="text-neutral-400 text-sm">Flat rate, full program</div>
-          </div>
-        </div>
-
-        <!-- Combo package · FEATURED -->
-        <div onclick="pickService('Casper &amp; MMI Combo')" class="pkg-featured group cursor-pointer reveal relative rounded-3xl p-9 pt-12 flex flex-col text-ink hover:-translate-y-2 transition-all duration-300 md:scale-[1.08] z-10" style="--rd:.24s">
-          <span class="pkg-badge">BEST VALUE</span>
-          <h4 class="font-serif text-2xl mb-1">Casper &amp; MMI Combo</h4>
-          <p class="text-sm font-bold mb-8 eyebrow-grad">Save $200</p>
-          <div class="mt-auto">
-            <div class="text-4xl font-semibold mb-2">$1,000</div>
-            <div class="text-neutral-500 text-sm">Flat rate, both full programs</div>
-          </div>
-        </div>
-
-
-      </div>
-    </div>
-
-    <!-- Group B: 1-on-1 tutoring · two level boxes that unfold into their pricing ladder -->
-    <div class="lvl-wrap mt-16 md:mt-24">
-      <div class="reveal text-center mb-10 md:mb-14">
-        <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">LOCK IN YOUR RATE</p>
-        <h3 class="font-serif text-3xl md:text-5xl text-ink">Academic 1-on-1 Tutoring &mdash; Choose Your Level</h3>
-        <p class="text-neutral-500 text-sm mt-4 max-w-lg mx-auto">Open your level to see the plans. Commit to more sessions and your rate drops &mdash; automatically.</p>
-      </div>
-
-      <div class="lvl-boxes grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
-
-        <button type="button" id="lvlbtn-hs" onclick="toggleLevel('hs')"
-                aria-expanded="false" aria-controls="lvl-hs"
-                class="level-card reveal p-8 md:p-9 flex flex-col">
-          <span class="text-[11px] tracking-[0.25em] text-neutral-500 mb-3">SECONDARY 1&ndash;5</span>
-          <span class="font-serif text-2xl md:text-3xl text-ink leading-tight mb-2">High School Academic Tutoring</span>
-          <span class="text-neutral-500 text-sm leading-relaxed mb-7">Math, sciences, languages and more &mdash; taught by mentors who aced them.</span>
-          <span class="mt-auto flex items-center gap-3 w-full">
-            <span class="inline-flex items-center rounded-full bg-ink text-white text-[10.5px] font-extrabold tracking-[0.12em] px-3.5 py-1.5 whitespace-nowrap"><span class="lbl-shut">CLICK ME</span><span class="lbl-open">CLOSE</span></span>
-            <span class="text-neutral-400 text-xs">to see the plans</span>
-            <svg class="level-chev ml-auto shrink-0 text-ink" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-          </span>
-          <svg class="lvl-face" viewBox="0 0 140 90" fill="none" aria-hidden="true">
-            <g stroke="#16141c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" opacity=".82">
-              <g class="face-eye-open"><path d="M33 43q13 15 26 0"/><path d="M81 43q13 15 26 0"/></g>
-              <g class="face-eye-shut"><path d="M33 51q13 -17 26 0"/><path d="M81 51q13 -17 26 0"/></g>
-              <g class="face-cheer">
-                <path d="M33 48q13 -16 26 0"/><path d="M81 48q13 -16 26 0"/>
-                <path d="M50 66q20 19 40 0"/>
-              </g>
-              <ellipse class="face-mouth" cx="70" cy="70" rx="11" ry="8"/>
-            </g>
+      <!-- LEFT · school tutoring -->
+      <a href="tutoring.html" class="offer-box reveal group">
+        <div class="offer-tint" aria-hidden="true">
+          <svg style="position:absolute; top:-32%; right:-24%; width:82%;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="var(--wave-2)" d="M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z"/>
           </svg>
-        </button>
+        </div>
 
-        <button type="button" id="lvlbtn-cegep" onclick="toggleLevel('cegep')"
-                aria-expanded="false" aria-controls="lvl-cegep"
-                class="level-card reveal p-8 md:p-9 flex flex-col" style="--rd:.12s">
-          <span class="text-[11px] tracking-[0.25em] text-neutral-500 mb-3">ALL CEGEP PROGRAMS</span>
-          <span class="font-serif text-2xl md:text-3xl text-ink leading-tight mb-2">CEGEP Academic Tutoring</span>
-          <span class="text-neutral-500 text-sm leading-relaxed mb-7">Every course on your CEGEP schedule &mdash; at CEGEP pace.</span>
-          <span class="mt-auto flex items-center gap-3 w-full">
-            <span class="inline-flex items-center rounded-full bg-ink text-white text-[10.5px] font-extrabold tracking-[0.12em] px-3.5 py-1.5 whitespace-nowrap"><span class="lbl-shut">CLICK ME</span><span class="lbl-open">CLOSE</span></span>
-            <span class="text-neutral-400 text-xs">to see the plans</span>
-            <svg class="level-chev ml-auto shrink-0 text-ink" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-          </span>
-          <svg class="lvl-face" viewBox="0 0 140 90" fill="none" aria-hidden="true">
-            <g stroke="#16141c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" opacity=".82">
-              <g class="face-eye-open"><path d="M32 42q14 9 28 0"/><path d="M80 42q14 9 28 0"/></g>
-              <g class="face-eye-shut"><path d="M32 50l14 -13 14 13"/><path d="M80 50l14 -13 14 13"/></g>
-              <g class="face-cheer">
-                <path d="M32 47q14 -14 28 0"/><path d="M80 47q14 -14 28 0"/>
-                <path d="M48 66q22 20 44 0"/>
-              </g>
-              <ellipse class="face-mouth" cx="70" cy="70" rx="13" ry="7"/>
-            </g>
+        <div class="relative">
+          <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-4">HIGH SCHOOL &amp; CEGEP</p>
+          <h3 class="font-serif text-3xl md:text-4xl leading-[1.12] text-ink mb-4">Academic<br />tutoring</h3>
+          <p class="text-neutral-600 text-[15px] leading-relaxed max-w-sm">
+            Math, sciences, languages. A tutor who builds every session around your exact
+            courses, and stays the same one all year.
+          </p>
+        </div>
+
+        <ul class="offer-list relative mt-8 space-y-2.5 text-[13.5px] text-neutral-600">
+          <li>One-on-one 60-minute sessions, online</li>
+          <li>Taught by medical and university students</li>
+          <li>Your rate drops the moment you book a package</li>
+        </ul>
+
+        <div class="relative mt-auto pt-8">
+          <div class="h-px w-full bg-ink/10 mb-6"></div>
+          <div class="flex items-end justify-between gap-4">
+            <p class="font-serif text-2xl md:text-[28px] leading-tight text-ink">Secondary 1 to 5<br />and CEGEP</p>
+            <span class="offer-arrow shrink-0 inline-flex items-center gap-2 text-ink font-semibold text-sm">
+              See the rates
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- RIGHT · admissions prep (the high-ticket product, so it carries the outline) -->
+      <a href="preparation.html" class="offer-box is-featured reveal group" style="--rd:.12s">
+        <div class="offer-tint" aria-hidden="true">
+          <svg style="position:absolute; top:-32%; right:-24%; width:82%;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="var(--wave-1)" d="M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z"/>
           </svg>
-        </button>
+        </div>
 
-      </div>
+        <div class="relative">
+          <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-4">CASPER &amp; INTERVIEWS</p>
+          <h3 class="font-serif text-3xl md:text-4xl leading-[1.12] text-ink mb-4">The method to reach<br />your dream program</h3>
+          <p class="text-neutral-600 text-[15px] leading-relaxed max-w-sm">
+            A complete method, written session by session by students who sat these
+            interviews, and got in.
+          </p>
+        </div>
 
-      <div id="lvl-hs" class="level-panel" role="region" aria-labelledby="lvlbtn-hs">
-        <div class="level-clip">
-          <div class="pt-10 pb-6 px-5 sm:px-6">
+        <ul class="offer-list relative mt-8 space-y-2.5 text-[13.5px] text-neutral-600">
+          <li>Scenarios role-played by actors</li>
+          <li>Full practice tests with a complete review</li>
+          <li>Your planned practice timeline, sent the moment you buy</li>
+        </ul>
 
-            <!-- ── How it works · High school ─────────────────────────────── -->
-            <div class="max-w-5xl mx-auto mb-14 md:mb-16">
-
-              <div class="text-center mb-12 md:mb-14">
-                <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">HOW IT WORKS</p>
-                <h4 class="font-serif text-2xl md:text-3xl text-ink mb-4">You set the agenda before the session starts.</h4>
-                <p class="text-neutral-600 leading-relaxed max-w-2xl mx-auto">When you book, you tell us exactly what you want to cover &mdash; a unit you are stuck on, a test coming up, a concept that never clicked. Your tutor prepares that material in advance, so the hour is spent working through it rather than figuring out where to start.</p>
-              </div>
-
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-10 mb-12 md:mb-14">
-                <div>
-                  <div class="w-11 h-11 rounded-full bg-ink/5 flex items-center justify-center mb-4">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/></svg>
-                  </div>
-                  <h5 class="font-semibold text-sm mb-1.5 text-ink">Ministerial exam preparation</h5>
-                  <p class="text-neutral-500 text-sm leading-relaxed">More than weekly tutoring. We work straight from past ministerial exams, so the format, the wording and the pacing are familiar long before exam day.</p>
-                </div>
-                <div>
-                  <div class="w-11 h-11 rounded-full bg-ink/5 flex items-center justify-center mb-4">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
-                  </div>
-                  <h5 class="font-semibold text-sm mb-1.5 text-ink">Study skills that outlast the session</h5>
-                  <p class="text-neutral-500 text-sm leading-relaxed">We build the habits underneath the grades &mdash; how to take notes, plan a study week and actually revise &mdash; so the jump to CEGEP is far less of a shock.</p>
-                </div>
-                <div>
-                  <div class="w-11 h-11 rounded-full bg-ink/5 flex items-center justify-center mb-4">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                  </div>
-                  <h5 class="font-semibold text-sm mb-1.5 text-ink">IB exam support</h5>
-                  <p class="text-neutral-500 text-sm leading-relaxed">Writing the IB? We can prepare you for your IB examinations alongside your regular coursework, at whatever depth you need.</p>
-                </div>
-              </div>
-
-              <div class="text-center">
-                <p class="text-xs font-bold tracking-[0.3em] mb-5 eyebrow-grad">SUBJECTS WE COVER</p>
-                <div class="flex flex-wrap justify-center gap-2.5 max-w-3xl mx-auto">
-                  <span class="rounded-full border border-ink/15 bg-white px-4 py-2 text-sm text-ink">History</span>
-                  <span class="rounded-full border border-ink/15 bg-white px-4 py-2 text-sm text-ink">Math &mdash; CST</span>
-                  <span class="rounded-full border border-ink/15 bg-white px-4 py-2 text-sm text-ink">Math &mdash; SN&nbsp;4</span>
-                  <span class="rounded-full border border-ink/15 bg-white px-4 py-2 text-sm text-ink">Math &mdash; SN&nbsp;5</span>
-                  <span class="rounded-full border border-ink/15 bg-white px-4 py-2 text-sm text-ink">Chemistry</span>
-                  <span class="rounded-full border border-ink/15 bg-white px-4 py-2 text-sm text-ink">Physics</span>
-                  <span class="rounded-full border border-ink/15 bg-white px-4 py-2 text-sm text-ink">Biology</span>
-                </div>
-                <p class="text-neutral-400 text-xs mt-5">Offered at every grade level, Secondary&nbsp;1 through&nbsp;5.</p>
-              </div>
-
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
-
-              <!-- Single session (anchor price) -->
-              <div class="pkg-col">
-                <div onclick="pickService('1-on-1 Subject Tutoring')" class="card-light group cursor-pointer rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
-                  <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">HIGH SCHOOL</p>
-                  <h4 class="font-serif text-2xl mb-1">Single Session</h4>
-                  <p class="text-neutral-400 text-sm mb-8">Try it out &mdash; no commitment</p>
-                  <div class="mt-auto">
-                    <div class="text-4xl font-semibold mb-2">$35<span class="text-neutral-500 text-base font-normal"> / session</span></div>
-                    <div class="text-neutral-400 text-sm">$35 total</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 5-session package -->
-              <div class="pkg-col">
-                <div onclick="pickService('5-Session Package')" class="card-light group cursor-pointer rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
-                  <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">HIGH SCHOOL</p>
-                  <h4 class="font-serif text-2xl mb-1">5-Session Package</h4>
-                  <p class="text-[#d0679f] text-sm font-semibold mb-8">Save $12.50</p>
-                  <div class="mt-auto">
-                    <div class="flex items-baseline gap-2 mb-2">
-                      <span class="text-neutral-400 text-lg line-through">$35</span>
-                      <span class="text-4xl font-semibold">$32.50<span class="text-neutral-500 text-base font-normal"> / session</span></span>
-                    </div>
-                    <div class="text-neutral-400 text-sm">$162.50 total</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 10-session package · FEATURED (sleek black outline) -->
-              <div class="pkg-col">
-                <div onclick="pickService('10-Session Package')" class="pkg-featured group cursor-pointer relative rounded-3xl p-9 pt-12 flex flex-col text-ink hover:-translate-y-2 transition-all duration-300 md:scale-[1.08] z-10">
-                  <span class="pkg-badge">BEST VALUE</span>
-                  <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">HIGH SCHOOL</p>
-                  <h4 class="font-serif text-2xl mb-1">10-Session Package</h4>
-                  <p class="text-sm font-bold mb-8 eyebrow-grad">Save $50</p>
-                  <div class="mt-auto">
-                    <div class="flex items-baseline gap-2 mb-2">
-                      <span class="text-neutral-400 text-lg line-through">$35</span>
-                      <span class="text-4xl font-semibold">$30<span class="text-neutral-500 text-base font-normal"> / session</span></span>
-                    </div>
-                    <div class="text-neutral-500 text-sm">$300 total</div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
+        <div class="relative mt-auto pt-8">
+          <div class="h-px w-full bg-ink/10 mb-6"></div>
+          <div class="flex items-end justify-between gap-4">
+            <p class="font-serif text-2xl md:text-[28px] leading-tight text-ink">Casper, MMI,<br />or both</p>
+            <span class="offer-arrow shrink-0 inline-flex items-center gap-2 text-ink font-semibold text-sm">
+              See the method
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div id="lvl-cegep" class="level-panel" role="region" aria-labelledby="lvlbtn-cegep">
-        <div class="level-clip">
-          <div class="pt-10 pb-6 px-5 sm:px-6">
-
-            <!-- ── How it works · CEGEP ──────────────────────────────────── -->
-            <div class="max-w-5xl mx-auto mb-14 md:mb-16">
-
-              <div class="text-center mb-12 md:mb-14">
-                <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">HOW IT WORKS</p>
-                <h4 class="font-serif text-2xl md:text-3xl text-ink mb-4">Tell us the course and the chapter. We come ready.</h4>
-                <p class="text-neutral-600 leading-relaxed max-w-2xl mx-auto">You let us know ahead of your session which class you want to work on and what is giving you trouble &mdash; a midterm, a lab, a chapter you fell behind on. Your tutor reviews it before you meet, so no part of the session is spent catching up on context.</p>
-              </div>
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
-                <div>
-                  <div class="w-11 h-11 rounded-full bg-ink/5 flex items-center justify-center mb-4">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                  </div>
-                  <h5 class="font-semibold text-sm mb-1.5 text-ink">Every single CEGEP class</h5>
-                  <p class="text-neutral-500 text-sm leading-relaxed">Science, commerce, social science, general education &mdash; whatever is on your schedule this semester, we tutor it. There is no course we turn away.</p>
-                </div>
-                <div>
-                  <div class="w-11 h-11 rounded-full bg-ink/5 flex items-center justify-center mb-4">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/></svg>
-                  </div>
-                  <h5 class="font-semibold text-sm mb-1.5 text-ink">Past tests and exams to work from</h5>
-                  <p class="text-neutral-500 text-sm leading-relaxed">We provide past tests and exams for your specific courses, so you practise on the real thing and walk into the evaluation already knowing how it is going to look.</p>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
-
-              <!-- Single session (anchor price) -->
-              <div class="pkg-col">
-                <div onclick="pickService('1-on-1 Subject Tutoring')" class="card-light group cursor-pointer rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
-                  <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">CEGEP</p>
-                  <h4 class="font-serif text-2xl mb-1">Single Session</h4>
-                  <p class="text-neutral-400 text-sm mb-8">Try it out &mdash; no commitment</p>
-                  <div class="mt-auto">
-                    <div class="text-4xl font-semibold mb-2">$35<span class="text-neutral-500 text-base font-normal"> / session</span></div>
-                    <div class="text-neutral-400 text-sm">$35 total</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 5-session package -->
-              <div class="pkg-col">
-                <div onclick="pickService('5-Session Package')" class="card-light group cursor-pointer rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
-                  <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">CEGEP</p>
-                  <h4 class="font-serif text-2xl mb-1">5-Session Package</h4>
-                  <p class="text-[#d0679f] text-sm font-semibold mb-8">Save $12.50</p>
-                  <div class="mt-auto">
-                    <div class="flex items-baseline gap-2 mb-2">
-                      <span class="text-neutral-400 text-lg line-through">$35</span>
-                      <span class="text-4xl font-semibold">$32.50<span class="text-neutral-500 text-base font-normal"> / session</span></span>
-                    </div>
-                    <div class="text-neutral-400 text-sm">$162.50 total</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 10-session package · FEATURED (sleek black outline) -->
-              <div class="pkg-col">
-                <div onclick="pickService('10-Session Package')" class="pkg-featured group cursor-pointer relative rounded-3xl p-9 pt-12 flex flex-col text-ink hover:-translate-y-2 transition-all duration-300 md:scale-[1.08] z-10">
-                  <span class="pkg-badge">BEST VALUE</span>
-                  <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">CEGEP</p>
-                  <h4 class="font-serif text-2xl mb-1">10-Session Package</h4>
-                  <p class="text-sm font-bold mb-8 eyebrow-grad">Save $50</p>
-                  <div class="mt-auto">
-                    <div class="flex items-baseline gap-2 mb-2">
-                      <span class="text-neutral-400 text-lg line-through">$35</span>
-                      <span class="text-4xl font-semibold">$30<span class="text-neutral-500 text-base font-normal"> / session</span></span>
-                    </div>
-                    <div class="text-neutral-500 text-sm">$300 total</div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Sleek divider between packages and free consultation -->
@@ -1281,12 +535,6 @@
       <div class='pointer-events-none absolute inset-0' aria-hidden='true'>
         <svg style='position:absolute; top:-30px; left:-18%; width:70%; min-width:520px;' viewBox='0 0 900 520' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path fill='var(--wave-2)' d='M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z'/>
-          <!-- happy face doodle on the pink blob -->
-          <g stroke='rgba(22,20,28,.13)' stroke-width='7' stroke-linecap='round' fill='none'>
-            <path d='M470 290q22 -24 44 0'/>
-            <path d='M570 290q22 -24 44 0'/>
-            <path d='M517 326q25 20 50 0'/>
-          </g>
         </svg>
       </div>
       <div class="relative max-w-md mx-auto">
@@ -1310,159 +558,60 @@
 
 
 <!-- ============================================================
-     MEET OUR STAFF  (light theme, bundle-style cards — inspo 1)
+     REVIEWS  (MadFit-style rounded board, infinite marquee)
 ============================================================ -->
-<section id='staff' class='relative overflow-hidden'>
-  <!-- soft wave shape behind the card row -->
-  <div class='wave-wrap' aria-hidden='true'>
-    <svg style='top:10%; right:-22%; width:80%; min-width:560px;' viewBox='0 0 900 520' fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <path fill='var(--wave-1)' d='M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z'/>
-    </svg>
+<section id="avis" class="p-2.5 md:p-3">
+  <div class="rev-panel reveal relative rounded-[22px] md:rounded-[28px] overflow-hidden py-14 md:py-20">
+    <div class="text-center max-w-2xl mx-auto px-6 mb-10 md:mb-12">
+      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">WHAT WE HEAR</p>
+      <h2 class="font-serif text-3xl md:text-5xl leading-tight text-ink mb-4">What our students<br class="hidden sm:block" /> say.</h2>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track items-stretch py-2" style="animation-duration:72s">
+        <div class="rev-card"><div class="rev-stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div><p>&ldquo;MNTR’s services helped me ace my ministry exams, something I didn’t think possible.&rdquo;</p><footer><b>William</b><span>Secondary 5</span></footer></div>
+        <div class="rev-card"><div class="rev-stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div><p>&ldquo;The concrete timeline and method of the Casper and MMI preparation gave me the confidence to ace my two tests.&rdquo;</p><footer><b>Benjamin</b><span>Now in medical school</span></footer></div>
+        <div class="rev-card"><div class="rev-stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div><p>&ldquo;The homework for the Casper preparation was the part I hated the most, but it was so useful when it came time to take the practice tests. I loved how organized the practice and feedback were.&rdquo;</p><footer><b>Jonathan</b><span>Heading to university</span></footer></div>
+        <!-- duplicate set for the seamless loop -->
+        <div class="rev-card"><div class="rev-stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div><p>&ldquo;MNTR’s services helped me ace my ministry exams, something I didn’t think possible.&rdquo;</p><footer><b>William</b><span>Secondary 5</span></footer></div>
+        <div class="rev-card"><div class="rev-stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div><p>&ldquo;The concrete timeline and method of the Casper and MMI preparation gave me the confidence to ace my two tests.&rdquo;</p><footer><b>Benjamin</b><span>Now in medical school</span></footer></div>
+        <div class="rev-card"><div class="rev-stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div><p>&ldquo;The homework for the Casper preparation was the part I hated the most, but it was so useful when it came time to take the practice tests. I loved how organized the practice and feedback were.&rdquo;</p><footer><b>Jonathan</b><span>Heading to university</span></footer></div>
+      </div>
+    </div>
   </div>
+</section>
 
-  <div class='relative py-20 md:py-28'>
+<!-- ============================================================
+     MEET OUR STAFF  (light theme, bundle-style cards, inspo 1)
+============================================================ -->
+<section id='staff' class='p-2.5 md:p-3'>
+  <!-- MadFit-style rounded board: the whole team row sits on a soft dotted panel -->
+  <div class='staff-panel relative overflow-hidden rounded-[22px] md:rounded-[28px]'>
 
-    <!-- Scroll-left arrow (top-right, left of its pair): nudges the card row back toward earlier tutors -->
-    <button type='button' onclick='scrollStaff(-1)' aria-label='See previous tutors'
-            class='absolute top-8 right-20 md:right-28 z-30 w-12 h-12 rounded-full border border-ink/15 bg-white hidden md:flex items-center justify-center text-ink shadow-sm hover:bg-ink hover:text-white transition-colors'>
-      <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M15 6l-6 6 6 6'/></svg>
-    </button>
+  <div class='relative py-16 md:py-24 px-6'>
 
-    <!-- Scroll-right arrow (top-right): nudges the card row to reveal more tutors -->
-    <button type='button' onclick='scrollStaff(1)' aria-label='See more tutors'
-            class='absolute top-8 right-6 md:right-12 z-30 w-12 h-12 rounded-full border border-ink/15 bg-white hidden md:flex items-center justify-center text-ink shadow-sm hover:bg-ink hover:text-white transition-colors'>
-      <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 6l6 6-6 6'/></svg>
-    </button>
-
-    <!-- LEFT TEXT (pinned, vertically centered). "Kicks away" on scroll via JS (#staffText). -->
-    <div class='md:absolute md:left-14 md:top-1/2 md:-translate-y-1/2 w-full md:w-[360px] px-6 md:px-0 mb-10 md:mb-0 z-20 pointer-events-none'>
-      <div id='staffText'>
-        <!-- eyebrow -->
-        <div class='flex items-center gap-2 mb-6'>
-          <svg width='16' height='16' viewBox='0 0 24 24' fill='currentColor' style='color:#9a86e6'><path d='M12 2l2.2 6.6H21l-5.4 4 2.1 6.4L12 15.6 6.3 19l2.1-6.4L3 8.6h6.8L12 2z'/></svg>
-          <span class='text-ink text-sm font-semibold tracking-wide'>Meet Our Staff</span>
-        </div>
-        <!-- two-tone heading -->
-        <h2 class='font-sans text-3xl md:text-[2rem] font-semibold leading-tight tracking-tight mb-8'>
-          <span class='text-ink'>Advancing the academic field</span><span class='text-neutral-400'> by giving students the mentorship we wish we'd had.</span>
-        </h2>
-        <!-- CTA link with arrow -->
-        <a href='#contact' class='pointer-events-auto inline-flex items-center gap-1.5 text-ink font-semibold text-sm border-b border-ink/30 pb-1 hover:border-ink transition-colors'>
-          Join our team
-          <svg width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17L17 7M9 7h8v8'/></svg>
-        </a>
+    <div class='max-w-2xl mx-auto text-center'>
+      <div class='reveal flex items-center justify-center gap-2 mb-6'>
+        <svg width='16' height='16' viewBox='0 0 24 24' fill='currentColor' style='color:#9a86e6'><path d='M12 2l2.2 6.6H21l-5.4 4 2.1 6.4L12 15.6 6.3 19l2.1-6.4L3 8.6h6.8L12 2z'/></svg>
+        <span class='text-ink text-sm font-semibold tracking-wide'>Meet our team</span>
+      </div>
+      <h2 class='reveal font-sans text-3xl md:text-4xl font-semibold leading-tight tracking-tight mb-5' style='--rd:.06s'>
+        <span class='text-ink'>Raising the academic bar,</span><span class='text-neutral-500'> by giving students the mentorship we wish we had received.</span>
+      </h2>
+      <p class='reveal text-neutral-500 text-[15px] leading-relaxed mb-9' style='--rd:.12s'>Medical and university students, presented in full on their own page.</p>
+      <div class='reveal flex flex-wrap items-center justify-center gap-5' style='--rd:.18s'>
+        <a href='team.html' class='inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-black transition-colors'>Meet the whole team <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href='#contact' class='inline-flex items-center gap-1.5 text-ink font-semibold text-sm border-b border-ink/30 pb-1 hover:border-ink transition-colors'>Join our team <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
       </div>
     </div>
 
-    <!-- CARDS (horizontal scroll). Left padding leaves room for the pinned text. -->
-    <div class="staff-scroll relative z-10 flex gap-5 overflow-x-auto pl-6 md:pl-[460px] pr-10 pb-4 items-stretch">
-
-      <!-- ============================================================
-           STAFF CARD: bundle-card format (photo on top, white body below).
-           Add a real photo by setting that card's  <img src="...">.
-      ============================================================ -->
-
-      <!-- Card · Elliott -->
-      <article class='card-light shrink-0 w-[300px] rounded-3xl overflow-hidden flex flex-col group'>
-        <div class='h-[300px] overflow-hidden'>
-          <img src='elliottnewpic.jpeg' alt='Elliott' class='w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105' />
-        </div>
-        <div class='p-5 flex flex-col flex-1'>
-          <h3 class='text-ink text-xl font-semibold'>Elliott</h3>
-          <p class='text-[13px] font-bold mt-1 text-ink'>McGill Medical School</p>
-          <p class='text-neutral-500 text-[12px] leading-relaxed mt-2'>First-round acceptance to all four Québec medical schools. Currently a biophysics intern at the McIntyre Medical Building.</p>
-          <p class='text-neutral-600 text-[12px] mt-auto pt-3'><span class='text-neutral-400 uppercase tracking-wide text-[10.5px]'>Tutors </span>All CEGEP sciences &amp; high school</p>
-        </div>
-      </article>
-
-      <!-- Card · James -->
-      <article class='card-light shrink-0 w-[300px] rounded-3xl overflow-hidden flex flex-col group'>
-        <div class='h-[300px] overflow-hidden'>
-          <img src='james.jpg' alt='James' class='w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105' />
-        </div>
-        <div class='p-5 flex flex-col flex-1'>
-          <h3 class='text-ink text-xl font-semibold'>James</h3>
-          <p class='text-[13px] font-bold mt-1 text-ink'>McGill Medical School</p>
-          <p class='text-neutral-500 text-[12px] leading-relaxed mt-2'>Admitted to McGill Medical School, bringing a strong foundation in the sciences to every session.</p>
-          <p class='text-neutral-600 text-[12px] mt-auto pt-3'><span class='text-neutral-400 uppercase tracking-wide text-[10.5px]'>Tutors </span>All CEGEP sciences &amp; high school</p>
-        </div>
-      </article>
-
-      <!-- Card · Bassma -->
-      <article class='card-light shrink-0 w-[300px] rounded-3xl overflow-hidden flex flex-col group'>
-        <div class='h-[300px] overflow-hidden'>
-          <img src='bassma.jpg' alt='Bassma' class='w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105' />
-        </div>
-        <div class='p-5 flex flex-col flex-1'>
-          <h3 class='text-ink text-xl font-semibold'>Bassma</h3>
-          <p class='text-[13px] font-bold mt-1 text-ink'>Université de Sherbrooke · Medical School</p>
-          <p class='text-neutral-500 text-[12px] leading-relaxed mt-2'>Co-president of MedLife, having raised over $5,000 across various fundraisers, with over 200 hours of volunteering.</p>
-          <p class='text-neutral-600 text-[12px] mt-auto pt-3'><span class='text-neutral-400 uppercase tracking-wide text-[10.5px]'>Tutors </span>CEGEP Biology, Chemistry &amp; high school</p>
-        </div>
-      </article>
-
-      <!-- Card · Vlad -->
-      <article class='card-light shrink-0 w-[300px] rounded-3xl overflow-hidden flex flex-col group'>
-        <div class='h-[300px] overflow-hidden'>
-          <img src='vlad%20profile.jpg' alt='Vlad' class='w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105' />
-        </div>
-        <div class='p-5 flex flex-col flex-1'>
-          <h3 class='text-ink text-xl font-semibold'>Vlad</h3>
-          <p class='text-[13px] font-bold mt-1 text-ink'>Université de Montréal · Medical School</p>
-          <p class='text-neutral-500 text-[12px] leading-relaxed mt-2'>Admitted to all four Québec medical schools. 2x Eureka! competition winner and high school valedictorian.</p>
-          <p class='text-neutral-600 text-[12px] mt-auto pt-3'><span class='text-neutral-400 uppercase tracking-wide text-[10.5px]'>Tutors </span>CEGEP Biology, Chemistry &amp; high school</p>
-        </div>
-      </article>
-
-      <!-- Card · Mani -->
-      <article class='card-light shrink-0 w-[300px] rounded-3xl overflow-hidden flex flex-col group'>
-        <div class='h-[300px] overflow-hidden'>
-          <img src='Mani%20pic.jpg' alt='Mani' class='w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105' />
-        </div>
-        <div class='p-5 flex flex-col flex-1'>
-          <h3 class='text-ink text-xl font-semibold'>Mani</h3>
-          <p class='text-[13px] font-bold mt-1 text-ink'>Dawson College · Enriched Pure and Applied Sciences</p>
-          <p class='text-neutral-500 text-[12px] leading-relaxed mt-2'>Founder of the Dawson Aerospace Club and Editor of the Dawson Research Journal of Experimental Sciences, with a research background in Neuroscience. Currently an intern at the Montreal Neurological Institute.</p>
-          <p class='text-neutral-600 text-[12px] mt-auto pt-3'><span class='text-neutral-400 uppercase tracking-wide text-[10.5px]'>Tutors </span>CEGEP Physics, Math &amp; high school</p>
-        </div>
-      </article>
-
-      <!-- Card · Sofia -->
-      <article class='card-light shrink-0 w-[300px] rounded-3xl overflow-hidden flex flex-col group'>
-        <div class='h-[300px] overflow-hidden'>
-          <img src='Sofianewpic.jpeg' alt='Sofia' class='w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105' />
-        </div>
-        <div class='p-5 flex flex-col flex-1'>
-          <h3 class='text-ink text-xl font-semibold'>Sofia</h3>
-          <p class='text-[13px] font-bold mt-1 text-ink'>Concordia · Honours Psychology</p>
-          <p class='text-neutral-500 text-[12px] leading-relaxed mt-2'>Recipient of the Governor General's Award. Currently interning at the CRBLM (McGill's psychology research institute), and previously a teaching assistant for high school subjects.</p>
-          <p class='text-neutral-600 text-[12px] mt-auto pt-3'><span class='text-neutral-400 uppercase tracking-wide text-[10.5px]'>Tutors </span>CEGEP Biology, Chemistry &amp; high school</p>
-        </div>
-      </article>
-
-      <!-- Card · Alexandre -->
-      <article class='card-light shrink-0 w-[300px] rounded-3xl overflow-hidden flex flex-col group'>
-        <div class='h-[300px] overflow-hidden'>
-          <img src='alex.jpg' alt='Alexandre' class='w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105' />
-        </div>
-        <div class='p-5 flex flex-col flex-1'>
-          <h3 class='text-ink text-xl font-semibold'>Alexandre</h3>
-          <p class='text-[13px] font-bold mt-1 text-ink'>Dawson College · Enriched Health Science</p>
-          <p class='text-neutral-500 text-[12px] leading-relaxed mt-2'>Finance Vice-President of MedLife and a regional supervisor for a nationally operating lifesaving and water-safety organization.</p>
-          <p class='text-neutral-600 text-[12px] mt-auto pt-3'><span class='text-neutral-400 uppercase tracking-wide text-[10.5px]'>Tutors </span>CEGEP Math, Biology, Chemistry &amp; high school</p>
-        </div>
-      </article>
-
-      <!-- END staff cards -->
-    </div>
   </div>
+</div>
 </section>
 
 <!-- ============================================================
      STATS STRIP  (count-up trust numbers)
 ============================================================ -->
 <section class='py-16 md:py-24 px-6 relative overflow-hidden'>
-  <div class='pointer-events-none absolute inset-0' style='background:radial-gradient(620px 180px at 50% 50%, rgba(154,134,230,.10), transparent)'></div>
   <div class='relative max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8 text-center'>
     <div class='reveal'>
       <div class='font-serif text-5xl md:text-6xl mb-3 tabular-nums text-ink' data-count='4' data-suffix=''>0</div>
@@ -1487,8 +636,6 @@
      CONTACT BUBBLE  (minimal - links out to contact.html)
 ============================================================ -->
 <section id="contact" class="py-20 md:py-28 px-6 relative overflow-hidden">
-  <div class='pointer-events-none absolute inset-0' style='background:radial-gradient(320px 100px at 38% 50%, rgba(240,166,200,.14), transparent)'></div>
-  <div class='pointer-events-none absolute inset-0' style='background:radial-gradient(320px 100px at 62% 50%, rgba(156,192,255,.14), transparent)'></div>
   <div class="relative max-w-5xl mx-auto flex flex-col items-center gap-6">
     <a href="contact.html" class="reveal group inline-flex items-center gap-3 bg-ink text-white rounded-full pl-5 pr-6 py-3.5 shadow-[0_20px_45px_-18px_rgba(22,20,28,.5)] hover:-translate-y-0.5 transition-all">
       <span class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center shrink-0">
@@ -1512,7 +659,7 @@
 
 
 <!-- ============================================================
-     FOOTER  (dark ink block — grounds the white page)
+     FOOTER  (dark ink block, grounds the white page)
 ============================================================ -->
 <footer class='bg-ink text-white pt-16 pb-10 px-6 md:px-12 rounded-t-[22px] md:rounded-t-[28px]'>
   <div class='max-w-6xl mx-auto'>
@@ -1526,8 +673,9 @@
       <div>
         <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>EXPLORE</h4>
         <ul class='space-y-2.5 text-sm text-neutral-300'>
-          <li><a href='#services' class='hover:text-white transition-colors'>Pricing</a></li>
-          <li><a href='#casper' class='hover:text-white transition-colors'>Casper &amp; MMI prep</a></li>
+          <li><a href='#services' class='hover:text-white transition-colors'>Our two offers</a></li>
+          <li><a href='tutoring.html' class='hover:text-white transition-colors'>High school &amp; CEGEP tutoring</a></li>
+          <li><a href='preparation.html' class='hover:text-white transition-colors'>Casper &amp; MMI preparation</a></li>
           <li><a href='#staff' class='hover:text-white transition-colors'>Our tutors</a></li>
           <li><a href='faq.html' class='hover:text-white transition-colors'>FAQ</a></li>
           <li><a href='privacy.html' class='hover:text-white transition-colors'>Privacy Policy</a></li>
@@ -1588,7 +736,7 @@
      DOMContentLoaded (doesn't wait on images/trackers, unlike window 'load')
      + double requestAnimationFrame (rAF only fires once the browser is really
      rendering frames), so the animation starts exactly when the hero becomes
-     visible — on cold first visits, cached reloads, and background tabs alike. */
+     visible, on cold first visits, cached reloads, and background tabs alike. */
   function releaseHeroAnimation() {
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
@@ -1665,206 +813,6 @@
   })();
 
 
-  /* ---------- Falling objects: alloprof-style rain over the pricing section ----------
-     Constants are the ones alloprof.qc.ca's home-splash component uses. Per
-     frame, for each falling object:
-         accel  -> 1, or decays to .25 while held   (+.1 / -.075 per frame)
-         y      += speed * accel                    (constant speed, no gravity)
-         rot     = rotStart * (1 - y / 100)         (untwists to 0 on the way down)
-         scale  -> 1.75 while held, else 1          (lerped at .2)
-     y runs -50% -> 100% of the section height, then the object recycles with a
-     fresh lane, angle and speed. Only CONCURRENT objects fall at once and one
-     more is released every RELEASE_EVERY frames, which is what keeps the
-     stream staggered instead of arriving in a clump. */
-  (function () {
-    const layer = document.querySelector('#services .fall-layer');
-    const section = document.getElementById('services');
-    if (!layer || !section) return;
-
-    const SPEED_MIN = .18, SPEED_MAX = .40;      // % of section height per frame
-    const ACCEL_UP = .1, ACCEL_DOWN = .075, ACCEL_MIN = .25;
-    const HELD_SCALE = 1.75, LERP = .2;
-    const ANGLES = [-110, -90, -75, -45, 45, 75, 90, 110];
-    const LANE_COUNT = 12, LANE_SLOTS = [1, 2, 10, 11];   // outer columns only
-    const Y_START = -50, Y_END = 100;
-    const RELEASE_EVERY = 40;                    // frames between releases
-    const desktop = window.matchMedia('(min-width: 768px)').matches;
-    const CONCURRENT = desktop ? 5 : 2;
-    const SPARK_MS = 500;
-
-    const rnd = (a, b) => a + Math.random() * (b - a);
-    const clamp = (lo, hi, v) => Math.min(hi, Math.max(lo, v));
-
-    // Lanes are popped from a shuffled pool and refilled when it runs low, so
-    // consecutive objects can't stack up in the same column.
-    let pool = [];
-    const nextLane = () => {
-      if (pool.length <= 1) pool = LANE_SLOTS.slice().sort(() => Math.random() - .5);
-      return clamp(5, 92, pool.pop() * (100 / LANE_COUNT));
-    };
-
-    const objs = [...layer.querySelectorAll('.fall-lane')].map((lane, i) => ({
-      lane: lane,
-      item: lane.querySelector('.fall-item'),
-      art:  lane.querySelector('.fall-art'),
-      glints: [...lane.querySelectorAll('.fall-glint')],
-      id: i, y: Y_START, speed: 0, accel: 1, rot: 0, rotStart: 0,
-      scale: 1, glint: 0, held: false, pinned: false, falling: false
-    }));
-    if (!objs.length) return;
-
-    const respawn = (o) => {
-      o.falling = false; o.held = false; o.pinned = false;
-      o.y = Y_START; o.accel = 1; o.scale = 1; o.glint = 0; o.popPx = null;
-      o.rotStart = o.rot = ANGLES[Math.floor(Math.random() * ANGLES.length)];
-      o.speed = rnd(SPEED_MIN, SPEED_MAX);
-      o.lane.style.left = nextLane().toFixed(3) + '%';
-      o.lane.style.display = 'none';
-      o.item.classList.remove('is-held');
-    };
-
-    const draw = (o) => {
-      o.lane.style.transform = o.popPx != null
-        ? 'translate3d(0,' + o.popPx.toFixed(1) + 'px,0)'   // pinned mid-pop
-        : 'translate3d(0,' + o.y.toFixed(2) + '%,0)';
-      o.art.style.transform  = 'rotate(' + o.rot.toFixed(2) + 'deg) scale(' + o.scale.toFixed(3) + ')';
-      const g = o.glint;
-      o.glints[0].style.opacity = o.glints[1].style.opacity = o.glints[2].style.opacity = g.toFixed(3);
-      o.glints[0].style.transform = 'rotate(-45deg) translateY(' + (g * -350).toFixed(1) + '%) translate(-50%,-50%)';
-      o.glints[1].style.transform = 'translateY(' + (g * -380).toFixed(1) + '%) translate(-50%,-50%)';
-      o.glints[2].style.transform = 'rotate(50deg) translateY(' + (g * -400).toFixed(1) + '%) translate(-50%,-50%)';
-    };
-
-    /* Eight lines radiating from the icon's centre, alternating long and short so
-       the burst reads as hand-drawn rather than a perfect asterisk. Built once per
-       icon, the first time it pops, then reused. */
-    const makeBurst = (o) => {
-      const NS = 'http://www.w3.org/2000/svg';
-      const svg = document.createElementNS(NS, 'svg');
-      svg.setAttribute('class', 'pop-burst');
-      svg.setAttribute('viewBox', '0 0 100 100');
-      const g = document.createElementNS(NS, 'g');
-      for (let i = 0; i < 8; i++) {
-        const a = i * Math.PI / 4, long = i % 2 === 0;
-        const r1 = long ? 20 : 22, r2 = long ? 31 : 26;
-        const ln = document.createElementNS(NS, 'line');
-        ln.setAttribute('x1', (50 + Math.cos(a) * r1).toFixed(2));
-        ln.setAttribute('y1', (50 + Math.sin(a) * r1).toFixed(2));
-        ln.setAttribute('x2', (50 + Math.cos(a) * r2).toFixed(2));
-        ln.setAttribute('y2', (50 + Math.sin(a) * r2).toFixed(2));
-        g.appendChild(ln);
-      }
-      svg.appendChild(g);
-      o.item.appendChild(svg);
-      o.burst = svg; o.burstG = g;
-    };
-
-    objs.forEach((o) => { respawn(o); draw(o); });
-
-    const active = [];
-    let suspended = false;                    // true while the school crests play
-    const release = () => {
-      if (suspended || active.length >= CONCURRENT) return;
-      const idle = objs.filter((o) => !o.falling);
-      if (!idle.length) return;
-      const o = idle[Math.floor(Math.random() * idle.length)];
-      respawn(o);
-      o.falling = true;
-      o.lane.style.display = 'block';
-      active.push(o);
-    };
-
-    const setHeld = (o, on) => {
-      o.held = on;
-      o.item.classList.toggle('is-held', on);
-    };
-
-    objs.forEach((o) => {
-      o.item.addEventListener('mouseenter', () => setHeld(o, true));
-      o.item.addEventListener('mouseleave', () => { if (!o.pinned) setHeld(o, false); });
-      o.item.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        o.pinned = !o.pinned;
-        setHeld(o, o.pinned);
-        if (o.pinned) {                       // fire the sparks, then let them fade
-          o.spark = true;
-          clearTimeout(o.sparkT);
-          o.sparkT = setTimeout(() => { o.spark = false; }, SPARK_MS);
-        } else { o.spark = false; }
-      });
-    });
-
-    let frame = 0, raf = 0;
-    const step = () => {
-      if (++frame % RELEASE_EVERY === 0) release();
-      for (let i = active.length - 1; i >= 0; i--) {
-        const o = active[i];
-        if (o.popping) {
-          /* Swell for 3 frames, then shrink away while a ring of cartoon lines
-             fires outward from the centre. ~9 frames end to end (~150ms). */
-          o.popT++;
-          o.scale = o.popT <= 3 ? 1 + o.popT * .183 : Math.max(0, 1.55 - (o.popT - 3) * .465);
-          o.glint = 0;                          // the old 3-spark flash stays out of this
-          if (o.popT === 3 && !o.burst) makeBurst(o);
-          if (o.burst) {
-            const t = Math.min(1, Math.max(0, (o.popT - 3) / 6));
-            o.burst.style.opacity = o.popT < 3 ? '0' : (1 - t).toFixed(3);
-            o.burstG.setAttribute('transform',
-              'translate(50,50) scale(' + (1 + t * .55).toFixed(3) + ') translate(-50,-50)');
-          }
-          draw(o);
-          if (o.popT >= 9) {
-            o.popping = false; o.spark = false;
-            if (o.burst) o.burst.style.opacity = '0';
-            respawn(o); active.splice(i, 1);
-          }
-          continue;
-        }
-        if (o.y >= Y_END) { respawn(o); active.splice(i, 1); continue; }
-        o.accel = o.held ? Math.max(o.accel - ACCEL_DOWN, ACCEL_MIN)
-                         : Math.min(o.accel + ACCEL_UP, 1);
-        o.scale += ((o.held ? HELD_SCALE : 1) - o.scale) * LERP;
-        o.glint += ((o.spark ? 1 : 0) - o.glint) * LERP;
-        o.y += o.speed * o.accel;
-        o.rot = o.rotStart * (1 - o.y / Y_END);
-        draw(o);
-      }
-      raf = requestAnimationFrame(step);
-    };
-
-    /* Let the school-crest effect clear the sky and hand it back afterwards. */
-    window.mntrRain = {
-      pop: function () {
-        suspended = true;
-        const lh = layer.getBoundingClientRect().height || 1;
-        active.forEach(function (o) {
-          o.popping = true; o.popT = 0; o.spark = true;
-          o.popPx = o.y / 100 * lh;           // freeze in place while it bursts
-          o.held = false; o.pinned = false; o.item.classList.remove('is-held');
-        });
-      },
-      resume: function () { suspended = false; }
-    };
-
-    // Reduced motion: park a few objects in the gutters, no loop, no rotation.
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      objs.slice(0, 6).forEach((o, i) => {
-        o.rot = 0; o.y = 8 + i * 15; o.lane.style.display = 'block'; draw(o);
-      });
-      return;
-    }
-
-    // Run only while the pricing section is on screen — alloprof unbinds its
-    // rAF the same way, so the compositor idles once you scroll past.
-    const fio = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting && !raf) { frame = RELEASE_EVERY - 1; raf = requestAnimationFrame(step); }
-        else if (!e.isIntersecting && raf) { cancelAnimationFrame(raf); raf = 0; }
-      });
-    }, { threshold: 0, rootMargin: '0px 0px -15% 0px' });
-    fio.observe(section);
-  })();
-
   /* ---------- Count-up stats (animate when scrolled into view) ---------- */
   const countEls = document.querySelectorAll('[data-count]');
   if (countEls.length) {
@@ -1900,364 +848,15 @@
     kick();
   }
 
-  /* ---------- School crests: cartoon badges that spill out of a level box ----------
-     Fires once per box per page load. The STEM rain pops away first so the two
-     effects never compete for the same space; the crests then fall under gravity
-     and bounce on the hairline divider before fading out and handing the rain back.
-     The emblems are original cartoon shapes, NOT the schools' real logos. */
-  const SCHOOLS = {
-    hs: [
-      { t: 'English', b: 'Montreal', e: 'shield' },
-      { t: 'Lester B.', b: 'Pearson', e: 'book' },
-      { t: 'Marguerite', b: 'Bourgeoys', e: 'leaf' },
-      { t: 'Pointe-de', b: 'l’Île', e: 'tower' },
-      { t: 'CSSDM', b: 'Montréal', e: 'star' },
-      { t: 'Private', b: 'Schools', e: 'crown' }
-    ],
-    cegep: [
-      { t: 'Dawson', b: 'College', e: 'shield' },
-      { t: 'Marianopolis', b: 'College', e: 'book' },
-      { t: 'Vanier', b: 'College', e: 'star' },
-      { t: 'Collège de', b: 'Bois-de-Boulogne', e: 'leaf' },
-      { t: 'Collège', b: 'Jean-de-Brébeuf', e: 'tower' },
-      { t: 'Collège', b: 'André-Grasset', e: 'pennant' }
-    ]
-  };
-  const schoolShown = { hs: false, cegep: false };
-
-  function chipEmblem(kind) {
-    const art = {
-      shield:  "<path d='M12 2.6 20.4 5.6v6.2c0 4.6-3.6 7.8-8.4 9.4-4.8-1.6-8.4-4.8-8.4-9.4V5.6z'/>",
-      book:    "<rect x='3.4' y='4' width='17.2' height='16' rx='2.4'/><path d='M12 4v16' fill='none' stroke='#fff' stroke-width='2'/>",
-      tower:   "<path d='M12 2.4 18.4 8.2V20.4H5.6V8.2z'/><rect x='10' y='13.4' width='4' height='7' rx='1.6' fill='#fff' stroke='none'/>",
-      star:    "<path d='m12 2.8 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9z'/>",
-      leaf:    "<path d='M20 4c0 9-5 13.4-12 13.4C8 8.6 13 4 20 4Z'/><path d='M5 21c2-5.4 5-8.6 10-10.6' fill='none' stroke='#fff' stroke-width='2'/>",
-      pennant: "<path d='M6 3v18' fill='none'/><path d='M6 4.6h13l-3.4 4.2L19 13H6z'/>",
-      crown:   "<path d='M3.4 8.4 7 12l5-7.6 5 7.6 3.6-3.6-1.7 11H5.1z'/>"
-    };
-    return "<g fill='#16141c' stroke='#16141c' stroke-width='1.6' " +
-           "stroke-linejoin='round' stroke-linecap='round'>" + (art[kind] || art.shield) + "</g>";
-  }
-
-  /* Builds one mini crest: a cartoon mark with the school's name warped around it
-     on two arcs - upper text over the top, lower text under the bottom, both
-     upright. Path ids are per-chip so several crests can be on screen at once. */
-  let chipUid = 0;
-  function chipLogo(s) {
-    const id = 'sc' + (++chipUid);
-    return "<svg viewBox='0 0 132 132'>" +
-             "<defs>" +
-               "<path id='" + id + "t' d='M34 66A32 32 0 0 1 98 66' fill='none'/>" +
-               "<path id='" + id + "b' d='M26 66A40 40 0 0 0 106 66' fill='none'/>" +
-             "</defs>" +
-             "<g fill='#16141c' stroke='none' font-family='Inter,system-ui,sans-serif' font-size='12' font-weight='900'>" +
-               "<text><textPath href='#" + id + "t' startOffset='50%' text-anchor='middle'>" + s.t + "</textPath></text>" +
-               "<text><textPath href='#" + id + "b' startOffset='50%' text-anchor='middle'>" + s.b + "</textPath></text>" +
-             "</g>" +
-             "<g transform='translate(45,45) scale(1.75)'>" + chipEmblem(s.e) + "</g>" +
-           "</svg>";
-  }
-
-  /* The box sneezes the crests out: it winds up for 700ms, then lets go. The drop
-     is fired at that beat rather than on the click, which also means the packages
-     have finished unfolding and the floor has stopped moving before anything lands. */
-  const SNEEZE_MS = 1000, ACHOO_AT = 700;              // the snap sits at 70% of the clock
-  const HEAVE_AT = 1187, HEAVE_MS = 500;
-  /* boxLastHeave's rattle peaks clockwise ~115ms in and counter-clockwise ~186ms in.
-     The right-hand box lets go on the clockwise swing so its crest is thrown
-     right; the left-hand box waits for the counter-clockwise one. */
-  const FLING_AT = { cegep: 77, hs: 124 };
-  const sneezed = { hs: false, cegep: false };
-
-  const shuffled = function (arr) {
-    const a = arr.slice();
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const t = a[i]; a[i] = a[j]; a[j] = t;
-    }
-    return a;
-  };
-
-  /* Winds the box up, then on the sneeze opens the packages and lets the crests
-     go at the same instant - the box blows both of them out of itself. */
-  function sneezeThenOpen(key, panel) {
-    const btn = document.getElementById('lvlbtn-' + key);
-    /* Shuffled, so which schools come out first - and which one is left behind for
-       the angry second shake - is different every time. */
-    const wide = window.matchMedia('(min-width: 768px)').matches;
-    const pool = shuffled(SCHOOLS[key]);               // every school, on every screen
-    const firstOut = pool.slice(0, -1), heldBack = pool.slice(-1);
-
-    /* The plans open on the CLICK, not on the sneeze. Nobody should ever be waiting
-       on the animation to see a price - the sneeze and the crests now play behind
-       the prices rather than in front of them. */
-    const reveal = function () {
-      panel.classList.add('open', 'cards-in');
-      setTimeout(function () { if (panel.classList.contains('open')) panel.classList.add('unclipped'); }, 280);
-      if (window.matchMedia('(min-width: 768px)').matches) {   // never grab the page on a phone
-        setTimeout(function () { panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 133);
-      }
-      schoolShown[key] = true;
-    };
-    reveal();                                            // prices first, always
-    if (!btn || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      sneezed[key] = true; return;
-    }
-    sneezed[key] = true;
-    if (window.mntrRain) window.mntrRain.pop();        // clear the sky as it winds up
-    btn.classList.add('sneezing', 'busy');
-    setTimeout(function () { dropSchools(key, null, firstOut); }, ACHOO_AT);
-    setTimeout(function () { btn.classList.remove('sneezing'); }, SNEEZE_MS + 40);
-    // A beat later it scowls, rattles itself, and shakes the last one loose.
-    setTimeout(function () { btn.classList.add('lastheave'); }, HEAVE_AT);
-    const throwDir = key === 'cegep' ? 1 : -1;          // right box throws right, left throws left
-    setTimeout(function () { dropSchools(key, null, heldBack, throwDir); },
-               HEAVE_AT + (FLING_AT[key] || 150));
-    setTimeout(function () {
-      btn.classList.remove('lastheave', 'busy');          // text only returns once it's all over
-    }, HEAVE_AT + HEAVE_MS + 40);
-  }
-
-  function dropSchools(key, onSettled, subset, fling) {
-    const settled = onSettled || function () {};
-    // A subset means the caller is orchestrating the drops and owns the once-per-box rule.
-    if (!subset && schoolShown[key]) { settled(); return; }
-    const section = document.getElementById('services');
-    const layer = document.getElementById('schoolLayer');
-    const btn = document.getElementById('lvlbtn-' + key);
-    const divider = document.getElementById('pkg-divider');
-    if (!section || !layer || !btn || !divider) { settled(); return; }
-    if (!subset) schoolShown[key] = true;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { settled(); return; }
-
-    if (window.mntrRain) window.mntrRain.pop();         // clear the STEM rain first
-    const otherBoxes = [].slice.call(document.querySelectorAll('.level-card'))
-      .filter(function (el) { return el !== btn; });
-    otherBoxes.forEach(function (el) { el.classList.add('behind'); });
-
-    const wide = window.matchMedia('(min-width: 768px)').matches;
-    const list = subset || SCHOOLS[key];
-    const sRect = () => section.getBoundingClientRect();
-    /* Offsets, not rects: the box is mid-sneeze here (scaled and thrown sideways)
-       and getBoundingClientRect would hand back those transformed coordinates. */
-    const boxOf = function (el) {
-      let x = 0, y = 0, n = el;
-      while (n && n !== section) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
-      return { x: x, y: y, w: el.offsetWidth, h: el.offsetHeight };
-    };
-    const b = boxOf(btn);
-
-    const els = list.map(function (s) {
-      const el = document.createElement('div');
-      el.className = 'school-chip';
-      el.innerHTML = chipLogo(s);
-      el.style.opacity = '0';               // stays hidden until its turn to drop
-      layer.appendChild(el);
-      return el;
-    });
-    const w = els[0].offsetWidth, h = els[0].offsetHeight;
-    /* Seat a crest on its WRITING, not on its box. Measured PER CREST: the lower
-       arc holds the lowest ink, and how far it reaches depends on the name, so a
-       short one like "College" and a long one like "Bois-de-Boulogne" need
-       different contact points. Also used as the squash pivot. */
-    const inkOf = function (el) {
-      let ink = .826, hw = .27;                            // 132 = the seal's viewBox
-      try {
-        const bb = el.querySelectorAll('text')[1].getBBox();
-        if (bb.height) ink = (bb.y + bb.height) / 132;
-        if (bb.width) hw = (bb.width / 2) / 132;
-      } catch (e) { /* keep the fallbacks */ }
-      return { ink: ink, hw: hw };
-    };
-    const GRAV = 1.395, DRAG = .9925;   // bounciness is per crest, see below
-
-    /* Each crest starts half-way up inside the box - hidden behind it, since the
-       card paints on top - and slides out from under its bottom edge as it falls.
-       Spread across the box's own width, dropping vertically. */
-    const startY = b.y + b.h * .5;
-    const chips = els.map(function (el, i) {
-      const t = list.length === 1 ? .5 : i / (list.length - 1);
-      const g = inkOf(el);
-      el.style.transformOrigin = '50% ' + (g.ink * 100).toFixed(2) + '%';
-      return {
-        el: el, h: h, w: w, ink: g.ink, inkHW: g.hw, txt: el.querySelectorAll('text')[1],
-        x: b.x + 8 + Math.max(0, b.w - w - 16) * t + (Math.random() - .5) * 8,
-        y: startY,
-        /* A flung crest is hurled sideways and slightly upward, so it arcs out of
-           the box the way the tilt is throwing it rather than just dropping. */
-        vy: fling ? -(2.7 + Math.random() * 2.7) : .6 + Math.random() * 3.6,
-        vx: fling ? fling * (wide ? 13.5 + Math.random() * 3 : 7.5 + Math.random() * 2.25) : (Math.random() - .5) * .24,
-        rot: (Math.random() - .5) * 16,
-        vrot: fling ? fling * (.825 + Math.random() * .675) : (Math.random() - .5) * 1.2,
-        flung: !!fling,
-        // The thrown one is springy and keeps going, so it bounces its way back
-        // across to join the rest instead of parking against the wall.
-        bounciness: fling ? .62 + Math.random() * .1 : .42 + Math.random() * .32,
-        maxBounce: fling ? 5 + Math.floor(Math.random() * 3) : 5 + Math.floor(Math.random() * 4),
-        sx: 1, sy: 1, bounces: 0, delay: i * 4, settleFix: 0,
-        done: false, rest: false, settleAt: 0
-      };
-    });
-
-    /* On a phone the packages stack, putting the divider more than a screen below
-       the box - the crests would drop straight past the fold and bounce out of
-       sight. Cap where they land so the whole spill happens in one screenful. The
-       divider still governs the mask, so they are covered by the floor as before. */
-    /* On a phone the ground is simply the bottom of the screen, so wherever the
-       reader has scrolled to, the crests land in view. Recomputed every frame, so
-       it follows them if they keep scrolling mid-fall. */
-    const groundY = function () {
-      const r = sRect();
-      return Math.max(startY + 60, Math.min(r.height - 6, window.innerHeight - r.top - 10));
-    };
-    /* Land on the screen edge whenever the divider is too far below to be seen.
-       Keyed on the drop against the viewport rather than on width, so a phone held
-       sideways or a short window is covered too, not just a narrow one.
-
-       The panel is still unfolding when the first crests are released, so the
-       divider has not reached its final place yet. Add what is still to come,
-       otherwise this batch would judge the divider "close" and land on it, while
-       the crest thrown a second later judged it "far" and landed on the screen
-       edge - the two halves of the same spill using different floors. */
-    const clipEl = document.querySelector('#lvl-' + key + ' .level-clip');
-    const pendingUnfold = clipEl
-      ? Math.max(0, clipEl.scrollHeight - clipEl.getBoundingClientRect().height) : 0;
-    const screenGround =
-      ((divider.getBoundingClientRect().top - sRect().top) + pendingUnfold - startY)
-        > window.innerHeight * .7;
-    const HOLD = screenGround ? 5 : 55;
-    let f = 0, alive = chips.length, settledFired = false;
-    const finish = function (c) {
-      c.done = true;
-      if (--alive === 0) setTimeout(function () {
-        if (window.mntrRain) window.mntrRain.resume();
-        otherBoxes.forEach(function (el) { el.classList.remove('behind'); });
-      }, 413);
-    };
-
-    const step = () => {
-      f++;
-      const floorY = divider.getBoundingClientRect().top - sRect().top;
-      /* Everything below the divider is floor, so mask the layer there. Folding the
-         packages away slides that line up the page and the crests are simply covered
-         by it - no separate wipe animation that could lag behind the panel. */
-      const lh = layer.getBoundingClientRect().height;
-      // The divider only acts as a lid on desktop; on a phone the screen edge is the floor.
-      layer.style.clipPath = screenGround ? '' : 'inset(0 0 ' + Math.max(0, lh - floorY).toFixed(1) + 'px 0)';
-      const landY = screenGround ? groundY() : floorY;
-
-      chips.forEach(function (c) {
-        if (c.done || f < c.delay) return;
-        if (!c.shown) { c.shown = true; c.el.style.opacity = '1'; }
-
-        // Only retire a crest once the floor has covered it completely.
-        if (floorY <= c.y) { if (c.el.parentNode) c.el.remove(); finish(c); return; }
-
-        // Floor dropped away beneath a settled crest (panel opened again): fall on.
-        /* A tilted seal swings the end of its lower arc down by halfWidth*sin(angle);
-           seat it on that lowest point so every crest meets the line, whatever
-           angle it happens to land at. */
-        const seat = landY - c.h * c.ink - c.h * c.inkHW * Math.abs(Math.sin(c.rot * Math.PI / 180));
-        /* The arc maths above only approximates where a tilted seal touches down -
-           the lower text is a curve, so its widest glyphs ride up instead of
-           sitting level. Once at rest, measure what it really renders as and close
-           the remaining gap, so every crest meets the line at the same height. */
-        if (c.rest && c.settleFix < 24 && c.txt) {
-          try {
-            const drift = (c.txt.getBoundingClientRect().bottom - sRect().top) - landY;
-            if (!isFinite(drift)) c.settleFix = 99;
-            else if (Math.abs(drift) > .3) { c.y -= drift; c.settleFix++; }
-            else c.settleFix = 99;                         // close enough, stop nudging
-          } catch (e) { c.settleFix = 99; }
-        }
-        if (c.rest && c.y < seat - 40) { c.rest = false; c.vy = 0; c.settleFix = 0; }
-
-        if (!c.rest) {
-          c.vy += GRAV; c.y += c.vy; c.x += c.vx; c.vx *= DRAG; c.rot += c.vrot; c.vrot *= c.flung ? .854 : .985;
-          // Side walls: a crest thrown hard enough smacks into the edge and rebounds.
-          const wallR = sRect().width - c.w - 4;
-          const wallK = c.flung ? .58 : .42;
-          if (c.x < 4)          { c.x = 4;     c.vx = -c.vx * wallK; c.vrot *= -.5; c.sx = .74; c.sy = 1.24; }
-          else if (c.x > wallR) { c.x = wallR; c.vx = -c.vx * wallK; c.vrot *= -.5; c.sx = .74; c.sy = 1.24; }
-          if (c.y >= seat) {
-            c.y = seat;
-            if (c.bounces >= c.maxBounce || Math.abs(c.vy) < (c.flung ? .9 : 1.1)) {
-              c.rest = true; c.vy = c.vx = c.vrot = 0; c.settleAt = f;   // keep the angle it landed at
-              c.sx = c.sy = 1;                                     // and flat, ready to be measured
-            } else {
-              // A normal crest dumps its sideways speed on landing so it stays in its
-              // lane; the flung one keeps almost all of it and travels as it bounces.
-              c.vy = -c.vy * c.bounciness;
-              c.vx *= c.flung ? .88 : (c.bounces === 0 ? .1 : .6);
-              c.vrot *= c.flung ? .34 : .55; c.bounces++;   // the thrown one settles level too
-              c.sx = 1.42; c.sy = .58;                 // proper splat on impact
-            }
-          }
-        } else if (f - c.settleAt > HOLD) {
-          c.el.style.transition = 'opacity .33s ease, transform .33s ease';
-          c.el.style.opacity = '0';
-          setTimeout(function () { if (c.el.parentNode) c.el.remove(); }, 373);
-          finish(c);
-        }
-        /* Squash and stretch: drawn out along a fast fall, splatted flat on impact,
-           springing back to round in between. */
-        const tsx = c.rest ? 1 : 1 - Math.min(.10, Math.abs(c.vy) * .009);
-        const tsy = c.rest ? 1 : 1 + Math.min(.17, Math.abs(c.vy) * .014);
-        c.sx += (tsx - c.sx) * .23; c.sy += (tsy - c.sy) * .23;
-        c.el.style.transform = 'translate3d(' + c.x.toFixed(1) + 'px,' + c.y.toFixed(1) + 'px,0) rotate(' +
-                               c.rot.toFixed(1) + 'deg) scale(' + c.sx.toFixed(3) + ',' + c.sy.toFixed(3) + ')';
-      });
-      // The plans are already up, so nothing is waiting on this; fire once for any
-      // caller that still wants to know when the spill has come to rest.
-      if (!settledFired && chips.every(function (c) { return c.rest || c.done; })) {
-        settledFired = true; settled();
-      }
-      if (chips.some(function (c) { return !c.done; })) requestAnimationFrame(step);
-      else layer.style.clipPath = '';
-    };
-    requestAnimationFrame(step);
-  }
-
-  /* ---------- Level picker: unfold one tutoring level at a time ---------- */
-  function toggleLevel(key) {
-    const panel = document.getElementById('lvl-' + key);
-    const btn = document.getElementById('lvlbtn-' + key);
-    if (!panel || !btn) return;
-    const opening = !panel.classList.contains('open');
-    // Accordion: whatever is open closes first, so only one ladder shows at a time.
-    document.querySelectorAll('.level-panel.open').forEach((p) => {
-      p.classList.remove('open');
-      const b = document.getElementById('lvlbtn-' + p.id.slice(4));
-      p.classList.remove('cards-in', 'unclipped');
-      if (b) { b.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); }
-    });
-    if (!opening) return;
-    btn.classList.add('open');
-    btn.setAttribute('aria-expanded', 'true');
-    if (!sneezed[key]) {
-      // First time: the packages stay in until the box sneezes them out.
-      sneezeThenOpen(key, panel);
-      return;
-    }
-    panel.classList.add('open', 'cards-in');
-    setTimeout(function () { if (panel.classList.contains('open')) panel.classList.add('unclipped'); }, 280);
-    // On phones the panel sits below BOTH boxes - nudge it into view once it has
-    // opened. 'nearest' means an already-visible panel is left alone.
-    if (window.matchMedia('(min-width: 768px)').matches) {     // never grab the page on a phone
-      setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 127);
-    }
-  }
-
   /* ---------- Service cards -> branded checkout page (paid) or booking (free) ---------- */
   function pickService(value) {
     const routes = {
       'Free Academic Consultation':    'book.html',
-      '1-on-1 Subject Tutoring':       'checkout.html?service=tutoring',
-      '5-Session Package':             'checkout.html?service=pack5',
-      '10-Session Package':            'checkout.html?service=pack10',
-      'Casper Prep':                   'checkout.html?service=casper-only',
-      'MMI Prep':                      'checkout.html?service=mmi-only',
-      'Casper & MMI Combo':            'checkout.html?service=casper-mmi-combo',
+      '1-on-1 Subject Tutoring':       'checkout.html?service=tutorat-1',
+      '5-Session Package':             'checkout.html?service=tutorat-5',
+      'Casper & MMI Prep':             'checkout.html?service=casper-hourly',
+      'Casper 5-Session Package':      'checkout.html?service=casper-pack5',
+      'Casper 10-Session Package':     'checkout.html?service=casper-pack10',
     };
     if (routes[value]) { window.location.href = routes[value]; return; }
     // Free consultation (and anything else) -> scroll to the booking section
@@ -2285,6 +884,106 @@
     })();
   });
 
+</script>
+<script>
+  /* The fixed bar is transparent over the hero photo; past 40px of scroll it
+     gains its ink backdrop so the white text stays readable on paper. */
+  (function () {
+    var tb = document.getElementById('topbar');
+    if (!tb) return;
+    var on = false;
+    function tick() {
+      var want = window.scrollY > 40;
+      if (want !== on) { on = want; tb.classList.toggle('scrolled', want); }
+    }
+    window.addEventListener('scroll', tick, { passive: true });
+    tick();
+  })();
+</script>
+<script>
+  /* ---------- Draggable reviews band ----------
+     The CSS keyframe animation is one-way; to let the user throw the band
+     left or right we drive the same translateX by hand: an offset advances
+     on its own (same pace as before, one half-track per 72s), a pointer
+     drag moves it directly, and the release velocity keeps it coasting
+     before the auto-scroll resumes. The offset wraps modulo half the track
+     width, which is exactly the duplicated-set seam, so the loop stays
+     seamless in both directions. */
+  (function () {
+    var wrap = document.querySelector('.rev-panel .marquee');
+    var track = wrap && wrap.querySelector('.marquee-track');
+    if (!track) return;
+
+    track.style.animation = 'none';
+
+    var half = 0;
+    function measure() { half = track.scrollWidth / 2; }
+    measure();
+    window.addEventListener('resize', measure);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+
+    var x = 0;              // current offset, px
+    var vel = 0;            // coasting velocity, px/ms (set on release)
+    var dragging = false;
+    var hover = false;
+    var startX = 0, startOffset = 0, lastX = 0, lastT = 0;
+    var AUTO = 1 / 24;      // px/ms, ≈ the old 72s-per-half pace on a wide screen
+
+    wrap.addEventListener('mouseenter', function () { hover = true; });
+    wrap.addEventListener('mouseleave', function () { hover = false; });
+
+    wrap.addEventListener('pointerdown', function (e) {
+      dragging = true;
+      wrap.classList.add('dragging');
+      try { wrap.setPointerCapture(e.pointerId); } catch (err) {}
+      startX = lastX = e.clientX;
+      startOffset = x;
+      lastT = performance.now();
+      vel = 0;
+    });
+    wrap.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      x = startOffset - (e.clientX - startX);
+      var now = performance.now();
+      var dt = now - lastT;
+      if (dt > 0) vel = -(e.clientX - lastX) / dt;
+      lastX = e.clientX; lastT = now;
+      render();                      /* paint on the event, not next frame */
+    });
+    function release() {
+      if (!dragging) return;
+      dragging = false;
+      wrap.classList.remove('dragging');
+      /* clamp the throw so a hard fling stays readable */
+      if (vel > 2.5) vel = 2.5;
+      if (vel < -2.5) vel = -2.5;
+    }
+    wrap.addEventListener('pointerup', release);
+    wrap.addEventListener('pointercancel', release);
+
+    function render() {
+      if (half > 0) x = ((x % half) + half) % half;
+      track.style.transform = 'translateX(' + (-x).toFixed(2) + 'px)';
+    }
+
+    var last = performance.now();
+    function loop(now) {
+      var dt = Math.min(48, now - last);
+      last = now;
+      if (!dragging) {
+        if (Math.abs(vel) > 0.02) {
+          x += vel * dt;
+          vel *= Math.pow(0.94, dt / 16.7);   /* friction */
+        } else {
+          vel = 0;
+          if (!hover) x += AUTO * dt;         /* resume the quiet auto-scroll */
+        }
+      }
+      render();
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  })();
 </script>
 </body>
 </html>
