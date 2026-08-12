@@ -130,7 +130,7 @@
   .bnd.is-featured { border: 2px solid var(--ink); box-shadow: 0 28px 60px -26px rgba(22,20,28,.35); }
   .bnd-art { position: relative; height: 6.5rem; overflow: hidden; }
   .bnd-art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .bnd-badge { position: absolute; top: .9rem; right: .9rem; font-size: 10px; font-weight: 800; letter-spacing: .12em; padding: .42rem .85rem; border-radius: 999px; background: var(--ink); color: #fff; white-space: nowrap; box-shadow: 0 6px 16px -6px rgba(22,20,28,.5); }
+  .bnd-badge { position: absolute; top: .9rem; right: .9rem; font-size: 10px; font-weight: 800; letter-spacing: .12em; padding: .42rem .85rem; border-radius: 999px; background: var(--ink); color: #fff; white-space: normal; text-align: center; line-height: 1.4; max-width: calc(100% - 1.8rem); box-shadow: 0 6px 16px -6px rgba(22,20,28,.5); }
   .bnd-body { display: flex; flex-direction: column; flex: 1; padding: 1.6rem 1.7rem 1.7rem; }
   .bnd-incl { background: #f7f4ec; border-radius: 1rem; padding: 1.05rem 1.2rem; margin: 1.15rem 0 1.35rem; }
   .bnd-incl p { font-size: 10.5px; font-weight: 800; letter-spacing: .18em; color: rgba(22,20,28,.4); margin-bottom: .6rem; }
@@ -168,6 +168,7 @@
   <a href="tutorat-fr.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">TUTORAT SCOLAIRE</a>
   <a href="#cheminement" onclick="toggleMenu()" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">LE CHEMINEMENT</a>
   <a href="#forfaits" onclick="toggleMenu()" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">LES TROIS MÉTHODES</a>
+  <a href="equipe-fr.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">ÉQUIPE</a>
   <a href="faq-fr.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">FAQ</a>
   <a href="index-fr.html#contact" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">CONTACTEZ-NOUS</a>
 </div>
@@ -214,8 +215,8 @@
       Une méthode.<br class="hidden sm:block" /> Pas des heures de tutorat.
     </h1>
     <p class="reveal text-neutral-600 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto" style="--rd:.12s">
-      Nous avons passé ces entrevues. Nous avons été admis. Et nous avons écrit,
-      séance par séance, exactement ce qui nous y a menés.
+      Nous avons passé ces entrevues. Nous avons été admis. Et nous avons écrit la méthode qui nous a
+      permis d’entrer.
     </p>
     <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-3 mt-10" style="--rd:.18s">
       <a href="book-fr.html" class="inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-black transition-colors">
@@ -223,7 +224,7 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
       <a href="#forfaits" class="inline-flex items-center gap-2 text-sm font-semibold px-7 py-3.5 rounded-full border border-ink/20 hover:border-ink transition-colors">
-        Les trois méthodes et leurs tarifs
+        Méthodes et tarifs
       </a>
     </div>
   </div>
@@ -244,31 +245,32 @@
       <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">LE CHEMINEMENT</p>
       <h2 class="font-serif text-3xl md:text-5xl leading-tight mb-5 text-ink">Séance par séance</h2>
       <p class="text-neutral-500 leading-relaxed">
-          Rien n’est improvisé. Une séance par semaine, chacune avec son objectif, ses exercices
-          et son travail à faire entre les deux. &nbsp; Comptez un mois et demi de préparation concentrée pour chaque test.
+          Chaque séance a son objectif, ses exercices et ses devoirs à compléter au préalable.
+          Comptez à peu près un mois et demi de préparation concentrée pour chaque test.
       </p>
     </div>
 
     <div class="reveal flex flex-wrap items-center justify-center gap-2.5 mb-10 md:mb-12">
       <button type="button" class="tl-tab on" data-track="casper">Casper · 7 séances</button>
-      <button type="button" class="tl-tab" data-track="integrale">Combiné · 14 séances</button>
-      <button type="button" class="tl-tab" data-track="mem">Entrevues · 7 séances</button>
+      <button type="button" class="tl-tab" data-track="integrale">Combiné · 14 séances<span class="block text-[10px] font-semibold opacity-70">+ test pratique supplémentaire</span></button>
+      <button type="button" class="tl-tab" data-track="mem">MEM · 7 séances</button>
     </div>
 
 
     <div class="reveal max-w-3xl mx-auto mb-10 md:mb-12 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
-      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-3">NOS DOCUMENTS GUIDES, FOURNIS</p>
+      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-3">La documentation fournie, à étudier pour votre succès avec la méthode</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
         <div>
-          <p class="text-[13px] font-semibold text-ink mb-1.5">Casper</p>
-          <p class="text-[13px] leading-relaxed text-neutral-600">Les types de questions, le format approprié pour chacun d’entre eux, et de quoi vous familiariser avec le déroulement d’un Casper pratique.</p>
+          <p class="text-[13px] font-semibold text-ink mb-1.5">Quelques-uns des documents en lien avec le test Casper</p>
+          <p class="text-[13px] leading-relaxed text-neutral-600">Types de questions, le format approprié des réponses, familiarisation avec le format du test.</p>
         </div>
         <div>
-          <p class="text-[13px] font-semibold text-ink mb-1.5">Mini-entrevues</p>
-          <p class="text-[13px] leading-relaxed text-neutral-600">Les types de réactions et comment y réagir, les bonnes phrases à connaître, comment bâtir une réponse personnelle qui résonne chez l’intervieweur, et le format d’une entrevue pratique.</p>
+          <p class="text-[13px] font-semibold text-ink mb-1.5">Quelques-uns des documents en lien avec les MEM</p>
+          <p class="text-[13px] leading-relaxed text-neutral-600">Types de réactions et comment y réagir, mots et phrases clés, bâtir une réponse personnelle qui résonne chez l’intervieweur, familiarisation avec le format des MEM.</p>
         </div>
       </div>
     </div>
+
 
     <div id="tlGrid" class="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"><!-- filled by JS --></div>
 
@@ -277,23 +279,21 @@
     <div class="reveal max-w-3xl mx-auto mt-6 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
       <p class="text-[13.5px] leading-relaxed text-neutral-700 mb-2">
         <span class="font-semibold text-ink">Les devoirs donnés avant chaque séance ne sont pas optionnels.</span>
-        Chaque séance s’ouvre sur leur vérification, et on s’attend à ce qu’ils soient complétés, 
-        c’est là que la moitié du progrès se fait.
+        Chaque séance s’ouvre sur leur vérification, et on s’attend à ce qu’ils soient complétés. La pratique chez soi est essentielle.
       </p>
       <p class="text-[13px] leading-relaxed text-neutral-500">
         Et à la fin de chaque séance, Casper comme entrevues, on repasse les concepts des séances
-        précédentes. On accepte volontiers de dépasser l’heure de quelques minutes pour que cette révision
-        se fasse, à chaque fois.
+        précédentes.
       </p>
     </div>
 
     <div class="reveal max-w-2xl mx-auto mt-12 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
       <p class="text-[14px] leading-relaxed text-neutral-700 mb-2">
-        <span class="font-semibold text-ink">Dès l’achat, vous recevez votre progression attendue complète&nbsp;:</span>
+        <span class="font-semibold text-ink">Dès l’achat, vous recevrez la méthode complète de succès aux MEM ou Casper&nbsp;:</span>
         le détail de chaque séance, minute par minute, et le travail à faire avant chacune d’elles.
       </p>
       <p class="text-[12px] leading-relaxed text-neutral-400">
-        Le contenu qui remplit ce chemin&nbsp; les exercises à faire, les documents informatif, etc., est remis aux personnes inscrites.
+        Le contenu qui remplit ce chemin&nbsp;: les exercices à faire, les documents informatifs, etc., est remis aux personnes inscrites. Une question en cours de route&nbsp;? Écrivez-nous par courriel, on répond rapidement.
       </p>
     </div>
   </div>
@@ -313,7 +313,7 @@
     <div class="reveal text-center mb-10 md:mb-14">
       <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">CE CHEMINEMENT, EN TROIS FORMATS</p>
       <h2 class="font-serif text-3xl md:text-5xl leading-tight">Choisissez votre méthode</h2>
-      <p class="text-neutral-500 text-sm mt-4 max-w-md mx-auto">Séances individuelles de 60&nbsp;minutes, en ligne, au rythme que vous choissisez, avec un mentor admis en médecine. Pratique par IA illimitée incluse.</p>
+      <p class="text-neutral-500 text-sm mt-4 max-w-md mx-auto">Séances individuelles de 60 à 90&nbsp;minutes, en ligne, au rythme que vous choisissez, avec un mentor admis en médecine. Pratique avec IA illimitée incluse.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
@@ -335,11 +335,11 @@
           <div class="bnd-incl">
             <p>CE QUI EST INCLUS :</p>
             <ul>
-            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>7 séances individuelles de 60 min</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>7 séances individuelles de 60 à 90 min</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Support constant par email</span></li>
-            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Deux tests pratiques complets, corrigés</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Deux tests pratiques complets, corrigés en direct, en appel</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>IA de pratique illimitée</span></li>
-            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Votre progression attendue complète, disponible, dès l’achat</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Accès à la méthode en son entièreté</span></li>
             </ul>
           </div>
           <div class="bnd-foot">
@@ -362,20 +362,21 @@
             <path d="M-30 30 C 60 110, 170 6, 260 84 S 400 40, 440 88" fill="none" stroke="url(#bgB)" stroke-width="28" stroke-linecap="round" opacity=".9"/>
             <defs><linearGradient id="bgB" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#e488b4"/><stop offset=".55" stop-color="#9a86e6"/><stop offset="1" stop-color="#7aa7f5"/></linearGradient></defs>
           </svg>
-          <span class="bnd-badge">ÉCONOMISEZ 100 $</span>
+          <span class="bnd-badge">ÉCONOMISEZ 100 $ + UN TEST CASPER OFFERT</span>
         </div>
         <div class="bnd-body">
           <p class="text-[10.5px] font-extrabold tracking-[0.25em] eyebrow-grad mb-2.5">CASPER + ENTREVUES</p>
           <h3 class="font-serif text-2xl mb-2.5">Préparation combinée</h3>
-          <p class="text-neutral-500 text-[14px] leading-relaxed">Économisez et obtenez un test pratique Casper ou MEM supplémentaire</p>
+          <p class="text-neutral-500 text-[14px] leading-relaxed">Économisez, et recevez un test pratique Casper supplémentaire, offert.</p>
           <div class="bnd-incl">
             <p>CE QUI EST INCLUS :</p>
             <ul>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Les 7 séances Casper</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Les 7 séances entrevues</span></li>
-            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Test pratique Casper ou MEM supplémentaire</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Un test Casper supplémentaire, offert, corrigé par écrit</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Support constant par email</span></li>
-            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>IA illimitée + progression attendue complète</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>IA de pratique illimitée</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Accès à la méthode en son entièreté</span></li>
             </ul>
           </div>
           <div class="bnd-foot">
@@ -399,7 +400,7 @@
             <path d="M-30 46 C 80 120, 180 12, 280 90 S 410 44, 440 92" fill="none" stroke="url(#bgC)" stroke-width="28" stroke-linecap="round" opacity=".9"/>
             <defs><linearGradient id="bgC" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#e488b4"/><stop offset=".55" stop-color="#9a86e6"/><stop offset="1" stop-color="#7aa7f5"/></linearGradient></defs>
           </svg>
-          <span class="bnd-badge">IA INCLUSE</span>
+          <span class="bnd-badge">IA ILLIMITÉE INCLUSE</span>
         </div>
         <div class="bnd-body">
           <p class="text-[10.5px] font-extrabold tracking-[0.25em] eyebrow-grad mb-2.5">MINI-ENTREVUES MULTIPLES</p>
@@ -408,11 +409,11 @@
           <div class="bnd-incl">
             <p>CE QUI EST INCLUS :</p>
             <ul>
-            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>7 séances individuelles de 60 min</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>7 séances individuelles de 60 à 90 min</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Support constant par email</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Deux entrevues MEM complètes</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>IA de pratique illimitée</span></li>
-            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Votre progression attendue complète, disponible, dès l’achat</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Accès à la méthode en son entièreté</span></li>
             </ul>
           </div>
           <div class="bnd-foot">
@@ -430,8 +431,8 @@
     </div>
 
     <p class="reveal text-center text-neutral-600 text-sm mt-10 max-w-xl mx-auto">
-      Peu importe la formule choisie, <span class="font-semibold text-ink">Votre progression attendue complète vous est envoyée dès l’achat</span>, 
-      chaque séance détaillée, avec le travail à faire entre les rencontres.
+      Peu importe la formule choisie, <span class="font-semibold text-ink">vous avez accès à la méthode complète dès l'achat</span>, 
+      chaque séance détaillée, minute par minute, avec le travail à faire entre les rencontres ainsi qu'une sauvegarde des critiques les plus importantes de chaque session.
     </p>
     <p class="reveal text-center text-neutral-400 text-xs mt-4">Pas certain de la bonne&nbsp;? <a href="book-fr.html" class="text-ink underline underline-offset-4 hover:no-underline">Trente minutes gratuites</a> pour en parler, sans engagement.</p>
   </div>
@@ -584,37 +585,37 @@
      marking grids are the product, and they stay behind the sale.
   ============================================================ */
   var STEPS = {
-    /* --- Casper · 7 séances de 60 min · fréquence au choix ------------ */
-    c1: { tag: 'DIAGNOSTIC', title: 'On mesure avant d’enseigner',
-      body: 'Vos devoirs vous attendent avant même la première séance. On mesure ensuite votre point de départ, vitesse de frappe, clarté de communication, niveau de langue, aisance devant la caméra, révision de vos expériences personelles' },
-    c2: { tag: 'FONDATIONS', title: 'Vos histoires deviennent des réponses',
-      body: 'Revue de votre CV, pratique des questions personnelles, puis l’entrée dans les scénarios Casper à voix haute : comment on construit une réponse qui tient.' },
-    c3: { tag: 'FORMAT RÉEL', title: 'Une séance entière dans le test',
-      body: 'Vous arrivez en connaissant déjà chaque type de question, c’est le travail de la semaine. La séance au complet passée dans les scénarios : à voix haute, puis à l’écrit.' },
-    c4: { tag: 'SUR MESURE', title: 'La séance s’adapte à vous',
-      body: 'Un mix de questions personnelles et de scénarios Casper, dosé selon vos besoins, puis un mini test chronométré pour installer le rythme.' },
-    c5: { tag: 'TEST PRATIQUE', title: 'Le test complet, en conditions réelles',
-      body: 'Un test pratique en entier, chronométré, sans intervention de notre part, à faire à la maison. Puis la revue de vos réponses, pendant qu’elles sont fraîches.' },
-    c6: { tag: 'CIBLÉ', title: 'Vos faiblesses, rien d’autre',
-      body: 'Séance au choix : discussion CV, pratique ciblée, ce dont vous avez besoin. Vous arrivez en sachant où ça bloque, on le règle.' },
-    c7: { tag: 'CORRECTION', title: 'Votre deuxième test, corrigé',
-      body: 'Vous faites un deuxième test complet entre les séances ; on le reprend ensemble, réponse par réponse, et on compare à vos mesures de départ.' },
+    /* --- Casper · 7 séances · fréquence au choix ------------ */
+    c1: {title: 'Mesurer',
+      body: 'Vos devoirs vous attendent avant même la première séance. On mesure ensuite votre point de départ, vitesse de frappe, clarté de communication, niveau de langue, aisance devant la caméra, révision de vos expériences personnelles.' },
+    c2: {title: 'Personnalisation et vulgarisation',
+      body: 'Revue de votre CV, pratique des questions personnelles. Début de la pratique des scénarios Casper à voix haute. Apprendre à bâtir une réponse qui tient. '},
+    c3: {title: 'Scénarios',
+      body: 'Vous arrivez en connaissant déjà chaque type de question, c’est le travail de la semaine. La séance se concentre sur les scénarios Casper écrits et à voix haute. ' },
+    c4: {title: 'Transition',
+      body: 'Un mix de questions personnelles et de scénarios inattendus qui ne peuvent être mémorisés, dosé selon vos besoins, puis un mini test chronométré pour installer le rythme.', dur: '90 min' },
+    c5: {title: 'Simulation',
+      body: 'Un test pratique en entier, chronométré, sans intervention de notre part, à faire à la maison. Puis la revue de vos réponses, en direct en appel, pendant qu’elles sont fraîches dans votre mémoire.' },
+    c6: {title: 'Votre choix',
+      body: 'Séance au choix : discussion CV finale, pratique ciblée : ce dont vous avez besoin. Vous arrivez en sachant où ça bloque et on le règle ensemble.' },
+    c7: {title: 'Étape finale',
+      body: 'Vous faites un deuxième test complet entre les séances ; on le reprend ensemble en appel, réponse par réponse, et on compare à votre performance de départ.' },
 
     /* --- Entrevues (MEM) · 7 séances · fréquence au choix -------------------------------- */
-    m1: { tag: 'DIAGNOSTIC', title: 'On mesure, puis on pose les bases',
-      body: 'Votre point de départ, mesuré. Puis la revue de vos expériences personelles de façcon ciblée. Discussion des principes fondamentaux des MEM.' },
-    m2: { tag: 'QUESTIONS PERSONNELLES', title: 'Répondre sans réciter',
-      body: 'Faites vos devoirs. Vos Expériences reprises une à une, vulgarisées, questions personnelles poussées.' },
-    m3: { tag: 'ACTEURS', title: 'Quelqu’un joue le rôle. Vous gérez.',
-      body: 'Lisez les documents fournis - guides de maitrise des entrevues. Mises en situation jouées, questions d’équipe et scénarios conçus pour déstabiliser, avec rétroaction experte après chaque passage.' },
-    m4: { tag: 'RAISONNEMENT', title: 'Les stations qu’on ne peut pas préparer',
+    m1: {title: 'Mesurer',
+      body: 'Votre point de départ, mesuré. Puis la revue de vos expériences personnelles de façon ciblée. Discussion des principes fondamentaux des MEM.' },
+    m2: {title: 'Personnalisation et vulgarisation',
+      body: 'Faites vos devoirs. Vos expériences reprises une à une, vulgarisées, questions personnelles poussées.' },
+    m3: {title: 'Scénarios déstabilisants',
+      body: 'Lisez les documents fournis en avance. Mises en situation jouées, questions d’équipe et scénarios conçus pour déstabiliser, avec rétroaction experte après chaque passage.' },
+    m4: {title: 'Tout type de question',
       body: 'Questions d’estimation et de calcul mental, avec les repères chiffrés fournis d’avance, puis des retours ciblés, à l’intensité que vous choisissez.' },
-    m5: { tag: 'ENTREVUE PRATIQUE', title: 'Une MEM complète',
-      body: 'Une entrevue pratique en entier, en conditions réelles, suivie de la revue de vos réponses.' },
-    m6: { tag: 'CIBLÉ', title: 'Vos faiblesses, rien d’autre',
+    m5: {title: 'Une simulation MEM complète',
+      body: 'Une entrevue pratique en entier, en conditions réelles, suivie de la revue de vos réponses.', dur: '90 min' },
+    m6: {title: 'Votre choix',
       body: 'Séance au choix : vous arrivez en sachant ce qui bloque, on le règle. Entre ces dernières séances, la pratique ne s’arrête pas.' },
-    m7: { tag: 'CIRCUIT FINAL', title: 'Votre deuxième MEM complète',
-      body: 'Une dernière entrevue pratique en entier, puis le bilan : où vous étiez à la première séance, où vous êtes rendu, et le plan pour vos dates.' }
+    m7: {title: 'Deuxième simulation MEM complète',
+      body: 'Une dernière entrevue pratique en entier, puis le bilan : où vous étiez à la première séance, où vous êtes rendu, et le plan pour les dates de vos entrevues.', dur: '90 min' }
   };
 
   var TRACKS = {
@@ -626,8 +627,8 @@
       rails: ['casper','mem'],
       bonus: {
         tag: 'OFFERT AVEC LE COMBINÉ',
-        title: 'Un test pratique supplémentaire',
-        body: 'Un test Casper pratique ou une entrevue MEM pratique de plus, à votre choix, offert avec le parcours combiné.'
+        title: 'Un test pratique Casper supplémentaire',
+        body: 'Un test Casper pratique de plus, avec correction écrite de chacune de vos réponses.'
       }
     }
   };
@@ -638,7 +639,7 @@
     casper: {
       label: 'Préparation Casper',
       pre: 'Avant la séance 1 · vos devoirs vous attendent déjà',
-      dur: '≈ 7 semaines · une séance par semaine',
+      dur: '7 séances · au rythme que vous choisissez',
       note: 'Environ une heure de pratique par jour, entre toutes les séances, l’IA est là pour ça.',
       stops: [
         { t: 'Diagnostic + bases' }, { t: 'Fondations' }, { t: 'Scénarios, voix haute et écrit' },
@@ -649,8 +650,8 @@
     mem: {
       label: 'Préparation entrevues',
       pre: 'Avant la séance 1 · CV et expériences à préparer',
-      dur: '≈ 7 semaines · une séance par semaine',
-      note: 'Environ une heure par jour, et jusqu’à deux dans la dernière ligne droite avant vos dates.',
+      dur: '7 séances · au rythme que vous choisissez',
+      note: 'Deux heures de pratique par jour, que ce soit avec des amis, avec l’IA ou en révision de documents.',
       stops: [
         { t: 'Diagnostic + bases' }, { t: 'Questions personnelles' }, { t: 'Acteurs et équipe' },
         { t: 'Raisonnement' }, { t: 'MEM pratique complète', hot: true },
@@ -668,10 +669,10 @@
     function sessCard(s, n) {
       return '<div class="sess' + (s.star ? ' is-star' : '') + '">' +
         '<div class="sess-top"><span class="sess-num">' + n + '</span>' +
-        '<span class="sess-tag">SÉANCE ' + n + ' · ' + s.tag + '</span></div>' +
+        '<span class="sess-tag">SÉANCE ' + n + (s.tag ? ' · ' + s.tag : '') + '</span></div>' +
         '<h3>' + s.title + '</h3>' +
         '<p>' + s.body + '</p>' +
-        '<div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>60 min · devoirs avant la séance</span></div>' +
+        '<div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>' + (s.dur || '60 min') + ' · devoirs avant la séance</span></div>' +
       '</div>';
     }
 
