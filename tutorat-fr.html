@@ -61,18 +61,6 @@
   .pkg-featured { background: #fff; border: 2px solid var(--ink); box-shadow: 0 28px 60px -26px rgba(22,20,28,.35); }
   .pkg-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 10.5px; font-weight: 800; letter-spacing: .1em; padding: 6px 16px; border-radius: 999px; color: #fff; background: var(--ink); white-space: nowrap; box-shadow: 0 6px 16px -6px rgba(22,20,28,.5); }
 
-  /* Subject chips: lift and grow slightly under the cursor. Guarded on
-     hover-capable pointers so a tap on a phone does not leave one stuck big. */
-  .subject-chip { transition: transform .2s cubic-bezier(.22,.61,.36,1), border-color .2s ease, box-shadow .2s ease; }
-  @media (hover: hover) {
-    .subject-chip:hover {
-      transform: scale(1.09);
-      border-color: rgba(22,20,28,.28);
-      box-shadow: 0 10px 22px -12px rgba(22,20,28,.45);
-    }
-  }
-  @media (prefers-reduced-motion: reduce) { .subject-chip { transition: none; } .subject-chip:hover { transform: none; } }
-
   /* Level switch */
   .lvl-tab { border: 1px solid rgba(22,20,28,.12); background: #fff; color: #6d675f; border-radius: 999px; padding: .65rem 1.4rem; font-size: 13.5px; font-weight: 600; transition: all .22s ease; }
   .lvl-tab:hover { border-color: rgba(22,20,28,.3); color: var(--ink); }
@@ -171,101 +159,6 @@
 </section>
 
 <!-- ============================================================
-     COMMENT ÇA FONCTIONNE  ·  par niveau
-============================================================ -->
-<section class="py-14 md:py-20">
-  <div class="max-w-5xl mx-auto px-6">
-
-    <div class="reveal text-center mb-12 md:mb-16">
-      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">COMMENT ÇA FONCTIONNE</p>
-      <h2 class="font-serif text-3xl md:text-4xl leading-tight mb-4">Vous établissez le plan avant même le début de la séance.</h2>
-      <p class="text-neutral-600 leading-relaxed max-w-2xl mx-auto">Au moment de réserver, vous nous dites exactement ce que vous voulez travailler&nbsp;: un chapitre qui bloque, un examen à venir, une notion jamais bien comprise. La personne qui vous accompagne prépare cette matière à l&rsquo;avance, afin que l&rsquo;heure serve à travailler plutôt qu&rsquo;à chercher par où commencer.</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-14">
-
-      <!-- ── Secondaire ──────────────────────────────────────────── -->
-      <div class="reveal">
-        <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">SECONDAIRE 1 À 5</p>
-        <h3 class="font-serif text-2xl md:text-[27px] leading-tight mb-3">Bien plus que du tutorat hebdomadaire.</h3>
-        <p class="text-neutral-600 text-[15px] leading-relaxed mb-8">En parallèle des cours, nous vous préparons à la façon dont l&rsquo;année se termine réellement, et à ce qui vient après.</p>
-
-        <ul class="space-y-6">
-          <li class="flex gap-4">
-            <span class="shrink-0 w-9 h-9 rounded-full bg-ink/5 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/></svg>
-            </span>
-            <span>
-              <span class="block font-semibold text-sm text-ink mb-1">Préparation aux examens du Ministère</span>
-              <span class="block text-neutral-500 text-sm leading-relaxed">Nous travaillons directement à partir d&rsquo;anciens examens du Ministère, pour que le format, la formulation et le rythme vous soient familiers bien avant le jour&nbsp;J.</span>
-            </span>
-          </li>
-          <li class="flex gap-4">
-            <span class="shrink-0 w-9 h-9 rounded-full bg-ink/5 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
-            </span>
-            <span>
-              <span class="block font-semibold text-sm text-ink mb-1">Des méthodes de travail qui durent</span>
-              <span class="block text-neutral-500 text-sm leading-relaxed">Nous bâtissons les habitudes derrière les notes&nbsp;: prise de notes, planification d&rsquo;une semaine d&rsquo;étude et révision efficace, pour que le passage au cégep soit beaucoup moins brutal.</span>
-            </span>
-          </li>
-          <li class="flex gap-4">
-            <span class="shrink-0 w-9 h-9 rounded-full bg-ink/5 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            </span>
-            <span>
-              <span class="block font-semibold text-sm text-ink mb-1">Soutien pour les examens de l&rsquo;IB</span>
-              <span class="block text-neutral-500 text-sm leading-relaxed">Vous faites l&rsquo;IB&nbsp;? Nous pouvons vous préparer à vos examens de l&rsquo;IB en parallèle de vos cours réguliers, au niveau de profondeur que vous souhaitez.</span>
-            </span>
-          </li>
-        </ul>
-
-        <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mt-9 mb-3.5">PRINCIPALEMENT OFFERT EN</p>
-        <div class="flex flex-wrap gap-2">
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">Histoire</span>
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">Maths CST</span>
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">Maths SN&nbsp;4</span>
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">Maths SN&nbsp;5</span>
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">Chimie</span>
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">Physique</span>
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">Biologie</span>
-        </div>
-        <p class="text-neutral-400 text-xs mt-4">Offert à tous les niveaux, de la 1<sup>re</sup> à la 5<sup>e</sup> secondaire.</p>
-      </div>
-
-      <!-- ── Cégep ───────────────────────────────────────────────── -->
-      <div class="reveal" style="--rd:.12s">
-        <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">CÉGEP</p>
-        <h3 class="font-serif text-2xl md:text-[27px] leading-tight mb-3">Dites-nous le cours et le chapitre.</h3>
-        <p class="text-neutral-600 text-[15px] leading-relaxed mb-8">Vous nous indiquez à l&rsquo;avance quel cours vous souhaitez travailler et ce qui vous pose problème&nbsp;: un examen de mi-session, un laboratoire, un chapitre pris en retard. La personne qui vous accompagne le révise avant votre rencontre, pour qu&rsquo;aucune minute ne serve à rattraper le contexte.</p>
-
-        <ul class="space-y-6">
-          <li class="flex gap-4">
-            <span class="shrink-0 w-9 h-9 rounded-full bg-ink/5 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </span>
-            <span>
-              <span class="block font-semibold text-sm text-ink mb-1">Tous les cours du cégep, sans exception</span>
-              <span class="block text-neutral-500 text-sm leading-relaxed">Sciences, commerce, sciences humaines, formation générale. Peu importe ce qu&rsquo;il y a à votre horaire cette session, nous l&rsquo;enseignons. Aucun cours n&rsquo;est refusé.</span>
-            </span>
-          </li>
-          <li class="flex gap-4">
-            <span class="shrink-0 w-9 h-9 rounded-full bg-ink/5 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/></svg>
-            </span>
-            <span>
-              <span class="block font-semibold text-sm text-ink mb-1">D&rsquo;anciens tests et examens pour s&rsquo;exercer</span>
-              <span class="block text-neutral-500 text-sm leading-relaxed">Nous vous fournissons d&rsquo;anciens tests et examens propres à vos cours, pour que vous vous exerciez sur le vrai matériel et sachiez déjà à quoi ressemblera l&rsquo;évaluation.</span>
-            </span>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
      FORFAITS
 ============================================================ -->
 <section id="forfaits" class="py-14 md:py-20">
@@ -328,16 +221,16 @@
       <h2 class="font-serif text-3xl md:text-4xl">Toutes les matières de votre horaire</h2>
     </div>
     <div class="reveal flex flex-wrap justify-center gap-2.5 max-w-3xl mx-auto">
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Mathématiques</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Calcul différentiel &amp; intégral</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Physique</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Chimie</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Biologie</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Français</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Anglais</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Sciences de la nature</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Méthodes d’étude</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Préparation aux examens</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Mathématiques</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Calcul différentiel &amp; intégral</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Physique</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Chimie</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Biologie</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Français</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Anglais</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Sciences de la nature</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Méthodes d’étude</span>
+      <span class="text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Préparation aux examens</span>
     </div>
     <p class="reveal text-center text-neutral-500 text-sm mt-8">Votre cours n’est pas dans la liste&nbsp;? <a href="index-fr.html#contact" class="text-ink underline underline-offset-4 hover:no-underline">Écrivez-nous</a>, on a probablement quelqu’un.</p>
   </div>
