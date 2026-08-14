@@ -95,6 +95,9 @@ export default {
        Reports booleans only. It never returns a secret's value, and the
        `version` marker below confirms which build is live. */
     if (new URL(request.url).pathname === '/api/health') {
+      /* Never cache this. A plain 200 GET is cacheable by the edge and by the
+         browser, so without this a stale reading survives the very change you
+         are checking for — which makes the check worse than useless. */
       return json({
         ok: true,
         version: WORKER_VERSION,
@@ -106,7 +109,7 @@ export default {
           NEWSLETTER_ENDPOINT: Boolean(env.NEWSLETTER_ENDPOINT),
           SHEET_WEBAPP_URL: Boolean(env.SHEET_WEBAPP_URL),
         },
-      }, 200, cors);
+      }, 200, Object.assign({}, cors, { 'Cache-Control': 'no-store, max-age=0' }));
     }
 
     /* Stripe webhook: handled first, before the CORS/rate-limit/JSON-parse
