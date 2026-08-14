@@ -48,6 +48,11 @@
    email. Update if pack pricing ever changes. */
 const PACK_MIN_CENTS = 10000;
 
+/* Bumped whenever this file changes, and reported by /api/health so you can
+   tell at a glance whether the Worker running in production is the current
+   code or an older deploy. */
+const WORKER_VERSION = '2026-08-14-health';
+
 /* How long after Stripe signs an event we still accept it (replay protection). */
 const STRIPE_SIG_TOLERANCE_S = 5 * 60;
 
@@ -79,6 +84,29 @@ export default {
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: cors });
+    }
+
+    /* Config health check. Open it in a browser to see which pieces of the
+       booking-email chain are actually bound to the RUNNING Worker — the
+       single most useful thing when Stripe reports "not configured" and the
+       dashboard looks correct, since a saved-but-undeployed secret and a
+       secret on a different Worker both look fine from the dashboard.
+
+       Reports booleans only. It never returns a secret's value, and the
+       `version` marker below confirms which build is live. */
+    if (new URL(request.url).pathname === '/api/health') {
+      return json({
+        ok: true,
+        version: WORKER_VERSION,
+        configured: {
+          STRIPE_WEBHOOK_SECRET: Boolean(env.STRIPE_WEBHOOK_SECRET),
+          BOOKING_EMAIL_URL: Boolean(env.BOOKING_EMAIL_URL),
+          BOOKING_EMAIL_TOKEN: Boolean(env.BOOKING_EMAIL_TOKEN),
+          CONTACT_ENDPOINT: Boolean(env.CONTACT_ENDPOINT),
+          NEWSLETTER_ENDPOINT: Boolean(env.NEWSLETTER_ENDPOINT),
+          SHEET_WEBAPP_URL: Boolean(env.SHEET_WEBAPP_URL),
+        },
+      }, 200, cors);
     }
 
     /* Stripe webhook: handled first, before the CORS/rate-limit/JSON-parse
