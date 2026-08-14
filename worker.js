@@ -295,6 +295,17 @@ async function handleStripeWebhook(request, env) {
   const name =
     (session.customer_details && session.customer_details.name) || '';
 
+  /* Which package was bought, so the email can carry that package's own
+     booking link instead of listing every one. Casper-only and MMI-only are
+     both $500, so the amount cannot separate them — each Stripe Payment Link
+     carries a `package` metadata key for exactly that reason. When the key is
+     missing the email sender falls back to deciding from the amount, so a
+     Payment Link that has not been tagged yet still delivers something useful. */
+  const pkg =
+    session.metadata && typeof session.metadata.package === 'string'
+      ? session.metadata.package.trim().slice(0, 40)
+      : '';
+
   try {
     const res = await fetch(env.BOOKING_EMAIL_URL, {
       method: 'POST',
@@ -303,7 +314,8 @@ async function handleStripeWebhook(request, env) {
         'token=' + encodeURIComponent(env.BOOKING_EMAIL_TOKEN) +
         '&email=' + encodeURIComponent(email) +
         '&name=' + encodeURIComponent(name) +
-        '&amount=' + encodeURIComponent(String(amount)),
+        '&amount=' + encodeURIComponent(String(amount)) +
+        '&pkg=' + encodeURIComponent(pkg),
     });
 
     /* Apps Script answers 200 even when it REFUSES to send (wrong token, bad
