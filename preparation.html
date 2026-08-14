@@ -136,6 +136,9 @@
   .bnd-incl p { font-size: 10.5px; font-weight: 800; letter-spacing: .18em; color: rgba(22,20,28,.4); margin-bottom: .6rem; }
   .bnd-incl li { display: flex; gap: .55rem; align-items: flex-start; font-size: 13.5px; color: rgba(22,20,28,.75); padding: .22rem 0; }
   .bnd-incl li svg { flex: none; margin-top: .22rem; color: var(--accent-violet); }
+  .doc-list { margin: .5rem 0 0; padding: 0; list-style: none; display: grid; gap: .4rem; }
+  .doc-list li { display: flex; gap: .5rem; align-items: flex-start; font-size: 13px; line-height: 1.5; color: rgba(22,20,28,.72); }
+  .doc-list li::before { content: ""; flex: none; width: 5px; height: 5px; border-radius: 999px; background: var(--accent-violet); margin-top: .5rem; }
   .bnd-foot { margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; padding-top: 1rem; border-top: 1px solid rgba(22,20,28,.08); }
   .bnd-was { font-size: .95rem; color: rgba(22,20,28,.35); text-decoration: line-through; }
   .bnd-price { font-size: 2rem; font-weight: 700; line-height: 1.05; color: var(--ink); }
@@ -257,15 +260,29 @@
 
 
     <div class="reveal max-w-3xl mx-auto mb-10 md:mb-12 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
-      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-3">The documentation provided, yours to study for success with the method</p>
+      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-3">THE DOCUMENTATION PROVIDED</p>
+      <p class="text-[13px] leading-relaxed text-neutral-600 mb-5">Written by medical students who had to dig and struggle through all that ambiguity themselves before finding what actually works. We remove it for you, so you can focus on your performance.</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
         <div>
           <p class="text-[13px] font-semibold text-ink mb-1.5">A few of the documents tied to the Casper test</p>
-          <p class="text-[13px] leading-relaxed text-neutral-600">Question types, the right format for answers, and getting familiar with the test format.</p>
+          <ul class="doc-list">
+            <li>List of question types</li>
+            <li>List of key phrases to use</li>
+            <li>List of odd, unusual questions</li>
+            <li>Casper format</li>
+            <li>A strengths-and-weaknesses report after every session</li>
+          </ul>
         </div>
         <div>
           <p class="text-[13px] font-semibold text-ink mb-1.5">A few of the documents tied to the MMIs</p>
-          <p class="text-[13px] leading-relaxed text-neutral-600">Reaction types and how to respond to them, key words and phrases, building a personal answer that lands with the interviewer, and getting familiar with the MMI format.</p>
+          <ul class="doc-list">
+            <li>Reference values for estimation (Fermi) questions</li>
+            <li>Local and global current-events summary</li>
+            <li>What to do depending on how the person in front of you reacts</li>
+            <li>Question banks, to practise with friends or on your own</li>
+            <li>MMI format</li>
+            <li>A strengths-and-weaknesses report after every session</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -279,8 +296,11 @@
         <span class="font-semibold text-ink">The homework set before each session is not optional.</span>
         Every session opens by checking it, and we expect it done. Practising at home is essential.
       </p>
-      <p class="text-[13px] leading-relaxed text-neutral-500">
+      <p class="text-[13px] leading-relaxed text-neutral-500 mb-2">
         And at the end of every session, Casper and interviews alike, we circle back over the concepts from the previous sessions.
+      </p>
+      <p class="text-[13px] leading-relaxed text-neutral-500">
+        We also work on visualization: picturing yourself, on the day itself, sitting at your desk or across from the evaluator, feeling the pressure rise, and noticing how your body and mind respond.
       </p>
     </div>
 
@@ -293,6 +313,18 @@
       <p class="text-[12px] leading-relaxed text-neutral-400">
         The material that fills this path: the exercises to complete, the reference documents and more, is handed to enrolled students. A question along the way? Email us, we answer quickly.
       </p>
+    </div>
+
+    <div class="reveal max-w-3xl mx-auto mt-6 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
+      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-4">WHAT YOU’LL WALK AWAY WITH</p>
+      <ul class="doc-list grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+        <li>You understand your own experiences better, and you can talk about them with ease.</li>
+        <li>Stressful situations stop unsettling you: they become a chance to stand out.</li>
+        <li>You communicate your reasoning, instead of hunting for the &ldquo;perfect&rdquo; answer.</li>
+        <li>You adapt to any scenario, instead of depending on one memorized structure.</li>
+        <li>Follow-up questions and surprises stop catching you off guard.</li>
+        <li>You have fun with it.</li>
+      </ul>
     </div>
   </div>
 </section>

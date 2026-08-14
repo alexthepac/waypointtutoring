@@ -136,6 +136,9 @@
   .bnd-incl p { font-size: 10.5px; font-weight: 800; letter-spacing: .18em; color: rgba(22,20,28,.4); margin-bottom: .6rem; }
   .bnd-incl li { display: flex; gap: .55rem; align-items: flex-start; font-size: 13.5px; color: rgba(22,20,28,.75); padding: .22rem 0; }
   .bnd-incl li svg { flex: none; margin-top: .22rem; color: var(--accent-violet); }
+  .doc-list { margin: .5rem 0 0; padding: 0; list-style: none; display: grid; gap: .4rem; }
+  .doc-list li { display: flex; gap: .5rem; align-items: flex-start; font-size: 13px; line-height: 1.5; color: rgba(22,20,28,.72); }
+  .doc-list li::before { content: ""; flex: none; width: 5px; height: 5px; border-radius: 999px; background: var(--accent-violet); margin-top: .5rem; }
   .bnd-foot { margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; padding-top: 1rem; border-top: 1px solid rgba(22,20,28,.08); }
   .bnd-was { font-size: .95rem; color: rgba(22,20,28,.35); text-decoration: line-through; }
   .bnd-price { font-size: 2rem; font-weight: 700; line-height: 1.05; color: var(--ink); }
@@ -258,15 +261,29 @@
 
 
     <div class="reveal max-w-3xl mx-auto mb-10 md:mb-12 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
-      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-3">La documentation fournie, à étudier pour votre succès avec la méthode</p>
+      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-3">LA DOCUMENTATION FOURNIE</p>
+      <p class="text-[13px] leading-relaxed text-neutral-600 mb-5">Écrite par des étudiants en médecine qui ont eux-mêmes dû fouiller et tâtonner à travers toute cette ambiguïté avant de trouver ce qui fonctionne vraiment. On l’élimine pour vous, afin que vous puissiez vous concentrer sur votre performance.</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
         <div>
           <p class="text-[13px] font-semibold text-ink mb-1.5">Quelques-uns des documents en lien avec le test Casper</p>
-          <p class="text-[13px] leading-relaxed text-neutral-600">Types de questions, le format approprié des réponses, familiarisation avec le format du test.</p>
+          <ul class="doc-list">
+            <li>Liste des types de questions</li>
+            <li>Liste des phrases clés à utiliser</li>
+            <li>Liste des questions insolites</li>
+            <li>Format du Casper</li>
+            <li>Rapport de vos forces et de vos faiblesses après chaque séance</li>
+          </ul>
         </div>
         <div>
           <p class="text-[13px] font-semibold text-ink mb-1.5">Quelques-uns des documents en lien avec les MEM</p>
-          <p class="text-[13px] leading-relaxed text-neutral-600">Types de réactions et comment y réagir, mots et phrases clés, bâtir une réponse personnelle qui résonne chez l’intervieweur, familiarisation avec le format des MEM.</p>
+          <ul class="doc-list">
+            <li>Valeurs à connaître pour les questions d’estimation (Fermi)</li>
+            <li>Résumé de l’actualité locale et internationale</li>
+            <li>Quoi faire selon la réaction de la personne devant vous</li>
+            <li>Banques de questions, pour pratiquer entre amis ou seul</li>
+            <li>Format des MEM</li>
+            <li>Rapport de vos forces et de vos faiblesses après chaque séance</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -281,9 +298,12 @@
         <span class="font-semibold text-ink">Les devoirs donnés avant chaque séance ne sont pas optionnels.</span>
         Chaque séance s’ouvre sur leur vérification, et on s’attend à ce qu’ils soient complétés. La pratique chez soi est essentielle.
       </p>
-      <p class="text-[13px] leading-relaxed text-neutral-500">
+      <p class="text-[13px] leading-relaxed text-neutral-500 mb-2">
         Et à la fin de chaque séance, Casper comme entrevues, on repasse les concepts des séances
         précédentes.
+      </p>
+      <p class="text-[13px] leading-relaxed text-neutral-500">
+        On travaille aussi la visualisation&nbsp;: se voir, le jour même, assis devant l’écran ou face à l’évaluateur, ressentir la pression monter, et observer comment le corps et l’esprit y répondent.
       </p>
     </div>
 
@@ -295,6 +315,18 @@
       <p class="text-[12px] leading-relaxed text-neutral-400">
         Le contenu qui remplit ce chemin&nbsp;: les exercices à faire, les documents informatifs, etc., est remis aux personnes inscrites. Une question en cours de route&nbsp;? Écrivez-nous par courriel, on répond rapidement.
       </p>
+    </div>
+
+    <div class="reveal max-w-3xl mx-auto mt-6 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
+      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-4">CE QUE VOUS EN RETIREREZ</p>
+      <ul class="doc-list grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+        <li>Vous comprenez mieux vos propres expériences, et vous savez les raconter avec aisance.</li>
+        <li>Les situations stressantes ne vous déstabilisent plus&nbsp;: elles deviennent une occasion de vous démarquer.</li>
+        <li>Vous communiquez votre raisonnement, plutôt que de chercher la réponse «&nbsp;parfaite&nbsp;».</li>
+        <li>Vous vous adaptez à n’importe quel scénario, sans dépendre d’une seule structure apprise par cœur.</li>
+        <li>Les questions de relance et les imprévus ne vous prennent plus au dépourvu.</li>
+        <li>Vous y prenez du plaisir.</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -432,7 +464,7 @@
 
     <p class="reveal text-center text-neutral-600 text-sm mt-10 max-w-xl mx-auto">
       Peu importe la formule choisie, <span class="font-semibold text-ink">vous avez accès à la méthode complète dès l'achat</span>, 
-      chaque séance détaillée, minute par minute, avec le travail à faire entre les rencontres ainsi qu'une sauvegarde des critiques les plus importantes de chaque session.
+      chaque séance détaillée, minute par minute, avec le travail à faire entre les rencontres ainsi qu'une sauvegarde des critiques les plus importantes de chaque séance.
     </p>
     <p class="reveal text-center text-neutral-400 text-xs mt-4">Pas certain de la bonne&nbsp;? <a href="book-fr.html" class="text-ink underline underline-offset-4 hover:no-underline">Trente minutes gratuites</a> pour en parler, sans engagement.</p>
   </div>
@@ -607,7 +639,7 @@
     m2: {title: 'Personnalisation et vulgarisation',
       body: 'Faites vos devoirs. Vos expériences reprises une à une, vulgarisées, questions personnelles poussées.' },
     m3: {title: 'Scénarios déstabilisants',
-      body: 'Lisez les documents fournis en avance. Mises en situation jouées, questions d’équipe et scénarios conçus pour déstabiliser, avec rétroaction experte après chaque passage.' },
+      body: 'Lisez les documents fournis au préalable. Mises en situation jouées, questions d’équipe et scénarios conçus pour déstabiliser, avec rétroaction experte après chaque passage.' },
     m4: {title: 'Tout type de question',
       body: 'Questions d’estimation et de calcul mental, avec les repères chiffrés fournis d’avance, puis des retours ciblés, à l’intensité que vous choisissez.' },
     m5: {title: 'Une simulation MEM complète',
