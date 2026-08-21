@@ -131,12 +131,6 @@
         Schedule your sessions
       </a>
 
-      <div id="keep-link" class="hidden mt-8 rounded-2xl border border-ink/10 bg-white/70 px-5 py-4 text-left">
-        <p class="text-[11px] font-bold tracking-[0.2em] text-neutral-500 mb-2">SAVE THIS LINK</p>
-        <p class="text-neutral-600 text-sm leading-relaxed mb-3">You book <strong>every</strong> session of your package from this same link, whenever you are ready. Bookmark it or email it to yourself.</p>
-        <a id="keep-url" href="#" class="block break-all text-ink text-sm font-medium underline underline-offset-2 hover:text-black transition-colors"></a>
-      </div>
-
       <p class="text-neutral-500 text-sm mt-8 leading-relaxed">Questions or trouble booking? <a href="contact.html" class="underline underline-offset-2 hover:text-ink transition-colors">Contact us</a> and we'll sort it out.</p>
     </div>
   </div>
@@ -176,7 +170,6 @@
      Unknown/missing service falls back to the contact section.
   ===================================================================== */
   var NEXT_STEPS = {
-    'tutorat-5': { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'One last step: pick the times for your five sessions.', btn: 'Schedule your sessions' },
     pack5:  { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'One last step: pick the times for your sessions.', btn: 'Schedule your sessions' },
     pack10: { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'One last step: pick the times for your sessions.', btn: 'Schedule your sessions' },
     intro:  { link: 'book.html?hold=complete', note: 'Your spot is reserved, one last step: pick a time for your free intro call.', btn: 'Book your intro call' },
@@ -184,11 +177,11 @@
     'casper-pack5':  { link: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep-copy-copy', note: 'One last step: pick the times for your Casper & MMI sessions.', btn: 'Schedule your sessions' },
     'casper-pack10': { link: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep-copy-copy', note: 'One last step: pick the times for your Casper & MMI sessions.', btn: 'Schedule your sessions' },
 
-    /* The three preparation paths: each has its own hidden, FREE Cal.com
-       event, since the package is already paid for. */
-    'methode-casper':    { link: 'https://cal.com/mntr-iif8ix/1-on-1-casper-prep-package', note: 'One last step: pick the times for your Casper sessions.', btn: 'Schedule your sessions' },
-    'methode-mem':       { link: 'https://cal.com/mntr-iif8ix/mmi-prep-package', note: 'One last step: pick the times for your interview sessions.', btn: 'Schedule your sessions' },
-    'methode-integrale': { link: 'https://cal.com/mntr-iif8ix/mmi-and-casper-prep-package', note: 'One last step: pick the times for your sessions.', btn: 'Schedule your sessions' }
+    /* The three preparation paths: the complete progression goes out by
+       email, then we set the schedule together. */
+    'methode-casper':    { link: 'contact.html', note: 'One last step: we set the times for your sessions together.', btn: 'Set your sessions' },
+    'methode-mem':       { link: 'contact.html', note: 'One last step: we set the times for your sessions together.', btn: 'Set your sessions' },
+    'methode-integrale': { link: 'contact.html', note: 'One last step: we set the times for your sessions together.', btn: 'Set your sessions' }
   };
 
   var service = new URLSearchParams(window.location.search).get('service');
@@ -203,13 +196,6 @@
     document.getElementById('book-btn').href = step.link;
     document.getElementById('book-btn').textContent = step.btn;
     document.getElementById('next-step').textContent = step.note;
-    /* Only a real booking calendar is worth keeping; an on-site page is not. */
-    if (step.link.indexOf('https://cal.com/') === 0) {
-      var ku = document.getElementById('keep-url');
-      ku.href = step.link;
-      ku.textContent = step.link;
-      document.getElementById('keep-link').classList.remove('hidden');
-    }
   } else {
     document.getElementById('next-step').textContent = 'One last step: get in touch so we can schedule your sessions.';
     document.getElementById('book-btn').textContent = 'Contact us to schedule';
