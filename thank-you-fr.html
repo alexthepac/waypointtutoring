@@ -131,6 +131,12 @@
         Planifier vos sessions
       </a>
 
+      <div id="keep-link" class="hidden mt-8 rounded-2xl border border-ink/10 bg-white/70 px-5 py-4 text-left">
+        <p class="text-[11px] font-bold tracking-[0.2em] text-neutral-500 mb-2">CONSERVEZ CE LIEN</p>
+        <p class="text-neutral-600 text-sm leading-relaxed mb-3">Vous réservez <strong>chaque</strong> séance de votre forfait à partir de ce même lien, quand vous le souhaitez. Ajoutez-le à vos favoris ou envoyez-le-vous par courriel.</p>
+        <a id="keep-url" href="#" class="block break-all text-ink text-sm font-medium underline underline-offset-2 hover:text-black transition-colors"></a>
+      </div>
+
       <p class="text-neutral-500 text-sm mt-8 leading-relaxed">Des questions ou un problème de réservation&nbsp;? <a href="contact-fr.html" class="underline underline-offset-2 hover:text-ink transition-colors">Contactez-nous</a> et nous nous en occuperons.</p>
     </div>
   </div>
@@ -170,6 +176,7 @@
      Service inconnu/absent : repli vers la section contact.
   ===================================================================== */
   var NEXT_STEPS = {
+    'tutorat-5': { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'Dernière étape : choisissez les horaires de vos cinq séances.', btn: 'Planifier vos séances' },
     pack5:  { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'Dernière étape : choisissez les horaires de vos sessions.', btn: 'Planifier vos sessions' },
     pack10: { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'Dernière étape : choisissez les horaires de vos sessions.', btn: 'Planifier vos sessions' },
     intro:  { link: 'book-fr.html?hold=complete', note: 'Votre place est réservée, dernière étape : choisissez l\'heure de votre appel d\'introduction gratuit.', btn: 'Réserver votre appel d\'introduction' },
@@ -179,9 +186,9 @@
 
     /* Les trois parcours de préparation : la progression complète part par
        courriel, puis on fixe l'horaire ensemble. */
-    'methode-casper':    { link: 'contact-fr.html', note: 'Dernière étape : on fixe ensemble l\u2019horaire de vos séances.', btn: 'Fixer vos séances' },
-    'methode-mem':       { link: 'contact-fr.html', note: 'Dernière étape : on fixe ensemble l\u2019horaire de vos séances.', btn: 'Fixer vos séances' },
-    'methode-integrale': { link: 'contact-fr.html', note: 'Dernière étape : on fixe ensemble l\u2019horaire de vos séances.', btn: 'Fixer vos séances' }
+    'methode-casper':    { link: 'https://cal.com/mntr-iif8ix/1-on-1-casper-prep-package', note: 'Dernière étape : choisissez les horaires de vos séances Casper.', btn: 'Planifier vos séances' },
+    'methode-mem':       { link: 'https://cal.com/mntr-iif8ix/mmi-prep-package', note: 'Dernière étape : choisissez les horaires de vos séances d\u2019entrevue.', btn: 'Planifier vos séances' },
+    'methode-integrale': { link: 'https://cal.com/mntr-iif8ix/mmi-and-casper-prep-package', note: 'Dernière étape : choisissez les horaires de vos séances.', btn: 'Planifier vos séances' }
   };
 
   var service = new URLSearchParams(window.location.search).get('service');
@@ -196,6 +203,13 @@
     document.getElementById('book-btn').href = step.link;
     document.getElementById('book-btn').textContent = step.btn;
     document.getElementById('next-step').textContent = step.note;
+    /* Seul un vrai calendrier vaut la peine d'être conservé. */
+    if (step.link.indexOf('https://cal.com/') === 0) {
+      var ku = document.getElementById('keep-url');
+      ku.href = step.link;
+      ku.textContent = step.link;
+      document.getElementById('keep-link').classList.remove('hidden');
+    }
   } else {
     document.getElementById('next-step').textContent = 'Dernière étape : contactez-nous pour planifier vos sessions.';
     document.getElementById('book-btn').textContent = 'Contactez-nous pour planifier';
