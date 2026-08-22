@@ -96,13 +96,31 @@
   @media (prefers-reduced-motion: reduce) { .tl-fade { animation: none; } }
 
   /* ---- one card per session ---- */
-  .sess { position: relative; background: #fff; border: 1px solid rgba(22,20,28,.08); border-radius: 1.4rem; padding: 1.5rem 1.5rem 1.35rem; box-shadow: 0 14px 40px -26px rgba(22,20,28,.2); }
-  .sess-top { display: flex; align-items: center; gap: .7rem; margin-bottom: .9rem; }
-  .sess-num { width: 2rem; height: 2rem; border-radius: 999px; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12.5px; font-weight: 700; flex: none; }
+  .sess { position: relative; background: #fff; border: 1px solid rgba(22,20,28,.08); border-radius: 1.4rem; padding: 1.25rem 1.25rem 1.15rem; box-shadow: 0 14px 40px -26px rgba(22,20,28,.2); }
+  .sess-top { display: flex; align-items: center; gap: .7rem; margin-bottom: .75rem; }
+  .sess-num { width: 1.8rem; height: 1.8rem; border-radius: 999px; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex: none; }
   .sess-tag { font-size: 10px; font-weight: 800; letter-spacing: .2em; color: var(--accent-violet); }
-  .sess h3 { font-family: Fraunces, Georgia, serif; font-size: 1.22rem; line-height: 1.25; margin-bottom: .55rem; color: var(--ink); }
-  .sess p { font-size: 13.5px; line-height: 1.6; color: rgba(22,20,28,.62); }
-  .sess-meta { display: flex; align-items: center; gap: .45rem; margin-top: .95rem; font-size: 11.5px; color: rgba(22,20,28,.45); }
+  .sess h3 { font-family: Fraunces, Georgia, serif; font-size: 1.08rem; line-height: 1.25; margin-bottom: .5rem; color: var(--ink); }
+  .sess p { font-size: 12.5px; line-height: 1.6; color: rgba(22,20,28,.62); }
+  .sess-meta { display: flex; align-items: center; gap: .45rem; margin-top: .85rem; font-size: 11px; color: rgba(22,20,28,.45); }
+
+  /* ---- what's-included column (left of the session grid, runs its full height) ---- */
+  .incl-card { display: flex; flex-direction: column; height: 100%; padding: .3rem 0; }
+  .incl-card .incl-hd { font-size: 10.5px; font-weight: 800; letter-spacing: .18em; color: rgba(22,20,28,.4); margin-bottom: .4rem; }
+  .incl-card ul { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
+  .incl-card li { display: flex; gap: .6rem; align-items: flex-start; font-size: 13.5px; line-height: 1.55; color: rgba(22,20,28,.75); padding: .75rem 0; border-bottom: 1px solid rgba(22,20,28,.09); }
+  .incl-card li:last-child { border-bottom: 0; }
+  .incl-card li svg { flex: none; margin-top: .2rem; color: var(--accent-violet); }
+  .incl-more { display: inline-flex; align-items: center; gap: .35rem; margin-top: 1rem; font-size: 12.5px; font-weight: 700; color: var(--ink); border-bottom: 1px solid rgba(22,20,28,.25); padding-bottom: 1px; transition: border-color .2s; }
+  .incl-more:hover { border-color: var(--ink); }
+
+  /* ---- combined package: one block per half ---- */
+  .half { display: flex; flex-direction: column; gap: .45rem; background: #fff; border: 1px solid rgba(22,20,28,.08); border-radius: 1.4rem; padding: 1.6rem 1.6rem 1.45rem; box-shadow: 0 14px 40px -26px rgba(22,20,28,.2); transition: border-color .2s, transform .2s; }
+  .half:hover { border-color: rgba(22,20,28,.45); transform: translateY(-2px); }
+  .half .half-tag { font-size: 10px; font-weight: 800; letter-spacing: .2em; color: var(--accent-violet); }
+  .half h3 { font-family: Fraunces, Georgia, serif; font-size: 1.35rem; line-height: 1.25; color: var(--ink); }
+  .half p { font-size: 13px; line-height: 1.6; color: rgba(22,20,28,.62); }
+  .half .half-link { margin-top: auto; padding-top: .7rem; font-size: 12.5px; font-weight: 700; color: var(--ink); display: inline-flex; align-items: center; gap: .35rem; }
   /* the bonus session carries the brand gradient as a border */
   .sess.is-star { border: 2px solid transparent; background: linear-gradient(#fff,#fff) padding-box, var(--grad-eyebrow) border-box; }
   .sess.is-star .sess-num { background: var(--grad-eyebrow); }
@@ -139,7 +157,7 @@
   .doc-list { margin: .5rem 0 0; padding: 0; list-style: none; display: grid; gap: .4rem; }
   .doc-list li { display: flex; gap: .5rem; align-items: flex-start; font-size: 13px; line-height: 1.5; color: rgba(22,20,28,.72); }
   .doc-list li::before { content: ""; flex: none; width: 5px; height: 5px; border-radius: 999px; background: var(--accent-violet); margin-top: .5rem; }
-  .bnd-foot { margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; padding-top: 1rem; border-top: 1px solid rgba(22,20,28,.08); }
+  .bnd-foot { margin-top: auto; display: flex; flex-direction: column; gap: .9rem; padding-top: 1rem; border-top: 1px solid rgba(22,20,28,.08); }
   .bnd-was { font-size: .95rem; color: rgba(22,20,28,.35); text-decoration: line-through; }
   .bnd-price { font-size: 2rem; font-weight: 700; line-height: 1.05; color: var(--ink); }
   .bnd-btns { display: flex; flex-direction: column; gap: .55rem; flex: none; }
@@ -215,10 +233,10 @@
   <div class="relative max-w-4xl mx-auto px-6 text-center">
     <p class="reveal text-xs font-bold tracking-[0.3em] mb-5 eyebrow-grad">CASPER &amp; MMI PREPARATION</p>
     <h1 class="reveal font-serif text-4xl sm:text-5xl md:text-6xl leading-[1.08] mb-6" style="--rd:.06s">
-      A method.<br class="hidden sm:block" /> Not tutoring by the hour.
+      Get into your<br class="hidden sm:block" /> dream program.
     </h1>
     <p class="reveal text-neutral-600 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto" style="--rd:.12s">
-      We sat these interviews. We got in. And we wrote the method that got us in.
+      We took these tests. We got into our dream programs. Here is the method we used. Now it&rsquo;s yours.
     </p>
     <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-3 mt-10" style="--rd:.18s">
       <a href="book.html" class="inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-black transition-colors">
@@ -229,6 +247,9 @@
         The three methods and their rates
       </a>
     </div>
+    <p class="reveal text-neutral-400 text-sm leading-relaxed mt-8 max-w-xl mx-auto" style="--rd:.24s">
+      Stress-free preparation: we remove the ambiguity and the guesswork, so you can focus entirely on your performance.
+    </p>
   </div>
 </section>
 
@@ -247,85 +268,24 @@
       <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">THE PATH</p>
       <h2 class="font-serif text-3xl md:text-5xl leading-tight mb-5 text-ink">Session by session</h2>
       <p class="text-neutral-500 leading-relaxed">
-          Each session has its objective, its exercises and its homework to complete beforehand.
+          A method, not tutoring by the hour: each session has its objective, its exercises and its homework to complete beforehand.
           Count on about a month and a half of focused preparation for each test.
       </p>
     </div>
 
     <div class="reveal flex flex-wrap items-center justify-center gap-2.5 mb-10 md:mb-12">
-      <button type="button" class="tl-tab on" data-track="casper">Casper · 7 sessions</button>
-      <button type="button" class="tl-tab" data-track="integrale">Combined · 14 sessions<span class="block text-[10px] font-semibold opacity-70">+ an extra practice test</span></button>
-      <button type="button" class="tl-tab" data-track="mem">MMI · 7 sessions</button>
+      <button type="button" class="tl-tab on" data-track="casper">Casper preparation</button>
+      <button type="button" class="tl-tab" data-track="mem">Interview/MMI preparation</button>
+      <button type="button" class="tl-tab" data-track="integrale">Casper AND interview/MMI preparation</button>
     </div>
 
+    <h3 id="tlHead" class="reveal font-serif text-2xl md:text-4xl text-center leading-tight mb-8 md:mb-10"><!-- filled by JS --></h3>
 
-    <div class="reveal max-w-3xl mx-auto mb-10 md:mb-12 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
-      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-3">THE DOCUMENTATION PROVIDED</p>
-      <p class="text-[13px] leading-relaxed text-neutral-600 mb-5">Written by medical students who had to dig and struggle through all that ambiguity themselves before finding what actually works. We remove it for you, so you can focus on your performance.</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-        <div>
-          <p class="text-[13px] font-semibold text-ink mb-1.5">A few of the documents tied to the Casper test</p>
-          <ul class="doc-list">
-            <li>List of question types</li>
-            <li>List of key phrases to use</li>
-            <li>List of odd, unusual questions</li>
-            <li>Casper format</li>
-            <li>A strengths-and-weaknesses report after every session</li>
-          </ul>
-        </div>
-        <div>
-          <p class="text-[13px] font-semibold text-ink mb-1.5">A few of the documents tied to the MMIs</p>
-          <ul class="doc-list">
-            <li>Reference values for estimation (Fermi) questions</li>
-            <li>Local and global current-events summary</li>
-            <li>What to do depending on how the person in front of you reacts</li>
-            <li>Question banks, to practise with friends or on your own</li>
-            <li>MMI format</li>
-            <li>A strengths-and-weaknesses report after every session</li>
-          </ul>
-        </div>
-      </div>
+    <div class="reveal grid grid-cols-1 lg:grid-cols-[270px_minmax(0,1fr)] gap-6 lg:gap-8">
+      <aside id="tlIncl" class="self-stretch"><!-- filled by JS --></aside>
+      <div id="tlGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"><!-- filled by JS --></div>
     </div>
 
-    <div id="tlGrid" class="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"><!-- filled by JS --></div>
-
-    <div id="tlRails" class="reveal max-w-3xl mx-auto mt-12 space-y-6"><!-- filled by JS --></div>
-
-    <div class="reveal max-w-3xl mx-auto mt-6 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
-      <p class="text-[13.5px] leading-relaxed text-neutral-700 mb-2">
-        <span class="font-semibold text-ink">The homework set before each session is not optional.</span>
-        Every session opens by checking it, and we expect it done. Practising at home is essential.
-      </p>
-      <p class="text-[13px] leading-relaxed text-neutral-500 mb-2">
-        And at the end of every session, Casper and interviews alike, we circle back over the concepts from the previous sessions.
-      </p>
-      <p class="text-[13px] leading-relaxed text-neutral-500">
-        We also work on visualization: picturing yourself, on the day itself, sitting at your desk or across from the evaluator, feeling the pressure rise, and noticing how your body and mind respond.
-      </p>
-    </div>
-
-    <div class="reveal max-w-2xl mx-auto mt-12 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
-      <p class="text-[14px] leading-relaxed text-neutral-700 mb-2">
-        <span class="font-semibold text-ink">The moment you buy, you receive the complete method for succeeding at the MMI or Casper:</span>
-        every session broken down minute by minute, and the work to do before each one.
-        You know exactly where you are headed before we even meet.
-      </p>
-      <p class="text-[12px] leading-relaxed text-neutral-400">
-        The material that fills this path: the exercises to complete, the reference documents and more, is handed to enrolled students. A question along the way? Email us, we answer quickly.
-      </p>
-    </div>
-
-    <div class="reveal max-w-3xl mx-auto mt-6 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
-      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-4">WHAT YOU’LL WALK AWAY WITH</p>
-      <ul class="doc-list grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
-        <li>You understand your own experiences better, and you can talk about them with ease.</li>
-        <li>Stressful situations stop unsettling you: they become a chance to stand out.</li>
-        <li>You communicate your reasoning, instead of hunting for the &ldquo;perfect&rdquo; answer.</li>
-        <li>You adapt to any scenario, instead of depending on one memorized structure.</li>
-        <li>Follow-up questions and surprises stop catching you off guard.</li>
-        <li>You have fun with it.</li>
-      </ul>
-    </div>
   </div>
 </section>
 
@@ -342,13 +302,13 @@
   <div class="relative max-w-6xl mx-auto px-6">
     <div class="reveal text-center mb-10 md:mb-14">
       <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">THIS PATH, IN THREE FORMATS</p>
-      <h2 class="font-serif text-3xl md:text-5xl leading-tight">Choose your method</h2>
+      <h2 class="font-serif text-3xl md:text-5xl leading-tight">Ready to get into your dream program?</h2>
       <p class="text-neutral-500 text-sm mt-4 max-w-md mx-auto">One-on-one sessions of 60 to 90 minutes, online, at the pace you choose, with a mentor admitted to medical school. Unlimited practice AI included.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
 
-      <div class="bnd reveal">
+      <div class="bnd reveal order-1">
         <div class="bnd-art">
           <svg viewBox="0 0 400 104" preserveAspectRatio="none" aria-hidden="true">
             <rect width="400" height="104" fill="var(--wave-1)"/>
@@ -376,14 +336,14 @@
               <div class="bnd-price">$500</div>
             </div>
             <div class="bnd-btns">
-              <button type="button" class="btn-ghost" onclick="viewTrack('casper')">View the path</button>
-              <button type="button" class="btn-solid" onclick="pickService('methode-casper')">Buy now</button>
+              <a href="casper-path.html" class="btn-ghost">Learn more</a>
+              <button type="button" class="btn-solid flex-col items-center leading-tight" onclick="pickService('methode-casper')">Ace your test<span class="block text-[10px] font-medium opacity-70 mt-0.5">Buy now</span></button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="bnd reveal is-featured md:scale-[1.05] z-10" style="--rd:.12s">
+      <div class="bnd reveal is-featured order-3 md:scale-[1.03] z-10" style="--rd:.24s">
         <div class="bnd-art">
           <svg viewBox="0 0 400 104" preserveAspectRatio="none" aria-hidden="true">
             <rect width="400" height="104" fill="#f3edfa"/>
@@ -414,14 +374,14 @@
               <div class="bnd-price">$900</div>
             </div>
             <div class="bnd-btns">
-              <button type="button" class="btn-ghost" onclick="viewTrack('integrale')">View the path</button>
-              <button type="button" class="btn-solid" onclick="pickService('methode-integrale')">Buy now</button>
+              <button type="button" class="btn-ghost" onclick="viewTrack('integrale')">Learn more</button>
+              <button type="button" class="btn-solid flex-col items-center leading-tight" onclick="pickService('methode-integrale')">Become the top applicant<span class="block text-[10px] font-medium opacity-70 mt-0.5">Buy now</span></button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="bnd reveal" style="--rd:.24s">
+      <div class="bnd reveal order-2" style="--rd:.12s">
         <div class="bnd-art">
           <svg viewBox="0 0 400 104" preserveAspectRatio="none" aria-hidden="true">
             <rect width="400" height="104" fill="var(--wave-2)"/>
@@ -449,8 +409,8 @@
               <div class="bnd-price">$500</div>
             </div>
             <div class="bnd-btns">
-              <button type="button" class="btn-ghost" onclick="viewTrack('mem')">View the path</button>
-              <button type="button" class="btn-solid" onclick="pickService('methode-mem')">Buy now</button>
+              <a href="mmi-path.html" class="btn-ghost">Learn more</a>
+              <button type="button" class="btn-solid flex-col items-center leading-tight" onclick="pickService('methode-mem')">Ace your interviews<span class="block text-[10px] font-medium opacity-70 mt-0.5">Buy now</span></button>
             </div>
           </div>
         </div>
@@ -481,7 +441,7 @@
           <h3 class="font-serif text-lg md:text-xl">Who runs the sessions?</h3>
           <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
         </summary>
-        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Medical students who sat these same interviews and got in. They all follow the same written method: the path does not depend on who you get.</p>
+        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Medical students who sat these same interviews and got in. They all follow the same written method: the path does not depend on who you get. <a href="team.html" class="text-ink underline underline-offset-4 hover:no-underline">Meet the team</a>.</p>
       </details>
       <details class="group py-6">
         <summary class="flex items-center justify-between gap-6 cursor-pointer">
@@ -503,6 +463,27 @@
           <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
         </summary>
         <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Book the free 30-minute consultation. We look at your timeline and your goals, and we tell you straight which of the three makes sense, including if the answer is none of them.</p>
+      </details>
+      <details class="group py-6">
+        <summary class="flex items-center justify-between gap-6 cursor-pointer">
+          <h3 class="font-serif text-lg md:text-xl">Why you, and not a bigger company like BeMo or Acc&egrave;s Carri&egrave;re?</h3>
+          <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Our prices are a fraction of theirs, and you see exactly what you are paying for: the complete method, session by session, is laid out on this page before you spend a dollar. You work one-on-one with medical students who sat these exact tests recently, not with a rotating roster of coaches. And being small means every session is prepared for you personally: your reports, your corrections, your documents.</p>
+      </details>
+      <details class="group py-6">
+        <summary class="flex items-center justify-between gap-6 cursor-pointer">
+          <h3 class="font-serif text-lg md:text-xl">What am I actually paying for?</h3>
+          <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Far more than the hours on the call. Behind each session sits work you do not see: your practice tests corrected in writing, a strengths-and-weaknesses report written after every session, documents adjusted to your profile, and email support between the meetings. You are not buying seven conversations; you are buying a preparation that keeps running between them.</p>
+      </details>
+      <details class="group py-6">
+        <summary class="flex items-center justify-between gap-6 cursor-pointer">
+          <h3 class="font-serif text-lg md:text-xl">What changes when medical students are the ones preparing you?</h3>
+          <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">They went through this exact process a year or two ago, so their advice reflects the tests as they are today, not a version from ten years back. Because they are close to you in age, they explain things in ways that already feel familiar. And they know precisely which mistakes cost points, because they made them first.</p>
       </details>
     </div>
   </div>
@@ -646,12 +627,13 @@
   };
 
   var TRACKS = {
-    casper:    { steps: ['c1','c2','c3','c4','c5','c6','c7'], rails: ['casper'] },
-    mem:       { steps: ['m1','m2','m3','m4','m5','m6','m7'], rails: ['mem'] },
+    casper: { steps: ['c1','c2','c3','c4','c5','c6','c7'] },
+    mem:    { steps: ['m1','m2','m3','m4','m5','m6','m7'] },
     integrale: {
-      steps: ['c1','c2','c3','c4','c5','c6','c7','m1','m2','m3','m4','m5','m6','m7'],
-      phases: { 0: 'CASPER HALF', 7: 'INTERVIEW HALF' },
-      rails: ['casper','mem'],
+      halves: [
+        { tag: 'FIRST HALF', title: 'Casper · 7 sessions', body: 'The complete Casper path, completed before your test date.', href: 'casper-path.html', link: 'See the session plan' },
+        { tag: 'SECOND HALF', title: 'Interviews/MMI · 7 sessions', body: 'The complete interview path, timed to your invitations, with your stories and CV already in place.', href: 'mmi-path.html', link: 'See the session plan' }
+      ],
       bonus: {
         tag: 'FREE WITH THE COMBINED PATH',
         title: 'One extra practice Casper test',
@@ -660,34 +642,33 @@
     }
   };
 
-  var RAILS = {
+  /* One big promise per track, shown above the plan. */
+  var HEADS = {
+    casper: 'Get your 4<sup>th</sup> quartile. Ace your test.',
+    mem: 'Be a top applicant. Ace your interviews.',
+    integrale: 'Get your 4<sup>th</sup> quartile, become the top applicant. Ace them both.'
+  };
+
+  /* What each package includes, shown beside the session plan. */
+  var CHECK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg>';
+  var INCLUDES = {
     casper: {
-      label: 'Casper Preparation',
-      pre: 'Before session 1 · your homework is already waiting',
-      dur: '7 sessions · at the pace you choose',
-      note: 'About an hour of practice a day, between every session, the AI is there for exactly that.',
-      stops: [
-        { t: 'Assessment + basics' }, { t: 'Foundations' }, { t: 'Scenarios, spoken and written' },
-        { t: 'Tailored + mini test' }, { t: 'Full practice test', hot: true },
-        { t: 'Targeted session' }, { t: 'Review of test #2', hot: true }
-      ]
+      items: ['7 one-on-one sessions of 60 to 90 min', 'Ongoing email support', 'Two full practice tests, reviewed live on a call', 'Unlimited practice AI', 'Access to the entire method'],
+      links: [{ href: 'casper-path.html', label: 'Learn more about this path' }]
     },
     mem: {
-      label: 'Interview Preparation',
-      pre: 'Before session 1 · CV and experiences to prepare',
-      dur: '7 sessions · at the pace you choose',
-      note: 'Two hours of practice a day, whether with friends, with the AI or reviewing the documents.',
-      stops: [
-        { t: 'Assessment + basics' }, { t: 'Personal questions' }, { t: 'Role-play and team' },
-        { t: 'Reasoning' }, { t: 'Full practice MMI', hot: true },
-        { t: 'Targeted session' }, { t: '2nd practice MMI', hot: true }
-      ]
+      items: ['7 one-on-one sessions of 60 to 90 min', 'Ongoing email support', 'Two full practice MMIs', 'Unlimited practice AI', 'Access to the entire method'],
+      links: [{ href: 'mmi-path.html', label: 'Learn more about this path' }]
+    },
+    integrale: {
+      items: ['All 7 Casper sessions', 'All 7 interview sessions', 'One extra Casper test, free, corrected in writing', 'Ongoing email support', 'Unlimited practice AI', 'Access to the entire method'],
+      links: [{ href: 'casper-path.html', label: 'The Casper path' }, { href: 'mmi-path.html', label: 'The interview/MMI path' }]
     }
   };
 
   (function () {
     var grid = document.getElementById('tlGrid');
-    var rails = document.getElementById('tlRails');
+    var incl = document.getElementById('tlIncl');
     var tabs = Array.prototype.slice.call(document.querySelectorAll('.tl-tab'));
     if (!grid) return;
 
@@ -701,39 +682,42 @@
       '</div>';
     }
 
-    function railCard(r) {
-      var stops = r.stops.map(function (st, i) {
-        return '<div class="stop' + (st.hot ? ' hot' : '') + '"><i>' + (i + 1) + '</i><small>' + st.t + '</small></div>';
-      }).join('');
-      return '<div class="rail-card">' +
-        '<div class="rail-hd"><b>' + r.label + '</b><span>' + r.dur + '</span></div>' +
-        '<div class="flex flex-wrap justify-between gap-x-4 text-[11px] text-neutral-400 mb-3"><span>' + r.pre + '</span></div>' +
-        '<div class="rail-scroll"><div class="rail">' + stops + '</div></div>' +
-        '<p class="rail-note">' + r.note + '</p>' +
-      '</div>';
+    function inclCard(inc) {
+      var lis = inc.items.map(function (it) { return '<li>' + CHECK + '<span>' + it + '</span></li>'; }).join('');
+      var links = inc.links.map(function (l) {
+        return '<a class="incl-more" href="' + l.href + '">' + l.label + ' <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>';
+      }).join('<br />');
+      return '<div class="incl-card"><p class="incl-hd">WHAT&rsquo;S INCLUDED</p><ul>' + lis + '</ul>' + links + '</div>';
     }
 
     function render(key) {
       var track = TRACKS[key];
       var html = '';
-      track.steps.forEach(function (id, i) {
-        if (track.phases && track.phases[i] !== undefined) {
-          html += '<div class="ph-sep"><span>' + track.phases[i] + '</span></div>';
-        }
-        html += sessCard(STEPS[id], i + 1);
-      });
+      if (track.halves) {
+        track.halves.forEach(function (h) {
+          html += '<a class="half" href="' + h.href + '">' +
+            '<span class="half-tag">' + h.tag + '</span>' +
+            '<h3>' + h.title + '</h3><p>' + h.body + '</p>' +
+            '<span class="half-link">' + h.link + ' <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>' +
+          '</a>';
+        });
+      } else {
+        track.steps.forEach(function (id, i) { html += sessCard(STEPS[id], i + 1); });
+      }
       if (track.bonus) {
-        html += '<div class="ph-sep"><span>' + track.bonus.tag + '</span></div>';
-        html += '<div class="sess is-star"><div class="sess-top"><span class="sess-num">★</span>' +
+        html += '<div class="sess is-star sm:col-span-2"><div class="sess-top"><span class="sess-num">★</span>' +
           '<span class="sess-tag">' + track.bonus.tag + '</span></div>' +
           '<h3>' + track.bonus.title + '</h3><p>' + track.bonus.body + '</p></div>';
       }
       grid.innerHTML = html;
       grid.classList.remove('tl-fade'); void grid.offsetWidth; grid.classList.add('tl-fade');
 
-      var rhtml = track.rails.map(function (id) { return railCard(RAILS[id]); }).join('');
-      rails.innerHTML = rhtml;
-      rails.classList.remove('tl-fade'); void rails.offsetWidth; rails.classList.add('tl-fade');
+      incl.innerHTML = inclCard(INCLUDES[key]);
+      incl.classList.remove('tl-fade'); void incl.offsetWidth; incl.classList.add('tl-fade');
+
+      var head = document.getElementById('tlHead');
+      head.innerHTML = HEADS[key];
+      head.classList.remove('tl-fade'); void head.offsetWidth; head.classList.add('tl-fade');
 
       tabs.forEach(function (t) { t.classList.toggle('on', t.dataset.track === key); });
     }

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18318813201"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18318813201');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>The Interview/MMI Path · MNTR Tutoring</title>
+<meta name="description" content="The complete interview and multiple mini-interview (MMI) preparation path: seven sessions written by students admitted to medical school, the documentation provided, the timeline, and what you walk away with." />
+<link rel='icon' type='image/png' href='favicon.png?v=2' />
+<link rel='shortcut icon' href='favicon.ico' />
+<link rel='apple-touch-icon' href='apple-touch-icon.png' />
+<meta property='og:type' content='website' />
+<meta property='og:title' content='The Interview/MMI Path · MNTR Tutoring' />
+<meta property='og:description' content='Seven sessions, session by session, written by students who got in.' />
+<meta property='og:image' content='hero.jpg' />
+<meta name='twitter:card' content='summary_large_image' />
+
+<!-- ===================== FONTS ===================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<!-- ===================== TAILWIND (CDN) ===================== -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      fontFamily: {
+        sans:  ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Fraunces', 'Georgia', 'serif'],
+      },
+      colors: { ink: '#16141c', paper: '#f7f5f1' },
+    } },
+  };
+</script>
+
+<style>
+  :root {
+    --ink: #16141c;
+    --paper: #f7f5f1;
+    --accent-pink: #e488b4;
+    --accent-violet: #9a86e6;
+    --accent-blue: #7aa7f5;
+    --grad-eyebrow: linear-gradient(110deg, #e488b4, #9a86e6 55%, #7aa7f5);
+    --wave-1: #efeafa;
+    --wave-2: #fdeef5;
+  }
+  .eyebrow-grad { background: var(--grad-eyebrow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); }
+  a, button, [onclick] { -webkit-tap-highlight-color: transparent; }
+  body { touch-action: manipulation; }
+  @media (max-width: 767px) { .backdrop-blur-md { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
+
+  section { position: relative; overflow: hidden; }
+  .wave-wrap { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .wave-wrap svg { position: absolute; }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(28px) scale(.98); transition: opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1); transition-delay: var(--rd, 0s); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  /* ---- one card per session ---- */
+  .sess { position: relative; background: #fff; border: 1px solid rgba(22,20,28,.08); border-radius: 1.4rem; padding: 1.5rem 1.5rem 1.35rem; box-shadow: 0 14px 40px -26px rgba(22,20,28,.2); }
+  .sess-top { display: flex; align-items: center; gap: .7rem; margin-bottom: .9rem; }
+  .sess-num { width: 2rem; height: 2rem; border-radius: 999px; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12.5px; font-weight: 700; flex: none; }
+  .sess-tag { font-size: 10px; font-weight: 800; letter-spacing: .2em; color: var(--accent-violet); }
+  .sess h3 { font-family: Fraunces, Georgia, serif; font-size: 1.22rem; line-height: 1.25; margin-bottom: .55rem; color: var(--ink); }
+  .sess p { font-size: 13.5px; line-height: 1.6; color: rgba(22,20,28,.62); }
+  .sess-meta { display: flex; align-items: center; gap: .45rem; margin-top: .95rem; font-size: 11.5px; color: rgba(22,20,28,.45); }
+
+  /* ---- progression rail ---- */
+  .rail-card { background: #fff; border: 1px solid rgba(22,20,28,.08); border-radius: 1.4rem; padding: 1.5rem 1.6rem 1.35rem; box-shadow: 0 14px 40px -26px rgba(22,20,28,.2); }
+  .rail-hd { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .35rem 1rem; margin-bottom: 1.15rem; }
+  .rail-hd b { font-family: Fraunces, Georgia, serif; font-size: 1.08rem; font-weight: 600; color: var(--ink); }
+  .rail-hd span { font-size: 11px; color: rgba(22,20,28,.42); }
+  .rail-scroll { overflow-x: auto; padding-bottom: .35rem; }
+  .rail { position: relative; display: flex; min-width: 580px; }
+  .rail::before { content: ""; position: absolute; left: 1.1rem; right: 1.1rem; top: .72rem; height: 2px; background: rgba(22,20,28,.12); }
+  .stop { flex: 1; position: relative; text-align: center; padding: 0 .3rem; }
+  .stop i { position: relative; z-index: 1; display: inline-flex; width: 1.5rem; height: 1.5rem; border-radius: 999px; background: #fff; border: 2px solid rgba(22,20,28,.3); color: rgba(22,20,28,.6); font-style: normal; font-size: 10px; font-weight: 700; align-items: center; justify-content: center; }
+  .stop.hot i { background: var(--grad-eyebrow); border-color: transparent; color: #fff; }
+  .stop small { display: block; margin-top: .5rem; font-size: 10.5px; line-height: 1.35; color: rgba(22,20,28,.55); }
+  .rail-note { margin-top: 1rem; padding-top: .85rem; border-top: 1px dashed rgba(22,20,28,.14); font-size: 12px; color: rgba(22,20,28,.55); }
+
+  .doc-list { margin: .5rem 0 0; padding: 0; list-style: none; display: grid; gap: .4rem; }
+  .doc-list li { display: flex; gap: .5rem; align-items: flex-start; font-size: 13px; line-height: 1.5; color: rgba(22,20,28,.72); }
+  .doc-list li::before { content: ""; flex: none; width: 5px; height: 5px; border-radius: 999px; background: var(--accent-violet); margin-top: .5rem; }
+
+  .pkg-featured { background: #fff; border: 2px solid var(--ink); box-shadow: 0 28px 60px -26px rgba(22,20,28,.35); }
+
+  /* ---------- Hamburger → X ---------- */
+  .burger span { transition: transform .4s, opacity .3s; transform-origin: center; }
+  .burger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .burger.active span:nth-child(2) { opacity: 0; }
+  .burger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+  #menuOverlay { transform: translateY(-100%); transition: transform .55s cubic-bezier(.22,.61,.36,1); }
+  #menuOverlay.open { transform: translateY(0); }
+</style>
+</head>
+
+<body class="bg-paper text-ink antialiased">
+
+<!-- ============================================================
+     MENU OVERLAY
+============================================================ -->
+<div id="menuOverlay" class="fixed inset-0 z-[60] bg-paper text-ink flex flex-col items-center justify-center gap-6 px-6 overflow-x-hidden text-center">
+  <button onclick="toggleMenu()" aria-label="Close the menu" class="absolute top-7 right-6 md:right-12 w-12 h-12 flex items-center justify-center text-ink/50 hover:text-ink transition-colors">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <a href="index.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">HOME</a>
+  <a href="tutoring.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">ACADEMIC TUTORING</a>
+  <a href="preparation.html#cheminement" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">THE PATH</a>
+  <a href="preparation.html#forfaits" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">THE THREE METHODS</a>
+  <a href="team.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">OUR TEAM</a>
+  <a href="faq.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">FAQ</a>
+  <a href="index.html#contact" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">CONTACT US</a>
+</div>
+
+<!-- ============================================================
+     TOP BAR
+============================================================ -->
+<header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-ink/10">
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
+    <a href="index.html" class="font-serif text-xl sm:text-2xl font-semibold tracking-tight inline-flex items-center gap-2 whitespace-nowrap shrink-0"><img src="logo-mark.png" alt="" aria-hidden="true" class="h-6 sm:h-7 w-auto" />MNTR Tutoring<span class="text-neutral-400">.</span></a>
+    <div class="flex items-center gap-3 sm:gap-6 text-sm font-medium text-neutral-600">
+      <div class="relative">
+        <button onclick="toggleLangMenu()" class="inline-flex items-center gap-1.5 text-neutral-600 hover:text-ink transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          FR
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-xl overflow-hidden z-50">
+          <a href="mmi-path.html" class="block px-4 py-3 text-sm text-black bg-neutral-100">English</a>
+          <a href="mmi-path-fr.html" class="block px-4 py-3 text-sm text-black hover:bg-neutral-100 transition-colors">Français</a>
+        </div>
+      </div>
+      <a href="preparation.html" class="hover:text-ink transition-colors hidden md:inline">Casper &amp; MMI prep</a>
+      <a href="preparation.html#forfaits" class="bg-ink text-white text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-full hover:bg-black transition-colors whitespace-nowrap">Pricing</a>
+      <button onclick="toggleMenu()" id="burger" class="burger relative z-[70] flex flex-col gap-[5px] p-1.5 md:hidden" aria-label="Open the menu">
+        <span class="block w-6 h-[2px] bg-ink"></span><span class="block w-6 h-[2px] bg-ink"></span><span class="block w-6 h-[2px] bg-ink"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="pt-16 md:pt-24 pb-10 md:pb-14">
+  <div class="wave-wrap" aria-hidden="true">
+    <svg style="top:-140px; right:-14%; width:64%; min-width:520px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-1)" d="M120 130C300 10 560 30 720 130c160 100 200 240 100 320-100 80-320 90-500 20C140 400 -40 330 20 240c40-60 60-80 100-110Z"/>
+    </svg>
+  </div>
+
+  <div class="relative max-w-4xl mx-auto px-6 text-center">
+    <p class="reveal text-xs font-bold tracking-[0.3em] mb-5 eyebrow-grad">THE INTERVIEW/MMI PATH</p>
+    <h1 class="reveal font-serif text-4xl sm:text-5xl md:text-6xl leading-[1.08] mb-6" style="--rd:.06s">
+      Be a top applicant.<br class="hidden sm:block" /> Ace your interviews.
+    </h1>
+    <p class="reveal text-neutral-600 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto" style="--rd:.12s">
+      Seven sessions, each with its objective, its exercises and its homework.
+      Count on about a month and a half of focused preparation.
+    </p>
+    <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-3 mt-10" style="--rd:.18s">
+      <button type="button" onclick="window.location.href='checkout.html?service=methode-mem'" class="inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-black transition-colors">
+        Ace your interviews · $500
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <a href="preparation.html#forfaits" class="inline-flex items-center gap-2 text-sm font-semibold px-7 py-3.5 rounded-full border border-ink/20 hover:border-ink transition-colors">
+        Back to the packages
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE SEVEN SESSIONS
+============================================================ -->
+<section class="py-10 md:py-14">
+  <div class="wave-wrap" aria-hidden="true">
+    <svg style="top:-80px; left:-14%; width:56%; min-width:460px;" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="var(--wave-1)" d="M105 92C258-32 522-18 700 60c178 78 232 224 148 330-84 106-306 146-492 96C170 436 22 342 24 250 26 158 48 138 105 92Z"/>
+    </svg>
+  </div>
+
+  <div class="relative max-w-6xl mx-auto px-6">
+    <div class="reveal text-center mb-10 md:mb-12 max-w-2xl mx-auto">
+      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">SESSION BY SESSION</p>
+      <h2 class="font-serif text-3xl md:text-5xl leading-tight mb-5 text-ink">The seven sessions</h2>
+      <p class="text-neutral-500 leading-relaxed">
+        Nobody fails an MMI for lack of intelligence. People fail for lack of practice, and practice is exactly what we train.
+      </p>
+    </div>
+
+    <!-- ---- The timeline ---- -->
+    <div class="reveal max-w-3xl mx-auto mb-10 md:mb-12">
+      <div class="rail-card">
+        <div class="rail-hd"><b>Interview Preparation</b><span>7 sessions · at the pace you choose</span></div>
+        <div class="flex flex-wrap justify-between gap-x-4 text-[11px] text-neutral-400 mb-3"><span>Before session 1 · CV and experiences to prepare</span></div>
+        <div class="rail-scroll"><div class="rail">
+          <div class="stop"><i>1</i><small>Assessment + basics</small></div>
+          <div class="stop"><i>2</i><small>Personal questions</small></div>
+          <div class="stop"><i>3</i><small>Role-play and team</small></div>
+          <div class="stop"><i>4</i><small>Reasoning</small></div>
+          <div class="stop hot"><i>5</i><small>Full practice MMI</small></div>
+          <div class="stop"><i>6</i><small>Targeted session</small></div>
+          <div class="stop hot"><i>7</i><small>2nd practice MMI</small></div>
+        </div></div>
+        <p class="rail-note">Two hours of practice a day, whether with friends, with the AI or reviewing the documents.</p>
+      </div>
+    </div>
+
+    <div class="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="sess">
+        <div class="sess-top"><span class="sess-num">1</span><span class="sess-tag">SESSION 1</span></div>
+        <h3>Measure</h3>
+        <p>Your starting point, measured. Then a focused review of your personal experiences, and the core principles an MMI is built on.</p>
+        <div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>60 min · homework before the session</span></div>
+      </div>
+      <div class="sess">
+        <div class="sess-top"><span class="sess-num">2</span><span class="sess-tag">SESSION 2</span></div>
+        <h3>Personalize and simplify</h3>
+        <p>Come with your homework done. Your experiences taken one by one, made easy to follow, and the harder personal questions pushed further.</p>
+        <div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>60 min · homework before the session</span></div>
+      </div>
+      <div class="sess">
+        <div class="sess-top"><span class="sess-num">3</span><span class="sess-tag">SESSION 3</span></div>
+        <h3>Unsettling scenarios</h3>
+        <p>Read the documents provided in advance. Role-played scenarios, team questions and situations designed to unsettle you, with expert feedback after every run.</p>
+        <div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>60 min · homework before the session</span></div>
+      </div>
+      <div class="sess">
+        <div class="sess-top"><span class="sess-num">4</span><span class="sess-tag">SESSION 4</span></div>
+        <h3>Every question type</h3>
+        <p>Estimation and mental-maths questions, with the reference figures provided in advance, then targeted feedback at the intensity you choose.</p>
+        <div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>60 min · homework before the session</span></div>
+      </div>
+      <div class="sess">
+        <div class="sess-top"><span class="sess-num">5</span><span class="sess-tag">SESSION 5</span></div>
+        <h3>A full MMI simulation</h3>
+        <p>A complete practice interview under real conditions, followed by a review of your answers.</p>
+        <div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>90 min · homework before the session</span></div>
+      </div>
+      <div class="sess">
+        <div class="sess-top"><span class="sess-num">6</span><span class="sess-tag">SESSION 6</span></div>
+        <h3>Your choice</h3>
+        <p>The session is yours to shape: you arrive knowing what is holding you back, and we fix it. Between these final sessions, the practice never stops.</p>
+        <div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>60 min · homework before the session</span></div>
+      </div>
+      <div class="sess">
+        <div class="sess-top"><span class="sess-num">7</span><span class="sess-tag">SESSION 7</span></div>
+        <h3>A second full MMI simulation</h3>
+        <p>One last complete practice interview, then the debrief: where you stood at session one, where you stand now, and the plan for your interview dates.</p>
+        <div class="sess-meta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5l3.2 1.8"/></svg><span>90 min · homework before the session</span></div>
+      </div>
+    </div>
+
+    <!-- ---- The documentation provided ---- -->
+    <div class="reveal max-w-3xl mx-auto mt-12 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
+      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-3">THE DOCUMENTATION PROVIDED</p>
+      <p class="text-[13px] leading-relaxed text-neutral-600 mb-5">Written by medical students who had to dig and struggle through all that ambiguity themselves before finding what actually works. We remove it for you, so you can focus on your performance.</p>
+      <p class="text-[13px] font-semibold text-ink mb-1.5">A few of the documents tied to the MMIs</p>
+      <ul class="doc-list">
+        <li>Reference values for estimation (Fermi) questions</li>
+        <li>Local and global current-events summary</li>
+        <li>What to do depending on how the person in front of you reacts</li>
+        <li>Question banks, to practise with friends or on your own</li>
+        <li>MMI format</li>
+        <li>A strengths-and-weaknesses report after every session</li>
+      </ul>
+    </div>
+
+    <!-- ---- Homework before sessions ---- -->
+    <div class="reveal max-w-3xl mx-auto mt-6 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
+      <p class="text-[13.5px] leading-relaxed text-neutral-700 mb-2">
+        <span class="font-semibold text-ink">The homework set before each session is not optional.</span>
+        Every session opens by checking it, and we expect it done. Practising at home is essential.
+      </p>
+      <p class="text-[13px] leading-relaxed text-neutral-500 mb-2">
+        And at the end of every session, we circle back over the concepts from the previous sessions.
+      </p>
+      <p class="text-[13px] leading-relaxed text-neutral-500">
+        We also work on visualization: picturing yourself, on the day itself, standing across from the evaluator, feeling the pressure rise, and noticing how your body and mind respond.
+      </p>
+    </div>
+
+    <!-- ---- What you'll walk away with ---- -->
+    <div class="reveal max-w-3xl mx-auto mt-6 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
+      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-4">WHAT YOU&rsquo;LL WALK AWAY WITH</p>
+      <ul class="doc-list grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+        <li>You understand your own experiences better, and you can talk about them with ease.</li>
+        <li>Stressful situations stop unsettling you: they become a chance to stand out.</li>
+        <li>You communicate your reasoning, instead of hunting for the &ldquo;perfect&rdquo; answer.</li>
+        <li>You adapt to any scenario, instead of depending on one memorized structure.</li>
+        <li>Follow-up questions and surprises stop catching you off guard.</li>
+        <li>You have fun with it.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA FINAL
+============================================================ -->
+<section class="py-14 md:py-20">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <div class="reveal pkg-featured rounded-3xl p-9 md:p-12">
+      <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-4">READY?</p>
+      <h2 class="font-serif text-3xl md:text-4xl leading-tight mb-4">This is the path. Now make it yours.</h2>
+      <p class="text-neutral-600 leading-relaxed max-w-lg mx-auto mb-8">The moment you buy, you receive the complete method and every document that comes with it: each session broken down minute by minute, and the work to do before each one. You know exactly where you are headed before we even meet.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <button type="button" onclick="window.location.href='checkout.html?service=methode-mem'" class="inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-8 py-4 rounded-full hover:bg-black transition-colors">
+          Ace your interviews · $500
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <a href="book.html" class="inline-flex items-center gap-2 text-sm font-semibold px-7 py-3.5 rounded-full border border-ink/20 hover:border-ink transition-colors">
+          Book your free consultation
+        </a>
+      </div>
+    </div>
+    <p class="text-neutral-400 text-[11.5px] leading-relaxed mt-8 max-w-xl mx-auto">
+      MNTR Tutoring is not affiliated with, sponsored by, or endorsed by Acuity&nbsp;Insights, Casper, or any faculty of medicine.
+      &ldquo;Casper&rdquo; is a trademark of its respective owner. No admission is guaranteed.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class='bg-ink text-white pt-16 pb-10 px-6 md:px-12 rounded-t-[22px] md:rounded-t-[28px]'>
+  <div class='max-w-6xl mx-auto'>
+    <div class='grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8 mb-14'>
+      <div class='col-span-2 md:col-span-1'>
+        <span class='font-serif text-xl inline-flex items-center gap-2'><img src='logo-mark-white.png' alt='' aria-hidden='true' class='h-5 w-auto' />MNTR Tutoring<span class='text-neutral-500'>.</span></span>
+        <p class='text-neutral-400 text-sm mt-3 leading-relaxed max-w-xs'>Academic tutoring and interview preparation, taught by medical and university students.</p>
+      </div>
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>EXPLORE</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li><a href='tutoring.html' class='hover:text-white transition-colors'>High school &amp; CEGEP tutoring</a></li>
+          <li><a href='preparation.html' class='hover:text-white transition-colors'>Casper &amp; MMI preparation</a></li>
+          <li><a href='index.html#staff' class='hover:text-white transition-colors'>Our tutors</a></li>
+          <li><a href='faq.html' class='hover:text-white transition-colors'>FAQ</a></li>
+          <li><a href='privacy.html' class='hover:text-white transition-colors'>Privacy Policy</a></li>
+          <li><a href='user-agreement.html' class='hover:text-white transition-colors'>User Agreement</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>LANGUAGE</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li><a href='mmi-path.html' class='hover:text-white transition-colors bg-white/10 px-3 py-1 rounded-full'>English</a></li>
+          <li><a href='mmi-path-fr.html' class='hover:text-white transition-colors'>Français</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class='text-[11px] tracking-[0.2em] text-neutral-500 mb-4'>GET STARTED</h4>
+        <ul class='space-y-2.5 text-sm text-neutral-300'>
+          <li><a href='book.html' class='hover:text-white transition-colors'>Book a free call</a></li>
+          <li><a href='index.html#contact' class='hover:text-white transition-colors'>Contact us</a></li>
+          <li><a href='mailto:mntrtutoring.info@gmail.com' class='hover:text-white transition-colors break-all'>mntrtutoring.info@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class='border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-3'>
+      <p class='text-neutral-500 text-sm'>&copy; 2026 MNTR Tutoring</p>
+      <a href='book.html' class='inline-flex items-center gap-1.5 text-sm text-neutral-300 hover:text-white transition-colors'>Book your free call
+        <svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ---------- Chrome ---------- */
+  const overlay = document.getElementById('menuOverlay');
+  const burger  = document.getElementById('burger');
+  function toggleMenu() {
+    overlay.classList.toggle('open');
+    burger.classList.toggle('active');
+    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  }
+  function toggleLangMenu() {
+    var m = document.getElementById('langMenu');
+    if (m) m.classList.toggle('hidden');
+  }
+  document.addEventListener('click', function (e) {
+    var m = document.getElementById('langMenu');
+    if (!m) return;
+    var b = e.target.closest('button');
+    var isToggle = b && b.onclick && b.onclick.toString().indexOf('toggleLangMenu') !== -1;
+    if (!m.contains(e.target) && !isToggle) m.classList.add('hidden');
+  });
+
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+</script>
+</body>
+</html>

@@ -11,13 +11,13 @@
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Academic Tutoring · High School and CEGEP · MNTR Tutoring</title>
-<meta name="description" content="One-on-one tutoring for high school and CEGEP, taught by medical and university students. Math, sciences, languages. $45 an hour, $40 in a five-session package." />
+<title>Academic Tutoring · High School, CEGEP and College · MNTR Tutoring</title>
+<meta name="description" content="One-on-one tutoring for all school subjects at the high school, CEGEP and college level, taught by medical and university students. $45 an hour, $40 in a five-session package." />
 <link rel='icon' type='image/png' href='favicon.png?v=2' />
 <link rel='shortcut icon' href='favicon.ico' />
 <link rel='apple-touch-icon' href='apple-touch-icon.png' />
 <meta property='og:type' content='website' />
-<meta property='og:title' content='Academic Tutoring · High School and CEGEP · MNTR Tutoring' />
+<meta property='og:title' content='Academic Tutoring · High School, CEGEP and College · MNTR Tutoring' />
 <meta property='og:description' content='One-on-one tutoring taught by medical and university students.' />
 <meta property='og:image' content='hero.jpg' />
 <meta name='twitter:card' content='summary_large_image' />
@@ -73,11 +73,6 @@
   }
   @media (prefers-reduced-motion: reduce) { .subject-chip { transition: none; } .subject-chip:hover { transform: none; } }
 
-  /* Level switch */
-  .lvl-tab { border: 1px solid rgba(22,20,28,.12); background: #fff; color: #6d675f; border-radius: 999px; padding: .65rem 1.4rem; font-size: 13.5px; font-weight: 600; transition: all .22s ease; }
-  .lvl-tab:hover { border-color: rgba(22,20,28,.3); color: var(--ink); }
-  .lvl-tab.on { background: var(--ink); border-color: var(--ink); color: #fff; }
-
   .burger span { transition: transform .4s, opacity .3s; transform-origin: center; }
   .burger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
   .burger.active span:nth-child(2) { opacity: 0; }
@@ -90,7 +85,7 @@
 <body class="bg-paper text-ink antialiased">
 
 <div id="menuOverlay" class="fixed inset-0 z-[60] bg-paper text-ink flex flex-col items-center justify-center gap-6 px-6 overflow-x-hidden text-center">
-  <button onclick="toggleMenu()" aria-label="Fermer le menu" class="absolute top-7 right-6 md:right-12 w-12 h-12 flex items-center justify-center text-ink/50 hover:text-ink transition-colors">
+  <button onclick="toggleMenu()" aria-label="Close menu" class="absolute top-7 right-6 md:right-12 w-12 h-12 flex items-center justify-center text-ink/50 hover:text-ink transition-colors">
     <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
   <a href="index.html" class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight hover:text-neutral-400 transition-colors">HOME</a>
@@ -117,7 +112,7 @@
       </div>
       <a href="preparation.html" class="hover:text-ink transition-colors hidden md:inline">Casper &amp; MMI</a>
       <a href="#forfaits" class="bg-ink text-white text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-full hover:bg-black transition-colors whitespace-nowrap">See the rates</a>
-      <button onclick="toggleMenu()" id="burger" class="burger relative z-[70] flex flex-col gap-[5px] p-1.5 md:hidden" aria-label="Ouvrir le menu">
+      <button onclick="toggleMenu()" id="burger" class="burger relative z-[70] flex flex-col gap-[5px] p-1.5 md:hidden" aria-label="Open menu">
         <span class="block w-6 h-[2px] bg-ink"></span><span class="block w-6 h-[2px] bg-ink"></span><span class="block w-6 h-[2px] bg-ink"></span>
       </button>
     </div>
@@ -134,18 +129,18 @@
     </svg>
   </div>
   <div class="relative max-w-4xl mx-auto px-6 text-center">
-    <p class="reveal text-xs font-bold tracking-[0.3em] mb-5 eyebrow-grad">HIGH SCHOOL AND CEGEP</p>
-    <h1 class="reveal font-serif text-4xl sm:text-5xl md:text-6xl leading-[1.08] mb-6" style="--rd:.06s">One-on-one academic tutoring</h1>
+    <p class="reveal text-xs font-bold tracking-[0.3em] mb-5 eyebrow-grad">HIGH SCHOOL, CEGEP AND COLLEGE</p>
+    <h1 class="reveal font-serif text-4xl sm:text-5xl md:text-6xl leading-[1.08] mb-6" style="--rd:.06s">Intelligence is not a trait. It is a skill we help you harness.</h1>
     <p class="reveal text-neutral-600 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto" style="--rd:.12s">
-      Math, sciences, languages, taught by medical and university students
-      who walked exactly the same path, not that long ago.
+      Learn what school does not teach. Become the student who no longer relies
+      on their teachers, who performs no matter the circumstances.
     </p>
     <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-3 mt-10" style="--rd:.18s">
-      <a href="#forfaits" class="inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-black transition-colors">
-        See the rates
+      <a href="book.html" class="inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-black transition-colors">
+        Book a free consultation
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
-      <a href="book.html" class="inline-flex items-center gap-2 text-sm font-semibold px-7 py-3.5 rounded-full border border-ink/20 hover:border-ink transition-colors">Free consultation</a>
+      <a href="#forfaits" class="inline-flex items-center gap-2 text-sm font-semibold px-7 py-3.5 rounded-full border border-ink/20 hover:border-ink transition-colors">See the rates</a>
     </div>
   </div>
 </section>
@@ -154,114 +149,81 @@
      CE QUI EST INCLUS
 ============================================================ -->
 <section class="pb-6 md:pb-10">
-  <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+  <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
     <div class="reveal card-light rounded-2xl p-6">
-      <p class="font-serif text-lg mb-1.5">Prepared in advance</p>
-      <p class="text-neutral-500 text-[13.5px] leading-relaxed">Your tutor builds the session around your exact courses, your grades and your next exam.</p>
+      <p class="font-serif text-lg mb-1.5">Qualified tutors</p>
+      <p class="text-neutral-500 text-[13.5px] leading-relaxed">Medical students and high-achieving university students who excelled in the very courses you are taking.</p>
     </div>
-    <div class="reveal card-light rounded-2xl p-6" style="--rd:.1s">
-      <p class="font-serif text-lg mb-1.5">Always the same person</p>
-      <p class="text-neutral-500 text-[13.5px] leading-relaxed">A consistent match. Nobody starts over explaining where you stand at every session.</p>
+    <div class="reveal card-light rounded-2xl p-6" style="--rd:.08s">
+      <p class="font-serif text-lg mb-1.5">Personalized teaching</p>
+      <p class="text-neutral-500 text-[13.5px] leading-relaxed">Sessions built around your courses, your goals and your pace, always with the same tutor.</p>
     </div>
-    <div class="reveal card-light rounded-2xl p-6" style="--rd:.2s">
-      <p class="font-serif text-lg mb-1.5">Study methods, not just the material</p>
+    <div class="reveal card-light rounded-2xl p-6" style="--rd:.16s">
+      <p class="font-serif text-lg mb-1.5">Exercises and practice tests</p>
+      <p class="text-neutral-500 text-[13.5px] leading-relaxed">Targeted exercises and past tests and exams, so you practise on the real thing before evaluation day.</p>
+    </div>
+    <div class="reveal card-light rounded-2xl p-6" style="--rd:.24s">
+      <p class="font-serif text-lg mb-1.5">Methods and material, not just memorization</p>
       <p class="text-neutral-500 text-[13.5px] leading-relaxed">How to study, how to handle an exam, how to get organised, built into every session.</p>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     HOW IT WORKS  ·  per level
+     OUR APPROACH
 ============================================================ -->
 <section class="py-14 md:py-20">
   <div class="max-w-5xl mx-auto px-6">
 
-    <div class="reveal text-center mb-12 md:mb-16">
-      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">HOW IT WORKS</p>
-      <h2 class="font-serif text-3xl md:text-4xl leading-tight mb-4">You set the agenda before the session starts.</h2>
-      <p class="text-neutral-600 leading-relaxed max-w-2xl mx-auto">When you book, you tell us exactly what you want to cover: a unit you are stuck on, a test coming up, a concept that never clicked. Your tutor prepares that material in advance, so the hour is spent working through it rather than figuring out where to start.</p>
+    <div class="reveal text-center mb-10 md:mb-12">
+      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">OUR APPROACH</p>
+      <h2 class="font-serif text-3xl md:text-4xl leading-tight mb-4">Become the student you dream of being.</h2>
+      <p class="text-neutral-600 leading-relaxed max-w-2xl mx-auto">Open all the doors for yourself by learning foundations that will last your whole academic career.</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-14">
-
-      <!-- ── High school ─────────────────────────────────────────── -->
-      <div class="reveal">
-        <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">SECONDARY 1 TO 5</p>
-        <h3 class="font-serif text-2xl md:text-[27px] leading-tight mb-3">More than weekly tutoring.</h3>
-        <p class="text-neutral-600 text-[15px] leading-relaxed mb-8">Alongside the coursework, we prepare you for how the year actually ends, and for what comes after it.</p>
-
-        <ul class="space-y-6">
-          <li class="flex gap-4">
-            <span class="shrink-0 w-9 h-9 rounded-full bg-ink/5 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/></svg>
-            </span>
-            <span>
-              <span class="block font-semibold text-sm text-ink mb-1">Ministerial exam preparation</span>
-              <span class="block text-neutral-500 text-sm leading-relaxed">We work straight from past ministerial exams, so the format, the wording and the pacing are familiar long before exam day.</span>
-            </span>
-          </li>
-          <li class="flex gap-4">
-            <span class="shrink-0 w-9 h-9 rounded-full bg-ink/5 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
-            </span>
-            <span>
-              <span class="block font-semibold text-sm text-ink mb-1">Study skills that outlast the session</span>
-              <span class="block text-neutral-500 text-sm leading-relaxed">We build the habits underneath the grades: how to take notes, plan a study week and actually revise, so the jump to CEGEP is far less of a shock.</span>
-            </span>
-          </li>
-          <li class="flex gap-4">
-            <span class="shrink-0 w-9 h-9 rounded-full bg-ink/5 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            </span>
-            <span>
-              <span class="block font-semibold text-sm text-ink mb-1">IB exam support</span>
-              <span class="block text-neutral-500 text-sm leading-relaxed">Writing the IB? We can prepare you for your IB examinations alongside your regular coursework, at whatever depth you need.</span>
-            </span>
-          </li>
-        </ul>
-
-        <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mt-9 mb-3.5">MAINLY OFFERED IN</p>
-        <div class="flex flex-wrap gap-2">
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">History</span>
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">Math CST</span>
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">Math SN&nbsp;4</span>
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">Math SN&nbsp;5</span>
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">Chemistry</span>
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">Physics</span>
-          <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-3.5 py-1.5">Biology</span>
+    <div class="reveal max-w-4xl mx-auto card-light rounded-3xl p-8 md:p-10">
+      <div class="flex items-center justify-center gap-3 mb-8">
+        <span class="shrink-0 w-9 h-9 rounded-full bg-ink/5 flex items-center justify-center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+        </span>
+        <p class="font-serif text-xl md:text-2xl text-ink">Study skills that outlast the session</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 text-center">
+        <div>
+          <p class="font-semibold text-sm text-ink mb-1.5">Notes that work</p>
+          <p class="text-neutral-500 text-sm leading-relaxed">Notes you can actually study from, not copy down and forget.</p>
         </div>
-        <p class="text-neutral-400 text-xs mt-4">Offered at every grade level, Secondary&nbsp;1 through&nbsp;5.</p>
+        <div>
+          <p class="font-semibold text-sm text-ink mb-1.5">A plan for the week</p>
+          <p class="text-neutral-500 text-sm leading-relaxed">Know what to study, when, and for how long. No more cramming.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-sm text-ink mb-1.5">Revision that sticks</p>
+          <p class="text-neutral-500 text-sm leading-relaxed">Practice and recall, so exam day already feels familiar.</p>
+        </div>
       </div>
-
-      <!-- ── CEGEP ───────────────────────────────────────────────── -->
-      <div class="reveal" style="--rd:.12s">
-        <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">CEGEP</p>
-        <h3 class="font-serif text-2xl md:text-[27px] leading-tight mb-3">Tell us the course and the chapter.</h3>
-        <p class="text-neutral-600 text-[15px] leading-relaxed mb-8">You let us know ahead of your session which class you want to work on and what is giving you trouble: a midterm, a lab, a chapter you fell behind on. Your tutor reviews it before you meet, so no part of the session is spent catching up on context.</p>
-
-        <ul class="space-y-6">
-          <li class="flex gap-4">
-            <span class="shrink-0 w-9 h-9 rounded-full bg-ink/5 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </span>
-            <span>
-              <span class="block font-semibold text-sm text-ink mb-1">Every single CEGEP class</span>
-              <span class="block text-neutral-500 text-sm leading-relaxed">Science, commerce, social science, general education. Whatever is on your schedule this semester, we tutor it. There is no course we turn away.</span>
-            </span>
-          </li>
-          <li class="flex gap-4">
-            <span class="shrink-0 w-9 h-9 rounded-full bg-ink/5 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16141c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/></svg>
-            </span>
-            <span>
-              <span class="block font-semibold text-sm text-ink mb-1">Past tests and exams to work from</span>
-              <span class="block text-neutral-500 text-sm leading-relaxed">We provide past tests and exams for your specific courses, so you practise on the real thing and walk into the evaluation already knowing how it is going to look.</span>
-            </span>
-          </li>
-        </ul>
-      </div>
-
     </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     MATIÈRES
+============================================================ -->
+<section class="py-14 md:py-20">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="reveal text-center mb-10 md:mb-12">
+      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">WHAT WE COVER</p>
+      <h2 class="font-serif text-3xl md:text-4xl">Every subject on your schedule</h2>
+    </div>
+    <div class="reveal flex flex-wrap justify-center gap-2.5 max-w-3xl mx-auto">
+      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">All high school subjects</span>
+      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">All CEGEP courses</span>
+      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">All college courses</span>
+      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Study methods</span>
+      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Exam preparation</span>
+    </div>
+    <p class="reveal text-center text-neutral-500 text-sm mt-8">Whatever is on your schedule this year, <a href="index.html#contact" class="text-ink underline underline-offset-4 hover:no-underline">write to us</a>, we have the right person for it.</p>
   </div>
 </section>
 
@@ -276,20 +238,15 @@
   </div>
   <div class="relative max-w-6xl mx-auto px-6">
     <div class="reveal text-center mb-9 md:mb-12">
-      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">LOCK IN YOUR RATE</p>
-      <h2 class="font-serif text-3xl md:text-5xl leading-tight">Choose your level</h2>
-      <p class="text-neutral-500 text-sm mt-4 max-w-lg mx-auto">By the session, or in a five-session package that brings the hourly rate down.</p>
-    </div>
-
-    <div class="reveal flex items-center justify-center gap-3 mb-10 md:mb-14">
-      <button type="button" id="tab-hs" class="lvl-tab on" onclick="setLevel('hs')">Secondary 1 to 5</button>
-      <button type="button" id="tab-cegep" class="lvl-tab" onclick="setLevel('cegep')">CEGEP</button>
+      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">SIMPLE PRICING</p>
+      <h2 class="font-serif text-3xl md:text-5xl leading-tight">One rate, every level</h2>
+      <p class="text-neutral-500 text-sm mt-4 max-w-lg mx-auto">High school, CEGEP or college, the price is the same. Book by the session, or save with a five-session package.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-3xl mx-auto">
 
       <div onclick="pickService('tutorat-1')" class="card-light group cursor-pointer reveal rounded-3xl p-9 flex flex-col text-ink hover:-translate-y-1 transition-all duration-300">
-        <p class="lvl-kicker text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">HIGH SCHOOL</p>
+        <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">ALL LEVELS · ONLINE</p>
         <h3 class="font-serif text-2xl mb-1">Single session</h3>
         <p class="text-neutral-400 text-sm mb-8">Try it, no commitment</p>
         <div class="mt-auto">
@@ -300,7 +257,7 @@
 
       <div onclick="pickService('tutorat-5')" class="pkg-featured group cursor-pointer reveal relative rounded-3xl p-9 pt-12 flex flex-col text-ink hover:-translate-y-2 transition-all duration-300 md:scale-[1.06] z-10" style="--rd:.12s">
         <span class="pkg-badge">BEST RATE</span>
-        <p class="lvl-kicker text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">HIGH SCHOOL</p>
+        <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">ALL LEVELS · ONLINE</p>
         <h3 class="font-serif text-2xl mb-1">5-session package</h3>
         <p class="text-sm font-bold mb-8 eyebrow-grad">Save $25</p>
         <div class="mt-auto">
@@ -314,53 +271,7 @@
 
     </div>
 
-    <p class="reveal text-center text-neutral-400 text-xs mt-10">60-minute sessions, online. The package does not expire during the current school year.</p>
-  </div>
-</section>
-
-<!-- ============================================================
-     MATIÈRES
-============================================================ -->
-<section class="py-14 md:py-20 border-t border-ink/10">
-  <div class="max-w-5xl mx-auto px-6">
-    <div class="reveal text-center mb-10 md:mb-12">
-      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">WHAT WE COVER</p>
-      <h2 class="font-serif text-3xl md:text-4xl">Every subject on your schedule</h2>
-    </div>
-    <div class="reveal flex flex-wrap justify-center gap-2.5 max-w-3xl mx-auto">
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Mathematics</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Calculus</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Physics</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Chemistry</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Biology</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">French</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">English</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Natural sciences</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Study methods</span>
-      <span class="subject-chip text-[13px] font-medium text-neutral-600 bg-white border border-ink/10 rounded-full px-4 py-2">Exam preparation</span>
-    </div>
-    <p class="reveal text-center text-neutral-500 text-sm mt-8">Your course is not on the list? <a href="index.html#contact" class="text-ink underline underline-offset-4 hover:no-underline">Write to us</a>, we probably have someone.</p>
-  </div>
-</section>
-
-<!-- ============================================================
-     PONT VERS CASPER / MEM
-============================================================ -->
-<section class="py-14 md:py-20">
-  <div class="max-w-4xl mx-auto px-6">
-    <div class="reveal pkg-featured rounded-3xl p-8 md:p-10">
-      <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 md:gap-10 items-center">
-        <div>
-          <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-3">AIMING FOR MEDICINE?</p>
-          <h3 class="font-serif text-2xl md:text-3xl leading-tight mb-3">Tutoring gets you the grades. What comes next is a different game.</h3>
-          <p class="text-neutral-600 text-sm md:text-[15px] leading-relaxed">Casper and multiple mini-interviews: a complete method, session by session, written by students who got in.</p>
-        </div>
-        <a href="preparation.html" class="shrink-0 inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-black transition-colors whitespace-nowrap">
-          See the method
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-      </div>
-    </div>
+    <p class="reveal text-center text-neutral-400 text-xs mt-10">60-minute sessions, online. Package sessions stay valid all school year.</p>
   </div>
 </section>
 
@@ -371,12 +282,26 @@
   <div class="max-w-3xl mx-auto px-6 text-center">
     <div class="reveal card-light rounded-3xl p-9 md:p-12">
       <p class="text-[10.5px] tracking-[0.25em] text-neutral-400 mb-4">START HERE</p>
-      <h2 class="font-serif text-3xl md:text-4xl leading-tight mb-4">A free 30-minute consultation.</h2>
-      <p class="text-neutral-600 leading-relaxed max-w-lg mx-auto mb-8">We look at the courses, the grades and the timeline, then we match you with the right person. No commitment.</p>
+      <h2 class="font-serif text-3xl md:text-4xl leading-tight mb-8">Getting started takes three steps.</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-xl mx-auto mb-9">
+        <div>
+          <span class="w-8 h-8 rounded-full bg-ink text-white text-sm font-bold flex items-center justify-center mx-auto mb-3">1</span>
+          <p class="text-neutral-600 text-sm leading-relaxed">Tell us your courses and your goals</p>
+        </div>
+        <div>
+          <span class="w-8 h-8 rounded-full bg-ink text-white text-sm font-bold flex items-center justify-center mx-auto mb-3">2</span>
+          <p class="text-neutral-600 text-sm leading-relaxed">We match you with the right tutor</p>
+        </div>
+        <div>
+          <span class="w-8 h-8 rounded-full bg-ink text-white text-sm font-bold flex items-center justify-center mx-auto mb-3">3</span>
+          <p class="text-neutral-600 text-sm leading-relaxed">Book your first session and get to work</p>
+        </div>
+      </div>
       <a href="book.html" class="inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-8 py-4 rounded-full hover:bg-black transition-colors">
         Book your free consultation
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
+      <p class="text-neutral-400 text-xs mt-5">30 minutes, online. No commitment.</p>
     </div>
   </div>
 </section>
@@ -443,17 +368,6 @@
     entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
-
-  /* The two levels share one price ladder and differ only by the kicker,
-     so the switch relabels the cards instead of duplicating them. */
-  var LEVEL = 'hs';
-  function setLevel(k) {
-    LEVEL = k;
-    document.getElementById('tab-hs').classList.toggle('on', k === 'hs');
-    document.getElementById('tab-cegep').classList.toggle('on', k === 'cegep');
-    var txt = k === 'hs' ? 'SECONDAIRE' : 'CÉGEP';
-    document.querySelectorAll('.lvl-kicker').forEach(function (el) { el.textContent = txt; });
-  }
 
   function pickService(key) { window.location.href = 'checkout.html?service=' + key; }
 </script>
