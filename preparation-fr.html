@@ -96,13 +96,31 @@
   @media (prefers-reduced-motion: reduce) { .tl-fade { animation: none; } }
 
   /* ---- one card per session ---- */
-  .sess { position: relative; background: #fff; border: 1px solid rgba(22,20,28,.08); border-radius: 1.4rem; padding: 1.5rem 1.5rem 1.35rem; box-shadow: 0 14px 40px -26px rgba(22,20,28,.2); }
-  .sess-top { display: flex; align-items: center; gap: .7rem; margin-bottom: .9rem; }
-  .sess-num { width: 2rem; height: 2rem; border-radius: 999px; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12.5px; font-weight: 700; flex: none; }
+  .sess { position: relative; background: #fff; border: 1px solid rgba(22,20,28,.08); border-radius: 1.4rem; padding: 1.25rem 1.25rem 1.15rem; box-shadow: 0 14px 40px -26px rgba(22,20,28,.2); }
+  .sess-top { display: flex; align-items: center; gap: .7rem; margin-bottom: .75rem; }
+  .sess-num { width: 1.8rem; height: 1.8rem; border-radius: 999px; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex: none; }
   .sess-tag { font-size: 10px; font-weight: 800; letter-spacing: .2em; color: var(--accent-violet); }
-  .sess h3 { font-family: Fraunces, Georgia, serif; font-size: 1.22rem; line-height: 1.25; margin-bottom: .55rem; color: var(--ink); }
-  .sess p { font-size: 13.5px; line-height: 1.6; color: rgba(22,20,28,.62); }
-  .sess-meta { display: flex; align-items: center; gap: .45rem; margin-top: .95rem; font-size: 11.5px; color: rgba(22,20,28,.45); }
+  .sess h3 { font-family: Fraunces, Georgia, serif; font-size: 1.08rem; line-height: 1.25; margin-bottom: .5rem; color: var(--ink); }
+  .sess p { font-size: 12.5px; line-height: 1.6; color: rgba(22,20,28,.62); }
+  .sess-meta { display: flex; align-items: center; gap: .45rem; margin-top: .85rem; font-size: 11px; color: rgba(22,20,28,.45); }
+
+  /* ---- what's-included column (left of the session grid, runs its full height) ---- */
+  .incl-card { display: flex; flex-direction: column; height: 100%; padding: .3rem 0; }
+  .incl-card .incl-hd { font-size: 10.5px; font-weight: 800; letter-spacing: .18em; color: rgba(22,20,28,.4); margin-bottom: .4rem; }
+  .incl-card ul { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
+  .incl-card li { display: flex; gap: .6rem; align-items: flex-start; font-size: 13.5px; line-height: 1.55; color: rgba(22,20,28,.75); padding: .75rem 0; border-bottom: 1px solid rgba(22,20,28,.09); }
+  .incl-card li:last-child { border-bottom: 0; }
+  .incl-card li svg { flex: none; margin-top: .2rem; color: var(--accent-violet); }
+  .incl-more { display: inline-flex; align-items: center; gap: .35rem; margin-top: 1rem; font-size: 12.5px; font-weight: 700; color: var(--ink); border-bottom: 1px solid rgba(22,20,28,.25); padding-bottom: 1px; transition: border-color .2s; }
+  .incl-more:hover { border-color: var(--ink); }
+
+  /* ---- combined package: one block per half ---- */
+  .half { display: flex; flex-direction: column; gap: .45rem; background: #fff; border: 1px solid rgba(22,20,28,.08); border-radius: 1.4rem; padding: 1.6rem 1.6rem 1.45rem; box-shadow: 0 14px 40px -26px rgba(22,20,28,.2); transition: border-color .2s, transform .2s; }
+  .half:hover { border-color: rgba(22,20,28,.45); transform: translateY(-2px); }
+  .half .half-tag { font-size: 10px; font-weight: 800; letter-spacing: .2em; color: var(--accent-violet); }
+  .half h3 { font-family: Fraunces, Georgia, serif; font-size: 1.35rem; line-height: 1.25; color: var(--ink); }
+  .half p { font-size: 13px; line-height: 1.6; color: rgba(22,20,28,.62); }
+  .half .half-link { margin-top: auto; padding-top: .7rem; font-size: 12.5px; font-weight: 700; color: var(--ink); display: inline-flex; align-items: center; gap: .35rem; }
   /* the bonus session carries the brand gradient as a border */
   .sess.is-star { border: 2px solid transparent; background: linear-gradient(#fff,#fff) padding-box, var(--grad-eyebrow) border-box; }
   .sess.is-star .sess-num { background: var(--grad-eyebrow); }
@@ -139,7 +157,7 @@
   .doc-list { margin: .5rem 0 0; padding: 0; list-style: none; display: grid; gap: .4rem; }
   .doc-list li { display: flex; gap: .5rem; align-items: flex-start; font-size: 13px; line-height: 1.5; color: rgba(22,20,28,.72); }
   .doc-list li::before { content: ""; flex: none; width: 5px; height: 5px; border-radius: 999px; background: var(--accent-violet); margin-top: .5rem; }
-  .bnd-foot { margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; padding-top: 1rem; border-top: 1px solid rgba(22,20,28,.08); }
+  .bnd-foot { margin-top: auto; display: flex; flex-direction: column; gap: .9rem; padding-top: 1rem; border-top: 1px solid rgba(22,20,28,.08); }
   .bnd-was { font-size: .95rem; color: rgba(22,20,28,.35); text-decoration: line-through; }
   .bnd-price { font-size: 2rem; font-weight: 700; line-height: 1.05; color: var(--ink); }
   .bnd-btns { display: flex; flex-direction: column; gap: .55rem; flex: none; }
@@ -215,11 +233,10 @@
   <div class="relative max-w-4xl mx-auto px-6 text-center">
     <p class="reveal text-xs font-bold tracking-[0.3em] mb-5 eyebrow-grad">PRÉPARATION CASPER &amp; MEM</p>
     <h1 class="reveal font-serif text-4xl sm:text-5xl md:text-6xl leading-[1.08] mb-6" style="--rd:.06s">
-      Une méthode.<br class="hidden sm:block" /> Pas des heures de tutorat.
+      Entrez dans le programme<br class="hidden sm:block" /> de vos rêves.
     </h1>
     <p class="reveal text-neutral-600 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto" style="--rd:.12s">
-      Nous avons passé ces entrevues. Nous avons été admis. Et nous avons écrit la méthode qui nous a
-      permis d’entrer.
+      Nous avons passé ces tests. Nous avons été admis dans les programmes de nos rêves. Voici la méthode que nous avons utilisée. Elle est maintenant la vôtre.
     </p>
     <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-3 mt-10" style="--rd:.18s">
       <a href="book-fr.html" class="inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-black transition-colors">
@@ -230,6 +247,9 @@
         Méthodes et tarifs
       </a>
     </div>
+    <p class="reveal text-neutral-400 text-sm leading-relaxed mt-8 max-w-xl mx-auto" style="--rd:.24s">
+      Une préparation sans stress&nbsp;: on élimine l&rsquo;ambiguïté et le flou, pour que vous puissiez vous concentrer entièrement sur votre performance.
+    </p>
   </div>
 </section>
 
@@ -248,86 +268,24 @@
       <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">LE CHEMINEMENT</p>
       <h2 class="font-serif text-3xl md:text-5xl leading-tight mb-5 text-ink">Séance par séance</h2>
       <p class="text-neutral-500 leading-relaxed">
-          Chaque séance a son objectif, ses exercices et ses devoirs à compléter au préalable.
+          Une méthode, pas des heures de tutorat&nbsp;: chaque séance a son objectif, ses exercices et ses devoirs à compléter au préalable.
           Comptez à peu près un mois et demi de préparation concentrée pour chaque test.
       </p>
     </div>
 
     <div class="reveal flex flex-wrap items-center justify-center gap-2.5 mb-10 md:mb-12">
-      <button type="button" class="tl-tab on" data-track="casper">Casper · 7 séances</button>
-      <button type="button" class="tl-tab" data-track="integrale">Combiné · 14 séances<span class="block text-[10px] font-semibold opacity-70">+ test pratique supplémentaire</span></button>
-      <button type="button" class="tl-tab" data-track="mem">MEM · 7 séances</button>
+      <button type="button" class="tl-tab on" data-track="casper">Préparation Casper</button>
+      <button type="button" class="tl-tab" data-track="mem">Préparation entrevues/MEM</button>
+      <button type="button" class="tl-tab" data-track="integrale">Préparation Casper ET entrevues/MEM</button>
     </div>
 
+    <h3 id="tlHead" class="reveal font-serif text-2xl md:text-4xl text-center leading-tight mb-8 md:mb-10"><!-- filled by JS --></h3>
 
-    <div class="reveal max-w-3xl mx-auto mb-10 md:mb-12 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
-      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-3">LA DOCUMENTATION FOURNIE</p>
-      <p class="text-[13px] leading-relaxed text-neutral-600 mb-5">Écrite par des étudiants en médecine qui ont eux-mêmes dû fouiller et tâtonner à travers toute cette ambiguïté avant de trouver ce qui fonctionne vraiment. On l’élimine pour vous, afin que vous puissiez vous concentrer sur votre performance.</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-        <div>
-          <p class="text-[13px] font-semibold text-ink mb-1.5">Quelques-uns des documents en lien avec le test Casper</p>
-          <ul class="doc-list">
-            <li>Liste des types de questions</li>
-            <li>Liste des phrases clés à utiliser</li>
-            <li>Liste des questions insolites</li>
-            <li>Format du Casper</li>
-            <li>Rapport de vos forces et de vos faiblesses après chaque séance</li>
-          </ul>
-        </div>
-        <div>
-          <p class="text-[13px] font-semibold text-ink mb-1.5">Quelques-uns des documents en lien avec les MEM</p>
-          <ul class="doc-list">
-            <li>Valeurs à connaître pour les questions d’estimation (Fermi)</li>
-            <li>Résumé de l’actualité locale et internationale</li>
-            <li>Quoi faire selon la réaction de la personne devant vous</li>
-            <li>Banques de questions, pour pratiquer entre amis ou seul</li>
-            <li>Format des MEM</li>
-            <li>Rapport de vos forces et de vos faiblesses après chaque séance</li>
-          </ul>
-        </div>
-      </div>
+    <div class="reveal grid grid-cols-1 lg:grid-cols-[270px_minmax(0,1fr)] gap-6 lg:gap-8">
+      <aside id="tlIncl" class="self-stretch"><!-- filled by JS --></aside>
+      <div id="tlGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"><!-- filled by JS --></div>
     </div>
 
-
-    <div id="tlGrid" class="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"><!-- filled by JS --></div>
-
-    <div id="tlRails" class="reveal max-w-3xl mx-auto mt-12 space-y-6"><!-- filled by JS --></div>
-
-    <div class="reveal max-w-3xl mx-auto mt-6 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
-      <p class="text-[13.5px] leading-relaxed text-neutral-700 mb-2">
-        <span class="font-semibold text-ink">Les devoirs donnés avant chaque séance ne sont pas optionnels.</span>
-        Chaque séance s’ouvre sur leur vérification, et on s’attend à ce qu’ils soient complétés. La pratique chez soi est essentielle.
-      </p>
-      <p class="text-[13px] leading-relaxed text-neutral-500 mb-2">
-        Et à la fin de chaque séance, Casper comme entrevues, on repasse les concepts des séances
-        précédentes.
-      </p>
-      <p class="text-[13px] leading-relaxed text-neutral-500">
-        On travaille aussi la visualisation&nbsp;: se voir, le jour même, assis devant l’écran ou face à l’évaluateur, ressentir la pression monter, et observer comment le corps et l’esprit y répondent.
-      </p>
-    </div>
-
-    <div class="reveal max-w-2xl mx-auto mt-12 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
-      <p class="text-[14px] leading-relaxed text-neutral-700 mb-2">
-        <span class="font-semibold text-ink">Dès l’achat, vous recevrez la méthode complète de succès aux MEM ou Casper&nbsp;:</span>
-        le détail de chaque séance, minute par minute, et le travail à faire avant chacune d’elles.
-      </p>
-      <p class="text-[12px] leading-relaxed text-neutral-400">
-        Le contenu qui remplit ce chemin&nbsp;: les exercices à faire, les documents informatifs, etc., est remis aux personnes inscrites. Une question en cours de route&nbsp;? Écrivez-nous par courriel, on répond rapidement.
-      </p>
-    </div>
-
-    <div class="reveal max-w-3xl mx-auto mt-6 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm">
-      <p class="text-[10.5px] font-extrabold tracking-[0.22em] eyebrow-grad mb-4">CE QUE VOUS EN RETIREREZ</p>
-      <ul class="doc-list grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
-        <li>Vous comprenez mieux vos propres expériences, et vous savez les raconter avec aisance.</li>
-        <li>Les situations stressantes ne vous déstabilisent plus&nbsp;: elles deviennent une occasion de vous démarquer.</li>
-        <li>Vous communiquez votre raisonnement, plutôt que de chercher la réponse «&nbsp;parfaite&nbsp;».</li>
-        <li>Vous vous adaptez à n’importe quel scénario, sans dépendre d’une seule structure apprise par cœur.</li>
-        <li>Les questions de relance et les imprévus ne vous prennent plus au dépourvu.</li>
-        <li>Vous y prenez du plaisir.</li>
-      </ul>
-    </div>
   </div>
 </section>
 
@@ -344,13 +302,13 @@
   <div class="relative max-w-6xl mx-auto px-6">
     <div class="reveal text-center mb-10 md:mb-14">
       <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">CE CHEMINEMENT, EN TROIS FORMATS</p>
-      <h2 class="font-serif text-3xl md:text-5xl leading-tight">Choisissez votre méthode</h2>
+      <h2 class="font-serif text-3xl md:text-5xl leading-tight">Prêt à entrer dans le programme de vos rêves&nbsp;?</h2>
       <p class="text-neutral-500 text-sm mt-4 max-w-md mx-auto">Séances individuelles de 60 à 90&nbsp;minutes, en ligne, au rythme que vous choisissez, avec un mentor admis en médecine. Pratique avec IA illimitée incluse.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
 
-      <div class="bnd reveal">
+      <div class="bnd reveal order-1">
         <div class="bnd-art">
           <svg viewBox="0 0 400 104" preserveAspectRatio="none" aria-hidden="true">
             <rect width="400" height="104" fill="var(--wave-1)"/>
@@ -368,10 +326,10 @@
             <p>CE QUI EST INCLUS :</p>
             <ul>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>7 séances individuelles de 60 à 90 min</span></li>
-            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Support constant par email</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Soutien continu par courriel</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Deux tests pratiques complets, corrigés en direct, en appel</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>IA de pratique illimitée</span></li>
-            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Accès à la méthode en son entièreté</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Accès à la méthode complète</span></li>
             </ul>
           </div>
           <div class="bnd-foot">
@@ -379,14 +337,14 @@
               <div class="bnd-price">500&nbsp;$</div>
             </div>
             <div class="bnd-btns">
-              <button type="button" class="btn-ghost" onclick="viewTrack('casper')">Voir le parcours</button>
-              <button type="button" class="btn-solid" onclick="pickService('methode-casper')">Acheter</button>
+              <a href="casper-path-fr.html" class="btn-ghost">En savoir plus</a>
+              <button type="button" class="btn-solid flex-col items-center leading-tight" onclick="pickService('methode-casper')">Décrochez votre 4<sup>e</sup>&nbsp;quartile<span class="block text-[10px] font-medium opacity-70 mt-0.5">Acheter maintenant</span></button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="bnd reveal is-featured md:scale-[1.05] z-10" style="--rd:.12s">
+      <div class="bnd reveal is-featured order-3 md:scale-[1.03] z-10" style="--rd:.24s">
         <div class="bnd-art">
           <svg viewBox="0 0 400 104" preserveAspectRatio="none" aria-hidden="true">
             <rect width="400" height="104" fill="#f3edfa"/>
@@ -406,25 +364,25 @@
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Les 7 séances Casper</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Les 7 séances entrevues</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Un test Casper supplémentaire, offert, corrigé par écrit</span></li>
-            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Support constant par email</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Soutien continu par courriel</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>IA de pratique illimitée</span></li>
-            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Accès à la méthode en son entièreté</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Accès à la méthode complète</span></li>
             </ul>
           </div>
           <div class="bnd-foot">
             <div>
               <div class="bnd-was">1&nbsp;000&nbsp;$</div>
-            <div class="bnd-price">900&nbsp;$</div>
+              <div class="bnd-price">900&nbsp;$</div>
             </div>
             <div class="bnd-btns">
-              <button type="button" class="btn-ghost" onclick="viewTrack('integrale')">Voir le parcours</button>
-              <button type="button" class="btn-solid" onclick="pickService('methode-integrale')">Acheter</button>
+              <button type="button" class="btn-ghost" onclick="viewTrack('integrale')">En savoir plus</button>
+              <button type="button" class="btn-solid flex-col items-center leading-tight" onclick="pickService('methode-integrale')">Devenez le meilleur candidat<span class="block text-[10px] font-medium opacity-70 mt-0.5">Acheter maintenant</span></button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="bnd reveal" style="--rd:.24s">
+      <div class="bnd reveal order-2" style="--rd:.12s">
         <div class="bnd-art">
           <svg viewBox="0 0 400 104" preserveAspectRatio="none" aria-hidden="true">
             <rect width="400" height="104" fill="var(--wave-2)"/>
@@ -442,10 +400,10 @@
             <p>CE QUI EST INCLUS :</p>
             <ul>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>7 séances individuelles de 60 à 90 min</span></li>
-            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Support constant par email</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Soutien continu par courriel</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Deux entrevues MEM complètes</span></li>
             <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>IA de pratique illimitée</span></li>
-            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Accès à la méthode en son entièreté</span></li>
+            <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg><span>Accès à la méthode complète</span></li>
             </ul>
           </div>
           <div class="bnd-foot">
@@ -453,8 +411,8 @@
               <div class="bnd-price">500&nbsp;$</div>
             </div>
             <div class="bnd-btns">
-              <button type="button" class="btn-ghost" onclick="viewTrack('mem')">Voir le parcours</button>
-              <button type="button" class="btn-solid" onclick="pickService('methode-mem')">Acheter</button>
+              <a href="mmi-path-fr.html" class="btn-ghost">En savoir plus</a>
+              <button type="button" class="btn-solid flex-col items-center leading-tight" onclick="pickService('methode-mem')">Brillez à vos entrevues<span class="block text-[10px] font-medium opacity-70 mt-0.5">Acheter maintenant</span></button>
             </div>
           </div>
         </div>
@@ -486,7 +444,7 @@
           <h3 class="font-serif text-lg md:text-xl">Qui donne les séances&nbsp;?</h3>
           <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
         </summary>
-        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Des étudiants en médecine qui ont passé ces mêmes entrevues et qui ont été admis. Ils suivent tous la même méthode écrite&nbsp;: le parcours ne dépend pas de qui vous accompagne.</p>
+        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Des étudiants en médecine qui ont passé ces mêmes entrevues et qui ont été admis. Ils suivent tous la même méthode écrite&nbsp;: le parcours ne dépend pas de qui vous accompagne. <a href="equipe-fr.html" class="text-ink underline underline-offset-4 hover:no-underline">Rencontrez l&rsquo;équipe</a>.</p>
       </details>
       <details class="group py-6">
         <summary class="flex items-center justify-between gap-6 cursor-pointer">
@@ -508,6 +466,27 @@
           <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
         </summary>
         <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Réservez la consultation gratuite de 30&nbsp;minutes. On regarde votre échéancier et vos objectifs, et on vous dit franchement laquelle des trois a du sens, y compris si la réponse est aucune.</p>
+      </details>
+      <details class="group py-6">
+        <summary class="flex items-center justify-between gap-6 cursor-pointer">
+          <h3 class="font-serif text-lg md:text-xl">Pourquoi vous, et pas une grande entreprise comme BeMo ou Accès Carrière&nbsp;?</h3>
+          <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Nos prix sont une fraction des leurs, et vous voyez exactement ce que vous payez&nbsp;: la méthode complète, séance par séance, est présentée sur cette page avant que vous ne dépensiez un dollar. Vous travaillez seul à seul avec des étudiants en médecine qui ont passé ces tests récemment, pas avec une rotation de coachs. Et être petits nous permet de préparer chaque séance pour vous personnellement&nbsp;: vos rapports, vos corrections, vos documents.</p>
+      </details>
+      <details class="group py-6">
+        <summary class="flex items-center justify-between gap-6 cursor-pointer">
+          <h3 class="font-serif text-lg md:text-xl">Qu&rsquo;est-ce que je paie, au juste&nbsp;?</h3>
+          <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Bien plus que les heures passées en appel. Derrière chaque séance se cache du travail que vous ne voyez pas&nbsp;: vos tests pratiques corrigés par écrit, un rapport de vos forces et de vos faiblesses rédigé après chaque séance, des documents ajustés à votre profil, et le soutien par courriel entre les rencontres. Vous n&rsquo;achetez pas sept conversations&nbsp;; vous achetez une préparation qui continue entre elles.</p>
+      </details>
+      <details class="group py-6">
+        <summary class="flex items-center justify-between gap-6 cursor-pointer">
+          <h3 class="font-serif text-lg md:text-xl">Qu&rsquo;est-ce que ça change d&rsquo;être préparé par des étudiants en médecine&nbsp;?</h3>
+          <span class="text-2xl text-neutral-400 shrink-0 transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-neutral-600 text-[15px] leading-relaxed mt-4 pr-10">Ils ont traversé ce processus exact il y a un an ou deux&nbsp;: leurs conseils reflètent les tests d&rsquo;aujourd&rsquo;hui, pas une version d&rsquo;il y a dix ans. Comme ils sont proches de vous en âge, ils expliquent les concepts d&rsquo;une façon qui vous est déjà familière. Et ils savent précisément quelles erreurs coûtent des points, parce qu&rsquo;ils les ont faites avant vous.</p>
       </details>
     </div>
   </div>
@@ -651,12 +630,13 @@
   };
 
   var TRACKS = {
-    casper:    { steps: ['c1','c2','c3','c4','c5','c6','c7'], rails: ['casper'] },
-    mem:       { steps: ['m1','m2','m3','m4','m5','m6','m7'], rails: ['mem'] },
+    casper: { steps: ['c1','c2','c3','c4','c5','c6','c7'] },
+    mem:    { steps: ['m1','m2','m3','m4','m5','m6','m7'] },
     integrale: {
-      steps: ['c1','c2','c3','c4','c5','c6','c7','m1','m2','m3','m4','m5','m6','m7'],
-      phases: { 0: 'VOLET CASPER', 7: 'VOLET ENTREVUES' },
-      rails: ['casper','mem'],
+      halves: [
+        { tag: 'PREMIÈRE MOITIÉ', title: 'Casper · 7 séances', body: 'Le parcours Casper complet, réalisé avant votre date de test.', href: 'casper-path-fr.html', link: 'Voir le plan des séances' },
+        { tag: 'DEUXIÈME MOITIÉ', title: 'Entrevues/MEM · 7 séances', body: 'Le parcours entrevues complet, calé sur vos convocations, avec vos histoires et votre CV déjà en place.', href: 'mmi-path-fr.html', link: 'Voir le plan des séances' }
+      ],
       bonus: {
         tag: 'OFFERT AVEC LE COMBINÉ',
         title: 'Un test pratique Casper supplémentaire',
@@ -665,36 +645,33 @@
     }
   };
 
-  /* Les lignes de progression des deux paquets individuels : les repères
-     de séance, et les attentes de pratique entre les rencontres. */
-  var RAILS = {
+  /* Une grande promesse par parcours, affichée au-dessus du plan. */
+  var HEADS = {
+    casper: 'Décrochez votre 4<sup>e</sup> quartile. Dominez le Casper.',
+    mem: 'Devenez le meilleur candidat. Brillez à vos entrevues.',
+    integrale: 'Décrochez votre 4<sup>e</sup> quartile et devenez le meilleur candidat. Dominez les deux.'
+  };
+
+  /* Ce que chaque forfait comprend, affiché à côté du plan des séances. */
+  var CHECK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 10 18 20 6"/></svg>';
+  var INCLUDES = {
     casper: {
-      label: 'Préparation Casper',
-      pre: 'Avant la séance 1 · vos devoirs vous attendent déjà',
-      dur: '7 séances · au rythme que vous choisissez',
-      note: 'Environ une heure de pratique par jour, entre toutes les séances, l’IA est là pour ça.',
-      stops: [
-        { t: 'Diagnostic + bases' }, { t: 'Fondations' }, { t: 'Scénarios, voix haute et écrit' },
-        { t: 'Sur mesure + mini test' }, { t: 'Test pratique complet', hot: true },
-        { t: 'Séance ciblée' }, { t: 'Correction du 2e test', hot: true }
-      ]
+      items: ['7 séances individuelles de 60 à 90 min', 'Soutien continu par courriel', 'Deux tests pratiques complets, corrigés en direct, en appel', 'IA de pratique illimitée', 'Accès à la méthode complète'],
+      links: [{ href: 'casper-path-fr.html', label: 'En savoir plus sur ce parcours' }]
     },
     mem: {
-      label: 'Préparation entrevues',
-      pre: 'Avant la séance 1 · CV et expériences à préparer',
-      dur: '7 séances · au rythme que vous choisissez',
-      note: 'Deux heures de pratique par jour, que ce soit avec des amis, avec l’IA ou en révision de documents.',
-      stops: [
-        { t: 'Diagnostic + bases' }, { t: 'Questions personnelles' }, { t: 'Acteurs et équipe' },
-        { t: 'Raisonnement' }, { t: 'MEM pratique complète', hot: true },
-        { t: 'Séance ciblée' }, { t: '2e MEM pratique', hot: true }
-      ]
+      items: ['7 séances individuelles de 60 à 90 min', 'Soutien continu par courriel', 'Deux entrevues MEM complètes', 'IA de pratique illimitée', 'Accès à la méthode complète'],
+      links: [{ href: 'mmi-path-fr.html', label: 'En savoir plus sur ce parcours' }]
+    },
+    integrale: {
+      items: ['Les 7 séances Casper', 'Les 7 séances entrevues', 'Un test Casper supplémentaire, offert, corrigé par écrit', 'Soutien continu par courriel', 'IA de pratique illimitée', 'Accès à la méthode complète'],
+      links: [{ href: 'casper-path-fr.html', label: 'Le parcours Casper' }, { href: 'mmi-path-fr.html', label: 'Le parcours entrevues/MEM' }]
     }
   };
 
   (function () {
     var grid = document.getElementById('tlGrid');
-    var rails = document.getElementById('tlRails');
+    var incl = document.getElementById('tlIncl');
     var tabs = Array.prototype.slice.call(document.querySelectorAll('.tl-tab'));
     if (!grid) return;
 
@@ -708,39 +685,42 @@
       '</div>';
     }
 
-    function railCard(r) {
-      var stops = r.stops.map(function (st, i) {
-        return '<div class="stop' + (st.hot ? ' hot' : '') + '"><i>' + (i + 1) + '</i><small>' + st.t + '</small></div>';
-      }).join('');
-      return '<div class="rail-card">' +
-        '<div class="rail-hd"><b>' + r.label + '</b><span>' + r.dur + '</span></div>' +
-        '<div class="flex flex-wrap justify-between gap-x-4 text-[11px] text-neutral-400 mb-3"><span>' + r.pre + '</span></div>' +
-        '<div class="rail-scroll"><div class="rail">' + stops + '</div></div>' +
-        '<p class="rail-note">' + r.note + '</p>' +
-      '</div>';
+    function inclCard(inc) {
+      var lis = inc.items.map(function (it) { return '<li>' + CHECK + '<span>' + it + '</span></li>'; }).join('');
+      var links = inc.links.map(function (l) {
+        return '<a class="incl-more" href="' + l.href + '">' + l.label + ' <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>';
+      }).join('<br />');
+      return '<div class="incl-card"><p class="incl-hd">CE QUI EST INCLUS</p><ul>' + lis + '</ul>' + links + '</div>';
     }
 
     function render(key) {
       var track = TRACKS[key];
       var html = '';
-      track.steps.forEach(function (id, i) {
-        if (track.phases && track.phases[i] !== undefined) {
-          html += '<div class="ph-sep"><span>' + track.phases[i] + '</span></div>';
-        }
-        html += sessCard(STEPS[id], i + 1);
-      });
+      if (track.halves) {
+        track.halves.forEach(function (h) {
+          html += '<a class="half" href="' + h.href + '">' +
+            '<span class="half-tag">' + h.tag + '</span>' +
+            '<h3>' + h.title + '</h3><p>' + h.body + '</p>' +
+            '<span class="half-link">' + h.link + ' <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>' +
+          '</a>';
+        });
+      } else {
+        track.steps.forEach(function (id, i) { html += sessCard(STEPS[id], i + 1); });
+      }
       if (track.bonus) {
-        html += '<div class="ph-sep"><span>' + track.bonus.tag + '</span></div>';
-        html += '<div class="sess is-star"><div class="sess-top"><span class="sess-num">★</span>' +
+        html += '<div class="sess is-star sm:col-span-2"><div class="sess-top"><span class="sess-num">★</span>' +
           '<span class="sess-tag">' + track.bonus.tag + '</span></div>' +
           '<h3>' + track.bonus.title + '</h3><p>' + track.bonus.body + '</p></div>';
       }
       grid.innerHTML = html;
       grid.classList.remove('tl-fade'); void grid.offsetWidth; grid.classList.add('tl-fade');
 
-      var rhtml = track.rails.map(function (id) { return railCard(RAILS[id]); }).join('');
-      rails.innerHTML = rhtml;
-      rails.classList.remove('tl-fade'); void rails.offsetWidth; rails.classList.add('tl-fade');
+      incl.innerHTML = inclCard(INCLUDES[key]);
+      incl.classList.remove('tl-fade'); void incl.offsetWidth; incl.classList.add('tl-fade');
+
+      var head = document.getElementById('tlHead');
+      head.innerHTML = HEADS[key];
+      head.classList.remove('tl-fade'); void head.offsetWidth; head.classList.add('tl-fade');
 
       tabs.forEach(function (t) { t.classList.toggle('on', t.dataset.track === key); });
     }
