@@ -9,6 +9,23 @@
   gtag('js', new Date());
   gtag('config', 'AW-18318813201');
 </script>
+
+<!-- Meta Pixel.
+     Paste the pixel's ID below (Events Manager > Data sources > your pixel,
+     the number under its name). While it is empty nothing loads and nothing
+     is sent, so the page is safe to ship before the ID exists.
+
+     No <noscript> fallback image on purpose: the Cal.com booking embed needs
+     JavaScript to work at all, so a visitor who could be counted by it could
+     never have booked anyway. -->
+<script>
+  var META_PIXEL_ID = '';
+  if (META_PIXEL_ID) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Book your free call · MNTR Tutoring</title>
@@ -156,6 +173,31 @@
     calLink: 'mntr-iif8ix/30min',
   });
   Cal.ns['free-consultation']('ui', { hideEventTypeDetails: false, layout: 'month_view' });
+
+  /* A booked intro call is the conversion worth paying for, so the Lead event
+     fires on Cal.com's bookingSuccessful, not on page view. Mirrors the guards
+     already used on book-session.html: a sessionStorage key so one booking is
+     never counted twice from the same tab, and a try/catch so a tracking
+     failure can never break the booking itself.
+
+     eventID carries Cal.com's own booking uid. If the Conversions API is ever
+     added server-side, sending the same id there lets Meta collapse the two
+     reports into one event instead of double-counting the lead. */
+  Cal.ns['free-consultation']('on', {
+    action: 'bookingSuccessful',
+    callback: function (e) {
+      try {
+        var d = (e && e.detail && e.detail.data) || {};
+        var uid = (d.booking && (d.booking.uid || d.booking.id)) || d.uid || '';
+        var eventId = uid ? 'cal-' + uid : 'cal-intro-' + Date.now();
+        if (sessionStorage.getItem('meta-lead-' + eventId)) return;
+        sessionStorage.setItem('meta-lead-' + eventId, '1');
+        if (window.fbq) {
+          fbq('track', 'Lead', { content_name: 'Free intro call' }, { eventID: eventId });
+        }
+      } catch (err) { /* tracking must never break booking */ }
+    }
+  });
 </script>
 </body>
 </html>
