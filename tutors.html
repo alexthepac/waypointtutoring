@@ -251,11 +251,6 @@
       teaches: 'Casper prep only',
       cal: 'https://cal.com/mntr-iif8ix/casper-prep-package-bassma', does: ['casper'],
       avail: 'Saturday & Sunday mornings' },
-    { key: 'elliott', name: 'Elliott', photo: 'elliott-talk.jpg',
-      school: 'McGill School of Medicine',
-      teaches: 'Every science, high school and CEGEP',
-      cal: '', does: ['tutoring','casper'],
-      avail: '' },
     { key: 'yaro', name: 'Yaro', photo: 'Yaro.JPG',
       school: 'Université de Montréal · Faculty of Veterinary Medicine',
       teaches: 'Casper tutoring only',
@@ -265,6 +260,21 @@
       school: 'McGill University · Faculty of Dental Medicine',
       teaches: 'Everything in high school and CEGEP',
       cal: '', does: ['tutoring'],
+      avail: '' },
+    { key: 'sofia', name: 'Sofia', photo: 'sofia-new.jpg',
+      school: 'High school tutoring and marketing',
+      teaches: 'High school tutoring',
+      cal: '', does: ['tutoring'],
+      avail: '' },
+    { key: 'noa', name: 'Noa', photo: '',
+      school: 'McGill University · Honours Mathematics and Physics',
+      teaches: '',
+      cal: '', does: ['tutoring'],
+      avail: '' },
+    { key: 'ziyi', name: 'Ziyi', photo: '',
+      school: 'McGill School of Medicine',
+      teaches: '',
+      cal: '', does: ['tutoring','casper'],
       avail: '' },
   ];
 
@@ -286,20 +296,26 @@
     var service = new URLSearchParams(window.location.search).get('service') || '';
     var kind = SERVICE_KIND[service] || '';
 
-    var list = TUTORS.filter(function (t) { return t.cal; });
+    /* Everyone is listed, whether or not they are bookable yet, so the board
+       shows the real team. Filtering is only by what was bought; the ones
+       without a link render with the button disabled and sort to the bottom,
+       so what can be booked today is always what you see first. */
+    var list = TUTORS.slice();
     if (kind) {
       var matching = list.filter(function (t) { return t.does.indexOf(kind) !== -1; });
       if (matching.length) list = matching;
     }
-    /* Nobody bookable yet: show the whole roster rather than an empty page. */
-    if (!list.length) list = TUTORS;
+    list.sort(function (a, b) { return (b.cal ? 1 : 0) - (a.cal ? 1 : 0); });
 
     list.forEach(function (t) {
       var card = document.createElement('div');
       card.className = 'card-light rounded-3xl overflow-hidden flex flex-col';
 
-      var img = '<img src="' + t.photo + '" alt="' + t.name + '" loading="lazy" ' +
-                'class="w-full aspect-[4/5] object-cover" style="object-position:center 25%" />';
+      var img = t.photo
+        ? '<img src="' + t.photo + '" alt="' + t.name + '" loading="lazy" ' +
+          'class="w-full aspect-[4/5] object-cover" style="object-position:center 25%" />'
+        : '<div class="w-full aspect-[4/5] bg-ink/5 flex items-center justify-center">' +
+          '<img src="logo-mark.png" alt="" aria-hidden="true" class="w-16 opacity-25" /></div>';
 
       var avail = t.avail
         ? '<p class="inline-flex items-center gap-1.5 text-[12px] text-neutral-600 bg-ink/5 rounded-full px-3 py-1 mb-4">' +
