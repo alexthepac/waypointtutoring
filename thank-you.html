@@ -200,7 +200,12 @@
   }
   var step = NEXT_STEPS[service];
   if (step) {
-    document.getElementById('book-btn').href = step.link;
+    /* Package buyers pick their tutor on the board, which carries the
+       service key through so it only lists people who take that booking.
+       The intro call has no tutor choice, so it keeps its direct link. */
+    var isPackage = service && service !== 'intro';
+    document.getElementById('book-btn').href =
+      isPackage ? 'tutors.html?service=' + encodeURIComponent(service) : step.link;
     document.getElementById('book-btn').textContent = step.btn;
     document.getElementById('next-step').textContent = step.note;
     /* Only a real booking calendar is worth keeping; an on-site page is not. */

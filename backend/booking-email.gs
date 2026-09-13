@@ -36,6 +36,41 @@ var SECRET_TOKEN = 'CHANGE_ME_to_a_long_random_string_1234567890';
 /* Every package, keyed by the `package` metadata value set on its Stripe
    Payment Link. Each one points at its own hidden, FREE Cal.com event — the
    customer has already paid, so the calendar must not charge again. */
+/* Each tutor's own Cal.com link, keyed by the value the Stripe custom field
+   sends. `does` lists which kinds of package that person can take, so a tutor
+   who does not cover what was bought is never sent as the booking link.
+   Leave a url empty until that tutor has their own bookable event. */
+var TUTOR_BOARD = 'https://mntrtutoring.ca/tutors.html';
+var TUTORS = {
+  james:   { name: 'James',   does: ['tutoring', 'casper'], url: 'https://cal.com/mntr-iif8ix/tutoring-with-james' },
+  daphne:  { name: 'Daphne',  does: ['tutoring', 'casper'], url: 'https://cal.com/mntr-iif8ix/tutoring-with-daphne' },
+  bassma:  { name: 'Bassma',  does: ['casper'],             url: 'https://cal.com/mntr-iif8ix/casper-prep-package-bassma' },
+  elliott: { name: 'Elliott', does: ['tutoring', 'casper'], url: '' },
+  yaro:    { name: 'Yaro',    does: ['casper'],             url: '' },
+  chris:   { name: 'Chris',   does: ['tutoring'],           url: '' }
+};
+
+/* Which kind of package each key is, for the tutor check above. */
+var PACKAGE_KIND = {
+  'tutorat-5': 'tutoring',
+  'methode-casper': 'casper',
+  'methode-mem': 'mmi',
+  'methode-integrale': 'mmi'
+};
+
+/* Resolve the buyer's tutor choice to a link. Returns '' when no tutor was
+   chosen, the name is unknown, that person has no bookable event yet, or they
+   do not cover what was bought — every one of which falls back to the board,
+   so the buyer always gets somewhere they can actually book. */
+function tutorLink(tutorKey, packageKey) {
+  if (!tutorKey) return '';
+  var t = TUTORS[String(tutorKey).trim().toLowerCase()];
+  if (!t || !t.url) return '';
+  var kind = PACKAGE_KIND[packageKey];
+  if (kind && t.does.indexOf(kind) === -1) return '';
+  return t.url;
+}
+
 var PACKAGES = {
   'tutorat-5': {
     nameEn: 'Academic tutoring, 5-session package',

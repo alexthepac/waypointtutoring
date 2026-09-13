@@ -337,6 +337,29 @@ async function handleStripeWebhook(request, env) {
       ? session.metadata.package.trim().slice(0, 40)
       : '';
 
+  /* Which tutor the buyer picked, so the email can carry that person's own
+     booking link. Stripe returns a Payment Link custom field as an entry in
+     `custom_fields` keyed by whatever the field was named; a dropdown puts
+     the chosen option under `dropdown.value`, a text field under `text.value`.
+     `metadata.tutor` is accepted as a fallback so a link that hard-codes one
+     tutor works without a custom field at all.
+
+     Unrecognised values are passed through as-is and resolved by the email
+     sender, which falls back to the package link when the name is unknown. */
+  let tutor = '';
+  if (Array.isArray(session.custom_fields)) {
+    for (const f of session.custom_fields) {
+      if (!f || String(f.key || '').toLowerCase() !== 'tutor') continue;
+      const v = (f.dropdown && f.dropdown.value) || (f.text && f.text.value) || '';
+      if (v) { tutor = String(v); break; }
+    }
+  }
+  if (!tutor && session.metadata && typeof session.metadata.tutor === 'string') {
+    tutor = session.metadata.tutor;
+  }
+  tutor = tutor.trim().toLowerCase().slice(0, 40);
+
+
   try {
     const res = await fetch(env.BOOKING_EMAIL_URL, {
       method: 'POST',
