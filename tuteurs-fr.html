@@ -240,17 +240,17 @@
       school: 'McGill School of Medicine',
       teaches: 'Tutorat et préparation Casper, secondaire et cégep',
       cal: 'https://cal.com/mntr-iif8ix/tutoring-with-james', does: ['tutoring','casper'],
-      avail: '' },
+      avail: 'Lun, mer et sam en matinée, mar et mer en soirée' },
     { key: 'daphne', name: 'Daphne', photo: 'daphne.jpg',
       school: 'McGill School of Medicine',
-      teaches: 'Tutorat et préparation Casper, secondaire et cégep',
+      teaches: 'Tout le secondaire et le cégep, plus la préparation Casper',
       cal: 'https://cal.com/mntr-iif8ix/tutoring-with-daphne', does: ['tutoring','casper'],
-      avail: '' },
+      avail: 'Lun, mer et jeu en matinée' },
     { key: 'bassma', name: 'Bassma', photo: 'bassma.jpg',
       school: 'Université de Sherbrooke · School of Medicine',
       teaches: 'Préparation Casper seulement',
       cal: 'https://cal.com/mntr-iif8ix/casper-prep-package-bassma', does: ['casper'],
-      avail: '' },
+      avail: 'Samedi et dimanche en matinée' },
     { key: 'elliott', name: 'Elliott', photo: 'elliott-talk.jpg',
       school: 'McGill School of Medicine',
       teaches: 'Toutes les sciences, secondaire et cégep',
@@ -263,7 +263,7 @@
       avail: '' },
     { key: 'chris', name: 'Chris', photo: 'Chris.JPG',
       school: 'McGill University · Faculty of Dental Medicine',
-      teaches: '',
+      teaches: 'Tout le secondaire et le cégep',
       cal: '', does: ['tutoring'],
       avail: '' },
   ];
@@ -304,7 +304,7 @@
       var avail = t.avail
         ? '<p class="inline-flex items-center gap-1.5 text-[12px] text-neutral-600 bg-ink/5 rounded-full px-3 py-1 mb-4">' +
           '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>' +
-          t.avail + '</p>'
+          'Généralement libre : ' + t.avail + '</p>'
         : '';
 
       var teaches = t.teaches
