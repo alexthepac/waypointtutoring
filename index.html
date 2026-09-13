@@ -86,31 +86,6 @@
     background-size: 26px 26px;
   }
 
-  /* ---------- Reviews panel (MadFit-style rounded board) ---------- */
-  .rev-panel {
-    background-color: #e9e4f4;
-    background-image: radial-gradient(rgba(255,255,255,.6) 1.3px, transparent 1.4px);
-    background-size: 26px 26px;
-  }
-  .rev-card {
-    width: min(340px, 78vw); flex: none;
-    background: #fff; border-radius: 1.25rem; padding: 1.5rem 1.6rem;
-    margin: 0 .65rem; box-shadow: 0 16px 44px -30px rgba(22,20,28,.35);
-    display: flex; flex-direction: column; text-align: left;
-  }
-  .rev-stars { display: flex; gap: 3px; margin-bottom: .8rem; }
-  .rev-stars svg { width: 14px; height: 14px; fill: var(--accent-violet); }
-  .rev-card p { font-size: 14px; line-height: 1.6; color: rgba(22,20,28,.72); margin-bottom: 1.1rem; }
-  .rev-card footer { margin-top: auto; font-size: 12.5px; }
-  .rev-card footer b { display: block; font-weight: 700; color: var(--ink); }
-  .rev-card footer span { color: rgba(22,20,28,.45); }
-
-  /* the reviews band is draggable: grab cursor, vertical panning stays native */
-  .rev-panel .marquee { cursor: grab; touch-action: pan-y; }
-  .rev-panel .marquee.dragging { cursor: grabbing; }
-  .rev-panel .marquee.dragging .rev-card { user-select: none; -webkit-user-select: none; }
-
-
   /* ---------- Infinite university ticker marquee ---------- */
   .marquee { overflow: hidden; }
   .marquee-track { display: flex; width: max-content; animation: marquee 34s linear infinite; }
@@ -557,28 +532,6 @@
 </section>
 
 
-<!-- ============================================================
-     REVIEWS  (MadFit-style rounded board, infinite marquee)
-============================================================ -->
-<section id="avis" class="p-2.5 md:p-3">
-  <div class="rev-panel reveal relative rounded-[22px] md:rounded-[28px] overflow-hidden py-14 md:py-20">
-    <div class="text-center max-w-2xl mx-auto px-6 mb-10 md:mb-12">
-      <p class="text-xs font-bold tracking-[0.3em] mb-4 eyebrow-grad">WHAT WE HEAR</p>
-      <h2 class="font-serif text-3xl md:text-5xl leading-tight text-ink mb-4">What our students<br class="hidden sm:block" /> say.</h2>
-    </div>
-    <div class="marquee">
-      <div class="marquee-track items-stretch py-2" style="animation-duration:72s">
-        <div class="rev-card"><div class="rev-stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div><p>&ldquo;MNTR’s services helped me ace my ministry exams, something I didn’t think possible.&rdquo;</p><footer><b>William</b><span>Secondary 5</span></footer></div>
-        <div class="rev-card"><div class="rev-stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div><p>&ldquo;The concrete timeline and method of the Casper and MMI preparation gave me the confidence to ace my two tests.&rdquo;</p><footer><b>Benjamin</b><span>Now in medical school</span></footer></div>
-        <div class="rev-card"><div class="rev-stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div><p>&ldquo;The homework for the Casper preparation was the part I hated the most, but it was so useful when it came time to take the practice tests. I loved how organized the practice and feedback were.&rdquo;</p><footer><b>Jonathan</b><span>Heading to university</span></footer></div>
-        <!-- duplicate set for the seamless loop -->
-        <div class="rev-card"><div class="rev-stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div><p>&ldquo;MNTR’s services helped me ace my ministry exams, something I didn’t think possible.&rdquo;</p><footer><b>William</b><span>Secondary 5</span></footer></div>
-        <div class="rev-card"><div class="rev-stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div><p>&ldquo;The concrete timeline and method of the Casper and MMI preparation gave me the confidence to ace my two tests.&rdquo;</p><footer><b>Benjamin</b><span>Now in medical school</span></footer></div>
-        <div class="rev-card"><div class="rev-stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div><p>&ldquo;The homework for the Casper preparation was the part I hated the most, but it was so useful when it came time to take the practice tests. I loved how organized the practice and feedback were.&rdquo;</p><footer><b>Jonathan</b><span>Heading to university</span></footer></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ============================================================
      MEET OUR STAFF  (light theme, bundle-style cards, inspo 1)
@@ -901,89 +854,6 @@
   })();
 </script>
 <script>
-  /* ---------- Draggable reviews band ----------
-     The CSS keyframe animation is one-way; to let the user throw the band
-     left or right we drive the same translateX by hand: an offset advances
-     on its own (same pace as before, one half-track per 72s), a pointer
-     drag moves it directly, and the release velocity keeps it coasting
-     before the auto-scroll resumes. The offset wraps modulo half the track
-     width, which is exactly the duplicated-set seam, so the loop stays
-     seamless in both directions. */
-  (function () {
-    var wrap = document.querySelector('.rev-panel .marquee');
-    var track = wrap && wrap.querySelector('.marquee-track');
-    if (!track) return;
-
-    track.style.animation = 'none';
-
-    var half = 0;
-    function measure() { half = track.scrollWidth / 2; }
-    measure();
-    window.addEventListener('resize', measure);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
-
-    var x = 0;              // current offset, px
-    var vel = 0;            // coasting velocity, px/ms (set on release)
-    var dragging = false;
-    var hover = false;
-    var startX = 0, startOffset = 0, lastX = 0, lastT = 0;
-    var AUTO = 1 / 24;      // px/ms, ≈ the old 72s-per-half pace on a wide screen
-
-    wrap.addEventListener('mouseenter', function () { hover = true; });
-    wrap.addEventListener('mouseleave', function () { hover = false; });
-
-    wrap.addEventListener('pointerdown', function (e) {
-      dragging = true;
-      wrap.classList.add('dragging');
-      try { wrap.setPointerCapture(e.pointerId); } catch (err) {}
-      startX = lastX = e.clientX;
-      startOffset = x;
-      lastT = performance.now();
-      vel = 0;
-    });
-    wrap.addEventListener('pointermove', function (e) {
-      if (!dragging) return;
-      x = startOffset - (e.clientX - startX);
-      var now = performance.now();
-      var dt = now - lastT;
-      if (dt > 0) vel = -(e.clientX - lastX) / dt;
-      lastX = e.clientX; lastT = now;
-      render();                      /* paint on the event, not next frame */
-    });
-    function release() {
-      if (!dragging) return;
-      dragging = false;
-      wrap.classList.remove('dragging');
-      /* clamp the throw so a hard fling stays readable */
-      if (vel > 2.5) vel = 2.5;
-      if (vel < -2.5) vel = -2.5;
-    }
-    wrap.addEventListener('pointerup', release);
-    wrap.addEventListener('pointercancel', release);
-
-    function render() {
-      if (half > 0) x = ((x % half) + half) % half;
-      track.style.transform = 'translateX(' + (-x).toFixed(2) + 'px)';
-    }
-
-    var last = performance.now();
-    function loop(now) {
-      var dt = Math.min(48, now - last);
-      last = now;
-      if (!dragging) {
-        if (Math.abs(vel) > 0.02) {
-          x += vel * dt;
-          vel *= Math.pow(0.94, dt / 16.7);   /* friction */
-        } else {
-          vel = 0;
-          if (!hover) x += AUTO * dt;         /* resume the quiet auto-scroll */
-        }
-      }
-      render();
-      requestAnimationFrame(loop);
-    }
-    requestAnimationFrame(loop);
-  })();
 </script>
 </body>
 </html>
