@@ -238,44 +238,40 @@
   var TUTORS = [
     { key: 'james', name: 'James', photo: 'james.jpeg',
       school: 'McGill School of Medicine',
-      teaches: 'Tutorat et préparation Casper, secondaire et cégep',
-      cal: 'https://cal.com/mntr-iif8ix/tutoring-with-james', does: ['tutoring','casper'],
+      teaches: 'Tutorat, préparation Casper et entrevues, secondaire et cégep',
+      langs: 'Anglais',
+      cal: 'https://cal.com/mntr-iif8ix/tutoring-with-james', does: ['tutoring','casper','interview'],
       avail: 'Lun, mer et sam en matinée, mar et mer en soirée' },
     { key: 'daphne', name: 'Daphne', photo: 'daphne.jpg',
       school: 'McGill School of Medicine',
-      teaches: 'Tout le secondaire et le cégep, plus la préparation Casper',
-      cal: 'https://cal.com/mntr-iif8ix/tutoring-with-daphne', does: ['tutoring','casper'],
+      teaches: 'Tout le secondaire et le cégep, plus la préparation Casper et entrevues',
+      langs: 'Français et anglais',
+      cal: 'https://cal.com/mntr-iif8ix/tutoring-with-daphne', does: ['tutoring','casper','interview'],
       avail: 'Lun, mer et jeu en matinée' },
     { key: 'bassma', name: 'Bassma', photo: 'bassma.jpg',
-      school: 'Université de Sherbrooke · School of Medicine',
-      teaches: 'Préparation Casper seulement',
-      cal: 'https://cal.com/mntr-iif8ix/casper-prep-package-bassma', does: ['casper'],
+      school: 'Université de Sherbrooke · Faculté de médecine',
+      teaches: 'Préparation Casper et entrevues seulement',
+      langs: 'Français et anglais',
+      cal: 'https://cal.com/mntr-iif8ix/casper-prep-package-bassma', does: ['casper','interview'],
       avail: 'Samedi et dimanche en matinée' },
-    { key: 'yaro', name: 'Yaro', photo: 'Yaro.JPG',
-      school: 'Université de Montréal · Faculty of Veterinary Medicine',
-      teaches: 'Tutorat Casper seulement',
-      cal: '', does: ['casper'],
-      avail: '' },
-    { key: 'chris', name: 'Chris', photo: 'Chris.JPG',
-      school: 'McGill University · Faculty of Dental Medicine',
-      teaches: 'Tout le secondaire et le cégep',
-      cal: '', does: ['tutoring'],
-      avail: '' },
-    { key: 'sofia', name: 'Sofia', photo: 'sofia-new.jpg',
-      school: 'High school tutoring and marketing',
-      teaches: 'Tutorat au secondaire',
-      cal: '', does: ['tutoring'],
-      avail: '' },
+    { key: 'mani', name: 'Mani', photo: 'Mani%20pic.jpg',
+      school: 'Collège Dawson · Sciences pures et appliquées enrichies',
+      teaches: 'Sciences du secondaire et du cégep',
+      langs: 'Anglais',
+      cal: 'https://cal.com/mntr-iif8ix/tutoring-with-mani', does: ['tutoring'],
+      avail: 'Soirs de semaine et fins de semaine' },
     { key: 'noa', name: 'Noa', photo: '',
-      school: 'McGill University · Honours Mathematics and Physics',
-      teaches: '',
+      school: 'Université McGill · Mathématiques et physique (Honours)',
+      teaches: 'Mathématiques et physique',
+      langs: 'Français et anglais',
       cal: '', does: ['tutoring'],
       avail: '' },
-    { key: 'ziyi', name: 'Ziyi', photo: '',
-      school: 'McGill School of Medicine',
-      teaches: '',
-      cal: '', does: ['tutoring','casper'],
-      avail: '' },
+    { key: 'ziyi', name: 'Ziyi', photo: 'ziyi.jpg',
+      school: 'Faculté de médecine de McGill',
+      teaches: 'Tutorat en français, plus la préparation Casper et entrevues',
+      langs: 'Français et anglais',
+      cal: 'https://cal.com/mntr-iif8ix/tutoring-with-ziyi', does: ['tutoring','casper','interview'],
+      avail: 'Soirs de semaine et fins de semaine' },
   ];
 
   var FALLBACK_CAL = 'https://cal.com/mntr-iif8ix/1-on-1-tutoring';
@@ -286,7 +282,8 @@
   var SERVICE_KIND = {
     'tutorat-5': 'tutoring', 'tutorat-1': 'tutoring', pack5: 'tutoring', pack10: 'tutoring',
     'methode-casper': 'casper', 'casper-pack5': 'casper', 'casper-pack10': 'casper',
-    'casper-hourly': 'casper'
+    'casper-hourly': 'casper',
+    'methode-mem': 'interview', 'methode-integrale': 'interview'
   };
 
   (function () {
@@ -300,8 +297,10 @@
        shows the real team. Filtering is only by what was bought; the ones
        without a link render with the button disabled and sort to the bottom,
        so what can be booked today is always what you see first. */
+    /* A tutoring package shows the whole team; a Casper or interview
+       package shows only the people who run those sessions. */
     var list = TUTORS.slice();
-    if (kind) {
+    if (kind && kind !== 'tutoring') {
       var matching = list.filter(function (t) { return t.does.indexOf(kind) !== -1; });
       if (matching.length) list = matching;
     }
@@ -327,6 +326,12 @@
         ? '<p class="text-neutral-600 text-sm leading-relaxed mb-5">' +
           '<span class="text-neutral-400 uppercase tracking-wide text-[11px]">Enseigne </span>' +
           t.teaches + '</p>'
+        : '';
+
+      var langs = t.langs
+        ? '<p class="text-neutral-600 text-sm leading-relaxed mb-5">' +
+          '<span class="text-neutral-400 uppercase tracking-wide text-[11px]">Langues </span>' +
+          t.langs + '</p>'
         : '<div class="mb-5"></div>';
 
       var btn = t.cal
@@ -340,6 +345,7 @@
           '<p class="text-xs font-bold eyebrow-grad mb-3">' + t.school + '</p>' +
           avail +
           teaches +
+          langs +
           btn +
         '</div>';
 
