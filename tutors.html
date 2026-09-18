@@ -264,7 +264,7 @@
       school: 'McGill University · Honours Mathematics and Physics',
       teaches: 'Mathematics and physics',
       langs: 'English and French',
-      cal: '', does: ['tutoring'],
+      cal: '', does: ['casper'],
       avail: '' },
     { key: 'ziyi', name: 'Ziyi', photo: 'ziyi.jpg',
       school: 'McGill School of Medicine',
@@ -303,10 +303,11 @@
        shows the real team. Filtering is only by what was bought; the ones
        without a link render with the button disabled and sort to the bottom,
        so what can be booked today is always what you see first. */
-    /* A tutoring package shows the whole team; a Casper or interview
-       package shows only the people who run those sessions. */
+    /* Every package shows only the people who run those sessions, tutoring
+       included: someone tagged for Casper alone is not offered to a buyer
+       who paid for tutoring. */
     var list = TUTORS.slice();
-    if (kind && kind !== 'tutoring') {
+    if (kind) {
       var matching = list.filter(function (t) { return t.does.indexOf(kind) !== -1; });
       if (matching.length) list = matching;
     }
