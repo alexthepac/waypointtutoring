@@ -106,7 +106,8 @@ var PACKAGES = {
    deliberately absent: Casper and MMI both cost that, so guessing would be
    wrong half the time — those fall through to the every-link email instead. */
 var AMOUNT_FALLBACK = {
-  20000: 'tutorat-5',
+  25000: 'tutorat-5',
+  20000: 'tutorat-5',   /* the old $200 price, for packages bought before the change */
   90000: 'methode-integrale'
 };
 
