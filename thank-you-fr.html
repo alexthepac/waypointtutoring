@@ -131,6 +131,14 @@
         Planifier vos sessions
       </a>
 
+
+      <div id="tutor-links" class="hidden mt-10 text-left">
+        <p class="text-[11px] font-bold tracking-[0.2em] text-neutral-500 mb-2">Réservez avec votre personne tutrice</p>
+        <p class="text-neutral-600 text-sm leading-relaxed mb-4">Chacune de ces personnes peut prendre vos séances. Choisissez-en une et réservez directement dans son calendrier, maintenant ou quand vous serez prêt.</p>
+        <div id="tutor-links-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
+        <a id="tutor-links-more" href="tuteurs-fr.html" class="inline-block mt-4 text-sm text-ink underline underline-offset-2 hover:text-black transition-colors">Voir toutes les personnes tutrices et leurs disponibilités</a>
+      </div>
+
       <p class="text-neutral-500 text-sm mt-8 leading-relaxed">Des questions ou un problème de réservation&nbsp;? <a href="contact-fr.html" class="underline underline-offset-2 hover:text-ink transition-colors">Contactez-nous</a> et nous nous en occuperons.</p>
     </div>
   </div>
@@ -144,6 +152,7 @@
   </div>
 </footer>
 
+<script src="tutors-data.js"></script>
 <script>
   /* Language switcher */
   function toggleLangMenu() {
@@ -206,6 +215,32 @@
     document.getElementById('next-step').textContent = 'Dernière étape : contactez-nous pour planifier vos sessions.';
     document.getElementById('book-btn').textContent = 'Contactez-nous pour planifier';
   }
+
+  /* The tutors who can take this purchase, linked straight to their own
+     calendars. Same roster the board uses, from tutors-data.js, so the two
+     can never disagree. Silent if the roster did not load, since the button
+     above already reaches the board. */
+  (function () {
+    var box = document.getElementById('tutor-links');
+    var list = document.getElementById('tutor-links-list');
+    if (!box || !list || !window.MNTR_TUTORS) return;
+    if (!service || service === 'intro') return;
+
+    var people = window.MNTR_TUTORS.forService(service).filter(function (t) { return t.cal; });
+    if (!people.length) return;
+
+    people.forEach(function (t) {
+      var a = document.createElement('a');
+      a.href = t.cal;
+      a.className = 'flex items-center justify-between gap-3 rounded-xl border border-ink/10 bg-white/70 px-4 py-3 text-sm text-ink hover:border-ink/30 hover:bg-white transition-colors';
+      a.innerHTML = '<span class="font-medium">' + t.name + '</span>' +
+        '<span class="text-neutral-400 text-xs">' + (t.fr.avail || '') + '</span>';
+      list.appendChild(a);
+    });
+
+    document.getElementById('tutor-links-more').href = 'tuteurs-fr.html?service=' + encodeURIComponent(service);
+    box.classList.remove('hidden');
+  })();
 </script>
 </body>
 </html>

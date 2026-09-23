@@ -222,102 +222,20 @@
   function pickService(key) { window.location.href = 'checkout.html?service=' + key; }
 </script>
 
+<script src="tutors-data.js"></script>
 <script>
-  /* ==================================================================
-     TUTOR ROSTER
+  /* The roster lives in tutors-data.js, loaded above, so the board and
+     the thank-you pages always show the same people. */
 
-     `cal` is each tutor's OWN Cal.com booking link. It is empty until
-     that tutor has their own Cal.com account with their Google Calendar
-     connected for conflict checking; a shared account cannot show one
-     person's real availability, which is the whole point of this page.
-
-     A tutor with an empty `cal` still renders, with the button disabled,
-     so adding a link later is a one-line change and never leaves a
-     half-built page live.
-     ================================================================== */
-  var TUTORS = [
-    { key: 'james', name: 'James', photo: 'james.jpeg',
-      school: 'Med-P at McGill',
-      teaches: 'Tutoring, Casper and interview prep, high school and CEGEP',
-      langs: 'English',
-      cal: 'https://cal.com/mntr-iif8ix/tutoring-with-james', does: ['tutoring','casper','interview'],
-      avail: 'Mon, Wed & Sat mornings, Tue & Wed evenings' },
-    { key: 'daphne', name: 'Daphne', photo: 'daphne.jpg',
-      school: 'Med-P at McGill',
-      teaches: 'Everything in high school and CEGEP, plus Casper and interview prep',
-      langs: 'English and French',
-      cal: 'https://cal.com/mntr-iif8ix/tutoring-with-daphne', does: ['casper','interview'],
-      avail: 'Mon, Wed & Thu mornings' },
-    { key: 'bassma', name: 'Bassma', photo: 'bassma.jpg',
-      school: 'Université de Sherbrooke · School of Medicine',
-      teaches: 'Casper and interview prep only',
-      langs: 'English and French',
-      cal: 'https://cal.com/mntr-iif8ix/casper-prep-package-bassma', does: ['casper','interview'],
-      avail: 'Saturday & Sunday mornings' },
-    { key: 'mani', name: 'Mani', photo: 'Mani%20pic.jpg',
-      school: 'Dawson College · Enriched Pure and Applied Sciences',
-      teaches: 'High school and CEGEP sciences',
-      langs: 'English',
-      cal: 'https://cal.com/mntr-iif8ix/tutoring-with-mani', does: [],
-      avail: 'Weeknights and weekends' },
-    { key: 'noa', name: 'Noa', photo: 'noa.jpg',
-      school: 'McGill University · Honours Mathematics and Physics',
-      teaches: 'Mathematics and physics',
-      langs: 'English and French',
-      cal: '', does: ['tutoring','casper'],
-      avail: '' },
-    { key: 'ziyi', name: 'Ziyi', photo: 'ziyi.jpg',
-      school: 'Med-P at McGill',
-      teaches: 'French tutoring, plus Casper and interview prep',
-      langs: 'English and French',
-      cal: 'https://cal.com/mntr-iif8ix/tutoring-with-ziyi', does: ['tutoring','casper','interview'],
-      avail: 'Weeknights and weekends' },
-    { key: 'lea', name: 'Lea', photo: '',
-      school: 'Med-P at McGill',
-      teaches: 'Casper prep, plus academic tutoring',
-      langs: 'English and French',
-      cal: 'https://cal.com/mntr-iif8ix/lea-bookings', does: ['tutoring','casper','interview'],
-      avail: 'Wednesdays, Fridays and weekends' },
-    { key: 'daniel', name: 'Daniel', photo: '',
-      school: '',
-      teaches: 'Casper prep',
-      langs: '',
-      cal: 'https://cal.com/mntr-iif8ix/booking-with-daniel', does: ['tutoring','casper'],
-      avail: '' },
-  ];
-
+  /* Where the "no preference" button goes: the shared tutoring calendar. */
   var FALLBACK_CAL = 'https://cal.com/mntr-iif8ix/1-on-1-tutoring';
-
-  /* Which kind of package each service key belongs to, so the page can show
-     only the tutors who can actually take that booking. A key we do not know
-     shows everyone, which is the safe direction to be wrong in. */
-  var SERVICE_KIND = {
-    'tutorat-5': 'tutoring', 'tutorat-1': 'tutoring', pack5: 'tutoring', pack10: 'tutoring',
-    'methode-casper': 'casper', 'casper-pack5': 'casper', 'casper-pack10': 'casper',
-    'casper-hourly': 'casper',
-    'methode-mem': 'interview', 'methode-integrale': 'interview'
-  };
 
   (function () {
     var grid = document.getElementById('tutor-grid');
     if (!grid) return;
 
     var service = new URLSearchParams(window.location.search).get('service') || '';
-    var kind = SERVICE_KIND[service] || '';
-
-    /* Everyone is listed, whether or not they are bookable yet, so the board
-       shows the real team. Filtering is only by what was bought; the ones
-       without a link render with the button disabled and sort to the bottom,
-       so what can be booked today is always what you see first. */
-    /* Every package shows only the people who run those sessions, tutoring
-       included: someone tagged for Casper alone is not offered to a buyer
-       who paid for tutoring. */
-    var list = TUTORS.slice();
-    if (kind) {
-      var matching = list.filter(function (t) { return t.does.indexOf(kind) !== -1; });
-      if (matching.length) list = matching;
-    }
-    list.sort(function (a, b) { return (b.cal ? 1 : 0) - (a.cal ? 1 : 0); });
+    var list = window.MNTR_TUTORS.forService(service);
 
     list.forEach(function (t) {
       var card = document.createElement('div');
@@ -329,22 +247,22 @@
         : '<div class="w-full aspect-[4/5] bg-ink/5 flex items-center justify-center">' +
           '<img src="logo-mark.png" alt="" aria-hidden="true" class="w-16 opacity-25" /></div>';
 
-      var avail = t.avail
+      var avail = t.en.avail
         ? '<p class="inline-flex items-center gap-1.5 text-[12px] text-neutral-600 bg-ink/5 rounded-full px-3 py-1 mb-4">' +
           '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>' +
-          'Usually free: ' + t.avail + '</p>'
+          'Usually free: ' + t.en.avail + '</p>'
         : '';
 
-      var teaches = t.teaches
+      var teaches = t.en.teaches
         ? '<p class="text-neutral-600 text-sm leading-relaxed mb-5">' +
           '<span class="text-neutral-400 uppercase tracking-wide text-[11px]">Teaches </span>' +
-          t.teaches + '</p>'
+          t.en.teaches + '</p>'
         : '';
 
-      var langs = t.langs
+      var langs = t.en.langs
         ? '<p class="text-neutral-600 text-sm leading-relaxed mb-5">' +
           '<span class="text-neutral-400 uppercase tracking-wide text-[11px]">Languages </span>' +
-          t.langs + '</p>'
+          t.en.langs + '</p>'
         : '<div class="mb-5"></div>';
 
       var btn = t.cal
@@ -355,7 +273,7 @@
         img +
         '<div class="p-6 flex flex-col flex-1">' +
           '<h2 class="font-serif text-2xl text-ink mb-1">' + t.name + '</h2>' +
-          '<p class="text-xs font-bold eyebrow-grad mb-3">' + t.school + '</p>' +
+          '<p class="text-xs font-bold eyebrow-grad mb-3">' + t.en.school + '</p>' +
           avail +
           teaches +
           langs +
