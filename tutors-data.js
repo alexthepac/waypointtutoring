@@ -59,7 +59,7 @@ window.MNTR_TUTORS = {
     does: ['tutoring', 'casper', 'interview'],
     en: { school: 'Med-P at McGill', teaches: 'Casper prep, plus academic tutoring', langs: 'English and French', avail: 'Wednesdays, Fridays and weekends' },
     fr: { school: 'Med-P à McGill', teaches: 'Préparation Casper, ainsi que le tutorat académique', langs: 'Français et anglais', avail: 'Mercredis, vendredis et fins de semaine' } },
-  { key: 'daniel', name: 'Daniel', photo: '',
+  { key: 'daniel', name: 'Daniel', photo: 'daniel.jpg',
     cal: 'https://cal.com/mntr-iif8ix/booking-with-daniel',
     does: ['tutoring', 'casper'],
     en: { school: 'McGill School of Medicine', teaches: 'Casper prep, plus CEGEP tutoring', langs: '', avail: '' },
