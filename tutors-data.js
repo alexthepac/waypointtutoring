@@ -11,6 +11,12 @@
    does   which packages they can be booked for. A buyer only ever sees
           the people who can take their booking.
    en/fr  the wording shown on each language's pages.
+
+   AFTER EDITING THIS FILE, bump the ?v= number on the four
+   <script src="tutors-data.js?v=..."> tags (tutors.html, tuteurs-fr.html,
+   thank-you.html, thank-you-fr.html). Browsers cache this file, so without
+   a new number a visitor who has been on the site before keeps seeing the
+   old roster.
    =================================================================== */
 window.MNTR_TUTORS = {
 
