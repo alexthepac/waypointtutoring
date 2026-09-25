@@ -62,8 +62,8 @@ window.MNTR_TUTORS = {
   { key: 'daniel', name: 'Daniel', photo: 'daniel.jpg',
     cal: 'https://cal.com/mntr-iif8ix/booking-with-daniel',
     does: ['tutoring', 'casper'],
-    en: { school: 'McGill School of Medicine', teaches: 'Casper prep, plus CEGEP tutoring', langs: '', avail: '' },
-    fr: { school: 'École de médecine de McGill', teaches: 'Préparation Casper, ainsi que le tutorat au cégep', langs: '', avail: '' } }
+    en: { school: 'McGill School of Medicine', teaches: 'Casper prep, plus CEGEP tutoring', langs: 'English and French', avail: '' },
+    fr: { school: 'École de médecine de McGill', teaches: 'Préparation Casper, ainsi que le tutorat au cégep', langs: 'Français et anglais', avail: '' } }
   ],
 
   /* The tutors to offer for a given checkout service key, bookable ones
