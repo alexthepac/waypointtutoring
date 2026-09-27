@@ -222,20 +222,21 @@
   function pickService(key) { window.location.href = 'checkout-fr.html?service=' + key; }
 </script>
 
-<script src="tutors-data.js?v=20260927"></script>
+<script src="tutors-data.js?v=20260928"></script>
 <script>
   /* The roster lives in tutors-data.js, loaded above, so the board and
      the thank-you pages always show the same people. */
 
-  /* Where the "no preference" button goes: the shared tutoring calendar. */
-  var FALLBACK_CAL = 'https://cal.com/mntr-iif8ix/1-on-1-tutoring';
+  /* "No preference" goes to the shared Acuity scheduler, except for
+     a package still paid on Stripe, which keeps the Cal.com calendar. */
 
   (function () {
     var grid = document.getElementById('tutor-grid');
     if (!grid) return;
 
     var service = new URLSearchParams(window.location.search).get('service') || '';
-    var list = window.MNTR_TUTORS.forService(service);
+    var M = window.MNTR_TUTORS;
+    var list = M.forService(service);
 
     list.forEach(function (t) {
       var card = document.createElement('div');
@@ -265,9 +266,14 @@
           t.fr.langs + '</p>'
         : '<div class="mb-5"></div>';
 
-      var btn = t.cal
-        ? '<a href="' + t.cal + '" class="mt-auto block text-center bg-ink text-white font-semibold text-sm py-3 rounded-full hover:bg-black transition-colors">Réserver avec ' + t.name + '</a>'
-        : '<span class="mt-auto block text-center border border-ink/15 text-neutral-400 text-sm py-3 rounded-full cursor-not-allowed">Lien de réservation à venir</span>';
+      /* Their own calendar when they have one; otherwise the shared
+         scheduler, where the buyer picks the tutor. The label never
+         promises a person the link cannot deliver. */
+      var href = M.link(t, service);
+      var btn = !href
+        ? '<span class="mt-auto block text-center border border-ink/15 text-neutral-400 text-sm py-3 rounded-full cursor-not-allowed">Lien de réservation à venir</span>'
+        : '<a href="' + href + '" class="mt-auto block text-center bg-ink text-white font-semibold text-sm py-3 rounded-full hover:bg-black transition-colors">' +
+          (M.isPersonal(t, service) ? 'Réserver avec ' + t.name : 'Réserver une séance') + '</a>';
 
       card.innerHTML =
         img +
@@ -284,7 +290,8 @@
     });
 
     var any = document.getElementById('any-tutor');
-    if (any) any.href = FALLBACK_CAL;
+    if (any) any.href = M.STRIPE_PAID.indexOf(service) !== -1
+      ? 'https://cal.com/mntr-iif8ix/1-on-1-tutoring' : M.SCHEDULER;
   })();
 </script>
 </body>
