@@ -130,7 +130,7 @@
           <p id="svc-unit" class="text-neutral-500 text-sm text-right mb-2"></p>
 
           <!-- Promo code -->
-          <div class="mb-6 pt-2 border-t border-ink/10">
+          <div id="promo-block" class="mb-6 pt-2 border-t border-ink/10">
             <label for="promo-input" class="block text-xs font-medium text-neutral-500 mt-4 mb-2">Promo code</label>
             <div class="flex gap-2">
               <input id="promo-input" type="text" placeholder="Enter code" maxlength="40" autocomplete="off"
@@ -280,7 +280,7 @@
       desc: 'One hour of one-on-one tutoring with a medical or university student, prepared in advance around your exact courses.',
       includes: ['One 60-minute session, online','Built around your program and your goals','Every subject, from high school to CEGEP','Study-method coaching built in'],
       note: 'We will email you to confirm everything, and you will be able to choose your tutor at the booking step.',
-      cal: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring'
+      acuity: 'https://app.acuityscheduling.com/catalog.php?owner=40491971&action=addCart&clear=1&id=2286690'
     },
     'tutorat-5': {
       name: 'Academic tutoring, 5-session package',
@@ -288,12 +288,12 @@
       desc: 'Five one-on-one tutoring sessions at the reduced rate, with the same tutor from start to finish.',
       includes: ['Five 60-minute sessions, online','$50 an hour instead of $55','A consistent match with your tutor','Preparation built around your program'],
       note: 'After your payment we will email you to confirm your preferences and set your session schedule.',
-      stripe: 'https://buy.stripe.com/7sYdRb3Cy54c6lg6FbdUY0o'
+      acuity: 'https://app.acuityscheduling.com/catalog.php?owner=40491971&action=addCart&clear=1&id=2286689'
     },
 
     'methode-casper': {
       name: 'Casper Preparation',
-      price: '$500', unit: '7 one-on-one sessions of 60 to 90 minutes',
+      price: '$650', unit: '7 one-on-one sessions of 60 to 90 minutes',
       desc: 'The complete Casper preparation path, in seven one-on-one sessions with a mentor admitted to medical school: a measured skills assessment, work on your stories and your CV, every question type, two full practice tests with detailed review, in about six weeks.',
       includes: [
         'Seven one-on-one sessions of 60 to 90 minutes, online',
@@ -306,7 +306,7 @@
         'A subscription to our practice AI, included'
       ],
       note: 'The moment you pay, you receive the complete method and every document that comes with it: each session broken down, and the work to do before each one, adjusted to your experience. Take your sessions whenever you want, and count on about an hour of practice a day in between. After your payment we will email you to match you with a mentor and set your schedule.',
-      stripe: 'https://buy.stripe.com/00w9AV0qm54c5hc1kRdUY0m'
+      acuity: 'https://app.acuityscheduling.com/catalog.php?owner=40491971&action=addCart&clear=1&id=2286682'
     },
     'methode-mem': {
       name: 'Interview Preparation',
@@ -327,14 +327,14 @@
     },
     'methode-integrale': {
       name: 'Combined Preparation · Casper + interviews',
-      price: '$900', unit: '14 one-on-one sessions of 60 to 90 minutes · instead of $1,000',
+      price: '$900', unit: '14 one-on-one sessions of 60 to 90 minutes · instead of $1,150',
       desc: 'Casper and interviews are not two preparations: it is the same skill assessed twice. The combined path covers both in full, and one extra practice Casper test is offered on top.',
       includes: [
         'Fourteen one-on-one sessions of 60 to 90 minutes, online',
         'Everything in Casper Preparation',
         'Everything in Interview Preparation',
         'One extra Casper test, free, corrected in writing',
-        'Save $100 against the two packages bought separately',
+        'Save $250 against the two packages bought separately',
         'The complete method and its documents, sent the moment you buy',
         'A subscription to our practice AI, included'
       ],
@@ -395,11 +395,21 @@
     });
 
     var btn = document.getElementById('pay-btn');
-    var isStripe = !!(svc.stripe && svc.stripe.indexOf('http') === 0);
-    var isCal = !isStripe && !!(svc.cal && svc.cal.indexOf('http') === 0);
+    var isAcuity = !!(svc.acuity && svc.acuity.indexOf('http') === 0);
+    var isStripe = !isAcuity && !!(svc.stripe && svc.stripe.indexOf('http') === 0);
+    var isCal = !isAcuity && !isStripe && !!(svc.cal && svc.cal.indexOf('http') === 0);
+
+    /* Acuity takes payment and coupons on its own checkout, so the promo box
+       here would only collect a code that never reaches it. Hide it. */
+    if (isAcuity) {
+      var pb = document.getElementById('promo-block');
+      if (pb) pb.classList.add('hidden');
+    }
 
     function updatePayButton() {
-      if (isStripe) {
+      if (isAcuity) {
+        btn.href = svc.acuity;
+      } else if (isStripe) {
         var url = svc.stripe;
         if (appliedPromo) {
           url += (url.indexOf('?') === -1 ? '?' : '&') + 'prefilled_promo_code=' + encodeURIComponent(appliedPromo);

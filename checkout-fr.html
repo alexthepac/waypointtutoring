@@ -130,7 +130,7 @@
         <p id="svc-unit" class="text-neutral-500 text-sm text-right mb-2"></p>
 
         <!-- Code promo -->
-        <div class="mb-6 pt-2 border-t border-ink/10">
+        <div id="promo-block" class="mb-6 pt-2 border-t border-ink/10">
           <label for="promo-input" class="block text-xs font-medium text-neutral-500 mt-4 mb-2">Code promo</label>
           <div class="flex gap-2">
             <input id="promo-input" type="text" placeholder="Entrez le code" maxlength="40" autocomplete="off"
@@ -281,7 +281,7 @@
       desc: 'Une heure de tutorat individuel avec un étudiant en médecine ou universitaire, préparée à l’avance autour de vos cours précis.',
       includes: ['Une séance en ligne de 60 minutes','Préparée autour de votre programme et de vos objectifs','Toutes les matières, du secondaire au cégep','Coaching sur les méthodes d’étude intégré'],
       note: 'Nous communiquerons avec vous par courriel pour tout confirmer, et vous pourrez choisir votre personne tutrice à l’étape de réservation.',
-      cal: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring'
+      acuity: 'https://app.acuityscheduling.com/catalog.php?owner=40491971&action=addCart&clear=1&id=2286690'
     },
     'tutorat-5': {
       name: 'Tutorat scolaire · forfait 5 séances',
@@ -289,12 +289,12 @@
       desc: 'Cinq séances de tutorat individuel au tarif réduit, avec la même personne tutrice du début à la fin.',
       includes: ['Cinq séances en ligne de 60 minutes','50 $ de l’heure au lieu de 55 $','Jumelage constant avec votre personne tutrice','Préparation basée sur votre programme'],
       note: 'Après votre paiement, nous communiquerons avec vous par courriel pour connaître vos préférences et fixer l’horaire de vos séances.',
-      stripe: 'https://buy.stripe.com/7sYdRb3Cy54c6lg6FbdUY0o'
+      acuity: 'https://app.acuityscheduling.com/catalog.php?owner=40491971&action=addCart&clear=1&id=2286689'
     },
 
     'methode-casper': {
       name: 'Préparation Casper',
-      price: '500 $', unit: '7 séances individuelles de 60 à 90 minutes',
+      price: '650 $', unit: '7 séances individuelles de 60 à 90 minutes',
       desc: 'Le parcours complet de préparation au test Casper, en sept séances individuelles avec un mentor admis en médecine : évaluation de niveau chiffrée, travail de vos histoires et de votre CV, tous les types de questions, deux tests pratiques complets avec correction, en environ un mois et demi.',
       includes: [
         'Sept séances individuelles de 60 à 90 minutes, en ligne',
@@ -307,7 +307,7 @@
         'Abonnement à l’IA de pratique de notre site, inclus'
       ],
       note: 'Dès votre paiement, vous recevez la méthode complète et tous les documents qui l’accompagnent : le détail de chaque séance et le travail à faire avant chacune, le tout ajusté selon votre expérience. Prenez vos séances quand vous le voulez, et comptez environ une heure de pratique par jour entre elles. Après votre paiement, nous communiquerons avec vous par courriel pour vous jumeler à un mentor et fixer l’horaire de vos séances.',
-      stripe: 'https://buy.stripe.com/00w9AV0qm54c5hc1kRdUY0m'
+      acuity: 'https://app.acuityscheduling.com/catalog.php?owner=40491971&action=addCart&clear=1&id=2286682'
     },
     'methode-mem': {
       name: 'Préparation entrevues',
@@ -328,14 +328,14 @@
     },
     'methode-integrale': {
       name: 'Préparation combinée · Casper + entrevues',
-      price: '900 $', unit: '14 séances individuelles de 60 à 90 minutes · au lieu de 1 000 $',
+      price: '900 $', unit: '14 séances individuelles de 60 à 90 minutes · au lieu de 1 150 $',
       desc: 'Casper et entrevues ne sont pas deux préparations : c’est la même compétence évaluée deux fois. Le parcours combiné couvre les deux au complet, et un test pratique Casper supplémentaire vous est offert.',
       includes: [
         'Quatorze séances individuelles de 60 à 90 minutes, en ligne',
         'Tout le contenu de la Préparation Casper',
         'Tout le contenu de la Préparation entrevues',
         'Un test Casper supplémentaire, offert, avec correction écrite',
-        'Économisez 100 $ par rapport aux deux forfaits séparés',
+        'Économisez 250 $ par rapport aux deux forfaits séparés',
         'La méthode complète et ses documents, envoyés dès l’achat',
         'Abonnement à l’IA de pratique de notre site, inclus'
       ],
@@ -397,11 +397,21 @@
     });
 
     var btn = document.getElementById('pay-btn');
-    var isStripe = !!(svc.stripe && svc.stripe.indexOf('http') === 0);
-    var isCal = !isStripe && !!(svc.cal && svc.cal.indexOf('http') === 0);
+    var isAcuity = !!(svc.acuity && svc.acuity.indexOf('http') === 0);
+    var isStripe = !isAcuity && !!(svc.stripe && svc.stripe.indexOf('http') === 0);
+    var isCal = !isAcuity && !isStripe && !!(svc.cal && svc.cal.indexOf('http') === 0);
+
+    /* Acuity takes payment and coupons on its own checkout, so the promo box
+       here would only collect a code that never reaches it. Hide it. */
+    if (isAcuity) {
+      var pb = document.getElementById('promo-block');
+      if (pb) pb.classList.add('hidden');
+    }
 
     function updatePayButton() {
-      if (isStripe) {
+      if (isAcuity) {
+        btn.href = svc.acuity;
+      } else if (isStripe) {
         var url = svc.stripe;
         if (appliedPromo) {
           url += (url.indexOf('?') === -1 ? '?' : '&') + 'prefilled_promo_code=' + encodeURIComponent(appliedPromo);
