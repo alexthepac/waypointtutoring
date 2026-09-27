@@ -131,8 +131,11 @@
       <p class="text-neutral-500 text-sm">Toutes les heures sont affichées dans votre fuseau horaire local.</p>
     </div>
 
-    <div class="rounded-2xl overflow-hidden border border-ink/10 bg-white" style="height:720px">
-      <div id="my-cal-inline" style="width:100%;height:720px;overflow:auto"></div>
+    <div class="rounded-2xl overflow-hidden border border-ink/10 bg-white">
+      <iframe src="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" title="Book your free intro call" width="100%" height="800" frameborder="0" style="display:block;width:100%;min-height:800px;border:0"></iframe>
+    </div>
+    <p class="text-neutral-600 text-sm text-center mt-6 leading-relaxed">Une fois votre appel réservé, un courriel de confirmation avec les détails vous parviendra d’ici environ 5 minutes.</p>
+    <p class="text-neutral-500 text-xs text-center mt-2">Le calendrier ne s’affiche pas ? <a href="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" target="_blank" rel="noopener" class="underline underline-offset-2 hover:text-ink transition-colors">Ouvrez-le dans un nouvel onglet</a></p>
     </div>
   </div>
 </main>
@@ -163,50 +166,7 @@
     }
   });
 
-  /* Cal.com inline embed. The intro call is free, so it books directly:
-     no newsletter signup, no $5 hold, no unlock step in between. */
-  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement('script')).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === 'string') { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ['initNamespace', namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, 'https://app.cal.com/embed/embed.js', 'init');
-  Cal('init', 'free-consultation', { origin: 'https://cal.com' });
-  Cal.ns['free-consultation']('inline', {
-    elementOrSelector: '#my-cal-inline',
-    config: { layout: 'month_view', language: 'fr', duration: 30 },
-    calLink: 'mntr-iif8ix/30min',
-  });
-  Cal.ns['free-consultation']('ui', { hideEventTypeDetails: false, layout: 'month_view' });
-
-  /* A booked intro call is the conversion worth paying for, so both events
-     fire on Cal.com's bookingSuccessful, not on page view. Same guards as the
-     conversion already on book-session-fr.html: one sessionStorage key for the
-     whole callback, so a booking is counted at most once per tab in either
-     ad account, and a try/catch so a tracking failure can never break the
-     booking itself.
-
-     Google Ads and Meta share the booking id: Google takes it as
-     transaction_id, which is what lets Google drop a duplicate if the same
-     booking is ever reported twice, and Meta takes it as eventID, which
-     would let it collapse browser and Conversions API reports into one
-     event if the server side is ever added. */
-  Cal.ns['free-consultation']('on', {
-    action: 'bookingSuccessful',
-    callback: function (e) {
-      try {
-        var d = (e && e.detail && e.detail.data) || {};
-        var uid = (d.booking && (d.booking.uid || d.booking.id)) || d.uid || '';
-        var eventId = uid ? 'cal-' + uid : 'cal-intro-' + Date.now();
-        if (sessionStorage.getItem('conv-' + eventId)) return;
-        sessionStorage.setItem('conv-' + eventId, '1');
-        if (window.gtag) {
-          gtag('event', 'conversion', {
-            'send_to': 'AW-18318813201/wszKCNuflM8cEJHQi59E',
-            'transaction_id': eventId
-          });
-        }
-        if (window.fbq) {
-          fbq('track', 'Lead', { content_name: 'Appel d\'introduction gratuit' }, { eventID: eventId });
-        }
-      } catch (err) { /* tracking must never break booking */ }
-    }
-  });
 </script>
+<script src="https://embed.acuityscheduling.com/js/embed.js" type="text/javascript"></script>
 </body>
 </html>

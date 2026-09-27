@@ -125,19 +125,10 @@
         <span class="font-semibold text-ink">Your complete expected progression follows in the same email:</span>
         every session broken down minute by minute, and the work to do before each one. Read it before we first meet, session&nbsp;1 opens by checking it.
       </p>
-      <p id="next-step" class="text-neutral-600 text-lg leading-relaxed mb-10">One last step: pick the times for your sessions.</p>
-
-      <a id="book-btn" href="index.html#contact" class="inline-block bg-ink text-white font-semibold text-sm px-8 py-3.5 rounded-lg hover:bg-black transition-colors">
-        Schedule your sessions
-      </a>
+      <p id="next-step" class="text-neutral-600 text-lg leading-relaxed mb-2">Your booking details are on their way. You'll receive an email with everything you need within about 5 minutes.</p>
 
 
-      <div id="tutor-links" class="hidden mt-10 text-left">
-        <p class="text-[11px] font-bold tracking-[0.2em] text-neutral-500 mb-2">Book with your tutor</p>
-        <p class="text-neutral-600 text-sm leading-relaxed mb-4">Any of these can take your sessions. Pick one and book straight into their calendar, now or whenever you are ready.</p>
-        <div id="tutor-links-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
-        <a id="tutor-links-more" href="tutors.html" class="inline-block mt-4 text-sm text-ink underline underline-offset-2 hover:text-black transition-colors">See all tutors and their availability</a>
-      </div>
+
 
       <p class="text-neutral-500 text-sm mt-8 leading-relaxed">Questions or trouble booking? <a href="contact.html" class="underline underline-offset-2 hover:text-ink transition-colors">Contact us</a> and we'll sort it out.</p>
     </div>
@@ -152,7 +143,6 @@
   </div>
 </footer>
 
-<script src="tutors-data.js?v=20260928"></script>
 <script>
   /* Language switcher */
   function toggleLangMenu() {
@@ -171,29 +161,6 @@
     }
   });
 
-  /* =====================================================================
-     NEXT STEP per service, picked by the ?service= query param:
-       pack5/pack10 -> hidden FREE package event (they already paid)
-       intro        -> book.html (free intro call, books directly;
-                       that param unlocks the intro-call calendar)
-     Unknown/missing service falls back to the contact section.
-  ===================================================================== */
-  var NEXT_STEPS = {
-    'tutorat-5': { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'One last step: pick the times for your five sessions.', btn: 'Schedule your sessions' },
-    pack5:  { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'One last step: pick the times for your sessions.', btn: 'Schedule your sessions' },
-    pack10: { link: 'https://cal.com/mntr-iif8ix/1-on-1-tutoring-copy', note: 'One last step: pick the times for your sessions.', btn: 'Schedule your sessions' },
-    intro:  { link: 'book.html', note: 'Your spot is reserved, one last step: pick a time for your free intro call.', btn: 'Book your intro call' },
-    /* Casper packages -> the hidden FREE Casper event (they already paid). */
-    'casper-pack5':  { link: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep-copy-copy', note: 'One last step: pick the times for your Casper & MMI sessions.', btn: 'Schedule your sessions' },
-    'casper-pack10': { link: 'https://cal.com/mntr-iif8ix/1-on-1-casper-and-mmi-prep-copy-copy', note: 'One last step: pick the times for your Casper & MMI sessions.', btn: 'Schedule your sessions' },
-
-    /* The three preparation paths: each has its own hidden, FREE Cal.com
-       event, since the package is already paid for. */
-    'methode-casper':    { link: 'https://cal.com/mntr-iif8ix/1-on-1-casper-prep-package', note: 'One last step: pick the times for your Casper sessions.', btn: 'Schedule your sessions' },
-    'methode-mem':       { link: 'https://cal.com/mntr-iif8ix/mmi-prep-package', note: 'One last step: pick the times for your interview sessions.', btn: 'Schedule your sessions' },
-    'methode-integrale': { link: 'https://cal.com/mntr-iif8ix/mmi-and-casper-prep-package', note: 'One last step: pick the times for your sessions.', btn: 'Schedule your sessions' }
-  };
-
   var service = new URLSearchParams(window.location.search).get('service');
   /* The three preparation paths are the only ones that ship a written
      progression, the callout only shows for them. */
@@ -201,49 +168,6 @@
     var pn = document.getElementById('progression-note');
     if (pn) pn.classList.remove('hidden');
   }
-  var step = NEXT_STEPS[service];
-  if (step) {
-    /* Package buyers pick their tutor on the board, which carries the
-       service key through so it only lists people who take that booking.
-       The intro call has no tutor choice, so it keeps its direct link. */
-    var isPackage = service && service !== 'intro';
-    document.getElementById('book-btn').href =
-      isPackage ? 'tutors.html?service=' + encodeURIComponent(service) : step.link;
-    document.getElementById('book-btn').textContent = step.btn;
-    document.getElementById('next-step').textContent = step.note;
-  } else {
-    document.getElementById('next-step').textContent = 'One last step: get in touch so we can schedule your sessions.';
-    document.getElementById('book-btn').textContent = 'Contact us to schedule';
-  }
-
-  /* The tutors who can take this purchase, linked straight to their own
-     calendars. Same roster the board uses, from tutors-data.js, so the two
-     can never disagree. Silent if the roster did not load, since the button
-     above already reaches the board. */
-  (function () {
-    var box = document.getElementById('tutor-links');
-    var list = document.getElementById('tutor-links-list');
-    if (!box || !list || !window.MNTR_TUTORS) return;
-    if (!service || service === 'intro') return;
-
-    var M = window.MNTR_TUTORS;
-    /* Only personal calendars are worth listing: a row of identical links
-       to the shared scheduler would tell the buyer nothing. */
-    var people = M.forService(service).filter(function (t) { return M.isPersonal(t, service); });
-    if (!people.length) return;
-
-    people.forEach(function (t) {
-      var a = document.createElement('a');
-      a.href = M.link(t, service);
-      a.className = 'flex items-center justify-between gap-3 rounded-xl border border-ink/10 bg-white/70 px-4 py-3 text-sm text-ink hover:border-ink/30 hover:bg-white transition-colors';
-      a.innerHTML = '<span class="font-medium">' + t.name + '</span>' +
-        '<span class="text-neutral-400 text-xs">' + (t.en.avail || '') + '</span>';
-      list.appendChild(a);
-    });
-
-    document.getElementById('tutor-links-more').href = 'tutors.html?service=' + encodeURIComponent(service);
-    box.classList.remove('hidden');
-  })();
 </script>
 </body>
 </html>
