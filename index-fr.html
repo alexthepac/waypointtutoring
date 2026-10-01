@@ -6,9 +6,11 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
   gtag('js', new Date());
   gtag('config', 'AW-18318813201');
 </script>
+<script src="consent.js?v=3"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>Tutorat MNTR · Secondaire et cégep</title>
@@ -485,6 +487,11 @@
           <li>Tests pratiques complets ainsi qu'une correction complète</li>
           <li>La chronologie planifiée de votre pratique, envoyée dès l’achat</li>
         </ul>
+        <!-- The whole card is an <a>, so this is a span acting as a link; it opens
+             med-prep.ca in a new tab and stops the click reaching the card. -->
+        <span role="link" tabindex="0" class="relative inline-flex items-center gap-1 mt-4 text-[13px] text-ink/70 underline underline-offset-4 hover:text-ink transition-colors"
+              onclick="event.preventDefault(); event.stopPropagation(); window.open('https://med-prep.ca', '_blank', 'noopener');"
+              onkeydown="if (event.key === 'Enter') { event.preventDefault(); event.stopPropagation(); window.open('https://med-prep.ca', '_blank', 'noopener'); }">Essayez notre IA &rarr;</span>
 
         <div class="relative mt-auto pt-8">
           <div class="h-px w-full bg-ink/10 mb-6"></div>

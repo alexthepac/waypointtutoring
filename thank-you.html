@@ -6,9 +6,11 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
   gtag('js', new Date());
   gtag('config', 'AW-18318813201');
 </script>
+<script src="consent.js?v=3"></script>
 <!-- Event snippet for Purchase conversion page.
      transaction_id comes from Stripe: set each Payment Link's after-payment
      redirect to .../thank-you.html?service=pack5&session_id={CHECKOUT_SESSION_ID}
