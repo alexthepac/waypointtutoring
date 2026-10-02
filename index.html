@@ -238,6 +238,25 @@
   .offer-arrow { transition: transform .3s cubic-bezier(.22,.61,.36,1); }
   .offer-box:hover .offer-arrow { transform: translateX(5px); }
 
+  /* Small companion box that sits right under the Casper card: Atlas, the
+     free AI. It lives in the same grid column and is pulled up with a
+     negative margin so the two read as one stack. */
+  .offer-mini {
+    position: relative; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    border-radius: 1.5rem; overflow: hidden;
+    padding: 1.35rem 1.6rem;
+    background: var(--ink); color: #fff;
+    border: 2px solid var(--ink);
+    box-shadow: 0 18px 44px -26px rgba(22,20,28,.5);
+    transition: transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s ease;
+  }
+  @media (min-width: 768px) { .offer-mini { padding: 1.5rem 1.9rem; } }
+  .offer-mini:hover { transform: translateY(-4px); box-shadow: 0 28px 56px -26px rgba(22,20,28,.6); }
+  .offer-mini::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(60% 140% at 100% 0%, rgba(154,134,230,.35), transparent 70%); }
+  .offer-mini:hover .offer-arrow { transform: translateX(5px); }
+  @media (prefers-reduced-motion: reduce) { .offer-mini:hover { transform: none; } }
+
   .offer-list li { display: flex; gap: .6rem; align-items: flex-start; }
   .offer-list li::before { content: ""; flex: none; width: 5px; height: 5px; border-radius: 999px; background: var(--ink); opacity: .45; margin-top: .5rem; }
 
@@ -485,12 +504,6 @@
           <li>Full practice tests with a complete review</li>
           <li>Your planned practice timeline, sent the moment you buy</li>
         </ul>
-        <!-- The whole card is an <a>, so this is a span acting as a link; it opens
-             med-prep.ca in a new tab and stops the click reaching the card. -->
-        <span role="link" tabindex="0" class="relative inline-flex items-center gap-1 mt-4 text-[13px] text-ink/70 underline underline-offset-4 hover:text-ink transition-colors"
-              onclick="event.preventDefault(); event.stopPropagation(); window.open('https://med-prep.ca', '_blank', 'noopener');"
-              onkeydown="if (event.key === 'Enter') { event.preventDefault(); event.stopPropagation(); window.open('https://med-prep.ca', '_blank', 'noopener'); }">Try our AI &rarr;</span>
-
         <div class="relative mt-auto pt-8">
           <div class="h-px w-full bg-ink/10 mb-6"></div>
           <div class="flex items-end justify-between gap-4">
@@ -501,6 +514,19 @@
             </span>
           </div>
         </div>
+      </a>
+
+      <!-- Atlas · the free AI, stacked right under the Casper card -->
+      <a href="https://med-prep.ca" target="_blank" rel="noopener" class="offer-mini reveal group md:col-start-2 -mt-3 md:-mt-5" style="--rd:.2s">
+        <div class="relative">
+          <p class="text-[10.5px] tracking-[0.25em] text-white/55 mb-1.5">MNTR'S ATLAS</p>
+          <p class="font-serif text-xl md:text-2xl leading-tight">Try our AI for free!</p>
+          <p class="text-white/70 text-[13px] leading-relaxed mt-1">Casper practice with instant feedback, whenever you want.</p>
+        </div>
+        <span class="offer-arrow relative shrink-0 inline-flex items-center gap-2 font-semibold text-sm">
+          Try Atlas
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
       </a>
 
     </div>
