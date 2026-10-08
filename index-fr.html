@@ -82,6 +82,11 @@
 
 
   /* ---------- Staff panel: MadFit-style rounded board ---------- */
+  .staff-panel {
+    background-color: #f2e4ee;
+    background-image: radial-gradient(rgba(255,255,255,.6) 1.3px, transparent 1.4px);
+    background-size: 26px 26px;
+  }
   /* ---------- Infinite university ticker marquee ---------- */
   .marquee { overflow: hidden; }
   .marquee-track { display: flex; width: max-content; animation: marquee 34s linear infinite; }
@@ -561,6 +566,34 @@
 </section>
 
 
+
+<!-- ============================================================
+     NOTRE ÉQUIPE  (thème clair, cartes style « bundle », inspo 1)
+============================================================ -->
+<section id='staff' class='p-2.5 md:p-3'>
+  <!-- MadFit-style rounded board: the whole team row sits on a soft dotted panel -->
+  <div class='staff-panel relative overflow-hidden rounded-[22px] md:rounded-[28px]'>
+
+  <div class='relative py-16 md:py-24 px-6'>
+
+    <div class='max-w-2xl mx-auto text-center'>
+      <div class='reveal flex items-center justify-center gap-2 mb-6'>
+        <svg width='16' height='16' viewBox='0 0 24 24' fill='currentColor' style='color:#9a86e6'><path d='M12 2l2.2 6.6H21l-5.4 4 2.1 6.4L12 15.6 6.3 19l2.1-6.4L3 8.6h6.8L12 2z'/></svg>
+        <span class='text-ink text-sm font-semibold tracking-wide'>Rencontrez notre équipe</span>
+      </div>
+      <h2 class='reveal font-sans text-3xl md:text-4xl font-semibold leading-tight tracking-tight mb-5' style='--rd:.06s'>
+        <span class='text-ink'>Élever le niveau scolaire,</span><span class='text-neutral-500'> en offrant aux élèves le mentorat que nous aurions aimé recevoir.</span>
+      </h2>
+      <p class='reveal text-neutral-500 text-[15px] leading-relaxed mb-9' style='--rd:.12s'>Étudiants en médecine et universitaires, présentés en détail sur leur propre page.</p>
+      <div class='reveal flex flex-wrap items-center justify-center gap-5' style='--rd:.18s'>
+        <a href='equipe-fr.html' class='inline-flex items-center gap-2 bg-ink text-white text-sm font-semibold px-7 py-3.5 rounded-full hover:bg-black transition-colors'>Rencontrer toute l’équipe <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href='#contact' class='inline-flex items-center gap-1.5 text-ink font-semibold text-sm border-b border-ink/30 pb-1 hover:border-ink transition-colors'>Rejoignez notre équipe <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
 
 <!-- ============================================================
      STATS STRIP  (count-up trust numbers)
