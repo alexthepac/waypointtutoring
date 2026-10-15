@@ -57,7 +57,7 @@ T = {
   int_list=['2 hours of personalized tutoring every week, instead of 1','For parents, a call with a founder whenever you want one'],
   comp_list=['3 hours of personalized tutoring every week, instead of 1','For parents, a call with a founder whenever you want one'],
   money=lambda n: 'CA$' + format(n, ','),
-  for_sem='for the semester', plan='8 payments of {p}, every 2 weeks', pay2='Pay every 2 weeks',
+  every2='every 2 weeks', semline='Full semester: {t} (8 payments)', pay2='Pay every 2 weeks',
   bulk='Pay in full: {b}', save5='Save 5%', bulk_note='Arranged at your consultation.',
   buy_confirm='I confirm that I am at least 18 years old and am purchasing for myself or as the parent/legal guardian of the student.',
   buy_note='Purchases open on Acuity Scheduling in a new tab. Under 18? Please ask a parent or legal guardian to complete the purchase.',
@@ -122,7 +122,7 @@ T = {
   int_list=['2 heures de tutorat personnalisé chaque semaine, au lieu de 1','Pour les parents, un appel avec un fondateur quand vous le souhaitez'],
   comp_list=['3 heures de tutorat personnalisé chaque semaine, au lieu de 1','Pour les parents, un appel avec un fondateur quand vous le souhaitez'],
   money=lambda n: format(n, ',').replace(',', '\u00a0') + '\u00a0$',
-  for_sem='pour la session', plan='8 paiements de {p}, aux deux semaines', pay2='Payer aux deux semaines',
+  every2='aux deux semaines', semline='Session complète : {t} (8 paiements)', pay2='Payer aux deux semaines',
   bulk='En un seul versement : {b}', save5='Économisez 5\u00a0%', bulk_note='À convenir lors de votre consultation.',
   buy_confirm="Je confirme avoir au moins 18 ans et effectuer cet achat pour moi-même ou en tant que parent ou titulaire de l\u2019autorité parentale de l\u2019élève.",
   buy_note="Les achats s\u2019ouvrent sur Acuity Scheduling dans un nouvel onglet. Vous avez moins de 18 ans? Demandez à un parent ou au titulaire de l\u2019autorité parentale d\u2019effectuer l\u2019achat.",
@@ -183,8 +183,8 @@ def build(lang):
               <p class="o-pkg-for">{who}</p>
               <ul class="o-pkg-list">{items}</ul>
               <div class="o-price-block">
-                <p class="o-price-total">{M(total)} <small>{t['for_sem']}</small></p>
-                <p class="o-price-plan">{t['plan'].format(p=M(per))}</p>
+                <p class="o-price-total">{M(per)} <small>{t['every2']}</small></p>
+                <p class="o-price-plan">{t['semline'].format(t=M(total))}</p>
                 {buy(key, t['pay2'])}
                 <p class="o-price-bulk">{t['bulk'].format(b=M(full))} <span class="o-save">{t['save5']}</span> <span class="o-price-note">{t['bulk_note']}</span></p>
               </div>
@@ -226,7 +226,7 @@ def build(lang):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../../assets/css/mntr.css?v=22" />
-<link rel="stylesheet" href="../../assets/css/orwell.css?v=21" />
+<link rel="stylesheet" href="../../assets/css/orwell.css?v=22" />
 <script src="../../assets/js/media.js?v=7"></script>
 <script src="../../assets/js/policies.{lang}.js?v=6"></script>
 </head>

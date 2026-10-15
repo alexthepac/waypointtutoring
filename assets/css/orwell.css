@@ -450,3 +450,10 @@ html.no-js .o-word-box .o-word, html.reduced .o-word-box .o-word { opacity: 1; t
 @media (min-width: 900px) {
   #packages .o-col--tutor > .o-pkg { position: sticky; top: calc(var(--header-h) + 24px); }
 }
+
+/* After the booking calendar: a clear, large way on to the next page. */
+.o-next { max-width: 640px; margin: clamp(36px, 5vw, 56px) auto 0; padding: clamp(24px, 3.4vw, 36px) clamp(18px, 3vw, 32px); border: 2px solid var(--ink); text-align: center; display: grid; gap: 18px; justify-items: center; }
+.o-next-lede { margin: 0; font-size: 1.08rem; font-weight: 500; color: var(--ink); text-wrap: balance; }
+.o-next-btn { white-space: normal; text-align: center; line-height: 1.25; padding-block: 14px; }
+/* Packages: the price every two weeks leads; the semester total sits under it. */
+.o-price-plan { margin: 0 0 10px; }
