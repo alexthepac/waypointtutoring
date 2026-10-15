@@ -1,0 +1,8 @@
+# mntrtutoring.ca
+# The post-booking pages (/en/confirmation/, /fr/confirmation/) carry
+# <meta name="robots" content="noindex">; they are not blocked here so that
+# crawlers can read that instruction.
+User-agent: *
+Allow: /
+
+Sitemap: https://mntrtutoring.ca/sitemap.xml

@@ -1,0 +1,452 @@
+/* =============================================================================
+   MNTR — homepage in the Orwell manner (orwell.au)
+   -----------------------------------------------------------------------------
+   Loaded after mntr.css on /en/ and /fr/ only, scoped to body.theme-o.
+
+   What is taken from Orwell:
+     - full-bleed photograph pinned behind the page; the content panel rises
+       over it as you scroll (the page comes up, rather than you going down)
+     - a bracket loader in the centre that opens out into the wordmark
+     - a slim cream header bar: MENU left, logo centred, action right
+     - everything centred: wide uppercase statements, bracketed text links,
+       full-width hairline rules, a three-image row with a larger centre image
+   What stays MNTR:
+     - the word MNTR (solid off-white, as Orwell's wordmark)
+     - the red, used only for the primary action
+   Photo: "Radcliffe Camera Oxford 2018 02" by Julian Herzog, CC BY 4.0
+   (credited in the footer).
+   ========================================================================== */
+
+body.theme-o {
+  /* Orwell's typeface is Die Grotesk (Klim Type Foundry, commercial). Archivo,
+     bold and slightly wide, stands in until it is licensed; add its
+     @font-face and it takes over here with no other change. */
+  --o-font: "Die Grotesk A", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--o-font);
+  --cream: #fdfdfc;
+  --cream-2: #f3f3f1;
+  --paper: var(--cream);
+  --paper-2: var(--cream-2);
+  --ink: #121211;
+  --ink-2: #3c3b38;
+  --ink-3: #5f5d58;
+  --rule: rgba(18, 18, 17, 0.2);
+  --rule-strong: rgba(18, 18, 17, 0.55);
+  background: var(--cream);
+}
+
+/* ---------- Header: slim cream bar, slides in after the intro ---------- */
+.theme-o .o-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 90; height: var(--header-h);
+  background: var(--cream); color: var(--ink); border-bottom: 1px solid var(--rule-strong);
+  transform: translateY(-101%); transition: transform 0.45s var(--ease-out);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+html.o-done .theme-o .o-header, html.no-js .theme-o .o-header, html.reduced .theme-o .o-header { transform: none; }
+.theme-o .o-head { height: 100%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; }
+.o-menu { justify-self: start; font-size: 0.86rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 10px 0; font-stretch: 110%; }
+.o-menu[aria-expanded="true"] .o-menu-txt::after { content: " ×"; }
+@media (hover: hover) and (pointer: fine) { .o-menu:hover { color: var(--red); } }
+.o-logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; font-size: 1.45rem; letter-spacing: -0.01em; font-stretch: 115%; }
+.o-logo img { width: 30px; height: 30px; }
+.o-right { justify-self: end; display: flex; align-items: center; gap: clamp(12px, 2vw, 22px); }
+.o-apply { font-size: 0.86rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; font-stretch: 110%; }
+@media (hover: hover) and (pointer: fine) { .o-apply:hover { color: var(--red); } }
+.theme-o .o-right .lang { border: 0; font-size: 0.78rem; }
+.theme-o .o-right .lang a, .theme-o .o-right .lang span { padding: 4px 6px; }
+.theme-o .o-right .lang [aria-current] { background: none; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 560px) { .o-apply { display: none; } .o-logo { font-size: 1.2rem; } }
+
+/* ---------- Hero: pinned photograph with the wordmark ---------- */
+.o-hero {
+  position: sticky; top: 0; z-index: 0; height: 100svh; min-height: 520px; overflow: hidden;
+  display: grid; place-items: center; color: #fff;
+}
+.o-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
+.o-hero::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(10, 10, 9, 0.28), rgba(10, 10, 9, 0.12) 40%, rgba(10, 10, 9, 0.38)); }
+.o-center { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.o-word-box { width: min(68vw, 1080px); line-height: 0.8; }
+@media (max-width: 700px) { .o-word-box { width: 86vw; } }
+/* The M of the wordmark is drawn, not typed: an inline block on the
+   baseline, one cap-height tall, made of the two halves. */
+.o-m { display: inline-block; position: relative; width: 0.86em; height: 0.7em; margin-right: 0.035em; vertical-align: baseline; }
+.o-m i { position: absolute; top: 0; height: 100%; width: calc(50% + 0.5px); background: currentColor; }
+.o-m .ml { left: 0; }
+.o-m .mr { right: 0; }
+.o-word { display: inline-block; white-space: nowrap; font-family: var(--o-font); font-weight: 700; font-size: var(--fit, 20vw); line-height: 0.8; letter-spacing: -0.035em; text-transform: uppercase; font-stretch: 112%;
+  color: #f2efe9; }
+.o-tag { margin-top: clamp(18px, 3vh, 30px); font-size: clamp(0.82rem, 1.2vw, 1rem); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; font-stretch: 112%; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+  opacity: 0; transform: translateY(8px); transition: opacity 0.4s var(--ease-out) 0.1s, transform 0.4s var(--ease-out) 0.1s; }
+html.o-done .o-tag, html.no-js .o-tag, html.reduced .o-tag { opacity: 1; transform: none; }
+.o-credit { position: absolute; z-index: 1; right: 12px; bottom: 10px; max-width: calc(100% - 24px); text-align: right; font-size: 0.68rem; color: rgba(255, 255, 255, 0.78); text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6); }
+.o-credit a { color: inherit; }
+
+/* ---------- Intro, after orwell.au ----------
+   1. Square brackets around "LOADING...".
+   2. The text fades; the brackets close into the two halves of the M.
+   3. The halves join into the complete M.
+   4. The word takes over (its M is the same two halves) and slides to the
+      centre; then the header and tagline come in.
+   Everything moves with transform and opacity only, driven by the Web
+   Animations API in mntr.js, so it runs on the compositor. The brackets are
+   rendered at their final (M-half) size and scaled down for the loader. */
+.o-intro { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.o-intro-row { position: absolute; left: 50%; top: 50%; width: 0; height: 0; will-change: transform;
+  --bh0: clamp(54px, 5.6vw, 84px); --bw0: calc(var(--bh0) / 2); --g0: calc(var(--bh0) * 1.05); }
+.o-br { position: absolute; top: 0; width: var(--bw0); height: var(--bh0); margin-top: calc(var(--bh0) / -2); will-change: transform; }
+.o-br--l { right: 0; transform-origin: 100% 50%; transform: translateX(calc(-1 * var(--g0))); }
+.o-br--r { left: 0; transform-origin: 0 50%; transform: translateX(var(--g0)); }
+.o-br i { position: absolute; inset: 0; background: #f2efe9; }
+/* Square inner edge: a rectangle cut from the open side. Stroke is 17% of
+   the height and the cut is 66% x 66%, so the shape scales with the box. */
+.o-br .sq { -webkit-mask: linear-gradient(#000 0 0), linear-gradient(#000 0 0); mask: linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+  -webkit-mask-size: 100% 100%, 66% 66%; mask-size: 100% 100%, 66% 66%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-composite: xor; mask-composite: exclude; }
+.o-br--l .sq { -webkit-mask-position: 0 0, 100% 50%; mask-position: 0 0, 100% 50%; }
+.o-br--r .sq { -webkit-mask-position: 0 0, 0 50%; mask-position: 0 0, 0 50%; }
+/* The two halves of the M: each half is a block with two notches cut from
+   its inner side. Together they form the M of the wordmark, the way
+   Orwell's split square forms its O. Same polygons as .o-m above. */
+.o-br .rd { opacity: 0; }
+.o-br--l .rd, .o-m .ml { clip-path: polygon(0 0, 55% 0, 100% 48%, 100% 80%, 40% 36%, 40% 100%, 0 100%); }
+.o-br--r .rd, .o-m .mr { clip-path: polygon(100% 0, 45% 0, 0 48%, 0 80%, 60% 36%, 60% 100%, 100% 100%); }
+.o-load { position: absolute; top: 0; left: 0; transform: translate(-50%, -50%); white-space: nowrap; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #f2efe9; }
+
+html.o-swap .o-intro { display: none; }
+/* The word waits off-centre (hidden), then mntr.js slides it home. */
+.o-word-box .o-word { opacity: 0; transform: translateX(var(--shift, 0px)); }
+html.o-swap .o-word-box .o-word { opacity: 1; }
+html.o-slide .o-word-box .o-word { transform: none; }
+
+html.no-js .o-intro, html.reduced .o-intro { display: none; }
+html.no-js .o-word-box .o-word, html.reduced .o-word-box .o-word { opacity: 1; transform: none; }
+
+/* ---------- The panel that comes up over the photo ---------- */
+.o-panel { position: relative; z-index: 2; background: var(--cream); color: var(--ink); }
+.o-sec { padding: clamp(80px, 11vw, 150px) 0; text-align: center; border-top: 1px solid var(--rule-strong); }
+.o-panel > .o-sec:first-of-type { border-top: 0; }
+.o-sec--tight { padding-block: clamp(56px, 8vw, 104px); }
+.o-statement { max-width: 32ch; margin: 0 auto; font-size: clamp(1.25rem, 2.15vw, 1.95rem); font-weight: 500; line-height: 1.28; letter-spacing: 0.005em; text-transform: uppercase; font-stretch: 112%; text-wrap: balance; }
+.o-h { margin: 0 auto clamp(36px, 5vw, 60px); max-width: 26ch; font-size: clamp(1.1rem, 1.6vw, 1.45rem); font-weight: 500; letter-spacing: 0.02em; text-transform: uppercase; font-stretch: 115%; line-height: 1.25; }
+.o-h--big { font-size: clamp(2rem, 4.6vw, 4rem); font-weight: 800; font-stretch: 92%; letter-spacing: -0.02em; line-height: 0.95; max-width: 18ch; }
+.o-lede { max-width: 52ch; margin: 0 auto; color: var(--ink-2); font-size: 1.06rem; text-wrap: pretty; }
+.o-links { margin-top: clamp(28px, 4vw, 44px); display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 28px; }
+
+/* Bracketed text link: [ our approach ] */
+.o-link { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-size: 0.92rem; font-weight: 500; color: var(--ink); padding: 6px 0; }
+.o-link::before, .o-link::after { content: ""; width: 7px; height: 22px; border: 2.5px solid currentColor; transition: transform 0.25s var(--ease-out); }
+.o-link::before { border-right: 0; }
+.o-link::after { border-left: 0; }
+@media (hover: hover) and (pointer: fine) { .o-link:hover::before { transform: translateX(-4px); } .o-link:hover::after { transform: translateX(4px); } .o-link:hover { color: var(--red); } }
+.o-link:focus-visible::before { transform: translateX(-4px); }
+.o-link:focus-visible::after { transform: translateX(4px); }
+.theme-o .btn { border-radius: 0; }
+
+/* One-line list of what the program includes, above the video heading */
+.o-includes { list-style: none; max-width: 980px; margin: 0 auto clamp(22px, 3vw, 32px); display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 0; font-size: clamp(0.78rem, 1vw, 0.88rem); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); font-stretch: 110%; }
+.o-includes li { white-space: nowrap; }
+@media (max-width: 560px) { .o-includes li { white-space: normal; } }
+.o-includes li.is-line-start::before { content: none; }
+.o-includes li + li::before { content: "\00B7"; margin: 0 0.75em; color: var(--ink-3); }
+
+/* Video */
+.o-video { max-width: 1120px; margin: 0 auto; }
+.theme-o .video-frame { background: #1a1a19; border: 0; }
+.theme-o .video-frame::before { opacity: 0.25; background-image: radial-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1.15px); }
+.theme-o .video-empty .play { border-color: #fff; color: #fff; background: rgba(255, 255, 255, 0.06); }
+.theme-o .video-empty .label { color: rgba(255, 255, 255, 0.8); }
+
+/* Two services side by side: tutoring left, mentorship right.
+   One hairline between them carries a small "or"; the mentorship side leads
+   through weight and a little more width, not through a box or a badge. */
+.o-split { display: grid; grid-template-columns: 1fr; text-align: left; }
+.o-col { display: flex; flex-direction: column; min-width: 0; }
+.o-col-h { margin: 0; font-size: clamp(2.1rem, 3.9vw, 3.6rem); line-height: 0.95; letter-spacing: -0.02em; text-transform: uppercase; text-wrap: balance; }
+.o-col--tutor .o-col-h { font-weight: 500; font-stretch: 100%; color: var(--ink-2); max-width: 11ch; }
+.o-col--mentor .o-col-h { font-weight: 800; font-stretch: 92%; max-width: 13ch; }
+.o-col-p { margin: clamp(18px, 2.4vw, 28px) 0 0; max-width: 38ch; color: var(--ink-2); font-size: 1.06rem; text-wrap: pretty; }
+.o-col .o-includes { justify-content: flex-start; margin: 0 0 clamp(16px, 2vw, 22px); }
+.o-col .o-video { max-width: none; margin: clamp(26px, 3.4vw, 40px) 0 0; }
+.o-col .o-links { justify-content: flex-start; }
+.o-or { position: relative; display: flex; align-items: center; justify-content: center; margin: clamp(44px, 9vw, 64px) 0; }
+.o-or::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--rule-strong); }
+.o-or span { position: relative; padding: 0 14px; background: var(--cream); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); font-stretch: 110%; }
+/* Homepage: tutoring | mentorship. Post-booking page (.o-split--lead):
+   mentorship | tutoring. The mentorship column is always the wider one. */
+@media (min-width: 900px) {
+  .o-split { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.14fr); }
+  .o-split--lead { grid-template-columns: minmax(0, 1.14fr) auto minmax(0, 1fr); }
+  .o-split > .o-col:first-child { padding-right: clamp(28px, 4vw, 64px); }
+  .o-split > .o-col:last-child { padding-left: clamp(28px, 4vw, 64px); }
+  .o-split:not(.o-split--lead) .o-col--tutor { justify-content: space-between; }
+  .o-or { margin: 0; width: 1px; }
+  .o-or::before { left: 0; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 1px solid var(--rule-strong); }
+  .o-or span { padding: 12px 0; }
+}
+
+/* Booking */
+.o-book { max-width: 960px; margin: 0 auto; text-align: left; }
+.o-points { list-style: none; margin: clamp(22px, 3vw, 32px) auto 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px; color: var(--ink-2); font-size: 0.95rem; }
+.o-points li::before { content: "·"; margin-right: 10px; color: var(--red); font-weight: 800; }
+.o-points li:first-child::before { content: none; }
+.theme-o .book-frame { background: #fff; border-color: var(--rule-strong); }
+
+/* What mentorship includes: centred stacked lines */
+.o-stack { list-style: none; max-width: 780px; margin: 0 auto; border-top: 1px solid var(--rule); }
+.o-stack li { padding: clamp(18px, 2.4vw, 26px) 0; border-bottom: 1px solid var(--rule); }
+.o-stack h3 { font-size: clamp(1.4rem, 2.6vw, 2.2rem); font-weight: 800; font-stretch: 100%; letter-spacing: -0.01em; text-transform: uppercase; line-height: 1; transition: color 0.2s ease; }
+.o-stack p { margin: 10px auto 0; max-width: 52ch; color: var(--ink-2); font-size: 1rem; }
+@media (hover: hover) and (pointer: fine) { .o-stack li:hover h3 { color: var(--red); } }
+
+/* Steps */
+.o-steps { list-style: none; display: grid; grid-template-columns: 1fr; gap: 36px; max-width: 1120px; margin: 0 auto; }
+@media (min-width: 860px) { .o-steps { grid-template-columns: repeat(4, 1fr); gap: 28px; } }
+.o-num { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+.o-num::before, .o-num::after { content: ""; width: 6px; height: 20px; border: 2.5px solid currentColor; }
+.o-num::before { border-right: 0; } .o-num::after { border-left: 0; }
+.o-steps h3 { margin: 16px 0 10px; font-size: clamp(1.05rem, 1.5vw, 1.25rem); font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; font-stretch: 112%; }
+.o-steps p { color: var(--ink-2); font-size: 0.98rem; max-width: 30ch; margin: 0 auto; }
+
+/* Programs */
+.o-tracks { display: grid; grid-template-columns: 1fr; gap: 0; max-width: 960px; margin: 0 auto; border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); }
+@media (min-width: 760px) { .o-tracks { grid-template-columns: 1fr 1fr; } .o-tracks > div + div { border-left: 1px solid var(--rule-strong); } }
+@media (max-width: 759px) { .o-tracks > div + div { border-top: 1px solid var(--rule-strong); } }
+.o-tracks > div { padding: clamp(28px, 4vw, 48px) clamp(18px, 3vw, 36px); }
+.o-tname { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-stretch: 115%; }
+.o-thr { display: block; margin: 14px 0 6px; font-size: clamp(3.4rem, 7vw, 6rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.03em; font-stretch: 90%; font-variant-numeric: tabular-nums; }
+.o-thr-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.o-who { margin: 18px auto 0; max-width: 34ch; color: var(--ink-2); font-size: 0.98rem; }
+.o-remedy { max-width: 62ch; margin: clamp(32px, 4vw, 44px) auto 0; color: var(--ink-2); font-size: 1rem; text-wrap: pretty; }
+
+/* Team: three images, the centre one larger, label on hover */
+.o-trio { display: grid; grid-template-columns: 1fr; gap: 18px; max-width: 1180px; margin: 0 auto; align-items: center; }
+@media (min-width: 760px) { .o-trio { grid-template-columns: 1fr 1.25fr 1fr; gap: clamp(18px, 2.4vw, 32px); } }
+.o-trio a { display: block; text-decoration: none; color: var(--ink); }
+.o-trio .o-img { position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: var(--cream-2); }
+.o-trio .o-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; transition: transform 0.7s var(--ease-out); }
+.o-trio .o-img span { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-size: 1rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; font-stretch: 115%; background: rgba(0, 0, 0, 0.28); opacity: 0; transition: opacity 0.3s ease; }
+@media (hover: hover) and (pointer: fine) { .o-trio a:hover .o-img img { transform: scale(1.04); } .o-trio a:hover .o-img span { opacity: 1; } }
+.o-trio a:focus-visible .o-img span { opacity: 1; }
+.o-trio .o-cap { margin-top: 12px; font-size: 0.9rem; color: var(--ink-2); }
+.o-trio .o-cap b { color: var(--ink); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; }
+@media (max-width: 759px) { .o-trio a:not(:nth-child(2)) { display: none; } }
+
+/* FAQ */
+.theme-o .faq { max-width: 860px; margin: 0 auto; text-align: left; border-top-color: var(--rule-strong); }
+
+/* Closing statement */
+.o-close .o-h--big { margin-bottom: 18px; }
+.o-close .btn { margin-top: clamp(26px, 3.6vw, 40px); }
+
+/* ---------- Footer on the Orwell page ---------- */
+.theme-o .footer { background: var(--ink); }
+.theme-o .footer .big { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-o .o-header, .o-tag { transition: none; }
+}
+
+/* Marker at the top of the panel; when it passes the top of the screen the
+   photo is fully covered and the collage loop pauses. */
+.o-cover-sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 1px; pointer-events: none; }
+.theme-o .fcredit { font-size: 0.72rem; }
+.theme-o .fcredit a { text-decoration: underline; text-underline-offset: 2px; }
+
+/* =============================================================================
+   Post-booking page (/en/confirmation, /fr/confirmation): light panels over
+   one photograph
+   -----------------------------------------------------------------------------
+   The Oxford photo from the homepage hero sits once, fixed, behind the whole
+   page. Every section is a cream panel with rounded corners; the narrow gaps
+   between panels show that same photo, so the page reads as panels laid on
+   one picture rather than sections cut apart by bars.
+   ========================================================================== */
+.o-paged { --pgap: clamp(10px, 1.1vw, 16px); --prad: clamp(14px, 1.5vw, 22px); background: #4a4741; }
+.o-paged .o-header { transform: none; }
+.o-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.o-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+.o-panels { position: relative; z-index: 1; display: grid; gap: var(--pgap); padding: calc(var(--header-h) + var(--pgap)) var(--pgap) 0; }
+.o-pnl { background: var(--cream); color: var(--ink); border-radius: var(--prad); padding: clamp(56px, 8vw, 120px) 0; text-align: center; }
+.o-pnl .o-h { margin-bottom: clamp(28px, 4vw, 52px); }
+.o-paged .footer { position: relative; z-index: 1; margin: var(--pgap); border-radius: var(--prad); }
+
+/* A: welcome. Heading and video fit the first screen on a laptop. */
+.o-pnl--welcome { padding-top: clamp(44px, 6vw, 88px); }
+.o-pnl--welcome .o-h--big { max-width: 26ch; text-wrap: balance; margin-bottom: clamp(26px, 3.4vw, 44px); }
+.o-pnl--welcome .o-h--big + .o-sub { margin-top: calc(-1 * clamp(10px, 1.6vw, 22px)); margin-bottom: clamp(22px, 3vw, 36px); }
+.o-sub { color: var(--ink-2); font-size: 0.98rem; }
+.o-sub a, .o-note a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.o-video--hero { max-width: min(1120px, max(320px, calc((100svh - var(--header-h) - 330px) * 1.7778))); }
+.o-pnl--welcome .booking-card { max-width: 520px; margin: clamp(22px, 3vw, 32px) auto 0; text-align: left; background: var(--cream-2); }
+.o-note { max-width: 56ch; margin: clamp(18px, 2.4vw, 26px) auto 0; color: var(--ink-3); font-size: 0.92rem; text-wrap: pretty; }
+
+/* B and C: columns. A small label ties each column to the one above it. */
+.o-col-sub { margin: clamp(12px, 1.4vw, 18px) 0 0; font-size: clamp(1.05rem, 1.5vw, 1.3rem); font-weight: 500; color: var(--ink-2); }
+.o-col-kick { margin: 0 0 clamp(18px, 2.4vw, 28px); padding-bottom: 12px; border-bottom: 1px solid var(--rule-strong); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-stretch: 110%; color: var(--ink); }
+.o-col--tutor .o-col-kick { color: var(--ink-3); }
+.o-col-p--lead { margin-top: 0; color: var(--ink); font-size: 1.08rem; }
+
+/* Packages */
+.o-pkgs { display: grid; gap: 0; margin-top: clamp(22px, 3vw, 32px); border-top: 1px solid var(--rule); }
+@media (min-width: 1180px) { .o-pkgs { grid-template-columns: 1fr 1fr; } .o-pkgs > .o-pkg + .o-pkg { border-left: 1px solid var(--rule); padding-left: clamp(22px, 2.4vw, 36px); } .o-pkgs > .o-pkg:first-child { padding-right: clamp(22px, 2.4vw, 36px); } }
+@media (max-width: 1179px) { .o-pkgs > .o-pkg + .o-pkg { border-top: 1px solid var(--rule); } }
+.o-pkg { padding: clamp(22px, 2.6vw, 32px) 0; min-width: 0; }
+.o-pkg-name { margin: 0; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-stretch: 115%; }
+.o-pkg-g { margin: 12px 0 0; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.o-pkg-num { font-size: clamp(2.6rem, 4.4vw, 3.8rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.03em; font-stretch: 90%; font-variant-numeric: tabular-nums; }
+.o-pkg-glab { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); max-width: 14ch; line-height: 1.3; }
+.o-pkg-for { margin: 14px 0 0; color: var(--ink-2); font-size: 0.94rem; text-wrap: pretty; }
+.o-pkg-list { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 9px; font-size: 0.96rem; }
+.o-pkg-list li { display: grid; grid-template-columns: 14px 1fr; gap: 10px; }
+.o-pkg-list li::before { content: ""; width: 7px; height: 1.5px; margin-top: 0.72em; background: var(--ink); }
+.o-pkg-list li.o-pkg-plus { grid-template-columns: 1fr; font-weight: 600; }
+.o-pkg-list li.o-pkg-plus::before { content: none; }
+/* Price slot: hidden until a price is written in. See the comment in the page. */
+.o-price { margin: 18px 0 0; display: flex; align-items: baseline; gap: 8px; font-weight: 700; font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+.o-price[hidden] { display: none; }
+.o-price small { font-size: 0.85rem; font-weight: 500; color: var(--ink-3); }
+.o-invest { margin: clamp(20px, 2.6vw, 28px) 0 0; padding: 18px 0 0; border-top: 1px solid var(--rule-strong); font-size: 1.04rem; color: var(--ink); text-wrap: pretty; }
+.o-col .o-remedy { margin: 0; max-width: none; font-size: 0.9rem; color: var(--ink-3); }
+.o-pkg--plain { padding-top: 0; }
+.o-pkg--plain p { margin: 14px 0 0; color: var(--ink-2); text-wrap: pretty; }
+.o-pkg--plain p.o-pkg-who { color: var(--ink); font-size: 1.08rem; font-weight: 500; }
+
+/* D: contact */
+.o-contact { display: grid; gap: clamp(36px, 5vw, 56px); max-width: 1040px; margin: clamp(32px, 4.4vw, 56px) auto 0; text-align: left; }
+@media (min-width: 860px) { .o-contact { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); } }
+.o-reach { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--rule-strong); align-self: start; }
+.o-reach > div { padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.o-reach dt { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); font-stretch: 110%; }
+.o-reach dd { margin: 4px 0 0; font-size: 1.06rem; font-weight: 500; overflow-wrap: anywhere; }
+.o-reach a { text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .o-reach a:hover { color: var(--red); } }
+.o-form { display: grid; gap: 18px; }
+@media (min-width: 560px) { .o-form .o-f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; } }
+.o-form .o-f2 { display: grid; gap: 18px; }
+.o-field { display: grid; gap: 6px; }
+.o-field label { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); font-stretch: 110%; }
+.o-field label small { font-weight: 500; letter-spacing: 0.04em; text-transform: none; color: var(--ink-3); }
+.o-field input, .o-field textarea { width: 100%; font: inherit; font-size: 1rem; color: var(--ink); background: #fff; border: 1px solid var(--rule-strong); border-radius: 0; padding: 12px 14px; transition: border-color 0.15s; }
+.o-field textarea { resize: vertical; min-height: 140px; }
+.o-field input:focus-visible, .o-field textarea:focus-visible { outline: 2px solid var(--ink); outline-offset: 0; border-color: var(--ink); }
+.o-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.o-form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.o-form-status { margin: 0; font-size: 0.95rem; color: var(--ink-2); }
+.o-form-status[data-tone="ok"] { color: var(--ink); font-weight: 600; }
+.o-form-status[data-tone="err"] { color: var(--red-deep); }
+.o-form-status a { color: inherit; text-decoration: underline; }
+
+@media (max-width: 899px) {
+  .o-pnl .o-split { gap: 0; }
+}
+
+/* ---------- Adults-only confirmation (booking gate, contact form) ---------- */
+.o-gate { max-width: 640px; margin: 0 auto; padding: clamp(22px, 3vw, 32px) 0; border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); text-align: left; }
+.o-gate-who { margin: 0 0 16px; color: var(--ink-2); font-size: 0.98rem; text-wrap: pretty; }
+.o-check { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start; cursor: pointer; font-size: 1rem; font-weight: 500; color: var(--ink); }
+.o-check input { appearance: none; -webkit-appearance: none; width: 22px; height: 22px; margin: 1px 0 0; border: 1.5px solid var(--ink); background: #fff; display: grid; place-content: center; cursor: pointer; }
+.o-check input::after { content: ""; width: 11px; height: 6px; border-left: 2px solid var(--cream); border-bottom: 2px solid var(--cream); transform: translateY(-2px) rotate(-45deg) scale(0); transition: transform 0.14s var(--ease-out); }
+.o-check input:checked { background: var(--ink); }
+.o-check input:checked::after { transform: translateY(-2px) rotate(-45deg) scale(1); }
+.o-check input:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.o-gate-note { margin: 14px 0 0 34px; font-size: 0.9rem; color: var(--ink-3); }
+.o-textbtn { padding: 4px 0; border: 0; background: none; font: inherit; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+@media (hover: hover) and (pointer: fine) { .o-textbtn:hover { color: var(--red); } }
+.o-gate-minor { margin: 14px 0 0 34px; padding: 12px 14px; background: var(--cream-2); color: var(--ink); font-size: 0.95rem; }
+.o-gate-minor:focus { outline: none; }
+.o-gate-privacy { margin: 16px 0 0 34px; font-size: 0.86rem; color: var(--ink-3); }
+.o-gate-privacy a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.o-gate-body { margin-top: clamp(22px, 3vw, 32px); }
+.o-form .o-check { font-size: 0.94rem; font-weight: 500; }
+.o-form-legal { margin: 0; font-size: 0.86rem; color: var(--ink-3); }
+.o-form-legal a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .o-check input::after { transition: none; } }
+
+/* ---------- Legal pages (/en/legal, /fr/juridique) ---------- */
+.o-legal-wrap { max-width: 860px; text-align: left; }
+.o-legal-intro { text-align: left; }
+.o-legal-intro .o-h--big { margin-left: 0; margin-bottom: 18px; }
+.o-legal-intro .o-lede { margin: 0; }
+.o-legal-toc ul { list-style: none; margin: clamp(26px, 3.4vw, 40px) 0 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+.o-legal-toc li { border-bottom: 1px solid var(--rule); }
+.o-legal-toc a { display: block; padding: 12px 0; text-decoration: none; font-weight: 500; }
+@media (hover: hover) and (pointer: fine) { .o-legal-toc a:hover { color: var(--red); } }
+.o-legal-doc { padding-block: clamp(44px, 6vw, 84px); }
+.o-legal-kind { margin: 0 0 6px; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+.o-legal-h { margin: 0 0 clamp(18px, 2.6vw, 28px); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; font-stretch: 92%; line-height: 1; letter-spacing: -0.02em; text-transform: uppercase; }
+.o-legal-body { overflow: visible; padding: 0; text-align: left; }
+.o-legal-top { margin: 24px 0 0; font-size: 0.86rem; }
+.o-legal-top a { color: var(--ink-3); }
+.o-legal-doc:target, .o-legal-doc { scroll-margin-top: calc(var(--header-h) + 12px); }
+#main:focus { outline: none; }
+/* Inline "open privacy choices" button inside policy text (viewer and pages). */
+.doc-inline-btn { padding: 0; border: 0; background: none; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.o-404 { min-height: calc(100svh - var(--header-h)); display: grid; align-items: center; }
+.o-404 hr { border: 0; border-top: 1px solid var(--rule-strong); margin: clamp(28px, 4vw, 44px) 0; }
+.o-404 p a { text-decoration: underline; text-underline-offset: 3px; }
+.o-paged:not(:has(.o-header)) .o-panels { padding-top: var(--pgap); }
+.o-cancel { margin-top: clamp(20px, 3vw, 28px); text-align: left; }
+.o-field select { width: 100%; font: inherit; font-size: 1rem; color: var(--ink); background: #fff; border: 1px solid var(--rule-strong); border-radius: 0; padding: 12px 14px; }
+.o-field select:focus-visible { outline: 2px solid var(--ink); outline-offset: 0; border-color: var(--ink); }
+
+/* Packages section: tutoring on the left, mentorship (the wider column) on
+   the right; mentorship first when stacked on phones. */
+.o-split.o-split--pkgs .o-col--tutor { justify-content: flex-start; }
+@media (max-width: 899px) {
+  .o-split--pkgs .o-col--mentor { order: -1; }
+  .o-split--pkgs .o-col--tutor { order: 1; }
+}
+/* A panel you can just see the photo through. The blur keeps text readable. */
+.o-pnl--glass { background: rgba(253, 253, 252, 0.84); -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .o-pnl--glass { background: rgba(253, 253, 252, 0.94); } }
+
+/* On the see-through panel the "or" label can't have a solid box behind it:
+   the divider line simply breaks around the word instead. */
+.o-pnl--glass .o-or::before { border: 0; width: auto; height: auto; left: 0; right: 0; top: 50%; bottom: auto; height: 1px; background: linear-gradient(to right, var(--rule-strong) calc(50% - 26px), transparent calc(50% - 26px) calc(50% + 26px), var(--rule-strong) calc(50% + 26px)); }
+.o-pnl--glass .o-or span { background: transparent; }
+@media (min-width: 900px) {
+  .o-pnl--glass .o-or::before { left: 0; right: auto; top: 0; bottom: 0; width: 1px; height: auto; background: linear-gradient(to bottom, var(--rule-strong) calc(50% - 24px), transparent calc(50% - 24px) calc(50% + 24px), var(--rule-strong) calc(50% + 24px)); }
+}
+
+/* ---------- Video questions (post-booking page) ----------
+   Each question is a native <details>: keyboard and screen-reader friendly,
+   no script. The first one is open; the others load nothing until played. */
+.o-vfaq { border-top: 1px solid var(--rule-strong); }
+.o-vfaq:last-of-type { border-bottom: 1px solid var(--rule-strong); }
+.o-col-h + .o-vfaq { margin-top: clamp(22px, 3vw, 32px); }
+.o-vfaq summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; font-size: 1.06rem; font-weight: 600; }
+.o-vfaq summary::-webkit-details-marker { display: none; }
+.o-vfaq summary::after { content: ""; flex: none; width: 12px; height: 12px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-3px) rotate(45deg); transition: transform 0.2s var(--ease-out); }
+.o-vfaq[open] summary::after { transform: translateY(3px) rotate(-135deg); }
+@media (hover: hover) and (pointer: fine) { .o-vfaq summary:hover { color: var(--red); } }
+.o-vfaq summary:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.o-vfaq .o-video { margin: 0 0 20px; }
+
+/* ---------- Packages: prices and purchase ---------- */
+.o-buygate { max-width: 760px; margin: 0 auto clamp(30px, 4vw, 46px); text-align: left; }
+.o-buygate .o-gate-note, .o-buygate .o-gate-minor { margin-left: 34px; }
+.o-pkgs--stack { grid-template-columns: 1fr !important; }
+.o-pkgs--stack > .o-pkg + .o-pkg { border-left: 0 !important; padding-left: 0 !important; border-top: 1px solid var(--rule); }
+.o-pkgs--stack > .o-pkg:first-child { padding-right: 0 !important; }
+.o-price-block { margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--rule-strong); display: grid; gap: 6px; justify-items: start; }
+.o-price-total { margin: 0; font-size: clamp(1.7rem, 2.6vw, 2.2rem); font-weight: 800; font-stretch: 92%; letter-spacing: -0.01em; line-height: 1; font-variant-numeric: tabular-nums; }
+.o-price-total small { font-size: 0.86rem; font-weight: 500; letter-spacing: 0; color: var(--ink-3); }
+.o-price-plan { margin: 0 0 8px; color: var(--ink-2); font-size: 0.96rem; font-variant-numeric: tabular-nums; }
+.o-price-bulk { margin: 8px 0 0; font-size: 0.94rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.o-price-note { color: var(--ink-3); }
+.o-save { display: inline-block; padding: 1px 7px; margin-left: 2px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red-deep, #b4190f); border: 1px solid currentColor; vertical-align: 1px; }
+.o-buy { min-height: 44px; padding: 0 18px; font-size: 0.8rem; }
+.o-buy[aria-disabled="true"] { opacity: 0.55; }
+.o-offers { list-style: none; margin: 22px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.o-offers li { display: grid; gap: 4px 16px; padding: 16px 0; border-bottom: 1px solid var(--rule); grid-template-columns: 1fr; justify-items: start; }
+.o-offer-name { font-weight: 700; font-size: 1rem; }
+.o-offer-price { color: var(--ink-2); font-variant-numeric: tabular-nums; margin-bottom: 6px; }
+
+/* Homepage tutoring column: paragraph and intro video travel together. */
+.o-col-body .o-video { margin-top: clamp(22px, 3vw, 32px); }
+/* Desktop: the short tutoring offer stays in view while the three
+   mentorship programs scroll past beside it. */
+@media (min-width: 900px) {
+  #packages .o-col--tutor > .o-pkg { position: sticky; top: calc(var(--header-h) + 24px); }
+}
