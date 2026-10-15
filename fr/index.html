@@ -155,32 +155,21 @@
         <li>Gardez le dernier bulletin ou la cote R à portée de main</li>
         <li>Un courriel de confirmation arrive en quelques minutes</li>
       </ul>
-      <div class="o-book" data-adult-gate style="margin-top:clamp(36px,5vw,56px)">
-        <!-- Adults only: the calendar (and Acuity's script) load only after the
-             visitor confirms they are 18+ or the student's parent/guardian.
-             The same confirmation must also be a required question in the
-             Acuity intake form, which is what Acuity itself enforces. -->
-        <div class="o-gate">
-          <p class="o-gate-who">La réservation se fait par un adulte : un étudiant de 18 ans ou plus, ou un parent ou titulaire de l’autorité parentale qui réserve pour son enfant.</p>
-          <label class="o-check"><input type="checkbox" data-adult-confirm /><span>Je confirme avoir au moins 18 ans et soumettre cette demande pour moi-même ou en tant que parent ou titulaire de l’autorité parentale de l’élève.</span></label>
-          <p class="o-gate-note">Le calendrier s’ouvre une fois la case cochée. <button type="button" class="o-textbtn" data-minor>J’ai moins de 18 ans</button></p>
-          <p class="o-gate-minor" data-minor-msg role="status" hidden>Merci de votre intérêt! Demandez à un parent ou au titulaire de l’autorité parentale de réserver la consultation; vous pourrez tout à fait participer à l’appel.</p>
-          <p class="o-gate-privacy">La réservation est gérée par Acuity Scheduling. Comment nous utilisons vos renseignements : <a href="juridique/#privacy">politique de confidentialité</a>.</p>
-          <noscript><p class="o-gate-privacy">JavaScript est désactivé. En ouvrant le calendrier, vous confirmez avoir au moins 18 ans et réserver pour vous-même ou en tant que parent ou titulaire de l’autorité parentale de l’élève : <a href="https://app.acuityscheduling.com/schedule.php?owner=40491971&amp;appointmentType=98756528" target="_blank" rel="noopener">ouvrir le calendrier de réservation</a></p></noscript>
-        </div>
-        <div class="o-gate-body" data-gate-body hidden>
-          <div class="book-frame">
-            <div class="book-loading" aria-live="polite">
-              <span class="label book-status">Chargement du calendrier</span>
-              <span class="bar" aria-hidden="true"></span>
-            </div>
-            <iframe data-src="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" title="Réserver votre consultation gratuite" width="100%" height="820" loading="lazy"></iframe>
+      <div class="o-book" data-book-embed style="margin-top:clamp(36px,5vw,56px)">
+        <!-- Acuity's calendar and script load shortly before the calendar
+             scrolls into view (assets/js/mntr.js, section 8), not with the page. -->
+        <div class="book-frame">
+          <div class="book-loading" aria-live="polite">
+            <span class="label book-status">Chargement du calendrier</span>
+            <span class="bar" aria-hidden="true"></span>
           </div>
-          <p class="book-fallback">
-            <span>Les heures sont affichées selon votre fuseau horaire.</span>
-            <a data-href="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" target="_blank" rel="noopener">Le calendrier ne s'affiche pas? Ouvrez-le dans un nouvel onglet</a>
-          </p>
+          <iframe data-src="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" title="Réserver votre consultation gratuite" width="100%" height="820" loading="lazy"></iframe>
         </div>
+        <p class="book-fallback">
+          <span>Les heures sont affichées selon votre fuseau horaire.</span>
+          <a href="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" target="_blank" rel="noopener">Le calendrier ne s'affiche pas? Ouvrez-le dans un nouvel onglet</a>
+          <span>La réservation est gérée par Acuity Scheduling. Comment nous utilisons vos renseignements : <a href="juridique/#privacy">politique de confidentialité</a>.</span>
+        </p>
       </div>
       <div class="o-next">
         <p class="o-next-lede">Vous avez réservé votre consultation? La suite se trouve sur la page suivante : une courte vidéo de bienvenue, nos programmes et nos tarifs.</p>
@@ -363,6 +352,6 @@
   </div>
 </div>
 
-<script src="../assets/js/mntr.js?v=18"></script>
+<script src="../assets/js/mntr.js?v=19"></script>
 </body>
 </html>
