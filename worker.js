@@ -12,8 +12,9 @@
      - only requests coming from the real site are accepted (CORS allowlist)
 
    Endpoints:
-     POST /api/contact         { name, email, topic?, message, website?, t? }
-     POST /api/newsletter      { email, page?, website?, t? }
+     POST /api/contact         { name, email, topic?, message, adult: true, lang?, website?, t? }
+     POST /api/cancel          { name, email, student, program, message?, lang?, website?, t? }
+     POST /api/newsletter      disabled (NEWSLETTER_ENABLED = false)
      POST /api/stripe-webhook  Stripe checkout.session.completed events —
                                emails package buyers their booking link so
                                they can always get back to it.
@@ -51,7 +52,7 @@ const PACK_MIN_CENTS = 10000;
 /* Bumped whenever this file changes, and reported by /api/health so you can
    tell at a glance whether the Worker running in production is the current
    code or an older deploy. */
-const WORKER_VERSION = '2026-08-14-health';
+const WORKER_VERSION = '2026-10-14-adult-confirmation-cancel';
 
 /* How long after Stripe signs an event we still accept it (replay protection). */
 const STRIPE_SIG_TOLERANCE_S = 5 * 60;
@@ -72,6 +73,11 @@ const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_MAX = 5;
 const RATE_MAP_CAP = 10000;
 const rateHits = new Map(); // ip -> { count, windowStart }
+
+/* The newsletter endpoint has no form on the current site and no record of
+   marketing consent behind it (CASL). Kept off until a consented signup form
+   exists; set to true only then. */
+const NEWSLETTER_ENABLED = false;
 
 /* A real human takes longer than this to fill a form. Submissions that
    arrive faster (client reports time-on-page in `t`) are treated as bots. */
@@ -161,7 +167,11 @@ export default {
       if (url.pathname === '/api/contact') {
         return await handleContact(body, env, cors);
       }
+      if (url.pathname === '/api/cancel') {
+        return await handleCancel(body, env, cors);
+      }
       if (url.pathname === '/api/newsletter') {
+        if (!NEWSLETTER_ENABLED) return json({ success: false, error: 'Not found' }, 404, cors);
         return await handleNewsletter(body, env, cors);
       }
     } catch (e) {
@@ -181,12 +191,22 @@ async function handleContact(body, env, cors) {
   const topic = clean(body.topic, MAX_LEN.topic);
   const message = clean(body.message, MAX_LEN.message);
 
+  if (name === null || email === null || topic === null || message === null) {
+    return json({ success: false, error: 'One of the fields is too long. Please shorten it and try again.' }, 400, cors);
+  }
   if (!name || !email || !message) {
     return json({ success: false, error: 'Please fill in your name, email and message.' }, 400, cors);
   }
-  if (name === null || email === null || topic === null || message === null || !isEmail(email)) {
+  if (!isEmail(email)) {
     return json({ success: false, error: 'Please check your details and try again.' }, 400, cors);
   }
+  /* Website forms are for adults only (a student aged 18+ or a parent/legal
+     guardian). The form sends adult: true only when the visitor ticked the
+     confirmation; anything else is refused and nothing is forwarded. */
+  if (body.adult !== true) {
+    return json({ success: false, error: 'Please confirm that you are 18 or older, or the student\u2019s parent or legal guardian.' }, 400, cors);
+  }
+  const lang = body.lang === 'fr' ? 'fr' : 'en';
   if (!env.CONTACT_ENDPOINT) {
     return json({ success: false, error: 'Backend not configured' }, 500, cors);
   }
@@ -195,10 +215,13 @@ async function handleContact(body, env, cors) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify({
-      name,
+      name: noTags(name),
       email,
-      topic,
-      message,
+      topic: noTags(topic),
+      message: noTags(message),
+      language: lang,
+      /* Kept with the message as the record of the attestation. */
+      adult_confirmation: 'Confirmed on the website form: 18 or older, writing for themself or as the student\u2019s parent/legal guardian (' + new Date().toISOString() + ')',
       _subject: 'New inquiry from the MNTR Tutoring website',
       _captcha: 'false',
     }),
@@ -207,6 +230,51 @@ async function handleContact(body, env, cors) {
 
   return ok
     ? json({ success: true }, 200, cors)
+    : json({ success: false, error: 'Delivery failed. Please email us directly.' }, 502, cors);
+}
+
+/* Online cancellation notice (CPA s. 187.28, in force Sept. 12, 2026: a
+   contract concluded online must be cancellable online). The client fills
+   the form on /en/legal/#cancel or /fr/juridique/#cancel; the notice is
+   forwarded to the MNTR inbox with the server time of receipt. Under the
+   cancellation policy the contract ends on the date the notice is sent. */
+const PROGRAMS = ['core', 'intensive', 'tutoring', 'other'];
+async function handleCancel(body, env, cors) {
+  const name = clean(body.name, MAX_LEN.name);
+  const email = clean(body.email, MAX_LEN.email);
+  const student = clean(body.student, MAX_LEN.name);
+  const message = clean(body.message, MAX_LEN.message);
+  const program = PROGRAMS.includes(body.program) ? body.program : null;
+  const lang = body.lang === 'fr' ? 'fr' : 'en';
+  if (name === null || email === null || student === null || message === null) {
+    return json({ success: false, error: 'One of the fields is too long. Please shorten it and try again.' }, 400, cors);
+  }
+  if (!name || !email || !student || !program || !isEmail(email)) {
+    return json({ success: false, error: 'Please fill in your name, email, the student and the program.' }, 400, cors);
+  }
+  if (!env.CONTACT_ENDPOINT) {
+    return json({ success: false, error: 'Backend not configured' }, 500, cors);
+  }
+  const received = new Date().toISOString();
+  const res = await fetch(env.CONTACT_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      notice: 'CANCELLATION NOTICE sent through the online cancellation form',
+      received_utc: received,
+      client_name: noTags(name),
+      email,
+      student_name: noTags(student),
+      program,
+      message: noTags(message),
+      language: lang,
+      _subject: 'CANCELLATION NOTICE: ' + noTags(name) + ' (' + program + ')',
+      _captcha: 'false',
+    }),
+  });
+  const ok = res.ok && isFormSubmitSuccess(await safeJson(res));
+  return ok
+    ? json({ success: true, received }, 200, cors)
     : json({ success: false, error: 'Delivery failed. Please email us directly.' }, 502, cors);
 }
 
@@ -490,6 +558,13 @@ function clean(value, maxLen) {
   const s = value.replace(/[\u0000-\u001F\u007F]/g, '').trim();
   if (s.length > maxLen) return null;
   return s;
+}
+
+/* The relay turns these fields into an HTML email. Break anything that could
+   parse as a tag ("<b", "</", "<!") without hiding ordinary text such as
+   "R-score < 30". Defence in depth; the relay may also escape. */
+function noTags(s) {
+  return String(s || '').replace(/<(?=[a-zA-Z\/!?])/g, '< ');
 }
 
 function isEmail(s) {

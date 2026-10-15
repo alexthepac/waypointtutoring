@@ -1,0 +1,140 @@
+/* =============================================================================
+   MNTR — MOCKUP B (black hero, white page, video rises over the hero)
+   -----------------------------------------------------------------------------
+   Loaded after mntr.css on _mockups/b/ only. Everything below is scoped to
+   body.theme-b, so the live pages are untouched.
+
+   Scouted references:
+     MasterClass   black first screen, condensed caps left, live mosaic of
+                   real faces right
+     7 Figure Tutor  the video belongs in the first scroll, right under the
+                   headline, application straight after
+     Maven / Framer / Webflow  dark first screen, one clean handoff to a
+                   light page
+
+   The scroll move: the hero is pinned (position: sticky). The video section
+   is pulled up over it with a negative margin, so the video card first sits
+   on the black hero. As it rises, the card grows to full size and a white
+   ground wipes up behind it, switching the page from black to white. Built
+   with CSS scroll-driven animations; browsers without them get the static
+   end state (white section, full-size card), and reduced motion gets the
+   same.
+   ========================================================================== */
+
+body.theme-b {
+  --paper: #ffffff;
+  --paper-2: #f3f3f1;
+  --paper-3: #e9e9e6;
+  --ink: #0d0d0d;
+  --ink-2: #3d3d3b;
+  --ink-3: #61615d;
+  --night: #0d0d0d;
+  --night-2: #1a1a19;
+  background: var(--paper);
+}
+
+/* ---------- Header on black ---------- */
+.theme-b .site-header { background: color-mix(in srgb, var(--night) 90%, transparent); color: #fff; border-bottom-color: rgba(255, 255, 255, 0.08); }
+.theme-b .site-header.is-scrolled { border-bottom-color: rgba(255, 255, 255, 0.14); }
+.theme-b .site-header .brand small { color: rgba(255, 255, 255, 0.6); }
+.theme-b .site-header .lang { border-color: rgba(255, 255, 255, 0.35); }
+.theme-b .site-header .lang a { color: rgba(255, 255, 255, 0.78); }
+.theme-b .site-header .lang [aria-current] { background: #fff; color: var(--night); }
+.theme-b .site-header .burger span { background: #fff; }
+.theme-b .site-header .header-cta { background: var(--red); border-color: var(--red); }
+.theme-b .site-header .header-cta::before { background: #fff; }
+@media (hover: hover) and (pointer: fine) { .theme-b .site-header .header-cta:hover { color: var(--night); border-color: #fff; background-color: #fff; } }
+
+/* ---------- Hero (pinned, black) ---------- */
+.hero-b {
+  position: relative; z-index: 0;
+  background: var(--night); color: #fff;
+  min-height: calc(100svh - var(--header-h));
+  overflow: hidden;
+}
+@media (min-width: 900px) {
+  .hero-b { position: sticky; top: var(--header-h); height: calc(100svh - var(--header-h)); }
+}
+@media (max-width: 899px) { .hero-b { min-height: 0; } }
+.hero-b .wrap { height: 100%; display: grid; grid-template-columns: 1fr; gap: 32px; padding-block: clamp(32px, 6vh, 64px); }
+.hero-b .hb-text { justify-content: flex-start; }
+@media (min-width: 900px) { .hero-b .hb-text { padding-top: clamp(28px, 7vh, 72px); } }
+@media (min-width: 900px) { .hero-b .wrap { grid-template-columns: 7fr 5fr; gap: var(--col-gap); padding-block: 0; } }
+
+.hb-text { display: flex; flex-direction: column; justify-content: center; }
+.hb-word { display: block; line-height: 0.8; }
+.hb-word .hero-word--mntr { -webkit-text-stroke: 0; }
+.hb-title { margin: 0; text-transform: uppercase; font-weight: 800; letter-spacing: -0.03em; line-height: 0.9; }
+.hb-title .t1 { display: block; font-size: clamp(2.8rem, 6.4vw, 6rem); font-stretch: 78%; margin-top: clamp(10px, 1.6vh, 18px); }
+.hb-title .t2 { display: block; font-size: clamp(1.25rem, 2.2vw, 1.9rem); font-stretch: 92%; font-weight: 600; font-style: italic; letter-spacing: 0; text-transform: none; color: #ff5a4f; margin-top: clamp(10px, 1.6vh, 16px); line-height: 1.15; padding-bottom: 0.08em; }
+.hb-lede { margin: clamp(18px, 3vh, 28px) 0 0; max-width: 44ch; color: rgba(255, 255, 255, 0.78); font-size: clamp(1rem, 1.35vw, 1.15rem); text-wrap: pretty; }
+.hb-actions { margin-top: clamp(22px, 3.6vh, 34px); display: flex; flex-wrap: wrap; gap: 12px; }
+.theme-b .btn--onblack { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.4); }
+.theme-b .btn--onblack::before { background: #fff; }
+@media (hover: hover) and (pointer: fine) { .theme-b .btn--onblack:hover { color: var(--night); border-color: #fff; background-color: #fff; } }
+.theme-b .btn--onblack:focus-visible { color: var(--night); }
+.theme-b .hero-b .btn--red::before { background: #fff; }
+@media (hover: hover) and (pointer: fine) { .theme-b .hero-b .btn--red:hover { color: var(--night); border-color: #fff; background-color: #fff; } }
+.theme-b .hero-b :focus-visible { outline-color: #fff; }
+
+/* Mentor mosaic: two columns drifting in opposite directions. */
+.hb-mosaic { position: relative; display: none; grid-template-columns: 1fr 1fr; gap: 12px; height: 100%; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent); }
+@media (min-width: 900px) { .hb-mosaic { display: grid; } }
+.hb-col { display: flex; flex-direction: column; gap: 12px; animation: drift 46s linear infinite; }
+.hb-col--down { animation-direction: reverse; animation-duration: 54s; }
+.hb-col figure { margin: 0; position: relative; }
+.hb-col img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 22%; display: block; filter: grayscale(0.15); }
+.hb-col figcaption { padding-top: 8px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; color: #fff; }
+.hb-col figcaption span { display: block; font-weight: 400; color: rgba(255, 255, 255, 0.75); letter-spacing: 0; }
+@keyframes drift { from { transform: translateY(0); } to { transform: translateY(calc(-50% - 6px)); } }
+@media (hover: hover) and (pointer: fine) { .hb-mosaic:hover .hb-col { animation-play-state: paused; } }
+
+/* Phones: a single row of three faces under the text. */
+.hb-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.hb-strip img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 22%; }
+@media (min-width: 900px) { .hb-strip { display: none; } }
+
+/* ---------- The stage: video rises over the hero ----------
+   .hero-stage bounds the sticky hero, so it unpins once the stage has
+   covered it instead of staying pinned behind the rest of the page. */
+.hero-stage { position: relative; }
+.stage { position: relative; z-index: 1; padding: clamp(40px, 6vw, 72px) 0 clamp(64px, 9vw, 120px); background: var(--paper); color: var(--ink); }
+
+/* The card: a black header bar carrying the section heading, then the 16:9 frame. */
+.video-card { background: var(--night); color: #fff; outline: 1px solid rgba(255, 255, 255, 0.16); box-shadow: 0 -24px 60px -20px rgba(0, 0, 0, 0.7), 0 30px 80px -40px rgba(0, 0, 0, 0.6); }
+.vc-bar { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; padding: clamp(16px, 2vw, 24px) clamp(18px, 2.4vw, 28px); }
+.vc-title { font-size: clamp(1.6rem, 3.2vw, 2.8rem); font-weight: 800; font-stretch: 80%; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.95; }
+.vc-note { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #ff5a4f; }
+.stage .video-frame { background: var(--night-2); border: 0; }
+.stage .video-frame::before { opacity: 0.25; background-image: radial-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1.15px); }
+.stage .video-empty .play { border-color: #fff; color: #fff; background: rgba(255, 255, 255, 0.06); }
+.stage .video-empty .label { color: rgba(255, 255, 255, 0.78); }
+.stage-lede { margin: clamp(22px, 3vw, 32px) 0 0; max-width: 54ch; font-size: 1.1rem; color: var(--ink-2); }
+
+@supports (animation-timeline: view()) {
+  @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+    /* Pull the section up so the card's header bar peeks into the first
+       screen, under the hero buttons, and rises over the pinned hero. */
+    .stage { margin-top: -14vh; padding-top: 0; background: transparent; view-timeline-name: --stage; }
+    .stage::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; background: var(--paper);
+      clip-path: inset(100% 0 0 0);
+      animation: stageWipe linear both; animation-timeline: --stage; animation-range: entry 40% cover 45%;
+    }
+    @keyframes stageWipe { to { clip-path: inset(0 0 0 0); } }
+    /* The card grows from 86% to full width as it rises. */
+    .video-card { transform-origin: 50% 0; animation: stageGrow linear both; animation-timeline: --stage; animation-range: entry 0% cover 40%; }
+    @keyframes stageGrow { from { transform: scale(0.86); } to { transform: scale(1); } }
+  }
+}
+
+.stage .apply { margin-top: clamp(32px, 4.4vw, 52px); }
+
+/* ---------- Footer / sections on the white theme ---------- */
+.theme-b .footer { background: var(--night); }
+.theme-b .section--paper2 { background: var(--paper-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-col { animation: none; }
+}

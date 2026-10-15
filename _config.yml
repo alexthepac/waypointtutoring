@@ -1,0 +1,50 @@
+# GitHub Pages (Jekyll) build settings for mntrtutoring.ca.
+#
+# Folders starting with "_" (_legacy, _mockups, _tools, _audit) are never
+# published. The list below keeps the rest of the private material in this
+# folder off the public site too: backend source and config, internal notes,
+# and photos of people that no page uses (including former team members).
+# The files stay in the repository; they are just not served.
+#
+# The Cloudflare Worker deploys from worker.js + wrangler.toml at the repo
+# root; excluding them here does not affect that deploy.
+
+exclude:
+  # backend (deployed to Cloudflare, not to the website)
+  - worker.js
+  - wrangler.toml
+  - backend
+  - tutors-data.js
+  # internal documentation
+  - README-REDESIGN.md
+  - DESIGN.md
+  - PRODUCT.md
+  - "*.md"
+  # unused photos of people
+  - "Image of Bassma.jpg"
+  - bassma.jpg
+  - daphne.jpg
+  - ziyi.jpg
+  - "Mani pic.jpg"
+  - alex.jpg
+  - daniel.jpg
+  - james.jpg
+  - james.jpeg
+  - laura.jpg
+  - noa.jpg
+  - sofia.jpg
+  - sofia-2026.jpg
+  - sofia-new.jpg
+  - sofia-talk.jpg
+  - "sofia new pic =.JPG"
+  - Sofianewpic.jpeg
+  - elliott-talk.jpg
+  - elliott-talk-crop.jpg
+  - elliott_card.jpg
+  - elliottnewpic.jpeg
+  - Chris.JPG
+  - Yaro.JPG
+  - "vlad profile.jpg"
+  - "vlad not airpod.png"
+  - "profile image.png"
+  - flavicon.jpg

@@ -1,0 +1,262 @@
+/* =============================================================================
+   MNTR — policy documents (English)
+   -----------------------------------------------------------------------------
+   Source of truth for Terms / Cancellation / Payment: "MNTR — TERMS AND
+   CONDITIONS" (PDF supplied October 2026). Changes since: Terms section 4
+   renumbered 4.1-4.10 (the PDF skipped 4.1); wording unchanged. Two values
+   in the Payment Policy are still missing and shown as highlighted gaps.
+   Privacy: rewritten October 14, 2026 from the site's actual data flows
+   (Law 25 structure); a DRAFT with highlighted items MNTR must complete.
+   Tutors: the non-solicitation notice formerly inside the privacy policy,
+   unchanged.
+
+   Also rendered as static pages /en/legal/ and /fr/juridique/ by
+   _tools/build_legal.mjs (run it after editing this file).
+
+   Opened by the policy viewer in mntr.js. Deep link: #policy=<key>.
+   ========================================================================== */
+window.MNTR_POLICIES = {
+  order: ['terms', 'cancellation', 'payment', 'privacy', 'tutors'],
+  docs: {
+
+    terms: {
+      tab: 'Guarantee',
+      kind: 'Terms and conditions',
+      title: 'R-Score Performance Guarantee',
+      html: [
+        '<p class="doc-meta">MNTR — Terms and Conditions · R-Score Performance Guarantee</p>',
+
+        '<h3>1. The Guarantee</h3>',
+        '<ol class="clauses">',
+        '<li><b>1.1</b><div><strong>Core Program.</strong> The Core Program is an academic support program delivered over one CEGEP semester. If the Student’s Semester R-Score for the Guaranteed Semester is 33.00 or lower, and all eligibility requirements set out in Section 4 are satisfied, MNTR will provide the Student with the Separate Mentorship Program during the immediately following CEGEP semester, free of charge.</div></li>',
+        '<li><b>1.2</b><div><strong>Intensive Program.</strong> The Intensive Program is an academic support program delivered over one CEGEP semester. If the Student’s Semester R-Score for the Guaranteed Semester is 35.00 or lower, and all eligibility requirements set out in Section 4 are satisfied, MNTR will provide the Student with the Separate Mentorship Program during the immediately following CEGEP semester, free of charge.</div></li>',
+        '<li><b>1.3</b><div><strong>Nature of the Guarantee.</strong> The Guarantee provides additional academic support if the applicable R-score threshold is not exceeded. It does not provide a refund of the original program fees or a repetition of the original program, except where otherwise required by applicable law.</div></li>',
+        '</ol>',
+
+        '<h3>2. Definitions</h3>',
+        '<p>For the purposes of this Agreement, the following definitions apply:</p>',
+        '<ol class="clauses">',
+        '<li><b>2.1</b><div>“MNTR” refers to the legal entity operating the MNTR Tutoring business and providing the services described in this Agreement.</div></li>',
+        '<li><b>2.2</b><div>“Student” refers to the individual enrolled in the Core Program or Intensive Program.</div></li>',
+        '<li><b>2.3</b><div>“Client” refers to the person entering into the service agreement with MNTR and responsible for payment. The Client may be the Student or the Student’s parent or legal guardian.</div></li>',
+        '<li><b>2.4</b><div>“Guaranteed Semester” refers to the single CEGEP academic semester for which the Student initially enrolls in the Core Program or Intensive Program and to which the Guarantee applies. The semester must be identified in the enrollment agreement.</div></li>',
+        '<li><b>2.5</b><div>“Semester R-Score” refers to the credit-weighted average of the official individual course R-scores attributable to the Guaranteed Semester, using the applicable official R-score weighting rules. It does not refer to the Student’s cumulative R-score across multiple semesters or the average of the Student’s percentage grades. The calculation shall be based on the official course R-scores and credit values reported by the CEGEP on the Student’s transcript.</div></li>',
+        '<li><b>2.6</b><div>“Core Program” and “Intensive Program” refer to the paid academic support packages selected at enrollment, with their respective services, schedules, and fees described in the Student’s enrollment agreement.</div></li>',
+        '<li><b>2.7</b><div>“Separate Mentorship Program” refers to the complimentary academic guidance program provided to eligible Students under the Guarantee. It is distinct from the Core Program and Intensive Program. Its services and limitations are described in Section 3.</div></li>',
+        '<li><b>2.8</b><div>“Mentor” or “Tutor” refers to an individual designated by MNTR to provide tutoring, mentorship, academic planning, or academic progress monitoring, as applicable to the Student’s enrolled program.</div></li>',
+        '<li><b>2.9</b><div>“MNTR Representative” refers to a Mentor, Tutor, or another individual authorized by MNTR to conduct mentorship meetings or provide academic guidance.</div></li>',
+        '<li><b>2.10</b><div>“Weekly Academic Plan” refers to a written schedule of academic objectives, study periods, assignments, examination preparation, and other academic tasks prepared or reviewed by MNTR for the Student each week.</div></li>',
+        '<li><b>2.11</b><div>“Assigned Task” refers to a specific academic activity assigned by MNTR or the Student’s Mentor as part of the Weekly Academic Plan or during a Scheduled Session. This includes, but is not limited to, completing assigned exercises, following designated study schedules, completing recommended study hours, and fulfilling other academic responsibilities communicated by the Mentor. Each Assigned Task must have a clearly communicated objective and deadline.</div></li>',
+        '<li><b>2.12</b><div>“Scheduled Session” or “Session” refers to a tutoring, mentorship, examination-feedback, or study-technique meeting arranged and confirmed by MNTR and the Student, including any properly rescheduled meeting.</div></li>',
+        '<li><b>2.13</b><div>“Written Notice” refers to a communication sent by email or through an MNTR-designated written communication platform that provides a record of the date and time sent.</div></li>',
+        '<li><b>2.14</b><div>“Business Day” refers to Monday through Friday, excluding statutory holidays observed in Quebec.</div></li>',
+        '<li><b>2.15</b><div>“Official Academic Record” refers to a transcript, Omnivox record, or other document issued or made available by the Student’s CEGEP that displays the relevant academic results and R-scores.</div></li>',
+        '<li><b>2.16</b><div>“Proof of Completion” refers to reasonable documentation demonstrating that the Student has completed an Assigned Task. Depending on the nature of the task, this may include completed exercises, written assignments, dated study logs, study schedules, or other relevant evidence.</div></li>',
+        '<li><b>2.17</b><div>“Guarantee” refers to MNTR’s conditional commitment under Section 1 to provide the Separate Mentorship Program without charge when the applicable eligibility and claim requirements are met.</div></li>',
+        '</ol>',
+
+        '<h3>3. Separate Mentorship Program</h3>',
+        '<ol class="clauses">',
+        '<li><b>3.1</b><div><strong>Purpose.</strong> The Separate Mentorship Program is designed to provide continued academic guidance, structured planning, and progress monitoring to Students who qualify under the Guarantee. Its objective is to help Students maintain effective study habits, identify areas for improvement, and work toward their academic goals.</div></li>',
+        '<li><b>3.2</b><div><strong>Biweekly Mentorship Meetings.</strong> The Student will receive one individual meeting with an MNTR Representative every two weeks during the Separate Mentorship Program. These meetings are intended to: <ol><li>Review the Student’s academic progress and recent results;</li><li>Identify academic difficulties and areas requiring improvement;</li><li>Evaluate the Student’s adherence to their Weekly Academic Plan;</li><li>Discuss strategies for improving study efficiency, time management, and academic performance; and</li><li>Establish priorities and objectives for the following weeks through the Student’s Weekly Academic Plan.</li></ol> Meetings will take place online unless MNTR and the Student agree otherwise in writing.</div></li>',
+        '<li><b>3.3</b><div><strong>Weekly Academic Planning.</strong> MNTR will continue providing the Student with a personalized Weekly Academic Plan throughout the Separate Mentorship Program. The planning service will follow the same general weekly planning framework provided under the Core Program and Intensive Program, including the organization of academic priorities, study schedules, assignments, and examination preparation. The Weekly Academic Plan will be reviewed and adjusted based on the Student’s academic progress, upcoming assessments, and identified needs.</div></li>',
+        '<li><b>3.4</b><div><strong>Study Methods and Academic Strategies.</strong> MNTR will provide individualized guidance concerning effective study methods and academic strategies, which may include, but are not limited to: <ol><li>Active recall and spaced repetition;</li><li>Effective note-taking and information organization;</li><li>Examination preparation and revision strategies;</li><li>Time management and prioritization;</li><li>Identifying and addressing ineffective study habits; and</li><li>Developing sustainable academic routines.</li></ol> The specific strategies recommended will depend on the Student’s academic needs.</div></li>',
+        '<li><b>3.5</b><div><strong>Progress Monitoring.</strong> MNTR will monitor the Student’s academic progress through biweekly meetings, Weekly Academic Plans, and information supplied by the Student. The Student is responsible for providing accurate and timely information reasonably necessary for MNTR to deliver these services.</div></li>',
+        '<li><b>3.6</b><div><strong>Scope and Exclusions.</strong> The Separate Mentorship Program is a distinct academic guidance service and does not constitute a renewal, extension, or repetition of the Core Program or Intensive Program. The Separate Mentorship Program includes only the services expressly described in this Section. It does not include subject-specific tutoring sessions, additional instructional hours, or other services exclusive to the paid Core Program or Intensive Program, unless MNTR expressly agrees otherwise in writing.</div></li>',
+        '<li><b>3.7</b><div><strong>Duration.</strong> The Separate Mentorship Program will be provided during the CEGEP academic semester immediately following the Guaranteed Semester. It begins at the commencement of the agreed mentorship schedule and ends upon completion of that semester’s final examination period.</div></li>',
+        '<li><b>3.8</b><div><strong>Cost.</strong> All services expressly included in this Section will be provided without charge to the Student or Client. No additional purchase or paid enrollment is required to receive the Separate Mentorship Program.</div></li>',
+        '<li><b>3.9</b><div><strong>No Additional Guarantee.</strong> Participation in the Separate Mentorship Program does not create a new R-score guarantee or extend the original Guarantee to any subsequent semester.</div></li>',
+        '</ol>',
+
+        '<h3>4. Eligibility Requirements</h3>',
+        '<p>To qualify for the Guarantee, the Student must satisfy all applicable requirements in this Section. MNTR will assess compliance using the documented criteria below. Any determination remains subject to applicable law and Section 8.</p>',
+        '<ol class="clauses">',
+        '<li><b>4.1</b><div><strong>Full-Time Enrollment.</strong> The Student must maintain full-time enrollment status, as defined by their CEGEP, throughout the Guaranteed Semester. The Student must not voluntarily withdraw from or drop an enrolled course without obtaining MNTR’s prior written approval. Exceptions required by applicable law or resulting from circumstances beyond the Student’s reasonable control will be assessed individually.</div></li>',
+        '<li><b>4.2</b><div><strong>Session Attendance.</strong> The Student must attend at least 90% of all Scheduled Sessions during the Guaranteed Semester. Attendance is calculated by dividing the number of Scheduled Sessions attended by the total number of Scheduled Sessions that the Student was required to attend, multiplied by 100. A Session may be rescheduled with at least 48 hours’ Written Notice, subject to a maximum of two Student-requested reschedulings per semester. A Session properly rescheduled and subsequently attended counts as attended. A Session cancelled by MNTR without a replacement opportunity does not count against the Student. Unexcused absences or failure to meet the minimum attendance requirement may result in ineligibility for the Guarantee, subject to applicable law.<h4>Attendance Verification</h4>MNTR will require the Student’s assigned Tutor or Mentor to maintain reasonable records of attendance for all Scheduled Sessions throughout the Guaranteed Semester. These records will serve as evidence of the Student’s compliance with the attendance requirements of the Guarantee.</div></li>',
+        '<li><b>4.3</b><div><strong>Completion of Academic Plans.</strong> The Student must complete at least 90% of all Assigned Tasks during the Guaranteed Semester. The completion rate will be calculated by dividing the number of Assigned Tasks completed by their respective deadlines by the total number of Assigned Tasks due during the Guaranteed Semester, multiplied by 100.<h4>Proof of Completion</h4>The Student is responsible for retaining reasonable evidence demonstrating the completion of Assigned Tasks, including, where applicable, completed exercises, written assignments, study schedules, study logs, and other relevant documentation. MNTR may request such evidence to verify compliance with the Guarantee’s eligibility requirements. The Student must provide the requested documentation within five Business Days of receiving a Written Notice from MNTR. The Student will not be required to use a separate progress-tracking platform. Completion will be assessed using the Assigned Tasks communicated by MNTR, the evidence retained by the Student, and any relevant records maintained by the Mentor. Where completion is disputed, MNTR will review the available evidence and provide the Student with a reasonable opportunity to clarify or supplement their documentation.</div></li>',
+        '<li><b>4.4</b><div><strong>Reporting Academic Results.</strong> The Student must provide MNTR with each graded academic result, including examinations, laboratory reports, assignments, and other graded assessments, within 72 hours after the result becomes available to the Student. The Student may provide a screenshot, electronic copy, or other verifiable record showing the result.</div></li>',
+        '<li><b>4.5</b><div><strong>Communication and Progress Check-ins.</strong> The Student must respond to reasonable academic communications from their Mentor within 48 hours of receiving them. A response means a written acknowledgment or substantive reply to the message, as appropriate. For Students under 18 years of age, a parent or legal guardian must participate in one monthly progress check-in arranged by MNTR. For adult Students, parental participation is voluntary unless separately agreed upon.</div></li>',
+        '<li><b>4.6</b><div><strong>Contract in Good Standing.</strong> The enrollment agreement must remain active throughout the Guaranteed Semester, and the Client must comply with the payment obligations set out in that agreement. Payment disputes, legally protected cancellations, and other statutory rights are governed by applicable Quebec law.</div></li>',
+        '<li><b>4.7</b><div><strong>Academic Integrity.</strong> The Student must comply with the academic integrity rules established by their CEGEP. A final, formally imposed academic integrity sanction relating to the Guaranteed Semester, including plagiarism or prohibited use of artificial intelligence, may result in ineligibility for the Guarantee. A mere allegation or an investigation that has not resulted in a final sanction does not automatically establish a violation of this requirement.</div></li>',
+        '<li><b>4.8</b><div><strong>Verification of Eligibility.</strong> MNTR will verify compliance with the Guarantee’s eligibility requirements using attendance records maintained by the Student’s assigned Tutor or Mentor, academic records, and supporting documentation provided by the Student. The Student is responsible for retaining and providing reasonable Proof of Completion of Assigned Tasks and other academic obligations under this Agreement. MNTR may request such documentation when assessing eligibility for the Guarantee. Eligibility decisions must be based on the requirements expressly stated in this Agreement and supported by relevant evidence.</div></li>',
+        '<li><b>4.9</b><div><strong>Provision of Academic Materials.</strong> The Student is responsible for providing their assigned Tutor or Mentor with all relevant academic materials reasonably necessary to prepare, personalize, and conduct tutoring and mentorship sessions effectively. These materials include, but are not limited to, course outlines, class notes, lecture presentations, assigned readings, exercises, homework, examination schedules, previous assessments, and any other course-related documents reasonably requested by the Tutor or Mentor. The Student must provide requested materials within a reasonable timeframe before the relevant Scheduled Session, allowing the Tutor or Mentor sufficient time to review the content and adapt the session to the Student’s specific academic needs. Failure to provide reasonably requested materials in a timely manner, where such failure materially prevents MNTR from adequately preparing or delivering the agreed services, may result in ineligibility for the Guarantee, subject to applicable law. The Student is not required to provide materials that are unavailable to them or that they are legally or institutionally prohibited from sharing.</div></li>',
+        '</ol>',
+
+        '<h3>5. Guarantee Claim Procedure</h3>',
+        '<ol class="clauses">',
+        '<li><b>5.1</b><div><strong>Submission.</strong> To request the Guarantee, the Client or Student must submit a written claim to MNTR within 14 calendar days after the official Semester R-Score for the Guaranteed Semester becomes available.</div></li>',
+        '<li><b>5.2</b><div><strong>Required Documentation.</strong> The claim must include an Official Academic Record showing the Student’s relevant course R-scores and credit values, or an official semester-specific R-score where available.</div></li>',
+        '<li><b>5.3</b><div><strong>Review.</strong> MNTR will review the claim using the Student’s Official Academic Records, attendance records maintained by the assigned Tutor or Mentor, evidence of Assigned Task completion provided by the Student, and the eligibility requirements set out in Section 4.</div></li>',
+        '<li><b>5.4</b><div><strong>Response.</strong> MNTR will provide a written decision within 10 Business Days after receiving the claim and the required documentation.</div></li>',
+        '<li><b>5.5</b><div><strong>Decision.</strong> If a claim is refused, MNTR will identify the specific eligibility requirement or other contractual basis for refusal and provide a reasonable explanation supported by the available records.</div></li>',
+        '</ol>',
+
+        '<h3>6. Guarantee Remedy</h3>',
+        '<ol class="clauses">',
+        '<li><b>6.1</b><div><strong>Entitlement.</strong> If the Student satisfies the applicable conditions and the claim is approved, MNTR will provide the Separate Mentorship Program described in Section 3 without charge.</div></li>',
+        '<li><b>6.2</b><div><strong>Commencement.</strong> The Separate Mentorship Program will take place during the CEGEP semester immediately following the Guaranteed Semester, subject to the academic calendar and scheduling arrangements agreed upon with the Student.</div></li>',
+        '<li><b>6.3</b><div><strong>Scope.</strong> The services provided under the Guarantee are limited to those expressly included in Section 3. The original Core Program or Intensive Program is not repeated or renewed.</div></li>',
+        '<li><b>6.4</b><div><strong>Non-Transferability.</strong> The Guarantee is personal to the eligible Student and may not be transferred to another individual.</div></li>',
+        '<li><b>6.5</b><div><strong>No Cash Alternative.</strong> The Guarantee does not provide a cash payment or refund in place of the Separate Mentorship Program, except where a different remedy is required by applicable law.</div></li>',
+        '<li><b>6.6</b><div><strong>Student Not Returning to CEGEP.</strong> If the Student will not be enrolled in CEGEP during the immediately following semester, MNTR will instead provide academic transition or postsecondary application guidance, without charge, over a period of up to 12 months following the Guaranteed Semester. The specific number of meetings and hours included in this alternative service must be established in the enrollment agreement.</div></li>',
+        '<li><b>6.7</b><div><strong>No Renewal of Guarantee.</strong> The Separate Mentorship Program and any alternative services provided under this Section do not carry a new performance guarantee.</div></li>',
+        '</ol>',
+
+        '<h3>7. Limitations</h3>',
+        '<ol class="clauses">',
+        '<li><b>7.1</b><div><strong>One Claim per Student.</strong> The Guarantee may be successfully claimed only once per Student.</div></li>',
+        '<li><b>7.2</b><div><strong>Academic Performance Threshold.</strong> The Guarantee applies only to the Semester R-Score threshold specified for the Student’s selected program.</div></li>',
+        '<li><b>7.3</b><div><strong>No Admission Guarantee.</strong> MNTR does not guarantee admission to any university, college, professional program, or other educational institution.</div></li>',
+        '<li><b>7.4</b><div><strong>No Guaranteed Subsequent Result.</strong> MNTR does not guarantee that participation in the Separate Mentorship Program will result in a particular R-score, grade, or admission outcome in a subsequent semester.</div></li>',
+        '</ol>',
+
+        '<h3>8. Consumer Rights and Applicable Law</h3>',
+        '<ol class="clauses">',
+        '<li><b>8.1</b><div><strong>Applicable Law.</strong> This Agreement is governed by the applicable laws of Quebec.</div></li>',
+        '<li><b>8.2</b><div><strong>Consumer Protection.</strong> Nothing in this Agreement limits, excludes, or overrides any mandatory right or remedy available to the Student or Client under the Quebec Consumer Protection Act, the Civil Code of Québec, or other applicable legislation.</div></li>',
+        '<li><b>8.3</b><div><strong>Cancellation.</strong> The Client retains all applicable statutory rights to cancel the service agreement. The consequences of cancellation, including any permissible charges or refunds, will be determined in accordance with applicable law.</div></li>',
+        '<li><b>8.4</b><div><strong>Guarantee Eligibility Following Cancellation.</strong> Cancellation of the original paid program before completion of the Guaranteed Semester ordinarily ends eligibility for this additional contractual Guarantee, without affecting any statutory rights or remedies.</div></li>',
+        '<li><b>8.5</b><div><strong>Conflicting Provisions.</strong> If any provision of this Agreement conflicts with a mandatory requirement of applicable law, that legal requirement will prevail.</div></li>',
+        '</ol>',
+
+        '<h3>9. Acknowledgment</h3>',
+        '<p>By signing the enrollment agreement, the Client acknowledges having received and had an opportunity to review these Terms and Conditions, including the eligibility requirements, services included in the Separate Mentorship Program, and the applicable claim procedure. The Client understands that the Separate Mentorship Program is different from the original Core Program or Intensive Program and includes only the services expressly identified in Section 3. Nothing in this acknowledgment limits the Client’s statutory rights.</p>',
+        '<p class="doc-foot">Questions about these terms: <a href="mailto:mntrtutoring.info@gmail.com">mntrtutoring.info@gmail.com</a></p>'
+      ].join('')
+    },
+
+    cancellation: {
+      tab: 'Cancellation',
+      kind: 'Policy',
+      title: 'Cancellation Policy',
+      html: [
+        '<p class="doc-meta">MNTR Mentorship · Cancellation Policy</p>',
+        '<h3>Our commitment to you</h3>',
+        '<p>The MNTR Mentorship program is built as a full-semester plan. Your mentor, study plans, milestones and guarantee are all designed around the student completing the semester. Stopping partway breaks the plan at exactly the point where results build, so we strongly encourage families to commit to the full semester before enrolling.</p>',
+        '<h3>1. Free cancellation window</h3>',
+        '<p>You may cancel within 14 days of your first mentorship session at no cost. You pay only for sessions already delivered, and any amount paid for undelivered sessions is refunded in full.</p>',
+        '<h3>2. What you give up by cancelling after 14 days</h3>',
+        '<p>If you cancel after the first 14 days, the following end immediately and cannot be reinstated:</p>',
+        '<ul><li>The MNTR R-Score Guarantee is void for the semester.</li><li>Your locked-in rate ends. If you re-enroll later, you pay the standard rate at that time.</li><li>Your mentor and time slot are released to the next family on our waitlist. We cannot guarantee the same mentor or schedule if you return.</li><li>Any upcoming milestone deliverables, such as the mid-semester parent report and exam strategy sessions, will not be delivered.</li><li>Priority enrollment for future semesters and programs is forfeited.</li></ul>',
+        '<h3>3. What you pay if you cancel after 14 days</h3>',
+        '<p>You pay: (a) the price of the sessions and services already delivered, at the contract rate; and (b) a cancellation fee of $50 or 10% of the price of the services not yet delivered, whichever is less. Any amount paid beyond this is refunded within 10 days.</p>',
+        '<h3>4. Before you cancel, consider these options</h3>',
+        '<ul><li><strong>Pause:</strong> pause the program for up to 2 weeks once per semester, for example during exams. Your guarantee, rate and mentor are kept.</li><li><strong>Mentor switch:</strong> if the fit isn’t right, we’ll match you with a new mentor at no cost.</li><li><strong>Talk to us:</strong> most concerns can be solved in a 15-minute call with our team.</li></ul>',
+        '<h3>5. How to cancel</h3>',
+        '<p>Send written notice by email to <a href="mailto:mntrtutoring.info@gmail.com">mntrtutoring.info@gmail.com</a> or by using the cancellation form attached to your contract. The contract ends on the date your notice is sent.</p>',
+        '<h3>6. Your rights</h3>',
+        '<p>This policy does not limit your rights under the Quebec Consumer Protection Act, including your right to cancel at any time.</p>'
+      ].join('')
+    },
+
+    payment: {
+      tab: 'Payment',
+      kind: 'Policy',
+      title: 'Payment Policy',
+      html: [
+        '<p class="doc-meta">MNTR Mentorship · Payment Policy</p>',
+        '<div class="notice"><strong>Draft pending final figures.</strong> Two values in this policy are not yet set in the source document and are highlighted below: the semester program fee and the number of biweekly payments. They will be confirmed in writing before any contract is signed.</div>',
+        '<h3>1. Biweekly billing</h3>',
+        '<p>The semester program fee of <mark class="gap">[amount to be confirmed]</mark>, plus any applicable taxes. The total price and the payment schedule are stated in your contract.</p>',
+        '<h3>2. When payments are charged</h3>',
+        '<ul><li><strong>First payment:</strong> charged on the day of the student’s first mentorship session. No payment is collected before the program begins.</li><li><strong>Following payments:</strong> charged automatically every 14 days after the first payment, until all <mark class="gap">[8]</mark> payments are made.</li><li>You get an email receipt for every payment.</li></ul>',
+        '<h3>3. Automatic payment</h3>',
+        '<p>Payments are processed automatically by Stripe using the card on file. You can update your payment method at any time through the link in your receipt or by contacting us.</p>',
+        '<h3>4. Failed or late payments</h3>',
+        '<ul><li>If a payment fails, we’ll notify you and retry the charge within 3 days.</li><li>If a payment is still outstanding 7 days after its due date, sessions are paused until it is settled.</li><li>Paused sessions because of non-payment count toward the attendance requirement of the R-Score Guarantee.</li></ul>',
+        '<h3>5. Price lock</h3>',
+        '<p>Your biweekly rate is locked for the full semester, and for following semesters as long as you remain continuously enrolled.</p>',
+        '<h3>6. Pauses</h3>',
+        '<p>If you use the 2-week pause option, billing pauses with it and resumes when sessions restart.</p>',
+        '<h3>7. Missed sessions</h3>',
+        '<p>A session cancelled with less than 48 hours’ notice, or missed without notice, is billed as delivered.</p>',
+        '<h3>8. Cancellation</h3>',
+        '<p>If you cancel, billing stops, and any final amount owing or refund is calculated under the MNTR Cancellation Policy.</p>'
+      ].join('')
+    },
+
+    privacy: {
+      tab: 'Privacy',
+      kind: 'Policy',
+      title: 'Privacy Policy',
+      html: [
+        '<p class="doc-meta">MNTR Tutoring · Privacy Policy · Effective <mark class="gap">[date of publication]</mark> · Last updated October 14, 2026</p>',
+        '<div class="notice"><strong>Draft for MNTR’s review.</strong> The highlighted items must be completed by MNTR, and the policy reviewed, before it is published as final.</div>',
+        '<h3>1. Who we are</h3>',
+        '<p><mark class="gap">[Legal name of the business and Quebec enterprise number (NEQ)]</mark>, operating as MNTR Tutoring (“MNTR”, “we”), <mark class="gap">[business address]</mark>, Quebec. This policy explains how we handle personal information when you visit mntrtutoring.ca, book a consultation, contact us, or enrol in our tutoring or mentorship services.</p>',
+        '<h3>2. Person in charge of protecting personal information</h3>',
+        '<p><mark class="gap">[Full name]</mark>, <mark class="gap">[title]</mark>. Email: <mark class="gap">[privacy contact address, e.g. mntrtutoring.info@gmail.com]</mark>. Under Quebec law this responsibility rests with the person with the highest authority at MNTR unless it is delegated in writing. Write to this person for any question, request or complaint about your personal information.</p>',
+        '<h3>3. What we collect, and why</h3>',
+        '<h4>When you visit the website</h4>',
+        '<p>Our website host (GitHub Pages) and our font provider (Google Fonts) receive technical information such as your IP address and browser type when your browser loads the pages; this is needed to deliver them. We do not use analytics tools. Your language and privacy choices are stored in your own browser and are not sent to us.</p>',
+        '<h4>Optional advertising cookies (only with your consent)</h4>',
+        '<p>If you allow them in the privacy choices panel, we load the Google Ads tag and the Meta Pixel to measure our advertising. They are off by default and are not loaded at all until you agree. See section 10.</p>',
+        '<h4>When you book a free consultation</h4>',
+        '<p>Booking is handled by Acuity Scheduling. We receive the information the booking form asks for, <mark class="gap">[list the fields in the Acuity form, e.g. name, email, phone number, answers to the booking questions]</mark>, and the time you choose. We use it to hold the consultation and to send confirmation and reminder emails about it. The booking form is for adults only (see section 4).</p>',
+        '<h4>When you write to us</h4>',
+        '<p>The contact form collects your name, email address, an optional subject, your message, and your confirmation that you are 18 or older or the student’s parent or legal guardian. We use it only to reply. Your IP address is used briefly by our form service to block abuse and is not stored by us. Emails, calls and text messages you send us are used to answer you.</p>',
+        '<h4>When a student enrols</h4>',
+        '<p>To provide the program we collect, from the client (the adult student, or the parent or legal guardian who signs the agreement): contact and billing information; and about the student: name, contact information, school and program, courses and schedule, and the academic information the program and the R-score guarantee rely on (official academic records and R-scores, graded results, course materials, completed tasks), together with attendance records, weekly academic plans and session notes kept by the mentor. We collect this information when it is needed to deliver the service, not before.</p>',
+        '<h4>Payments</h4>',
+        '<p>Payments are processed by Stripe. We never see or store your full card number; we receive confirmation of payment and limited details such as the card brand and last four digits.</p>',
+        '<p>We do not ask for a date of birth or identity documents to confirm age, and we do not ask for sensitive information such as health information. If you choose to tell us something sensitive, for example about a learning accommodation, we use it only to adapt the service and limit it to the people who need it.</p>',
+        '<h3>4. Students under 18</h3>',
+        '<ul>',
+        '<li>Our website forms and the booking calendar are for adults: a student aged 18 or older, or a parent or legal guardian acting for a student. We ask for a confirmation; we do not ask for a date of birth. If we learn that a person under 18 has sent us information directly through the website, we delete it and ask a parent or legal guardian to contact us.</li>',
+        '<li>For a student under 14, we collect personal information with the consent of the person having parental authority or the tutor. <mark class="gap">[Describe how MNTR obtains consent for students aged 14 to 17, e.g. the parent or legal guardian signs the enrolment agreement and the student is informed.]</mark></li>',
+        '<li>Mentors and tutors have access only to the information about the students they work with, and only for as long as they work with them.</li>',
+        '<li>We never use students’ information for advertising, profiling or marketing.</li>',
+        '</ul>',
+        '<h3>5. Who receives personal information</h3>',
+        '<p>We do not sell personal information. We share it only with service providers that help us run MNTR, for the purposes described above:</p>',
+        '<ul>',
+        '<li><strong>Acuity Scheduling</strong> (Squarespace): consultation booking and booking emails.</li>',
+        '<li><strong>Stripe</strong>: payment processing.</li>',
+        '<li><strong>Google</strong>: email (Gmail), web fonts, and, only with your consent, the Google Ads tag.</li>',
+        '<li><strong>Meta</strong>: only with your consent, the Meta Pixel.</li>',
+        '<li><strong>Cloudflare</strong> and <strong>FormSubmit</strong>: receiving and delivering contact-form messages to our inbox.</li>',
+        '<li><strong>GitHub</strong>: website hosting.</li>',
+        '<li><mark class="gap">[Any other tool used with students or clients, e.g. video-call, messaging, document or file-sharing services]</mark></li>',
+        '</ul>',
+        '<p>These providers store or process information outside Quebec, mainly in the United States, where it may be accessible to local authorities under their laws. We may also disclose information where the law requires it.</p>',
+        '<h3>6. Security</h3>',
+        '<p>The website is served over an encrypted connection (HTTPS). Website forms are validated and rate-limited, and card numbers never reach us. Access to client and student information is limited to the people who need it to provide the service. <mark class="gap">[Describe MNTR’s internal measures, e.g. two-step verification on email and booking accounts, where records are kept.]</mark> No system is completely secure. If a confidentiality incident presents a risk of serious injury, Quebec law requires us to notify the Commission d’accès à l’information and the people concerned, and to record every confidentiality incident in a register.</p>',
+        '<h3>7. How long we keep information</h3>',
+        '<ul>',
+        '<li>Contact-form messages and emails that do not lead to enrolment: <mark class="gap">[period]</mark>.</li>',
+        '<li>Consultation bookings that do not lead to enrolment: <mark class="gap">[period]</mark>.</li>',
+        '<li>Client and student records: for the duration of the services and then <mark class="gap">[period]</mark>, unless a law requires us to keep them longer (for example, accounting records).</li>',
+        '<li>Your privacy choices: in your browser for 12 months, after which we ask again.</li>',
+        '</ul>',
+        '<p>When information is no longer needed, we destroy it or anonymize it.</p>',
+        '<h3>8. Your rights</h3>',
+        '<p>You may ask to access the personal information we hold about you, to have it corrected, to withdraw your consent, or to have it deleted or no longer disseminated where the law allows. You may also ask to receive information you provided in a structured, commonly used technological format. Write to the person in charge (section 2). We may need to confirm your identity, and we answer within 30 days. Access is free of charge, although a reasonable fee may be charged for transcribing, reproducing or transmitting information; we will tell you the amount first.</p>',
+        '<h3>9. Emails and marketing</h3>',
+        '<p>Booking a consultation or writing to us is not a subscription to marketing. We send messages about the service you asked for, such as booking confirmations, reminders and program information. We do not send promotional emails or texts unless you have agreed to receive them, and any we send will identify MNTR and include a way to unsubscribe.</p>',
+        '<h3>10. Cookies and similar technologies</h3>',
+        '<ul>',
+        '<li><strong>Strictly necessary</strong> (always on): your language choice (“mntr-lang”) and your privacy choices (“mntr-privacy”, kept 12 months), both stored in your browser; neither is a cookie and neither is sent to us.</li>',
+        '<li><strong>Advertising measurement, Google Ads</strong> (optional): Google cookies such as “_gcl_au” that tell us which ad led to a visit or booking.</li>',
+        '<li><strong>Advertising, Meta Pixel</strong> (optional): Meta cookies such as “_fbp” used to measure our ads and to show them to people likely to be interested, including people who visited this site.</li>',
+        '</ul>',
+        '<p>Optional tags are not loaded until you agree, and refusing them changes nothing about how the site or booking works. You can change your choice at any time: <button type="button" class="doc-inline-btn" data-cookie-settings>open privacy choices</button>. If you withdraw consent, we delete those cookies from this site.</p>',
+        '<p>The booking calendar is provided by Acuity on its own website and is governed by Acuity’s privacy policy. <mark class="gap">[MNTR to confirm: the Meta Pixel has been removed from the Acuity booking page, or describe it here.]</mark></p>',
+        '<h3>11. Complaints</h3>',
+        '<p>If you have a concern, please write to the person in charge first (section 2). You may also file a complaint with the Commission d’accès à l’information du Québec (cai.gouv.qc.ca).</p>',
+        '<h3>12. Changes to this policy</h3>',
+        '<p>We will post any update on this page with a new “last updated” date, and tell clients directly about significant changes.</p>'
+      ].join('')
+    },
+
+    tutors: {
+      tab: 'Tutors',
+      kind: 'Notice',
+      title: 'Tutor Non-Solicitation',
+      html: [
+        '<p class="doc-meta">MNTR Tutoring · Tutor non-solicitation</p><div class="notice notice--neutral">This notice appeared in the previous privacy policy. It is not about personal information, so it now has its own page, unchanged.</div>',
+        '<h3>Tutor non-solicitation policy</h3>',
+        '<p>All MNTR Tutoring tutors agree, as a condition of working with us, that clients matched to them through MNTR Tutoring remain MNTR Tutoring clients. Tutors may not solicit, redirect, or arrange to work privately with a client they were introduced to through MNTR Tutoring, outside of the platform and without our involvement, whether during their time with us or for a reasonable period afterward. This keeps pricing fair, ensures continuity and accountability for every family we work with, and protects the matching process that got you to the right tutor in the first place.</p>'
+      ].join('')
+    }
+  }
+};
