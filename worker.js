@@ -12,7 +12,7 @@
      - only requests coming from the real site are accepted (CORS allowlist)
 
    Endpoints:
-     POST /api/contact         { name, email, topic?, message, adult: true, lang?, website?, t? }
+     POST /api/contact         { name, email, topic?, message, lang?, website?, t? }
      POST /api/cancel          { name, email, student, program, message?, lang?, website?, t? }
      POST /api/newsletter      disabled (NEWSLETTER_ENABLED = false)
      POST /api/stripe-webhook  Stripe checkout.session.completed events —
@@ -52,7 +52,7 @@ const PACK_MIN_CENTS = 10000;
 /* Bumped whenever this file changes, and reported by /api/health so you can
    tell at a glance whether the Worker running in production is the current
    code or an older deploy. */
-const WORKER_VERSION = '2026-10-14-adult-confirmation-cancel';
+const WORKER_VERSION = '2026-10-15-no-age-confirmation';
 
 /* How long after Stripe signs an event we still accept it (replay protection). */
 const STRIPE_SIG_TOLERANCE_S = 5 * 60;
@@ -200,12 +200,6 @@ async function handleContact(body, env, cors) {
   if (!isEmail(email)) {
     return json({ success: false, error: 'Please check your details and try again.' }, 400, cors);
   }
-  /* Website forms are for adults only (a student aged 18+ or a parent/legal
-     guardian). The form sends adult: true only when the visitor ticked the
-     confirmation; anything else is refused and nothing is forwarded. */
-  if (body.adult !== true) {
-    return json({ success: false, error: 'Please confirm that you are 18 or older, or the student\u2019s parent or legal guardian.' }, 400, cors);
-  }
   const lang = body.lang === 'fr' ? 'fr' : 'en';
   if (!env.CONTACT_ENDPOINT) {
     return json({ success: false, error: 'Backend not configured' }, 500, cors);
@@ -220,8 +214,6 @@ async function handleContact(body, env, cors) {
       topic: noTags(topic),
       message: noTags(message),
       language: lang,
-      /* Kept with the message as the record of the attestation. */
-      adult_confirmation: 'Confirmed on the website form: 18 or older, writing for themself or as the student\u2019s parent/legal guardian (' + new Date().toISOString() + ')',
       _subject: 'New inquiry from the MNTR Tutoring website',
       _captcha: 'false',
     }),
