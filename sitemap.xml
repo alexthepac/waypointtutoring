@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://mntrtutoring.ca/fr/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://mntrtutoring.ca/fr/"/><xhtml:link rel="alternate" hreflang="en" href="https://mntrtutoring.ca/en/"/></url>
+  <url><loc>https://mntrtutoring.ca/en/</loc><xhtml:link rel="alternate" hreflang="en" href="https://mntrtutoring.ca/en/"/><xhtml:link rel="alternate" hreflang="fr" href="https://mntrtutoring.ca/fr/"/></url>
+  <url><loc>https://mntrtutoring.ca/fr/equipe/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://mntrtutoring.ca/fr/equipe/"/><xhtml:link rel="alternate" hreflang="en" href="https://mntrtutoring.ca/en/staff/"/></url>
+  <url><loc>https://mntrtutoring.ca/en/staff/</loc><xhtml:link rel="alternate" hreflang="en" href="https://mntrtutoring.ca/en/staff/"/><xhtml:link rel="alternate" hreflang="fr" href="https://mntrtutoring.ca/fr/equipe/"/></url>
+  <url><loc>https://mntrtutoring.ca/fr/juridique/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://mntrtutoring.ca/fr/juridique/"/><xhtml:link rel="alternate" hreflang="en" href="https://mntrtutoring.ca/en/legal/"/></url>
+  <url><loc>https://mntrtutoring.ca/en/legal/</loc><xhtml:link rel="alternate" hreflang="en" href="https://mntrtutoring.ca/en/legal/"/><xhtml:link rel="alternate" hreflang="fr" href="https://mntrtutoring.ca/fr/juridique/"/></url>
+</urlset>

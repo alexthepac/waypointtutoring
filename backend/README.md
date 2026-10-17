@@ -1,3 +1,6 @@
+> **Note (October 2026):** the Stripe-to-booking-email flow is retired and
+> `booking-email.gs` is no longer kept in this repository.
+
 # MNTR Tutoring — form-protection backend
 
 The website itself is static (GitHub Pages), which is actually great for
