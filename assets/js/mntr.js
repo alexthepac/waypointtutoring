@@ -470,12 +470,9 @@
   $$('.video-frame[data-slot]').forEach(fillSlot);
 
   /* ------------------------------------------ 8. booking iframe states */
-  /* The Acuity calendar is for adults only: a student aged 18+ or a parent /
-     legal guardian. Nothing from Acuity (iframe or script) loads until the
-     visitor ticks the confirmation; unticking unloads it again, so a
-     half-filled booking is not kept in the page. The same confirmation is a
-     required question in Acuity's own intake form, which is what actually
-     enforces it on Acuity's side. */
+  /* Nothing from Acuity (iframe or script) loads with the page, which keeps
+     the page light: the calendar starts shortly before it scrolls into view,
+     so it is usually ready by the time the visitor reaches it. */
   var embedLoaded = false;
   function loadAcuityEmbed() {
     if (embedLoaded) return; embedLoaded = true;
@@ -509,63 +506,12 @@
       if (status) status.textContent = T.failed;
     }, 12000);
   }
-  $$('[data-adult-gate]').forEach(function (gate) {
-    var box = $('[data-adult-confirm]', gate), body = $('[data-gate-body]', gate);
-    var minorBtn = $('[data-minor]', gate), minorMsg = $('[data-minor-msg]', gate);
-    var frames = $$('.book-frame', gate), links = $$('a[data-href]', gate);
-    if (!box || !body) return;
-    var sync = function () {
-      if (box.checked) {
-        if (minorMsg) minorMsg.hidden = true;
-        body.hidden = false;
-        links.forEach(function (l) { l.href = l.getAttribute('data-href'); });
-        frames.forEach(startFrame);
-      } else {
-        body.hidden = true;
-        links.forEach(function (l) { l.removeAttribute('href'); });
-        /* Swap in a fresh, empty frame rather than navigating the old one:
-           Acuity's embed script scrolls the page to the calendar on every
-           frame load, which threw visitors back to the top of the page. */
-        frames.forEach(function (bf) {
-          if (bf._stop) bf._stop();
-          var f = $('iframe', bf);
-          if (f && f.getAttribute('src')) {
-            var fresh = f.cloneNode(false); fresh.removeAttribute('src');
-            f.parentNode.replaceChild(fresh, f);
-          }
-        });
-      }
-    };
-    box.addEventListener('change', sync);
-    if (minorBtn && minorMsg) minorBtn.addEventListener('click', function () {
-      box.checked = false; sync();
-      minorMsg.hidden = false;
-      minorMsg.setAttribute('tabindex', '-1'); minorMsg.focus();
-    });
-    sync();
-  });
-
-  /* Purchases (post-booking page): adults only. Until the confirmation is
-     ticked, a buy link only points the visitor back to the box. */
-  $$('[data-buy-gate]').forEach(function (gate) {
-    var box = $('[data-buy-confirm]', gate), msg = $('[data-buy-msg]', gate);
-    var scope = gate.closest('section') || document;
-    var links = $$('a[data-buy]', scope);
-    var sync = function () {
-      links.forEach(function (a) { a.setAttribute('aria-disabled', box.checked ? 'false' : 'true'); });
-      if (box.checked && msg) msg.hidden = true;
-    };
-    links.forEach(function (a) {
-      a.addEventListener('click', function (e) {
-        if (box.checked) return;
-        e.preventDefault();
-        if (msg) msg.hidden = false;
-        gate.scrollIntoView({ block: 'center', behavior: reduced.matches ? 'auto' : 'smooth' });
-        box.focus({ preventScroll: true });
-      });
-    });
-    box.addEventListener('change', sync);
-    sync();
+  $$('[data-book-embed] .book-frame').forEach(function (bf) {
+    if (!('IntersectionObserver' in window)) { startFrame(bf); return; }
+    var io = new IntersectionObserver(function (entries) {
+      if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); startFrame(bf); }
+    }, { rootMargin: '0px 0px 400px 0px' });
+    io.observe(bf);
   });
 
   /* --------------------------------------- 9. confirmation page state */
@@ -622,9 +568,7 @@
       if (honey.trim() !== '' || Date.now() - loadedAt < 3000) { form.reset(); say('ok', msg.ok.replace('{when}', when)); return; }
       var body = { name: v('name'), email: v('email'), lang: LANG, website: honey, t: Date.now() - loadedAt };
       if (kind === 'contact') {
-        /* Adults only, checked here and again by the server. */
-        if (!el['adult'] || !el['adult'].checked) { if (el['adult']) el['adult'].focus(); return; }
-        body.topic = v('topic'); body.message = v('message'); body.adult = true;
+        body.topic = v('topic'); body.message = v('message');
       } else {
         body.student = v('student'); body.program = v('program'); body.message = v('message');
       }

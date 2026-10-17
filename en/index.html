@@ -112,7 +112,10 @@
   <section class="o-sec" id="video" aria-label="Two ways to work with MNTR">
     <div class="wrap">
       <div class="o-split">
-        <div class="o-col o-col--tutor">
+        <!-- Top-aligned: the mentorship column is taller since it carries the
+             payment buttons, and spreading this column to match it pulled the
+             paragraph away from its heading. -->
+        <div class="o-col o-col--tutor" style="justify-content:flex-start">
           <h2 class="o-col-h">Traditional Online Tutoring</h2>
           <div class="o-col-body">
             <p class="o-col-p">One-on-one sessions online with students from Medicine, Med-P, Dent-P and Quebec’s other most demanding programs. Focused, high-quality help with a course, a hard chapter or an upcoming exam, for students who mainly need academic support.</p>
@@ -121,6 +124,10 @@
               <div class="video-frame" data-slot="TUTOR_INTRO_VIDEO">
                 <div class="video-empty"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg></span><span class="label">Video coming soon</span></div>
               </div>
+            </div>
+            <div class="o-links">
+              <a class="o-link" href="https://app.acuityscheduling.com/schedule.php?owner=40491971&amp;appointmentType=98757799" target="_blank" rel="noopener" data-track="video_tutoring_single">book a single tutoring session</a>
+              <a class="o-link" href="https://app.acuityscheduling.com/catalog/5b5083da/?productId=2286689&amp;clearCart=true" target="_blank" rel="noopener" data-track="video_tutoring">buy the 5-session tutoring package</a>
             </div>
           </div>
         </div>
@@ -141,6 +148,17 @@
             <a class="o-link" href="#book" data-track="video_apply">apply for a free consultation</a>
             <a class="o-link" href="../en/confirmation/">already applied or booked? see what happens next</a>
           </div>
+          <!-- Mentorship payments: the same Acuity links as the packages on the
+               post-booking page (ACUITY in _tools/build_confirmation.py). -->
+          <div role="group" aria-labelledby="payKick" style="margin-top:clamp(36px,5vw,52px)">
+            <p class="o-col-kick" id="payKick">Pay for your program</p>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <a class="btn btn--ghost o-buy" href="https://app.acuityscheduling.com/catalog.php?owner=40491971&amp;action=addCart&amp;clear=1&amp;id=2298096" target="_blank" rel="noopener" data-track="pay_core">Core</a>
+              <a class="btn btn--ghost o-buy" href="https://app.acuityscheduling.com/catalog.php?owner=40491971&amp;action=addCart&amp;clear=1&amp;id=2298104" target="_blank" rel="noopener" data-track="pay_intensive">Intensive</a>
+              <a class="btn btn--ghost o-buy" href="https://app.acuityscheduling.com/catalog.php?owner=40491971&amp;action=addCart&amp;clear=1&amp;id=2298106" target="_blank" rel="noopener" data-track="pay_complete">Complete Intensive</a>
+            </div>
+            <p style="margin:12px 0 0;font-size:0.86rem;color:var(--ink-3)">Payments every 2 weeks, through Acuity Scheduling.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -155,32 +173,21 @@
         <li>Have the latest report card or R-score handy</li>
         <li>A confirmation email arrives within minutes</li>
       </ul>
-      <div class="o-book" data-adult-gate style="margin-top:clamp(36px,5vw,56px)">
-        <!-- Adults only: the calendar (and Acuity's script) load only after the
-             visitor confirms they are 18+ or the student's parent/guardian.
-             The same confirmation must also be a required question in the
-             Acuity intake form, which is what Acuity itself enforces. -->
-        <div class="o-gate">
-          <p class="o-gate-who">Bookings are made by an adult: a student aged 18 or older, or a parent or legal guardian booking for their child.</p>
-          <label class="o-check"><input type="checkbox" data-adult-confirm /><span>I confirm that I am at least 18 years old and am submitting this request for myself or as the parent/legal guardian of the student.</span></label>
-          <p class="o-gate-note">The calendar opens once this box is checked. <button type="button" class="o-textbtn" data-minor>I’m under 18</button></p>
-          <p class="o-gate-minor" data-minor-msg role="status" hidden>Thanks for your interest. Please ask a parent or legal guardian to book the consultation; you’re very welcome to join the call with them.</p>
-          <p class="o-gate-privacy">Booking is handled by Acuity Scheduling. How we use your information: <a href="legal/#privacy">privacy policy</a>.</p>
-          <noscript><p class="o-gate-privacy">JavaScript is off. By opening the calendar you confirm that you are at least 18 and booking for yourself or as the student’s parent or legal guardian: <a href="https://app.acuityscheduling.com/schedule.php?owner=40491971&amp;appointmentType=98756528" target="_blank" rel="noopener">open the booking calendar</a></p></noscript>
-        </div>
-        <div class="o-gate-body" data-gate-body hidden>
-          <div class="book-frame">
-            <div class="book-loading" aria-live="polite">
-              <span class="label book-status">Loading the calendar</span>
-              <span class="bar" aria-hidden="true"></span>
-            </div>
-            <iframe data-src="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" title="Book your free consultation" width="100%" height="820" loading="lazy"></iframe>
+      <div class="o-book" data-book-embed style="margin-top:clamp(36px,5vw,56px)">
+        <!-- Acuity's calendar and script load shortly before the calendar
+             scrolls into view (assets/js/mntr.js, section 8), not with the page. -->
+        <div class="book-frame">
+          <div class="book-loading" aria-live="polite">
+            <span class="label book-status">Loading the calendar</span>
+            <span class="bar" aria-hidden="true"></span>
           </div>
-          <p class="book-fallback">
-            <span>Times are shown in your local time zone.</span>
-            <a data-href="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" target="_blank" rel="noopener">Calendar not loading? Open it in a new tab</a>
-          </p>
+          <iframe data-src="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" title="Book your free consultation" width="100%" height="820" loading="lazy"></iframe>
         </div>
+        <p class="book-fallback">
+          <span>Times are shown in your local time zone.</span>
+          <a href="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" target="_blank" rel="noopener">Calendar not loading? Open it in a new tab</a>
+          <span>Booking is handled by Acuity Scheduling. How we use your information: <a href="legal/#privacy">privacy policy</a>.</span>
+        </p>
       </div>
       <div class="o-next">
         <p class="o-next-lede">Booked your consultation? Your next step is on the following page: a short welcome video, our programs and our prices.</p>
@@ -363,6 +370,6 @@
   </div>
 </div>
 
-<script src="../assets/js/mntr.js?v=18"></script>
+<script src="../assets/js/mntr.js?v=19"></script>
 </body>
 </html>

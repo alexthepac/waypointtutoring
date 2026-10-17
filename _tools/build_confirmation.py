@@ -15,9 +15,9 @@ ACUITY = {
     'pack5':     'https://app.acuityscheduling.com/catalog.php?owner=40491971&action=addCart&clear=1&id=2286689',
 }
 BIWEEKLY = {'core': 350, 'intensive': 450, 'complete': 575}   # CA$ every 2 weeks
-PAYMENTS = 8              # 16-week semester, one payment every 2 weeks
-BULK_DISCOUNT = 0.05      # shown for paying the semester in full
-SINGLE, PACK5 = 80, 375   # tutoring: one session; five sessions (75 each)
+# Semester totals (8 payments) and the pay-in-full price are deliberately
+# not shown on the page; only the price every 2 weeks is.
+SINGLE, PACK5 = 65, 300   # tutoring: one session; five sessions (60 each)
 THRESHOLD = {'core': 33, 'intensive': 35, 'complete': 35}
 
 T = {
@@ -57,11 +57,8 @@ T = {
   int_list=['2 hours of personalized tutoring every week, instead of 1','For parents, a call with a founder whenever you want one'],
   comp_list=['3 hours of personalized tutoring every week, instead of 1','For parents, a call with a founder whenever you want one'],
   money=lambda n: 'CA$' + format(n, ','),
-  every2='every 2 weeks', semline='Full semester: {t} (8 payments)', pay2='Pay every 2 weeks',
-  bulk='Pay in full: {b}', save5='Save 5%', bulk_note='Arranged at your consultation.',
-  buy_confirm='I confirm that I am at least 18 years old and am purchasing for myself or as the parent/legal guardian of the student.',
-  buy_note='Purchases open on Acuity Scheduling in a new tab. Under 18? Please ask a parent or legal guardian to complete the purchase.',
-  buy_block='Please tick the confirmation above first.',
+  every2='every 2 weeks', pay2='Pay every 2 weeks',
+  bulk='Pay in full', save5='Save 5%', bulk_note='Arranged at your consultation.',
   t_single='Single session', t_single_p='{p} per one-hour session', t_single_b='Book a session',
   t_pack='5-session package', t_pack_p='{p} ({e} per session)', t_pack_save='Save {d}', t_pack_b='Buy the package',
   remedy='If an eligible student doesn\'t exceed their program\'s threshold, MNTR provides a separate mentorship program the following semester, free of charge, subject to the program conditions. It is not a refund, and MNTR does not guarantee admission to any program.',
@@ -78,8 +75,7 @@ T = {
   reach=[('Email','<a href="mailto:mntrtutoring.info@gmail.com">mntrtutoring.info@gmail.com</a>'),('Call or text','<a href="tel:+15146520018">+1 514-652-0018</a>'),('Instagram','<a href="https://www.instagram.com/mntrtutoring/" target="_blank" rel="noopener">@mntrtutoring</a>'),('LinkedIn','<a href="https://www.linkedin.com/company/mntrtutoring/" target="_blank" rel="noopener">MNTR Tutoring</a>')],
   f_name='Name', f_email='Email', f_topic='Subject', f_opt='(optional)', f_msg='Message', f_send='Send message',
   f_topic_ph='e.g. a question about Intensive',
-  f_adult="I confirm that I am at least 18 years old and am submitting this request for myself or as the parent/legal guardian of the student.",
-  f_legal='Under 18? Please ask a parent or legal guardian to write to us. We use these details only to reply to you. See our <a href="../legal/#privacy">privacy policy</a>.',
+  f_legal='We use these details only to reply to you. See our <a href="../legal/#privacy">privacy policy</a>.',
   # footer
   f_blurb='Academic mentorship for CEGEP students in Quebec. Tutoring, weekly planning, exam preparation and university guidance, from one dedicated mentor.',
   f_explore='Explore', f_ex=[('How it works','{home}#how'),('Our programs','{home}#programs'),('Common questions','{home}#faq'),('Our team','{staff}'),('Book a consultation','{home}#book')],
@@ -122,11 +118,8 @@ T = {
   int_list=['2 heures de tutorat personnalisé chaque semaine, au lieu de 1','Pour les parents, un appel avec un fondateur quand vous le souhaitez'],
   comp_list=['3 heures de tutorat personnalisé chaque semaine, au lieu de 1','Pour les parents, un appel avec un fondateur quand vous le souhaitez'],
   money=lambda n: format(n, ',').replace(',', '\u00a0') + '\u00a0$',
-  every2='aux deux semaines', semline='Session complète : {t} (8 paiements)', pay2='Payer aux deux semaines',
-  bulk='En un seul versement : {b}', save5='Économisez 5\u00a0%', bulk_note='À convenir lors de votre consultation.',
-  buy_confirm="Je confirme avoir au moins 18 ans et effectuer cet achat pour moi-même ou en tant que parent ou titulaire de l\u2019autorité parentale de l\u2019élève.",
-  buy_note="Les achats s\u2019ouvrent sur Acuity Scheduling dans un nouvel onglet. Vous avez moins de 18 ans? Demandez à un parent ou au titulaire de l\u2019autorité parentale d\u2019effectuer l\u2019achat.",
-  buy_block='Cochez d\u2019abord la case de confirmation ci-dessus.',
+  every2='aux deux semaines', pay2='Payer aux deux semaines',
+  bulk='En un seul versement', save5='Économisez 5\u00a0%', bulk_note='À convenir lors de votre consultation.',
   t_single='Séance à l\u2019unité', t_single_p='{p} par séance d\u2019une heure', t_single_b='Réserver une séance',
   t_pack='Forfait de 5 séances', t_pack_p='{p} ({e} la séance)', t_pack_save='Économisez {d}', t_pack_b='Acheter le forfait',
   remedy="Si un étudiant admissible ne dépasse pas le seuil de son programme, MNTR lui offre un programme de mentorat distinct la session suivante, sans frais, sous réserve des conditions du programme. Ce n'est pas un remboursement, et MNTR ne garantit l'admission à aucun programme.",
@@ -142,8 +135,7 @@ T = {
   reach=[('Courriel','<a href="mailto:mntrtutoring.info@gmail.com">mntrtutoring.info@gmail.com</a>'),('Appel ou texto','<a href="tel:+15146520018">+1 514-652-0018</a>'),('Instagram','<a href="https://www.instagram.com/mntrtutoring/" target="_blank" rel="noopener">@mntrtutoring</a>'),('LinkedIn','<a href="https://www.linkedin.com/company/mntrtutoring/" target="_blank" rel="noopener">MNTR Tutoring</a>')],
   f_name='Nom', f_email='Courriel', f_topic='Sujet', f_opt='(facultatif)', f_msg='Message', f_send='Envoyer',
   f_topic_ph='p. ex. une question sur le programme Intensif',
-  f_adult="Je confirme avoir au moins 18 ans et soumettre cette demande pour moi-même ou en tant que parent ou titulaire de l\u2019autorité parentale de l\u2019élève.",
-  f_legal='Vous avez moins de 18 ans? Demandez à un parent ou au titulaire de l\u2019autorité parentale de nous écrire. Nous utilisons ces renseignements uniquement pour vous répondre. Consultez notre <a href="../juridique/#privacy">politique de confidentialité</a>.',
+  f_legal='Nous utilisons ces renseignements uniquement pour vous répondre. Consultez notre <a href="../juridique/#privacy">politique de confidentialité</a>.',
   f_blurb="Mentorat scolaire pour les étudiants du cégep au Québec. Tutorat, planification hebdomadaire, préparation aux examens et orientation universitaire, avec un seul mentor attitré.",
   f_explore='Explorer', f_ex=[('Comment ça marche','{home}#how'),('Nos programmes','{home}#programs'),('Questions fréquentes','{home}#faq'),('Notre équipe','{staff}'),('Réserver une consultation','{home}#book')],
   f_pol=[('terms','Conditions générales'),('cancellation',"Politique d'annulation"),('payment','Politique de paiement'),('privacy','Politique de confidentialité')],
@@ -176,17 +168,16 @@ def build(lang):
         href = ACUITY[key].replace('&', '&amp;')
         return f'<a class="btn o-buy" data-buy href="{href}" target="_blank" rel="noopener">{label}</a>'
     def pkg(key, name, who, items):
-        per = BIWEEKLY[key]; total = per * PAYMENTS; full = round(total * (1 - BULK_DISCOUNT))
+        per = BIWEEKLY[key]
         return f'''<article class="o-pkg" aria-labelledby="pkg-{key}">
               <h3 class="o-pkg-name" id="pkg-{key}">{name}</h3>
               <p class="o-pkg-g"><span class="o-pkg-num">&gt; {THRESHOLD[key]}</span><span class="o-pkg-glab">{t['guarantee']}</span></p>
               <p class="o-pkg-for">{who}</p>
               <ul class="o-pkg-list">{items}</ul>
               <div class="o-price-block">
-                <p class="o-price-total">{M(per)} <small>{t['every2']}</small></p>
-                <p class="o-price-plan">{t['semline'].format(t=M(total))}</p>
+                <p class="o-price-total" style="margin-bottom:10px">{M(per)} <small>{t['every2']}</small></p>
                 {buy(key, t['pay2'])}
-                <p class="o-price-bulk">{t['bulk'].format(b=M(full))} <span class="o-save">{t['save5']}</span> <span class="o-price-note">{t['bulk_note']}</span></p>
+                <p class="o-price-bulk">{t['bulk']} <span class="o-save">{t['save5']}</span> <span class="o-price-note">{t['bulk_note']}</span></p>
               </div>
             </article>'''
     def vfaq(items):
@@ -327,15 +318,10 @@ def build(lang):
   <!-- ===================================================== C. PACKAGES
        Tutoring left, mentorship right (the wider column); on phones mentorship
        comes first. Prices, links and thresholds: constants at the top of
-       _tools/build_confirmation.py. Buy links work only after the 18+ box. -->
+       _tools/build_confirmation.py. -->
   <section class="o-pnl o-pnl--glass" id="packages" aria-labelledby="pkgTitle">
     <div class="wrap">
       <h2 id="pkgTitle" class="o-h">{t['pkg_h']}</h2>
-      <div class="o-buygate" data-buy-gate>
-        <label class="o-check"><input type="checkbox" data-buy-confirm /><span>{t['buy_confirm']}</span></label>
-        <p class="o-gate-note">{t['buy_note']}</p>
-        <p class="o-gate-minor" data-buy-msg role="status" hidden>{t['buy_block']}</p>
-      </div>
       <div class="o-split o-split--pkgs">
         <div class="o-col o-col--tutor">
           <p class="o-col-kick">{t['tutor_kick']}</p>
@@ -385,7 +371,6 @@ def build(lang):
           </div>
           <div class="o-field"><label for="cTopic">{t['f_topic']} <small>{t['f_opt']}</small></label><input id="cTopic" name="topic" type="text" maxlength="150" placeholder="{t['f_topic_ph']}" /></div>
           <div class="o-field"><label for="cMsg">{t['f_msg']}</label><textarea id="cMsg" name="message" rows="5" required maxlength="5000"></textarea></div>
-          <label class="o-check"><input type="checkbox" name="adult" value="yes" required /><span>{t['f_adult']}</span></label>
           <p class="o-form-legal">{t['f_legal']}</p>
           <div class="o-form-foot">
             <button class="btn" type="submit">{t['f_send']}</button>
@@ -459,7 +444,7 @@ def build(lang):
   </div>
 </div>
 
-<script src="../../assets/js/mntr.js?v=18"></script>
+<script src="../../assets/js/mntr.js?v=19"></script>
 </body>
 </html>
 '''
