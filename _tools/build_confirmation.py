@@ -15,8 +15,8 @@ ACUITY = {
     'pack5':     'https://app.acuityscheduling.com/catalog.php?owner=40491971&action=addCart&clear=1&id=2286689',
 }
 BIWEEKLY = {'core': 350, 'intensive': 450, 'complete': 575}   # CA$ every 2 weeks
-PAYMENTS = 8              # 16-week semester, one payment every 2 weeks
-BULK_DISCOUNT = 0.05      # shown for paying the semester in full
+# Semester totals (8 payments) and the pay-in-full price are deliberately
+# not shown on the page; only the price every 2 weeks is.
 SINGLE, PACK5 = 80, 375   # tutoring: one session; five sessions (75 each)
 THRESHOLD = {'core': 33, 'intensive': 35, 'complete': 35}
 
@@ -57,8 +57,8 @@ T = {
   int_list=['2 hours of personalized tutoring every week, instead of 1','For parents, a call with a founder whenever you want one'],
   comp_list=['3 hours of personalized tutoring every week, instead of 1','For parents, a call with a founder whenever you want one'],
   money=lambda n: 'CA$' + format(n, ','),
-  every2='every 2 weeks', semline='Full semester: {t} (8 payments)', pay2='Pay every 2 weeks',
-  bulk='Pay in full: {b}', save5='Save 5%', bulk_note='Arranged at your consultation.',
+  every2='every 2 weeks', pay2='Pay every 2 weeks',
+  bulk='Pay in full', save5='Save 5%', bulk_note='Arranged at your consultation.',
   t_single='Single session', t_single_p='{p} per one-hour session', t_single_b='Book a session',
   t_pack='5-session package', t_pack_p='{p} ({e} per session)', t_pack_save='Save {d}', t_pack_b='Buy the package',
   remedy='If an eligible student doesn\'t exceed their program\'s threshold, MNTR provides a separate mentorship program the following semester, free of charge, subject to the program conditions. It is not a refund, and MNTR does not guarantee admission to any program.',
@@ -118,8 +118,8 @@ T = {
   int_list=['2 heures de tutorat personnalisé chaque semaine, au lieu de 1','Pour les parents, un appel avec un fondateur quand vous le souhaitez'],
   comp_list=['3 heures de tutorat personnalisé chaque semaine, au lieu de 1','Pour les parents, un appel avec un fondateur quand vous le souhaitez'],
   money=lambda n: format(n, ',').replace(',', '\u00a0') + '\u00a0$',
-  every2='aux deux semaines', semline='Session complète : {t} (8 paiements)', pay2='Payer aux deux semaines',
-  bulk='En un seul versement : {b}', save5='Économisez 5\u00a0%', bulk_note='À convenir lors de votre consultation.',
+  every2='aux deux semaines', pay2='Payer aux deux semaines',
+  bulk='En un seul versement', save5='Économisez 5\u00a0%', bulk_note='À convenir lors de votre consultation.',
   t_single='Séance à l\u2019unité', t_single_p='{p} par séance d\u2019une heure', t_single_b='Réserver une séance',
   t_pack='Forfait de 5 séances', t_pack_p='{p} ({e} la séance)', t_pack_save='Économisez {d}', t_pack_b='Acheter le forfait',
   remedy="Si un étudiant admissible ne dépasse pas le seuil de son programme, MNTR lui offre un programme de mentorat distinct la session suivante, sans frais, sous réserve des conditions du programme. Ce n'est pas un remboursement, et MNTR ne garantit l'admission à aucun programme.",
@@ -168,17 +168,16 @@ def build(lang):
         href = ACUITY[key].replace('&', '&amp;')
         return f'<a class="btn o-buy" data-buy href="{href}" target="_blank" rel="noopener">{label}</a>'
     def pkg(key, name, who, items):
-        per = BIWEEKLY[key]; total = per * PAYMENTS; full = round(total * (1 - BULK_DISCOUNT))
+        per = BIWEEKLY[key]
         return f'''<article class="o-pkg" aria-labelledby="pkg-{key}">
               <h3 class="o-pkg-name" id="pkg-{key}">{name}</h3>
               <p class="o-pkg-g"><span class="o-pkg-num">&gt; {THRESHOLD[key]}</span><span class="o-pkg-glab">{t['guarantee']}</span></p>
               <p class="o-pkg-for">{who}</p>
               <ul class="o-pkg-list">{items}</ul>
               <div class="o-price-block">
-                <p class="o-price-total">{M(per)} <small>{t['every2']}</small></p>
-                <p class="o-price-plan">{t['semline'].format(t=M(total))}</p>
+                <p class="o-price-total" style="margin-bottom:10px">{M(per)} <small>{t['every2']}</small></p>
                 {buy(key, t['pay2'])}
-                <p class="o-price-bulk">{t['bulk'].format(b=M(full))} <span class="o-save">{t['save5']}</span> <span class="o-price-note">{t['bulk_note']}</span></p>
+                <p class="o-price-bulk">{t['bulk']} <span class="o-save">{t['save5']}</span> <span class="o-price-note">{t['bulk_note']}</span></p>
               </div>
             </article>'''
     def vfaq(items):
