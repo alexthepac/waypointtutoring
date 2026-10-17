@@ -139,8 +139,8 @@ with `gtag('event', …)`: `cta_click` (with `cta` = `hero_apply`,
 
 ## Legacy pages
 
-All previous pages (tutoring, casper, checkout, thank-you, contact, faq,
-privacy, user-agreement, etc.) are in `_legacy/` and are no longer served.
+The previous site's pages are no longer in this repository (an archive is
+kept outside it). Their old addresses redirect to the new pages.
 Anything that linked to them needs repointing:
 
 - Stripe Payment Links / checkout success URLs that pointed at

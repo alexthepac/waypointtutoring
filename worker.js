@@ -33,7 +33,7 @@
                             rejects everything.
      BOOKING_EMAIL_URL      Google Apps Script Web App URL that sends the
                             "book your sessions" email from your Gmail
-                            (see backend/booking-email.gs)
+                            (the Apps Script is no longer kept in this repo)
      BOOKING_EMAIL_TOKEN    Shared secret sent to BOOKING_EMAIL_URL so only
                             this Worker can trigger those emails
      ALLOWED_ORIGINS        optional comma-separated origin allowlist; defaults
@@ -395,8 +395,8 @@ async function handleStripeWebhook(request, env) {
     (session.customer_details && session.customer_details.name) || '';
 
   /* Which package was bought, so the email can carry that package's own
-     booking link instead of listing every one. Casper-only and MMI-only are
-     both $500, so the amount cannot separate them — each Stripe Payment Link
+     booking link instead of listing every one. Two packages can share a price,
+     so the amount cannot always separate them — each Stripe Payment Link
      carries a `package` metadata key for exactly that reason. When the key is
      missing the email sender falls back to deciding from the amount, so a
      Payment Link that has not been tagged yet still delivers something useful. */

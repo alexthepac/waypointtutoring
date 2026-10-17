@@ -14,7 +14,6 @@ exclude:
   - worker.js
   - wrangler.toml
   - backend
-  - tutors-data.js
   # internal documentation
   - README-REDESIGN.md
   - DESIGN.md
