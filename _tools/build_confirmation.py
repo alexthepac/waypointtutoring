@@ -17,7 +17,7 @@ ACUITY = {
 BIWEEKLY = {'core': 350, 'intensive': 450, 'complete': 575}   # CA$ every 2 weeks
 # Semester totals (8 payments) and the pay-in-full price are deliberately
 # not shown on the page; only the price every 2 weeks is.
-SINGLE, PACK5 = 80, 350   # tutoring: one session; five sessions (70 each)
+SINGLE, PACK5 = 65, 300   # tutoring: one session; five sessions (60 each)
 THRESHOLD = {'core': 33, 'intensive': 35, 'complete': 35}
 
 T = {
