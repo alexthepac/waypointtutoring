@@ -112,7 +112,10 @@
   <section class="o-sec" id="video" aria-label="Deux façons de travailler avec MNTR">
     <div class="wrap">
       <div class="o-split">
-        <div class="o-col o-col--tutor">
+        <!-- Top-aligned: the mentorship column is taller since it carries the
+             payment buttons, and spreading this column to match it pulled the
+             paragraph away from its heading. -->
+        <div class="o-col o-col--tutor" style="justify-content:flex-start">
           <h2 class="o-col-h">Tutorat traditionnel en ligne</h2>
           <div class="o-col-body">
             <p class="o-col-p">Des séances individuelles en ligne avec des étudiants en médecine, en Med-P, en Dent-P et dans d'autres programmes parmi les plus exigeants du Québec. Une aide ciblée et de grande qualité pour un cours, un chapitre difficile ou un examen qui approche, pour les étudiants qui ont surtout besoin de soutien scolaire.</p>
@@ -123,6 +126,7 @@
               </div>
             </div>
             <div class="o-links">
+              <a class="o-link" href="https://app.acuityscheduling.com/schedule.php?owner=40491971&amp;appointmentType=98757799" target="_blank" rel="noopener" data-track="video_tutoring_single">réserver une séance de tutorat</a>
               <a class="o-link" href="https://app.acuityscheduling.com/catalog/5b5083da/?productId=2286689&amp;clearCart=true" target="_blank" rel="noopener" data-track="video_tutoring">acheter le forfait de 5 séances de tutorat</a>
             </div>
           </div>
@@ -143,6 +147,17 @@
           <div class="o-links">
             <a class="o-link" href="#book" data-track="video_apply">faire une demande de consultation gratuite</a>
             <a class="o-link" href="../fr/confirmation/">déjà fait une demande ou réservé? voyez la suite</a>
+          </div>
+          <!-- Mentorship payments: the same Acuity links as the packages on the
+               post-booking page (ACUITY in _tools/build_confirmation.py). -->
+          <div role="group" aria-labelledby="payKick" style="margin-top:clamp(36px,5vw,52px)">
+            <p class="o-col-kick" id="payKick">Déjà inscrit? Payez votre programme</p>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <a class="btn btn--ghost o-buy" href="https://app.acuityscheduling.com/catalog.php?owner=40491971&amp;action=addCart&amp;clear=1&amp;id=2298096" target="_blank" rel="noopener" data-track="pay_core">Core</a>
+              <a class="btn btn--ghost o-buy" href="https://app.acuityscheduling.com/catalog.php?owner=40491971&amp;action=addCart&amp;clear=1&amp;id=2298104" target="_blank" rel="noopener" data-track="pay_intensive">Intensif</a>
+              <a class="btn btn--ghost o-buy" href="https://app.acuityscheduling.com/catalog.php?owner=40491971&amp;action=addCart&amp;clear=1&amp;id=2298106" target="_blank" rel="noopener" data-track="pay_complete">Intensif complet</a>
+            </div>
+            <p style="margin:12px 0 0;font-size:0.86rem;color:var(--ink-3)">Paiements aux deux semaines, par Acuity Scheduling.</p>
           </div>
         </div>
       </div>
