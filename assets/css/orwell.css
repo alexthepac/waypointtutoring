@@ -147,8 +147,10 @@ html.no-js .o-word-box .o-word, html.reduced .o-word-box .o-word { opacity: 1; t
 .o-includes { list-style: none; max-width: 980px; margin: 0 auto clamp(22px, 3vw, 32px); display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 0; font-size: clamp(0.78rem, 1vw, 0.88rem); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); font-stretch: 110%; }
 .o-includes li { white-space: nowrap; }
 @media (max-width: 560px) { .o-includes li { white-space: normal; } }
-.o-includes li.is-line-start::before { content: none; }
-.o-includes li + li::before { content: "\00B7"; margin: 0 0.75em; color: var(--ink-3); }
+/* The dot trails each item. A dot that ends a line is hidden but keeps its
+   width, so hiding it can never re-wrap the line (mntr.js marks .is-line-end). */
+.o-includes li:not(:last-child)::after { content: "\00B7"; margin: 0 0.75em; color: var(--ink-3); }
+.o-includes li.is-line-end::after { visibility: hidden; }
 
 /* Video */
 .o-video { max-width: 1120px; margin: 0 auto; }
@@ -457,3 +459,17 @@ html.no-js .o-word-box .o-word, html.reduced .o-word-box .o-word { opacity: 1; t
 .o-next-btn { white-space: normal; text-align: center; line-height: 1.25; padding-block: 14px; }
 /* Packages: the price every two weeks leads; the semester total sits under it. */
 .o-price-plan { margin: 0 0 10px; }
+
+/* ---------- Written content that replaced the videos (October 18, 2026) ---------- */
+/* Homepage tutoring column: three short facts. */
+.o-facts { list-style: none; margin: clamp(18px, 2.4vw, 26px) 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.o-facts li { display: grid; grid-template-columns: 14px 1fr; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--rule); color: var(--ink-2); font-size: 0.98rem; text-wrap: pretty; }
+.o-facts li::before { content: ""; width: 7px; height: 1.5px; margin-top: 0.72em; background: var(--ink); }
+/* Post-booking page: what happens next (a real sequence, so numbered). */
+.o-steps-next { list-style: none; counter-reset: nx; max-width: 760px; margin: clamp(8px, 1.4vw, 16px) auto 0; padding: 0; text-align: left; border-top: 1px solid var(--rule-strong); }
+.o-steps-next li { counter-increment: nx; display: grid; grid-template-columns: 3.2em 1fr; gap: 0 12px; padding: clamp(16px, 2vw, 22px) 0; border-bottom: 1px solid var(--rule); font-size: 1.04rem; color: var(--ink-2); text-wrap: pretty; }
+.o-steps-next li::before { content: counter(nx, decimal-leading-zero); grid-row: span 2; font-weight: 800; font-size: 1.5rem; line-height: 1.1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.o-steps-next strong { display: block; color: var(--ink); font-size: 1.1rem; margin-bottom: 4px; }
+/* Written answers inside the question list. */
+.o-qa-a { padding: 0 0 18px; color: var(--ink-2); font-size: 1rem; text-wrap: pretty; }
+.o-qa-a p { margin: 0 0 10px; max-width: 64ch; }
