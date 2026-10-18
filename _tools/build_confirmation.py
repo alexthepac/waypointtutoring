@@ -24,7 +24,7 @@ T = {
 'en': dict(
   lang='en', other='fr', locale='en_CA', self_='../../en/confirmation/', twin='../../fr/confirmation/', home='../../en/', staff='../../en/staff/',
   title="You're all set: before your MNTR consultation",
-  desc="Your free MNTR consultation is booked. A short welcome video, our mentorship and tutoring options, and how to reach us before the call.",
+  desc="Your free MNTR consultation is booked. What happens next, answers to the questions parents ask most, our mentorship and tutoring options, and how to reach us.",
   skip='Skip to content', menu='Menu', open_menu='Open menu', close_menu='Close menu', home_label='MNTR, home', lang_label='Language',
   contact_nav='Contact', legal='../legal/', cookie_settings='Cookie settings', cancel_contract='Cancel a contract', all_legal='All legal information',
   nav=[('Home','{home}'),('How it works','{home}#how'),('Our programs','{home}#programs'),('Our team','{staff}'),('Book a consultation','{home}#book'),('After you apply','./')],
@@ -38,12 +38,17 @@ T = {
   card_label='Your consultation', card_p='Online video call. The link is in your confirmation email.',
   note='Your confirmation email from Acuity Scheduling has the link to the call and lets you reschedule. If you don\'t see it, check your spam folder.',
   welcome_aria='Welcome',
+  steps=[('Check your inbox.', 'Your calendar invitation and the link to the call are in your confirmation email from Acuity Scheduling. If you don\u2019t see it, check your spam folder.'),
+         ('Read through this page.', 'The answers below cover what parents ask most before the call: what the program includes, how risky it is and what it costs.'),
+         ('Come with your goals.', 'You\u2019ll meet one of our founders or a trained member of our team who comes from the same programs as our mentors. We\u2019ll focus on your child\u2019s goals and what fits them best.')],
   # B
   programs_aria='Our services',
   mentor_h='Our Mentorship Program', mentor_sub="What's included in our offer?",
-  faq_h='Your questions, answered on video',
-  vfaq_tutor=[('TUTOR_COST_VIDEO', 'How much does tutoring cost?')],
-  vfaq_mentor=[('OFFER_VIDEO', "What's included in our offer?"), ('MENTOR_RISK_VIDEO', 'How risky is this?'), ('MENTOR_COST_VIDEO', 'How much does the program cost?')],
+  faq_h='Your questions, answered',
+  qa_tutor=[('How much does tutoring cost?', '<p>A one-hour session is {single}. For regular help through the semester, the package of five sessions is {pack} ({pack_each} per session). Book a single session whenever your child needs help, or the package for consistent support.</p><p>Our tutors are university students from some of Quebec\u2019s most demanding programs, such as medicine, dentistry, physics, math and physiology.</p>')],
+  qa_mentor=[("What\u2019s included in our offer?", '<p>Every program runs across the 16-week semester. Core includes one hour of personalized tutoring every week, exam review every two weeks, courses on study and exam strategies, a monthly session with the mentor to put them into practice, a personalized study schedule every week, the mentor available by text, MNTR\u2019s own study material, and help finding volunteering and internship opportunities.</p><p>Intensive adds more tutoring (two or three hours a week) and, for parents, a call with a founder whenever you want one. The full details are in the packages below.</p>'),
+             ('How risky is this?', '<p>Two things keep the risk low. First, the R-score guarantee: if your child stays the whole semester, meets the guarantee conditions and doesn\u2019t exceed their program\u2019s threshold (above {thr_core} for Core, above {thr_int} for Intensive), we provide an additional, separate semester of mentorship, free of charge.</p><p>Second, you pay every two weeks rather than all at once, and you can cancel at any time if the program isn\u2019t the right fit.</p>'),
+             ('How much does the program cost?', '<p>All three programs are paid every two weeks across the 16-week semester, and you can cancel at any time: Core is {core} every two weeks, Intensive with two hours of tutoring a week is {int}, and Complete Intensive with three hours is {comp}. Families who already know they\u2019ll stay the whole semester can pay up front and save 5%.</p><p>This isn\u2019t only tutoring: the price also covers the time mentors spend building the study schedule, the strategy courses, the exam review sessions and the support by text.</p>')],
   tutor_h='Traditional Online Tutoring', orw='or',
   # C
   pkg_h='Packages',
@@ -88,7 +93,7 @@ T = {
 'fr': dict(
   lang='fr', other='en', locale='fr_CA', self_='../../fr/confirmation/', twin='../../en/confirmation/', home='../../fr/', staff='../../fr/equipe/',
   title='Tout est prêt : avant votre consultation MNTR',
-  desc="Votre consultation gratuite avec MNTR est réservée. Une courte vidéo de bienvenue, nos options de mentorat et de tutorat, et comment nous joindre avant l'appel.",
+  desc="Votre consultation gratuite avec MNTR est réservée. La suite, les réponses aux questions que les parents posent le plus, nos options de mentorat et de tutorat, et comment nous joindre.",
   skip='Aller au contenu', menu='Menu', open_menu='Ouvrir le menu', close_menu='Fermer le menu', home_label='MNTR, accueil', lang_label='Langue',
   contact_nav='Nous joindre', legal='../juridique/', cookie_settings='Paramètres des témoins', cancel_contract='Annuler un contrat', all_legal='Toutes les informations juridiques',
   nav=[('Accueil','{home}'),('Comment ça marche','{home}#how'),('Nos programmes','{home}#programs'),('Notre équipe','{staff}'),('Réserver une consultation','{home}#book'),('Après votre demande','./')],
@@ -101,11 +106,16 @@ T = {
   card_label='Votre consultation', card_p='Appel vidéo en ligne. Le lien est dans votre courriel de confirmation.',
   note="Votre courriel de confirmation d'Acuity Scheduling contient le lien de l'appel et vous permet de changer l'heure. Vous ne le trouvez pas? Vérifiez vos courriels indésirables.",
   welcome_aria='Bienvenue',
+  steps=[('Vérifiez votre boîte courriel.', 'L\u2019invitation au calendrier et le lien de l\u2019appel sont dans votre courriel de confirmation d\u2019Acuity Scheduling. Vous ne le trouvez pas? Regardez dans vos courriels indésirables.'),
+         ('Parcourez cette page.', 'Les réponses ci-dessous couvrent les questions que les parents posent le plus souvent avant l\u2019appel : ce que comprend le programme, le risque et le coût.'),
+         ('Arrivez avec vos objectifs.', 'Vous parlerez à l\u2019un de nos fondateurs ou à un membre formé de notre équipe, issu des mêmes programmes que nos mentors. Nous nous concentrerons sur les objectifs de votre enfant et sur ce qui lui convient le mieux.')],
   programs_aria='Nos services',
   mentor_h='Notre programme de mentorat', mentor_sub='Que comprend notre offre ?',
-  faq_h='Vos questions, en vidéo',
-  vfaq_tutor=[('TUTOR_COST_VIDEO', 'Combien coûte le tutorat ?')],
-  vfaq_mentor=[('OFFER_VIDEO', 'Que comprend notre offre ?'), ('MENTOR_RISK_VIDEO', 'Est-ce risqué ?'), ('MENTOR_COST_VIDEO', 'Combien coûte le programme ?')],
+  faq_h='Vos questions, nos réponses',
+  qa_tutor=[('Combien coûte le tutorat ?', '<p>Une séance d\u2019une heure coûte {single}. Pour une aide régulière pendant la session, le forfait de cinq séances coûte {pack} ({pack_each} la séance). Réservez une séance à l\u2019unité quand votre enfant en a besoin, ou le forfait pour un soutien constant.</p><p>Nos tuteurs sont des étudiants universitaires issus de certains des programmes les plus exigeants du Québec, comme la médecine, la médecine dentaire, la physique, les mathématiques et la physiologie.</p>')],
+  qa_mentor=[('Que comprend notre offre ?', '<p>Chaque programme s\u2019étend sur les 16 semaines de la session. Core comprend une heure de tutorat personnalisé chaque semaine, des séances de révision d\u2019examens aux deux semaines, des cours sur les stratégies d\u2019étude et d\u2019examen, une séance par mois avec le mentor pour les mettre en pratique, un horaire d\u2019étude personnalisé chaque semaine, le mentor joignable par texto, le matériel d\u2019étude propre à MNTR et de l\u2019aide pour trouver des occasions de bénévolat et de stage.</p><p>Intensif ajoute plus de tutorat (deux ou trois heures par semaine) et, pour les parents, un appel avec un fondateur quand vous le souhaitez. Tous les détails sont dans les forfaits ci-dessous.</p>'),
+             ('Est-ce risqué ?', '<p>Deux choses limitent le risque. D\u2019abord, la garantie de cote R : si votre enfant reste toute la session, remplit les conditions de la garantie et ne dépasse pas le seuil de son programme (plus de {thr_core} pour Core, plus de {thr_int} pour Intensif), nous lui offrons une session de mentorat supplémentaire et distincte, sans frais.</p><p>Ensuite, vous payez aux deux semaines plutôt qu\u2019en un seul versement, et vous pouvez annuler en tout temps si le programme ne vous convient pas.</p>'),
+             ('Combien coûte le programme ?', '<p>Les trois programmes se paient aux deux semaines pendant les 16 semaines de la session, et vous pouvez annuler en tout temps : Core coûte {core} aux deux semaines, Intensif avec deux heures de tutorat par semaine {int}, et Intensif complet avec trois heures {comp}. Les familles qui savent déjà qu\u2019elles resteront toute la session peuvent payer en un seul versement et économiser 5\u00a0%.</p><p>Ce n\u2019est pas seulement du tutorat : le prix couvre aussi le temps que les mentors consacrent à bâtir l\u2019horaire d\u2019étude, les cours de stratégies, les séances de révision d\u2019examens et le soutien par texto.</p>')],
   tutor_h='Tutorat traditionnel en ligne', orw='ou',
   pkg_h='Forfaits',
   mentor_kick='Notre programme de mentorat', tutor_kick='Tutorat traditionnel en ligne',
@@ -180,14 +190,17 @@ def build(lang):
                 <p class="o-price-bulk">{t['bulk']} <span class="o-save">{t['save5']}</span> <span class="o-price-note">{t['bulk_note']}</span></p>
               </div>
             </article>'''
-    def vfaq(items):
+    vals = dict(single=M(SINGLE), pack=M(PACK5), pack_each=M(PACK5 // 5), core=M(BIWEEKLY['core']), int=M(BIWEEKLY['intensive']),
+                comp=M(BIWEEKLY['complete']), thr_core=THRESHOLD['core'], thr_int=THRESHOLD['intensive'])
+    def qa(items):
         out = []
-        for i, (slot, q) in enumerate(items):
+        for i, (q, a) in enumerate(items):
             out.append(f'''<details class="o-vfaq"{' open' if i == 0 else ''}>
             <summary>{q}</summary>
-            <div class="o-video">{frame(slot, ' data-preload="none"')}</div>
+            <div class="o-qa-a">{a.format(**vals)}</div>
           </details>''')
         return '\n          '.join(out)
+    steps = ''.join(f'<li><strong>{h}</strong> {b}</li>' for h, b in t['steps'])
     sel = f'<span aria-current="page" lang="{lang}">{self_up}</span><a href="{t["twin"]}" lang="{t["other"]}" hreflang="{t["other"]}" data-lang-switch="{t["other"]}">{other_up}</a>'
     return f'''<!DOCTYPE html>
 <html lang="{lang}" class="no-js">
@@ -217,8 +230,8 @@ def build(lang):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../../assets/css/mntr.css?v=22" />
-<link rel="stylesheet" href="../../assets/css/orwell.css?v=22" />
-<script src="../../assets/js/media.js?v=7"></script>
+<link rel="stylesheet" href="../../assets/css/orwell.css?v=24" />
+<script src="../../assets/js/media.js?v=8"></script>
 <script src="../../assets/js/policies.{lang}.js?v=6"></script>
 </head>
 
@@ -282,34 +295,31 @@ def build(lang):
         <h1 class="o-h o-h--big">{t['applied_h']}</h1>
         <p class="o-sub">{f(t['applied_sub'])}</p>
       </div>
-      <div class="o-video o-video--hero">
-        <!-- MNTR_MEDIA.welcomeVideo in /assets/js/media.js, this page's language only -->
-        {frame('WELCOME_VIDEO')}
-      </div>
+      <ol class="o-steps-next">{steps}</ol>
       <div class="booking-card" data-booking-card hidden>
         <span class="label">{t['card_label']}</span>
         <span class="when" data-booking-when></span>
         <p>{t['card_p']}</p>
       </div>
-      <p class="o-note">{t['note']}</p>
     </div>
   </section>
 
-  <!-- ===================================================== B. QUESTIONS, ON VIDEO
+  <!-- ===================================================== B. QUESTIONS
        Tutoring left, mentorship right, as in the packages below; on phones
-       mentorship comes first. Each question opens its own video. -->
+       mentorship comes first. Prices in the answers come from the constants
+       at the top of this file, so they always match the packages. -->
   <section class="o-pnl o-pnl--glass" id="services" aria-labelledby="faqTitle">
     <div class="wrap">
       <h2 id="faqTitle" class="o-h">{t['faq_h']}</h2>
       <div class="o-split o-split--pkgs">
         <div class="o-col o-col--tutor">
           <h3 class="o-col-h">{t['tutor_h']}</h3>
-          {vfaq(t['vfaq_tutor'])}
+          {qa(t['qa_tutor'])}
         </div>
         <div class="o-or" aria-hidden="true"><span>{t['orw']}</span></div>
         <div class="o-col o-col--mentor">
           <h3 class="o-col-h">{t['mentor_h']}</h3>
-          {vfaq(t['vfaq_mentor'])}
+          {qa(t['qa_mentor'])}
         </div>
       </div>
     </div>
@@ -444,7 +454,7 @@ def build(lang):
   </div>
 </div>
 
-<script src="../../assets/js/mntr.js?v=19"></script>
+<script src="../../assets/js/mntr.js?v=20"></script>
 </body>
 </html>
 '''

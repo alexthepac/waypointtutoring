@@ -367,14 +367,16 @@
 
   /* Dot-separated lists (.o-includes): hide the dot on any item that
      starts a new line, so wrapped lines never begin with a dot. */
+  /* Hide the separator dot that would otherwise end a line. The dot trails
+     each item and stays the same width when hidden (CSS), so marking never
+     changes where lines break and one measuring pass is exact. */
   function markLineStarts() {
     $$('.o-includes').forEach(function (ul) {
-      var prevTop = null;
-      $$('li', ul).forEach(function (li) {
+      var items = $$('li', ul);
+      var tops = items.map(function (li) { return li.offsetTop; });
+      items.forEach(function (li, i) {
+        li.classList.toggle('is-line-end', i < items.length - 1 && tops[i + 1] > tops[i] + 2);
         li.classList.remove('is-line-start');
-        var top = li.offsetTop;
-        if (prevTop !== null && top > prevTop + 2) li.classList.add('is-line-start');
-        prevTop = top;
       });
     });
   }
