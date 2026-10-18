@@ -8,7 +8,7 @@
 <script src="../../consent.js?v=6"></script>
 
 <title>Tout est prêt : avant votre consultation MNTR</title>
-<meta name="description" content="Votre consultation gratuite avec MNTR est réservée. Une courte vidéo de bienvenue, nos options de mentorat et de tutorat, et comment nous joindre avant l'appel." />
+<meta name="description" content="Votre consultation gratuite avec MNTR est réservée. La suite, les réponses aux questions que les parents posent le plus, nos options de mentorat et de tutorat, et comment nous joindre." />
 <meta name="robots" content="noindex, follow" />
 <link rel="canonical" href="https://mntrtutoring.ca/fr/confirmation/" />
 <link rel="alternate" hreflang="en" href="https://mntrtutoring.ca/en/confirmation/" />
@@ -26,8 +26,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../../assets/css/mntr.css?v=22" />
-<link rel="stylesheet" href="../../assets/css/orwell.css?v=22" />
-<script src="../../assets/js/media.js?v=7"></script>
+<link rel="stylesheet" href="../../assets/css/orwell.css?v=24" />
+<script src="../../assets/js/media.js?v=8"></script>
 <script src="../../assets/js/policies.fr.js?v=6"></script>
 </head>
 
@@ -103,35 +103,28 @@
         <h1 class="o-h o-h--big">Bienvenue chez MNTR. Voici la suite.</h1>
         <p class="o-sub">Vous n'avez pas encore choisi de moment? <a href="../../fr/#book">Choisissez-en un sur la page d'accueil</a>.</p>
       </div>
-      <div class="o-video o-video--hero">
-        <!-- MNTR_MEDIA.welcomeVideo in /assets/js/media.js, this page's language only -->
-        <div class="video-frame" data-slot="WELCOME_VIDEO">
-              <div class="video-empty"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg></span><span class="label">Vidéo à venir</span></div>
-            </div>
-      </div>
+      <ol class="o-steps-next"><li><strong>Vérifiez votre boîte courriel.</strong> L’invitation au calendrier et le lien de l’appel sont dans votre courriel de confirmation d’Acuity Scheduling. Vous ne le trouvez pas? Regardez dans vos courriels indésirables.</li><li><strong>Parcourez cette page.</strong> Les réponses ci-dessous couvrent les questions que les parents posent le plus souvent avant l’appel : ce que comprend le programme, le risque et le coût.</li><li><strong>Arrivez avec vos objectifs.</strong> Vous parlerez à l’un de nos fondateurs ou à un membre formé de notre équipe, issu des mêmes programmes que nos mentors. Nous nous concentrerons sur les objectifs de votre enfant et sur ce qui lui convient le mieux.</li></ol>
       <div class="booking-card" data-booking-card hidden>
         <span class="label">Votre consultation</span>
         <span class="when" data-booking-when></span>
         <p>Appel vidéo en ligne. Le lien est dans votre courriel de confirmation.</p>
       </div>
-      <p class="o-note">Votre courriel de confirmation d'Acuity Scheduling contient le lien de l'appel et vous permet de changer l'heure. Vous ne le trouvez pas? Vérifiez vos courriels indésirables.</p>
     </div>
   </section>
 
-  <!-- ===================================================== B. QUESTIONS, ON VIDEO
+  <!-- ===================================================== B. QUESTIONS
        Tutoring left, mentorship right, as in the packages below; on phones
-       mentorship comes first. Each question opens its own video. -->
+       mentorship comes first. Prices in the answers come from the constants
+       at the top of this file, so they always match the packages. -->
   <section class="o-pnl o-pnl--glass" id="services" aria-labelledby="faqTitle">
     <div class="wrap">
-      <h2 id="faqTitle" class="o-h">Vos questions, en vidéo</h2>
+      <h2 id="faqTitle" class="o-h">Vos questions, nos réponses</h2>
       <div class="o-split o-split--pkgs">
         <div class="o-col o-col--tutor">
           <h3 class="o-col-h">Tutorat traditionnel en ligne</h3>
           <details class="o-vfaq" open>
             <summary>Combien coûte le tutorat ?</summary>
-            <div class="o-video"><div class="video-frame" data-slot="TUTOR_COST_VIDEO" data-preload="none">
-              <div class="video-empty"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg></span><span class="label">Vidéo à venir</span></div>
-            </div></div>
+            <div class="o-qa-a"><p>Une séance d’une heure coûte 65 $. Pour une aide régulière pendant la session, le forfait de cinq séances coûte 300 $ (60 $ la séance). Réservez une séance à l’unité quand votre enfant en a besoin, ou le forfait pour un soutien constant.</p><p>Nos tuteurs sont des étudiants universitaires issus de certains des programmes les plus exigeants du Québec, comme la médecine, la médecine dentaire, la physique, les mathématiques et la physiologie.</p></div>
           </details>
         </div>
         <div class="o-or" aria-hidden="true"><span>ou</span></div>
@@ -139,21 +132,15 @@
           <h3 class="o-col-h">Notre programme de mentorat</h3>
           <details class="o-vfaq" open>
             <summary>Que comprend notre offre ?</summary>
-            <div class="o-video"><div class="video-frame" data-slot="OFFER_VIDEO" data-preload="none">
-              <div class="video-empty"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg></span><span class="label">Vidéo à venir</span></div>
-            </div></div>
+            <div class="o-qa-a"><p>Chaque programme s’étend sur les 16 semaines de la session. Core comprend une heure de tutorat personnalisé chaque semaine, des séances de révision d’examens aux deux semaines, des cours sur les stratégies d’étude et d’examen, une séance par mois avec le mentor pour les mettre en pratique, un horaire d’étude personnalisé chaque semaine, le mentor joignable par texto, le matériel d’étude propre à MNTR et de l’aide pour trouver des occasions de bénévolat et de stage.</p><p>Intensif ajoute plus de tutorat (deux ou trois heures par semaine) et, pour les parents, un appel avec un fondateur quand vous le souhaitez. Tous les détails sont dans les forfaits ci-dessous.</p></div>
           </details>
           <details class="o-vfaq">
             <summary>Est-ce risqué ?</summary>
-            <div class="o-video"><div class="video-frame" data-slot="MENTOR_RISK_VIDEO" data-preload="none">
-              <div class="video-empty"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg></span><span class="label">Vidéo à venir</span></div>
-            </div></div>
+            <div class="o-qa-a"><p>Deux choses limitent le risque. D’abord, la garantie de cote R : si votre enfant reste toute la session, remplit les conditions de la garantie et ne dépasse pas le seuil de son programme (plus de 33 pour Core, plus de 35 pour Intensif), nous lui offrons une session de mentorat supplémentaire et distincte, sans frais.</p><p>Ensuite, vous payez aux deux semaines plutôt qu’en un seul versement, et vous pouvez annuler en tout temps si le programme ne vous convient pas.</p></div>
           </details>
           <details class="o-vfaq">
             <summary>Combien coûte le programme ?</summary>
-            <div class="o-video"><div class="video-frame" data-slot="MENTOR_COST_VIDEO" data-preload="none">
-              <div class="video-empty"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg></span><span class="label">Vidéo à venir</span></div>
-            </div></div>
+            <div class="o-qa-a"><p>Les trois programmes se paient aux deux semaines pendant les 16 semaines de la session, et vous pouvez annuler en tout temps : Core coûte 350 $ aux deux semaines, Intensif avec deux heures de tutorat par semaine 450 $, et Intensif complet avec trois heures 575 $. Les familles qui savent déjà qu’elles resteront toute la session peuvent payer en un seul versement et économiser 5 %.</p><p>Ce n’est pas seulement du tutorat : le prix couvre aussi le temps que les mentors consacrent à bâtir l’horaire d’étude, les cours de stratégies, les séances de révision d’examens et le soutien par texto.</p></div>
           </details>
         </div>
       </div>
@@ -335,6 +322,6 @@
   </div>
 </div>
 
-<script src="../../assets/js/mntr.js?v=19"></script>
+<script src="../../assets/js/mntr.js?v=20"></script>
 </body>
 </html>
