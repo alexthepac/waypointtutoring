@@ -8,8 +8,8 @@
 <!-- Balise Google (gtag.js), consentement refusé par défaut; consent.js met à jour -->
 <script src="../consent.js?v=6"></script>
 
-<title>Mentorat MNTR : bien plus que du tutorat. Mentorat au cégep, Québec</title>
-<meta name="description" content="Mentorat scolaire d'une session complète pour les étudiants du cégep au Québec : un mentor attitré, un plan d'étude hebdomadaire, du tutorat individuel, la préparation aux examens et l'orientation universitaire. Faites une demande de consultation gratuite." />
+<title>MNTR : tutorat en ligne et mentorat au cégep, Québec</title>
+<meta name="description" content="Du tutorat individuel en ligne pour les étudiants du cégep au Québec, avec des étudiants universitaires en médecine, en médecine dentaire et dans d’autres programmes exigeants. 65 $ la séance ou 300 $ pour cinq. Mentorat d’une session complète aussi offert." />
 <link rel="canonical" href="https://mntrtutoring.ca/fr/" />
 <link rel="alternate" hreflang="fr" href="https://mntrtutoring.ca/fr/" />
 <link rel="alternate" hreflang="en" href="https://mntrtutoring.ca/en/" />
@@ -20,8 +20,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="fr_CA" />
 <meta property="og:locale:alternate" content="en_CA" />
-<meta property="og:title" content="Mentorat MNTR : bien plus que du tutorat" />
-<meta property="og:description" content="Un mentor attitré, un plan chaque semaine et une session complète bâtie autour du programme que vise votre étudiant. Consultation gratuite." />
+<meta property="og:title" content="MNTR : tutorat en ligne au cégep, Québec" />
+<meta property="og:description" content="Du tutorat individuel avec des étudiants des programmes les plus exigeants du Québec. 65 $ la séance ou 300 $ pour cinq." />
 <meta property="og:url" content="https://mntrtutoring.ca/fr/" />
 <meta property="og:image" content="https://mntrtutoring.ca/hero.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -31,7 +31,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..700&display=swap" rel="stylesheet" />
 <link rel="preload" as="image" href="../assets/media/hero-radcliffe.webp" type="image/webp" imagesrcset="../assets/media/hero-radcliffe-1200.webp 1200w, ../assets/media/hero-radcliffe.webp 2400w" imagesizes="100vw" />
 <link rel="stylesheet" href="../assets/css/mntr.css?v=22" />
-<link rel="stylesheet" href="../assets/css/orwell.css?v=24" />
+<link rel="stylesheet" href="../assets/css/orwell.css?v=25" />
 <script src="../assets/js/media.js?v=8"></script>
 <script src="../assets/js/policies.fr.js?v=6"></script>
 </head>
@@ -47,7 +47,7 @@
       <nav class="lang" aria-label="Langue">
         <a href="../en/" lang="en" hreflang="en" data-lang-switch="en">EN</a><span aria-current="page" lang="fr">FR</span>
       </nav>
-      <a class="o-apply" href="#book" data-track="header_apply">Postuler</a>
+      <a class="o-apply" href="#video" data-track="header_tutoring">Réserver du tutorat</a>
     </div>
   </div>
 </header>
@@ -62,8 +62,9 @@
   </div>
   <ul class="nav-list">
     <li class="stag"><a href="./">Accueil</a></li>
+    <li class="stag"><a href="#video">Tutorat</a></li>
     <li class="stag"><a href="#how">Comment ça marche</a></li>
-    <li class="stag"><a href="#programs">Nos programmes</a></li>
+    <li class="stag"><a href="#programs">Programmes de mentorat</a></li>
     <li class="stag"><a href="../fr/equipe/">Notre équipe</a></li>
     <li class="stag"><a href="#book" data-track="menu_apply">Réserver une consultation</a></li>
     <li class="stag"><a href="../fr/confirmation/">Après votre demande</a></li>
@@ -94,7 +95,7 @@
 <section class="o-hero" aria-labelledby="heroTitle">
   <img class="o-photo" src="../assets/media/hero-radcliffe.webp" srcset="../assets/media/hero-radcliffe-1200.webp 1200w, ../assets/media/hero-radcliffe.webp 2400w" sizes="100vw" alt="La Radcliffe Camera et Radcliffe Square à Oxford, vues d'en haut" width="2400" height="1336" fetchpriority="high" />
   <div class="o-center">
-    <h1 id="heroTitle" class="sr-only">Mentorat MNTR : bien plus que du tutorat</h1>
+    <h1 id="heroTitle" class="sr-only">MNTR : tutorat en ligne et mentorat au cégep, Québec</h1>
     <div class="o-word-box" aria-hidden="true"><span class="o-word fit"><span class="o-m"><i class="ml"></i><i class="mr"></i></span>NTR</span></div>
     <p class="o-tag" aria-hidden="true">Mentorat. Bien plus que du tutorat.</p>
   </div>
@@ -111,27 +112,31 @@
 
   <section class="o-sec" id="video" aria-label="Deux façons de travailler avec MNTR">
     <div class="wrap">
-      <div class="o-split">
-        <!-- Top-aligned: the mentorship column is taller since it carries the
-             payment buttons, and spreading this column to match it pulled the
-             paragraph away from its heading. -->
-        <div class="o-col o-col--tutor" style="justify-content:flex-start">
+      <!-- Tutoring leads (November 2026): the wider, heavier column with the
+           prices and buy buttons; mentorship is the quieter alternative (the
+           .o-split--tutor rules at the end of orwell.css). The prices are also
+           on the post-booking page (SINGLE, PACK5 in _tools/build_confirmation.py):
+           change both together. -->
+      <div class="o-split o-split--tutor">
+        <div class="o-col o-col--tutor">
           <h2 class="o-col-h">Tutorat traditionnel en ligne</h2>
           <div class="o-col-body">
             <p class="o-col-p">Des séances individuelles en ligne avec des étudiants en médecine, en Med-P, en Dent-P et dans d'autres programmes parmi les plus exigeants du Québec. Une aide ciblée et de grande qualité pour un cours, un chapitre difficile ou un examen qui approche, pour les étudiants qui ont surtout besoin de soutien scolaire.</p>
             <ul class="o-facts"><li>Chaque tuteur est un étudiant universitaire qui a passé les mêmes examens du cégep il n’y a pas longtemps.</li><li>Ils viennent de certains des programmes les plus exigeants du Québec : médecine, médecine dentaire, physique, mathématiques et physiologie.</li><li>Réservez une séance à la fois, ou un forfait de cinq.</li></ul>
-            <div class="o-links">
-              <a class="o-link" href="https://app.acuityscheduling.com/schedule.php?owner=40491971&amp;appointmentType=98757799" target="_blank" rel="noopener" data-track="video_tutoring_single">réserver une séance de tutorat</a>
-              <a class="o-link" href="https://app.acuityscheduling.com/catalog/5b5083da/?productId=2286689&amp;clearCart=true" target="_blank" rel="noopener" data-track="video_tutoring">acheter le forfait de 5 séances de tutorat</a>
-            </div>
+            <ul class="o-offers">
+              <li><span class="o-offer-name">Séance à l’unité</span><span class="o-offer-price"><b>65 $</b> par séance d’une heure</span><a class="btn o-buy" href="https://app.acuityscheduling.com/schedule.php?owner=40491971&amp;appointmentType=98757799" target="_blank" rel="noopener" data-track="video_tutoring_single">Réserver une séance</a></li>
+              <li><span class="o-offer-name">Forfait de 5 séances <span class="o-save">Économisez 25 $</span></span><span class="o-offer-price"><b>300 $</b> (60 $ la séance)</span><a class="btn btn--red o-buy" href="https://app.acuityscheduling.com/catalog/5b5083da/?productId=2286689&amp;clearCart=true" target="_blank" rel="noopener" data-track="video_tutoring">Acheter le forfait</a></li>
+            </ul>
+            <div class="o-links"><a class="o-link" href="../fr/equipe/">rencontrer les tuteurs</a></div>
           </div>
         </div>
         <div class="o-or" aria-hidden="true"><span>ou</span></div>
         <div class="o-col o-col--mentor">
-          <ul class="o-includes" aria-label="Ce que comprend le mentorat"><li>Expériences de bénévolat et de stage</li><li>Tutorat</li><li>Horaires d'étude hebdomadaires</li><li>Révision d'examens</li><li>Méthodes d'étude</li><li>Soutien constant des mentors et des fondateurs</li><li>Garantie de cote R</li></ul>
+          <p class="o-col-kick">Vous voulez plus que du tutorat?</p>
           <h2 class="o-col-h">Notre programme de mentorat</h2>
           <p class="o-col-p">Une session complète avec un mentor attitré, qui bâtit l’horaire d’étude hebdomadaire de votre enfant, donne son tutorat et sa révision d’examens, et reste joignable par texto. Chaque programme comprend notre garantie de cote R : si votre enfant ne dépasse pas 33 (Core) ou 35 (Intensif), nous lui offrons une session de mentorat supplémentaire et distincte, sans frais, sous réserve des conditions du programme.</p>
           <div class="o-links">
+            <a class="o-link" href="#why">comment fonctionne le mentorat</a>
             <a class="o-link" href="#book" data-track="video_apply">faire une demande de consultation gratuite</a>
             <a class="o-link" href="../fr/confirmation/">déjà fait une demande ou réservé? voyez la suite</a>
           </div>
@@ -151,35 +156,15 @@
     </div>
   </section>
 
-  <section class="o-sec" id="book" aria-labelledby="bookTitle">
+  <section class="o-sec" id="team" aria-labelledby="teamTitle">
     <div class="wrap">
-      <h2 id="bookTitle" class="o-h o-h--big">Choisissez un moment. On s'occupe du reste.</h2>
-      <p class="o-lede">Trente minutes, en ligne, sans engagement. On passe en revue les cours, les notes et l'échéancier de l'étudiant, on répond à vos questions et on vous dit franchement si le mentorat est le bon choix.</p>
-      <ul class="o-points">
-        <li>Les parents sont les bienvenus à l'appel</li>
-        <li>Gardez le dernier bulletin ou la cote R à portée de main</li>
-        <li>Un courriel de confirmation arrive en quelques minutes</li>
-      </ul>
-      <div class="o-book" data-book-embed style="margin-top:clamp(36px,5vw,56px)">
-        <!-- Acuity's calendar and script load shortly before the calendar
-             scrolls into view (assets/js/mntr.js, section 8), not with the page. -->
-        <div class="book-frame">
-          <div class="book-loading" aria-live="polite">
-            <span class="label book-status">Chargement du calendrier</span>
-            <span class="bar" aria-hidden="true"></span>
-          </div>
-          <iframe data-src="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" title="Réserver votre consultation gratuite" width="100%" height="820" loading="lazy"></iframe>
-        </div>
-        <p class="book-fallback">
-          <span>Les heures sont affichées selon votre fuseau horaire.</span>
-          <a href="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" target="_blank" rel="noopener">Le calendrier ne s'affiche pas? Ouvrez-le dans un nouvel onglet</a>
-          <span>La réservation est gérée par Acuity Scheduling. Comment nous utilisons vos renseignements : <a href="juridique/#privacy">politique de confidentialité</a>.</span>
-        </p>
+      <h2 id="teamTitle" class="o-h">Des tuteurs qui viennent de passer ces examens</h2>
+      <div class="o-trio" role="group" aria-label="Quelques tuteurs de MNTR">
+      <a href="../fr/equipe/#james"><div class="o-img"><img src="../assets/img/team/james.jpg" alt="James" width="750" height="1000" loading="lazy" /><span aria-hidden="true">Voir le profil</span></div><p class="o-cap"><b>James</b>Med-P, McGill</p></a>
+      <a href="../fr/equipe/#laura"><div class="o-img"><img src="../assets/img/team/laura.jpg" alt="Laura" width="800" height="1000" loading="lazy" /><span aria-hidden="true">Voir le profil</span></div><p class="o-cap"><b>Laura</b>Med-P, McGill</p></a>
+      <a href="../fr/equipe/#daniel"><div class="o-img"><img src="../assets/img/team/daniel.jpg" alt="Daniel" width="800" height="1000" loading="lazy" /><span aria-hidden="true">Voir le profil</span></div><p class="o-cap"><b>Daniel</b>Médecine, Université de Montréal</p></a>
       </div>
-      <div class="o-next">
-        <p class="o-next-lede">Vous avez réservé votre consultation? La suite se trouve sur la page suivante : la suite, nos programmes et nos tarifs.</p>
-        <a class="btn btn--red btn--lg o-next-btn" href="../fr/confirmation/" data-track="booked_next">J’ai réservé : passer à l’étape suivante <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </div>
+      <div class="o-links"><a class="o-link" href="../fr/equipe/">rencontrer toute l'équipe</a></div>
     </div>
   </section>
 
@@ -223,15 +208,35 @@
     </div>
   </section>
 
-  <section class="o-sec" id="team" aria-labelledby="teamTitle">
+  <section class="o-sec" id="book" aria-labelledby="bookTitle">
     <div class="wrap">
-      <h2 id="teamTitle" class="o-h">Des mentors qui viennent de passer ces examens</h2>
-      <div class="o-trio" role="group" aria-label="Quelques mentors de MNTR">
-      <a href="../fr/equipe/#james"><div class="o-img"><img src="../assets/img/team/james.jpg" alt="James" width="750" height="1000" loading="lazy" /><span aria-hidden="true">Voir le profil</span></div><p class="o-cap"><b>James</b>Med-P, McGill</p></a>
-      <a href="../fr/equipe/#laura"><div class="o-img"><img src="../assets/img/team/laura.jpg" alt="Laura" width="800" height="1000" loading="lazy" /><span aria-hidden="true">Voir le profil</span></div><p class="o-cap"><b>Laura</b>Med-P, McGill</p></a>
-      <a href="../fr/equipe/#daniel"><div class="o-img"><img src="../assets/img/team/daniel.jpg" alt="Daniel" width="800" height="1000" loading="lazy" /><span aria-hidden="true">Voir le profil</span></div><p class="o-cap"><b>Daniel</b>Médecine, Université de Montréal</p></a>
+      <h2 id="bookTitle" class="o-h o-h--big">Le mentorat vous intéresse? Choisissez un moment.</h2>
+      <p class="o-lede">Trente minutes, en ligne, sans engagement. On passe en revue les cours, les notes et l'échéancier de l'étudiant, on répond à vos questions et on vous dit franchement si le mentorat est le bon choix.</p>
+      <ul class="o-points">
+        <li>Les parents sont les bienvenus à l'appel</li>
+        <li>Gardez le dernier bulletin ou la cote R à portée de main</li>
+        <li>Un courriel de confirmation arrive en quelques minutes</li>
+      </ul>
+      <div class="o-book" data-book-embed style="margin-top:clamp(36px,5vw,56px)">
+        <!-- Acuity's calendar and script load shortly before the calendar
+             scrolls into view (assets/js/mntr.js, section 8), not with the page. -->
+        <div class="book-frame">
+          <div class="book-loading" aria-live="polite">
+            <span class="label book-status">Chargement du calendrier</span>
+            <span class="bar" aria-hidden="true"></span>
+          </div>
+          <iframe data-src="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" title="Réserver votre consultation gratuite" width="100%" height="820" loading="lazy"></iframe>
+        </div>
+        <p class="book-fallback">
+          <span>Les heures sont affichées selon votre fuseau horaire.</span>
+          <a href="https://app.acuityscheduling.com/schedule.php?owner=40491971&appointmentType=98756528" target="_blank" rel="noopener">Le calendrier ne s'affiche pas? Ouvrez-le dans un nouvel onglet</a>
+          <span>La réservation est gérée par Acuity Scheduling. Comment nous utilisons vos renseignements : <a href="juridique/#privacy">politique de confidentialité</a>.</span>
+        </p>
       </div>
-      <div class="o-links"><a class="o-link" href="../fr/equipe/">rencontrer toute l'équipe</a></div>
+      <div class="o-next">
+        <p class="o-next-lede">Vous avez réservé votre consultation? La suite se trouve sur la page suivante : la suite, nos programmes et nos tarifs.</p>
+        <a class="btn btn--red btn--lg o-next-btn" href="../fr/confirmation/" data-track="booked_next">J’ai réservé : passer à l’étape suivante <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
     </div>
   </section>
 
@@ -239,6 +244,10 @@
     <div class="wrap">
       <h2 id="faqTitle" class="o-h">Ce que les parents nous demandent en premier</h2>
       <div class="faq">
+      <div class="faq-item">
+        <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq0"><span>Comment fonctionne le tutorat?</span><span class="x" aria-hidden="true"></span></button></h3>
+        <div class="faq-a" id="faq0"><div><div class="inner"><p>Les séances durent une heure, en ligne et en individuel, avec un étudiant universitaire qui a suivi les mêmes cours du cégep il n’y a pas longtemps. Réservez une séance à 65 $ ou un forfait de cinq à 300 $, directement en ligne. Aucune consultation n’est nécessaire.</p></div></div></div>
+      </div>
       <div class="faq-item">
         <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq1"><span>En quoi MNTR se distingue du tutorat habituel?</span><span class="x" aria-hidden="true"></span></button></h3>
         <div class="faq-a" id="faq1"><div><div class="inner"><p>Le tutorat se réserve habituellement séance par séance, quand un problème apparaît. Le mentorat MNTR s'étend sur toute une session, avec un seul mentor qui rédige le plan hebdomadaire de l'étudiant, donne les séances de tutorat, prépare les examens avec lui et fait le point avec la famille. La garantie de cote R existe parce que le programme est structuré ainsi.</p></div></div></div>
@@ -273,9 +282,10 @@
 
   <section class="o-sec o-close" aria-labelledby="finalTitle">
     <div class="wrap">
-      <h2 id="finalTitle" class="o-h o-h--big">Planifions la session.</h2>
-      <p class="o-lede">Une consultation gratuite de 30 minutes. Les cours, les notes, les objectifs, et une réponse franche sur la pertinence du mentorat.</p>
-      <a class="btn btn--red btn--lg btn--adaptive" href="#book" data-track="final_apply">Faire une demande de consultation gratuite <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <h2 id="finalTitle" class="o-h o-h--big">Obtenez de l’aide avant le prochain examen.</h2>
+      <p class="o-lede">Du tutorat individuel en ligne avec des étudiants des programmes les plus exigeants du Québec. 65 $ la séance, ou 300 $ pour cinq.</p>
+      <a class="btn btn--red btn--lg btn--adaptive" href="#video" data-track="final_tutoring">Réserver du tutorat <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <div class="o-links"><a class="o-link" href="#book" data-track="final_apply">ou faire une demande de consultation gratuite pour le mentorat</a></div>
     </div>
   </section>
 
@@ -293,8 +303,9 @@
       <div class="fcol">
         <h2 class="fh">Explorer</h2>
         <ul>
+          <li><a href="#video">Tutorat</a></li>
           <li><a href="#how">Comment ça marche</a></li>
-          <li><a href="#programs">Nos programmes</a></li>
+          <li><a href="#programs">Programmes de mentorat</a></li>
           <li><a href="#faq">Questions fréquentes</a></li>
           <li><a href="../fr/equipe/">Notre équipe</a></li>
           <li><a href="../fr/confirmation/">Après votre demande</a></li>
