@@ -475,13 +475,15 @@ html.no-js .o-word-box .o-word, html.reduced .o-word-box .o-word { opacity: 1; t
 .o-qa-a p { margin: 0 0 10px; max-width: 64ch; }
 
 /* ---------- Homepage: tutoring leads (November 2026) ---------- */
-/* .o-split--tutor flips the emphasis of the default split: tutoring takes
-   the weight, the wider column and the prices; mentorship sits beside it
-   as the quieter alternative. The post-booking page is unchanged. */
+/* .o-split--tutor turns the default split into one centred column at every
+   width: tutoring first, with the weight and the prices; mentorship
+   underneath as the quieter alternative, with its own priced rows. The
+   post-booking page is unchanged. */
+.o-split.o-split--tutor { grid-template-columns: 1fr; max-width: 780px; margin: 0 auto; }
 .o-split--tutor .o-col--tutor .o-col-h { font-weight: 800; font-stretch: 92%; color: var(--ink); max-width: 13ch; }
 .o-split--tutor .o-col--mentor .o-col-h { font-weight: 500; font-stretch: 100%; color: var(--ink-2); font-size: clamp(1.7rem, 2.8vw, 2.6rem); max-width: 14ch; }
 .o-split--tutor .o-col--mentor .o-col-p { font-size: 0.98rem; }
-.o-split--tutor .o-offers { max-width: 620px; margin-top: clamp(24px, 3vw, 34px); border-top-color: var(--ink); }
+.o-split--tutor .o-offers { margin-top: clamp(24px, 3vw, 34px); border-top-color: var(--ink); }
 .o-split--tutor .o-offer-price b { color: var(--ink); font-size: 1.3rem; font-weight: 800; font-stretch: 92%; }
 @media (min-width: 600px) {
   .o-split--tutor .o-offers li { grid-template-columns: 1fr auto; align-items: center; }
@@ -490,6 +492,9 @@ html.no-js .o-word-box .o-word, html.reduced .o-word-box .o-word { opacity: 1; t
   .o-split--tutor .o-offers .o-buy { grid-column: 2; grid-row: 1 / span 2; }
 }
 @media (min-width: 900px) {
-  .o-split.o-split--tutor { grid-template-columns: minmax(0, 1.2fr) auto minmax(0, 0.9fr); }
-  .o-split.o-split--tutor .o-col--tutor { justify-content: flex-start; }
+  /* Undo the side-by-side split: no column padding, horizontal "or". */
+  .o-split.o-split--tutor > .o-col { padding: 0; }
+  .o-split--tutor .o-or { margin: clamp(56px, 7vw, 88px) 0; width: auto; }
+  .o-split--tutor .o-or::before { left: 0; right: 0; top: 50%; bottom: auto; border-left: 0; border-top: 1px solid var(--rule-strong); }
+  .o-split--tutor .o-or span { padding: 0 14px; }
 }

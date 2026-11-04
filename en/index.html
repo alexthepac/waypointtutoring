@@ -31,7 +31,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..700&display=swap" rel="stylesheet" />
 <link rel="preload" as="image" href="../assets/media/hero-radcliffe.webp" type="image/webp" imagesrcset="../assets/media/hero-radcliffe-1200.webp 1200w, ../assets/media/hero-radcliffe.webp 2400w" imagesizes="100vw" />
 <link rel="stylesheet" href="../assets/css/mntr.css?v=22" />
-<link rel="stylesheet" href="../assets/css/orwell.css?v=25" />
+<link rel="stylesheet" href="../assets/css/orwell.css?v=26" />
 <script src="../assets/js/media.js?v=8"></script>
 <script src="../assets/js/policies.en.js?v=6"></script>
 </head>
@@ -112,9 +112,9 @@
 
   <section class="o-sec" id="video" aria-label="Two ways to work with MNTR">
     <div class="wrap">
-      <!-- Tutoring leads (November 2026): the wider, heavier column with the
-           prices and buy buttons; mentorship is the quieter alternative (the
-           .o-split--tutor rules at the end of orwell.css). The prices are also
+      <!-- Tutoring leads (November 2026): tutoring first, heavier, with the
+           prices and buy buttons; mentorship underneath as the quieter
+           alternative (the .o-split--tutor rules at the end of orwell.css). The prices are also
            on the post-booking page (SINGLE, PACK5 in _tools/build_confirmation.py):
            change both together. -->
       <div class="o-split o-split--tutor">
@@ -135,21 +135,18 @@
           <p class="o-col-kick">Want more than tutoring?</p>
           <h2 class="o-col-h">Our Mentorship Program</h2>
           <p class="o-col-p">A full semester with one mentor, who builds your child’s weekly study plan, runs their tutoring and exam review, and stays reachable by text. Every program comes with our R-score guarantee: if your child doesn’t exceed 33 (Core) or 35 (Intensive), we provide an additional, separate semester of mentorship, free of charge, subject to the program conditions.</p>
+          <!-- Same Acuity links and prices as the packages on the post-booking
+               page (ACUITY and BIWEEKLY in _tools/build_confirmation.py). -->
+          <ul class="o-offers">
+            <li><span class="o-offer-name">Core</span><span class="o-offer-price"><b>CA$350</b> every 2 weeks · 1 hour of tutoring a week</span><a class="btn o-buy" href="https://app.acuityscheduling.com/catalog.php?owner=40491971&amp;action=addCart&amp;clear=1&amp;id=2298096" target="_blank" rel="noopener" data-track="pay_core">Sign up</a></li>
+            <li><span class="o-offer-name">Intensive</span><span class="o-offer-price"><b>CA$450</b> every 2 weeks · 2 hours of tutoring a week</span><a class="btn o-buy" href="https://app.acuityscheduling.com/catalog.php?owner=40491971&amp;action=addCart&amp;clear=1&amp;id=2298104" target="_blank" rel="noopener" data-track="pay_intensive">Sign up</a></li>
+            <li><span class="o-offer-name">Complete Intensive</span><span class="o-offer-price"><b>CA$575</b> every 2 weeks · 3 hours of tutoring a week</span><a class="btn o-buy" href="https://app.acuityscheduling.com/catalog.php?owner=40491971&amp;action=addCart&amp;clear=1&amp;id=2298106" target="_blank" rel="noopener" data-track="pay_complete">Sign up</a></li>
+          </ul>
+          <p style="margin:12px 0 0;font-size:0.86rem;color:var(--ink-3)">Payments every 2 weeks, through Acuity Scheduling.</p>
           <div class="o-links">
             <a class="o-link" href="#why">how mentorship works</a>
             <a class="o-link" href="#book" data-track="video_apply">apply for a free consultation</a>
             <a class="o-link" href="../en/confirmation/">already applied or booked? see what happens next</a>
-          </div>
-          <!-- Mentorship payments: the same Acuity links as the packages on the
-               post-booking page (ACUITY in _tools/build_confirmation.py). -->
-          <div role="group" aria-labelledby="payKick" style="margin-top:clamp(36px,5vw,52px)">
-            <p class="o-col-kick" id="payKick">Pay for your program</p>
-            <div style="display:flex;flex-wrap:wrap;gap:10px">
-              <a class="btn btn--ghost o-buy" href="https://app.acuityscheduling.com/catalog.php?owner=40491971&amp;action=addCart&amp;clear=1&amp;id=2298096" target="_blank" rel="noopener" data-track="pay_core">Core</a>
-              <a class="btn btn--ghost o-buy" href="https://app.acuityscheduling.com/catalog.php?owner=40491971&amp;action=addCart&amp;clear=1&amp;id=2298104" target="_blank" rel="noopener" data-track="pay_intensive">Intensive</a>
-              <a class="btn btn--ghost o-buy" href="https://app.acuityscheduling.com/catalog.php?owner=40491971&amp;action=addCart&amp;clear=1&amp;id=2298106" target="_blank" rel="noopener" data-track="pay_complete">Complete Intensive</a>
-            </div>
-            <p style="margin:12px 0 0;font-size:0.86rem;color:var(--ink-3)">Payments every 2 weeks, through Acuity Scheduling.</p>
           </div>
         </div>
       </div>
